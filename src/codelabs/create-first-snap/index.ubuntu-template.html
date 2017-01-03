@@ -1,0 +1,503 @@
+
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/codelab-components/google-codelab-elements.html">
+<link rel="import" href="../../../bower_components/app-route/app-route.html">
+
+<dom-module id="create-first-snap">
+
+<template>
+
+  <style>
+    :root {
+      --google-codelab-header-background: var(--app-primary-color);
+      --google-codelab-fab-background: var(--app-primary-color);
+
+      
+      --paper-blue-500: var(--app-primary-color);;
+    };
+
+    google-codelab-step {
+      --google-codelab-step-code: {
+        font-family: 'Ubuntu Mono',Helvetica,Arial;
+      };
+    };
+  </style>
+
+
+  <google-codelab id="codelabobj"
+                  title="Create your first snap"
+                  environment="web"
+                  feedback-link="https://github.com/ubuntu/codelabs/issues">
+    <app-route
+      route="{{route}}"
+      tail="{{routeTail}}"></app-route>
+    
+      <google-codelab-step label="Overview" duration="1">
+        <p><code>snapcraft</code> is our tool of choice to build snaps. It reads a simple, declarative file and runs the build for you. You will get to play with snapcraft, see how easy it is to use and create your first snap along the way.</p>
+<p><img style="max-width: 500.00px" src="img/17e5009256674631.png"></p>
+<h2 class="checklist">What you&#39;ll learn</h2>
+<ul class="checklist">
+<li>How to install snapcraft.</li>
+<li>How to create a new project.</li>
+<li>How to build a snap.</li>
+<li>How to declare snap metadata.</li>
+<li>How app are made of parts.</li>
+<li>And more...</li>
+</ul>
+<h2>What you&#39;ll need</h2>
+<ul>
+<li>Any supported snap GNU/Linux distribution .</li>
+<li>Some very basic knowledge of command line use, know how to edit files.</li>
+<li>We expect you to know how to install snaps, what they are, the store notions that we are going to use. The &#34;basic snap usage&#34; codelab is a good introduction to this.</li>
+</ul>
+<google-codelab-survey survey-id="create-first-snap-1">
+<h4>How will you use this tutorial?</h4>
+<paper-radio-group>
+<paper-radio-button>Only read through it</paper-radio-button>
+<paper-radio-button>Read it and complete the exercises</paper-radio-button>
+</paper-radio-group>
+<h4>What is your current level of experience working with snap?</h4>
+<paper-radio-group>
+<paper-radio-button>Novice</paper-radio-button>
+<paper-radio-button>Intermediate</paper-radio-button>
+<paper-radio-button>Proficient</paper-radio-button>
+</paper-radio-group>
+</google-codelab-survey>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Getting started" duration="1">
+        <p>If you are on Ubuntu 16.04 LTS or Ubuntu 16.10, getting all the required tools is very easy. </p>
+<aside class="special"><p>Note: other GNU/Linux distributions are currently in the process of building packages for snapcraft.</p>
+</aside>
+<p>Now simply run:</p>
+<pre>$ sudo apt install snapcraft build-essential</pre>
+<p>This will install snapcraft and some additional build tools we are going to need for our specific example. As snapcraft uses a plugin architecture (to let you build snaps from all kinds of projects), some required build tools need to be installed separately. In our case, that&#39;s <code>build-essential</code>.</p>
+<p>We&#39;re all set now, let&#39;s get cracking and let&#39;s build your first snap!</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Building a snap is easy" duration="4">
+        <h2>Starting the project</h2>
+<p>As we are starting from scratch, the first steps are to create a directory and use a simple template for your snap definition. In the terminal, just run:</p>
+<pre>$ mkdir hello
+$ cd hello
+~/hello$ snapcraft init
+Created snapcraft.yaml.
+Edit the file to your liking or run `snapcraft` to get started</pre>
+<p>snapcraft created a simple <code>snapcraft.yaml</code> file, in which you declare how the snap is built and which properties it exposes to the user. We will obviously need to tweak a bit for the snap we want to build.</p>
+<h2>Describing the snap</h2>
+<p>Let&#39;s take a look at the top part of your snapcraft.yaml file. It should look somewhat as shown below:</p>
+<pre><code>name: my-snap-name # you probably want to &#39;snapcraft register &lt;name&gt;&#39;
+version: &#39;0.1&#39; # just for humans, typically &#39;1.2+git&#39; or &#39;1.3.2&#39;
+summary: Single-line elevator pitch for your amazing snap # 79 char long summary
+description: |
+  This is my-snap&#39;s description. You have a paragraph or two to tell the
+  most important story about your snap. Keep it under 100 words though,
+  we live in tweetspace and your description wants to look good in the snap
+  store.
+grade: devel # must be &#39;stable&#39; to release into candidate/stable channels
+confinement: devmode # use &#39;strict&#39; once you have the right plugs and slots</code></pre>
+<p>This part of <code>snapcraft.yaml</code> is mandatory and describes the very basics of the snap metadata. Let&#39;s go through this line by line:</p>
+<ul>
+<li>name describes the name of the snap.</li>
+<li>version is the current version of the snap.</li>
+<li>summary is a short, one-line summary or tag-line for your snap.</li>
+<li>description should provide the user with enough information to judge if the snap is going to be useful to them. This description can span over multiple lines if prefixed with |.</li>
+<li>grade can be used by the publisher to indicate the quality confidence in the build. The store will prevent publishing &#34;devel&#34; grade builds to stable channels.</li>
+<li>confinement can be either <code>devmode</code> or <code>strict</code>. We&#39;ll get to this bit later on again. When starting out with a new snap, it&#39;s always a good idea to leave it in <code>devmode</code>.</li>
+</ul>
+<p>Ok. So much for the basics. Let&#39;s customise this for your very own snap. Please change the top of the file to be:</p>
+<pre><code>name: hello
+version: &#34;2.10&#34;
+summary: GNU Hello, the &#34;hello world&#34; snap
+description: |
+  GNU hello prints a friendly greeting.
+grade: devel
+confinement: devmode</code></pre>
+<aside class="special"><p>A quick note on the version bit: it&#39;s put into quotation marks (<code>&#34;2.10&#34;</code>) here, because the version is a string, not a number. You could theoretically use a version string without any numbers (like <code>&#34;myfirstversion&#34;)</code> and that would be fine too. This version is only for user consumption and doesn&#39;t require anything like ascii ordering (e.g ver1 &gt; ver2 and the like) for an update to reach the user.</p>
+</aside>
+<p>Simple, isn&#39;t it?</p>
+<h2>Adding a part</h2>
+<p>A snap can consist of multiple parts. Here are a few examples of this:</p>
+<ul>
+<li>Snaps with separate logical parts, e.g. a server snap, which contains a web server, a database and the application itself or a game which ships the game engine and game data for three different games, each one being defined in its own part.</li>
+<li>Snaps with parts which come from different locations.</li>
+<li>Parts which are built in a different way.</li>
+</ul>
+<p>Our hello snap will be nice and simple and just consist of one part for now. In the following pages we are going to extend it step by step.</p>
+<p>Two must-haves for every part are the source and plugin definition. Think of it as the <em>what</em> (source) and <em>how</em> (plugin). As source you can for example pick a source repository (like git), a tarball, or a local directory. snapcraft comes with a lot of plugins which can build almost any conceivable project type (e.g. autotools, cmake, go, maven, nodejs, python2, python3, etc).</p>
+<p>To build hello this, simply add the following to your <code>snapcraft.yaml</code> file:</p>
+<pre><code>parts:
+  gnu-hello:
+        source: http://ftp.gnu.org/gnu/hello/hello-2.10.tar.gz
+        plugin: autotools</code></pre>
+<p>In the list of parts, we add simply one called <code>gnu-hello</code> (the part name can take whatever identifier you like). As source we simply use a tarball from the GNU project&#39;s ftp server - snapcraft will download and extract it automatically. As plugin you pick autotools which uses the pretty common <code>./configure &amp;&amp; make &amp;&amp; make install</code> steps to build the part under the hood.</p>
+<p>Now on to the exciting part: let&#39;s build it! All you need to do here is:</p>
+<pre>~/hello$ snapcraft
+[...]
+Staging gnu-hello
+Priming gnu-hello
+Snapping &#39;hello&#39; |                                                   
+Snapped hello_2.10_amd64.snap</pre>
+<p>You just built your first snap! Congratulations! Let&#39;s install it now.</p>
+<pre>~/hello$ sudo snap install --devmode hello_2.10_amd64.snap
+
+hello 2.10 installed
+~/hello$ snap list
+Name             Version                           Rev  Developer   Notes
+hello            2.10                              x1               devmode
+ubuntu-core      16.04.1                           352  canonical   -</pre>
+<p>Using <code>--devmode</code> is generally a good idea, as it&#39;s best-practice when creating new snaps. When developing, security requirements can get in our way in the beginning. It&#39;s better to focus on getting the application ready first. This way you focus on the build first, get a snap working quickly and can think about things like confinement in a later step.</p>
+<p>Ok, let&#39;s try to execute it and type <code>hello</code> to get it working:</p>
+<p>On ubuntu desktop, you will get:</p>
+<pre>~/hello$ hello
+The program &#39;hello&#39; can be found in the following packages:
+ * hello
+ * hello-traditional
+Try: sudo apt install &lt;selected package&gt;</pre>
+<p>On ubuntu core:</p>
+<pre>~/hello$ hello
+hello: command not found</pre>
+<p>The command doesn&#39;t exist despite being part of our snap and installed! Indeed, snaps don&#39;t expose anything to the user by default (command, services...). We have to do this explicitly and that&#39;s exactly what you are going to tackle in the next step!</p>
+<aside class="warning"><p>If it does work for you, it might make sense to check if it&#39;s the right <code>hello</code> command. Check the output of <code>which hello</code> - it might list something like <code>/usr/bin/hello</code>. What we&#39;re after is a binary in <code>/snap/bin</code>.</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Exposing an app via your snap!" duration="3">
+        <aside class="special"><p>Lost or starting from here?</p>
+<p>Check or download <a href="https://github.com/ubuntu/snap-codelabs-code/tree/master/create-your-first-snap/step3" target="_blank">here</a> to see what your current directory should look like.</p>
+</aside>
+<h2>Defining commands</h2>
+<p>In order for services and commands to be exposed to users, you need to specify them in <code>snapcraft.yaml</code> of course! This will take care of a couple of things for you:</p>
+<ul>
+<li>It will make sure that services are automatically started/stopped.</li>
+<li>All commands will be namespaced, so that you could for example install the same snap from different publishers and still be able to run the snaps separately.</li>
+<li>You can define which security permissions commands and services need.</li>
+<li>And more.</li>
+</ul>
+<p>Exposing the <code>hello</code> command is pretty painless, so let&#39;s do that first. All you need to do, is to add the following declaration to your <code>snapcraft.yaml</code> file:</p>
+<pre><code>apps:
+  hello:
+    command: bin/hello</code></pre>
+<p>This defines an app named <code>hello</code>, which points to the executable <code>bin/hello</code> in the directory structure shipped by the snap.</p>
+<p>This way, the <code>hello</code> command will be available to our users.</p>
+<h2>Iterating over your snap</h2>
+<p>So the command is defined, let&#39;s rebuild the snap to see if it&#39;s working now. Instead of running snapcraft, here&#39;s a technique to quickly iterate over your snap during development:</p>
+<pre>~/hello$ snapcraft prime
+Skipping pull gnu-hello (already ran)
+Skipping build gnu-hello (already ran)
+Skipping stage gnu-hello (already ran)
+Skipping prime gnu-hello (already ran)
+~/hello$ sudo snap try --devmode prime/
+
+hello 2.10 mounted from ~/hello/prime</pre>
+<p>In the steps above we first tell snapcraft to run the build up until the &#34;prime&#34; step. This is where all parts are built and put together for snap creation. Think of it as the extracted contents of the snap package. These we can easily give to <code>snap try</code> which installs an unpacked snap into the system for testing purposes. The unpacked snap content continues to be used even after installation, so non-metadata changes (e.g. snap name, etc.) there go live instantly. This makes things a lot quicker and easier to test. </p>
+<aside class="special"><p>Note: The different steps of snapcraft are: pull (download source for all parts), build, stage (consolidate installed files of all parts), prime (distill down to just the desired files), snap (create a snap out of the prime/ directory). Each steps depends on the previous one to be completed.</p>
+</aside>
+<p>Things should be working now, right?</p>
+<pre>~/hello$ hello
+Hello, world!
+~/hello$ which hello
+/snap/bin/hello</pre>
+<p>Well done! Congratulations - this is your first working snap!</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="A snap is made of parts" duration="3">
+        <aside class="special"><p>Lost or starting from here?</p>
+<p>Check or download <a href="https://github.com/ubuntu/snap-codelabs-code/tree/master/create-your-first-snap/step4" target="_blank">here</a> to see what your current directory should look like.</p>
+</aside>
+<p>Let&#39;s add another part to make the snap a bit more interesting. In the parts definition, add:</p>
+<pre><code>  gnu-bash:
+        source: http://ftp.gnu.org/gnu/bash/bash-4.3.tar.gz
+        plugin: autotools</code></pre>
+<p>You will notice that this part (named <code>gnu-bash</code>) works very much like the <code>gnu-hello</code> part from the steps before. It downloads a tarball too and builds it using the <code>autotools</code> plugin.</p>
+<p>You learned this during the step before, we still need to define the command we want to expose. Let&#39;s do this now. In the <code>apps</code> definition, add:</p>
+<pre><code>  bash:
+        command: bash</code></pre>
+<p>This time the command name is different from the snap name. By default, all commands are exposed to the user as <code>&lt;snap-name&gt;.&lt;command-name&gt;</code>. This binary will thus be <code>hello.bash</code>. That way we will avoid a clash with <code>/bin/bash</code> (system binaries trump binaries shipped by snaps) or any other snaps shipping a <code>bash</code> command. However, maybe you remember, the first binary is simply named <code>hello</code>. This is due to the simplification when &lt;command-name&gt; equals &lt;snap-name&gt;. Instead of <code>hello.hello</code>, we have the command condensed to simply <code>hello</code>.</p>
+<p>Our snap will thus result in two binaries being shipped: <code>hello</code> and <code>hello.bash</code>. Now execute </p>
+<pre>~/hello$ snapcraft prime</pre>
+<p>to run the build. Only the gnu-bash part needs to be built now (as nothing changed in the other part), which should be relatively quick.</p>
+<h2>Our first build failure</h2>
+<p>Oh no! The build stops with:</p>
+<pre>Parts &#39;gnu-bash&#39; and &#39;gnu-hello&#39; have the following file paths in common which have different contents:
+share/info/dir</pre>
+<p>What does this mean? Both our <code>gnu-hello</code> and <code>gnu-bash</code> parts want to ship a version of  <code>share/info/dir</code> with differing contents. As this clashes, we have to solve this somehow. In general, there are two options in cases like this:</p>
+<ol type="1" start="1">
+<li>Shipping only one from one of the two parts. If we find the file is not needed or they&#39;re identical, we can tell snapcraft not to ship either using the <code>snap</code> and <code>stage</code> keywords.</li>
+<li>We move one of the files to a different location.</li>
+</ol>
+<p>Luckily the second option is easy to implement and it&#39;s nice being able to ship both. The <code>./configure</code> script of bash comes with an <code>--infodir</code> option, which will set the new location of the info directory. Let&#39;s use <code>/var/bash/info</code>. All you need to do is make your gnu-bash definition look like this:</p>
+<pre><code>  gnu-bash:
+        source: http://ftp.gnu.org/gnu/bash/bash-4.3.tar.gz
+        plugin: autotools
+        configflags: [&#34;--infodir=/var/bash/info&#34;]</code></pre>
+<p>This is how you tell snapcraft to pass <code>--infodir=/var/bash/info</code> as an argument to <code>./configure</code> during the build.</p>
+<aside class="special"><p>Note: The <code>configflags</code> option is specific to the <code>autotools</code> plugin. Luckily <code>snapcraft</code> comes with a built-in help system. You can easily find out about all the options by running</p>
+<ul>
+<li><code>snapcraft help sources for</code> source options,</li>
+<li><code>snapcraft help &lt;plugin-name&gt;</code> for any given plugin,</li>
+<li><code>snapcraft list-plugins</code> for a list of all available plugins.</li>
+</ul>
+</aside>
+<p>Now just run</p>
+<pre>~/hello$ snapcraft clean gnu-bash -s build
+Skipping cleaning priming area for gnu-bash (already clean)
+Skipping cleaning staging area for gnu-bash (already clean)
+Cleaning build for gnu-bash
+~/hello$ snapcraft prime
+[...]
+Skipping build gnu-hello (already ran)
+Staging gnu-bash
+Staging gnu-hello
+Priming gnu-bash
+Priming gnu-hello</pre>
+<p>Here you clean just the build step of the <code>gnu-bash</code> part, so the source does not need to be re-downloaded. Then the build is run again and it passes! Now let&#39;s see if our new commands work fine.</p>
+<pre>~/hello$ sudo snap try --devmode prime
+
+hello 2.10 mounted from /home/daniel/hello/prime
+~/hello$ hello
+Hello, world!
+~/hello$ hello.bash
+bash-4.3$ env
+[ Environment variables list ]
+bash-4.3$ exit
+exit</pre>
+<aside class="special"><p>Note: You will see that the environment variables available from your snap are a little different from your user environment: some additional variables are added like $SNAP_* and some system environment variables have been altered to point to your snap directory, like $PATH or $LD_LIBRARY_PATH. Take the time to get familiar with them!</p>
+</aside>
+<p>Excellent work! You have it all nice and working!</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Removing devmode" duration="2">
+        <aside class="special"><p>Lost or starting from here?</p>
+<p>Check or download <a href="https://github.com/ubuntu/snap-codelabs-code/tree/master/create-your-first-snap/step5" target="_blank">here</a> to see what your current directory should look like.</p>
+</aside>
+<p>One last thing you might want to do before the snap is ready for wider consumption is to remove the <code>devmode</code> status.</p>
+<aside class="warning"><p>Users of snaps using <code>devmode</code>, will need to pass <code>--devmode</code> during the installation, so they explicitly agree to trust you and your snap. Another benefit of removing <code>devmode</code> is that you will be able to ship your snap on the stable or candidate channels (you can only publish to the other channels, like beta or edge as your snap is less trusted) and users will be able to search for it using <code>snap find</code>.</p>
+</aside>
+<p>For this to be declared in your snap, let&#39;s set <code>confinement</code> to <code>strict</code>:</p>
+<pre><code>confinement: strict</code></pre>
+<p>Now let&#39;s build the snap and install it! We are going to call <code>snapcraft</code> without <code>prime</code> this time and <code>snap install</code> (as opposed to <code>snap try</code> earlier) to try everything under normal conditions. You should also stop using the <code>--devmode</code> switch to really test it under confinement:</p>
+<pre>~/hello$ snapcraft
+Skipping pull gnu-bash (already ran)
+Skipping pull gnu-hello (already ran)
+Skipping build gnu-bash (already ran)
+Skipping build gnu-hello (already ran)
+Skipping stage gnu-bash (already ran)
+Skipping stage gnu-hello (already ran)
+Skipping prime gnu-bash (already ran)
+Skipping prime gnu-hello (already ran)
+Snapping &#39;hello&#39; - 
+Snapped hello_2.10_amd64.snap</pre>
+<p>Let&#39;s try to install it!</p>
+<pre>~/hello$ sudo snap install hello_2.10_amd64.snap
+error: cannot find signatures with metadata for snap &#34;hello_2.10_amd64.snap&#34;</pre>
+<p>Oh, that didn&#39;t go well! Indeed, you are trying to install a snap which isn&#39;t signed by the store. Previously, we did local installations via devmode which implied (in addition to run without confinement) that unsigned local snap was ok to be installed on your system. Here, as we won&#39;t specify devmode anymore, we need to be more explicit and indicate that it&#39;s ok to install this unsigned snap thanks to the --dangerous option.</p>
+<pre>~/hello$ sudo snap install hello_2.10_amd64.snap --dangerous
+
+hello 2.10 installed</pre>
+<p>To complete our tests, let&#39;s see if the command still work as expected:</p>
+<pre>~/hello$ hello
+Hello, world!
+~/hello$ hello.bash
+bash-4.3$ ls /home
+ls: cannot open directory &#39;/home&#39;: Permission denied
+bash-4.3$ exit</pre>
+<p>What&#39;s happening here? Your snap is not broken, it&#39;s confined now, so can only access its own respective directories.</p>
+<aside class="special"><p>Note: For other snaps you might need to declare if commands or services need special permissions, for example if they need access to the network, or audio. A codelab on interfaces, slots and plugs will bring more information on this very topic.</p>
+</aside>
+<p>You are done. This snap is ready for publication!</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Upload to the store" duration="5">
+        <aside class="special"><p>Lost or starting from here?</p>
+<p>Check or download <a href="https://github.com/ubuntu/snap-codelabs-code/tree/master/create-your-first-snap/step6" target="_blank">here</a> to see what your current directory should look like.</p>
+</aside>
+<p>Apps can easily be uploaded to the store via <a href="http://myapps.developer.ubuntu.com" target="_blank">My Apps</a>. Registering an account is easy, so let&#39;s do that first.</p>
+<h2>Registering an account</h2>
+<p>Open My Apps in your browser and follow the instructions to register an account:</p>
+<p><img style="max-width: 624.00px" src="img/d5592c70e3d136ed.png"></p>
+<p><img style="max-width: 624.00px" src="img/1c7822a6487fd2f3.png"></p>
+<p>Enter your email address, name and password, accept the terms of service and create the account. Remember as well to choose a namespace on myapps before registering your snap.</p>
+<p>It&#39;s then time for you to get authenticated from snapcraft:</p>
+<pre>~/hello$ snapcraft login
+Enter your Ubuntu One SSO credentials.
+Email: myemail@provider.com
+Password: 
+One-time password (just press enter if you don&#39;t use two-factor authentication):
+Authenticating against Ubuntu One SSO.
+Login successful.</pre>
+<p>You can logout any time with simply <code>snapcraft logout</code>.</p>
+<h2>Register a new snap name</h2>
+<p>Before being able to upload any snap, you need to register (meaning: reserving) a name. That way, this snap name is yours, and you will be able to upload snaps matching this name.</p>
+<p>To reserve a new name, simply try:</p>
+<pre>~/hello$ snapcraft register hello-&lt;yourname&gt;
+snapcraft register hello-&lt;yourname&gt;
+Registering hello-&lt;yourname&gt;.
+Congratulations! You&#39;re now the publisher for &#39;hello-&lt;yourname&gt;&#39;.</pre>
+<p>If the name is already reserved, you can either despite that name or just pick a new one.</p>
+<p>If you changed your snap name while registering, you need to rebuild this snap with that new name: </p>
+<ul>
+<li>change your snap name in snapcraft.yaml:</li>
+</ul>
+<pre>name: hello-didrocks
+[...]</pre>
+<ul>
+<li>as we want to publish it in the candidate channel, we need to set its grade to stable:</li>
+</ul>
+<pre>grade: stable</pre>
+<ul>
+<li>and just rebuild your snap with:</li>
+</ul>
+<pre>~/hello$ snapcraft
+Skipping pull gnu-bash (already ran)
+Skipping pull gnu-hello (already ran)
+Skipping build gnu-bash (already ran)
+Skipping build gnu-hello (already ran)
+Skipping stage gnu-bash (already ran)
+Skipping stage gnu-hello (already ran)
+Skipping prime gnu-bash (already ran)
+Skipping prime gnu-hello (already ran)
+Snapping &#39;hello-didrocks&#39; -                                      
+Snapped hello-didrocks_2.10_amd64.snap</pre>
+<h2>Upload your snap</h2>
+<p>It&#39;s high time to make this snap available to the world!</p>
+<p>Let&#39;s try to publish it to the candidate channel for now:</p>
+<pre>~/hello$ snapcraft push hello-didrocks_2.10_amd64.snap --release=candidate
+Uploading hello-didrocks_2.10_amd64.snap.
+Uploading hello-didrocks_2.10_amd64.snap [================================] 100%
+Ready to release!|                                                              
+Revision 1 of &#39;hello-didrocks&#39; created.
+The candidate channel is now open.
+
+Channel    Version    Revision
+---------  ---------  ----------
+stable     -          -
+candidate  2.10       1
+beta       ^          ^
+edge       ^          ^</pre>
+<p>You should receive an email telling you that your snap is pending review (automatic checking). If you are not using any reserved interfaces and security checks are passing, it would be available to the user (in the candidate, beta and edge channels in this case) to your users via a simple:</p>
+<pre>$ sudo snap install hello-didrocks --channel=candidate</pre>
+<aside class="warning"><p>As you uploaded an amd64 binary, only people on amd64 machine will get access to this snap. You can either only focus on one architecture to support, build yourself for all supported architectures your snap, or use launchpad snap build service to push your <code>snapcraft.yaml</code>, and get resulting snaps built on all architectures for you! More information are <a href="https://kyrofa.com/posts/building-your-snap-on-device-there-s-a-better-way" target="_blank">available here</a>.</p>
+</aside>
+<p>From here, if you are happy with the testing of your snap, you can snapcraft push again the same file, omitting <code>--release</code> option to publish a revision 2 in the stable channel. You can use the website as well and check the box for the channels you want this revision 1 to be published to.</p>
+<p>Remember that snaps with <code>confinement: devmode</code> can&#39;t be published to the stable or candidate channels.</p>
+<aside class="special"><p>Note: both of these steps (registering and uploading new snaps) are also available through the web interface. You then just upload your .snap files after clicking on New Snap on the website and filling in the form.</p>
+<p>The web interface will give you information about the publication status. Take a look to see all the available options!</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="That&#39;s all folks!" duration="1">
+        <h2>Easy, wasn&#39;t it?</h2>
+<p>Congratulations! You made it!</p>
+<aside class="special"><p>Final code </p>
+<p>You final code directory should now look like <a href="https://github.com/ubuntu/snap-codelabs-code/tree/master/create-your-first-snap/final" target="_blank">this</a>. Do not hesitate to download and build your snap from it if you only read it through!</p>
+</aside>
+<p>By now you should successfully have built your first snap, fixed build issues, exposed user commands, learned about uploading snaps to the store and found out about a lot of other useful details (plugins, snapcraft&#39;s help system, release channels in the store, etc.). Snapcraft is easy to use as it is declarative and just uses a few different keywords, so it&#39;s memorisable quite quickly. After using it just a couple of times, it should become second nature to you.</p>
+<h2>Next steps</h2>
+<ul>
+<li>You can have a look at build a nodejs service which is the logical follow up of that codelab, bringing your some debugging techniques, more information on confinement and how to package some snap application as a service.</li>
+<li>Learn some more advanced techniques on how to use your snap system looking for our others codelabs!</li>
+<li>Join the snapcraft.io community by subcribing to <a href="https://lists.snapcraft.io/mailman/listinfo/snapcraft" target="_blank">our mailing list</a>.</li>
+</ul>
+<h2>Further readings</h2>
+<ul>
+<li><a href="http://snapcraft.io/docs/" target="_blank">Snapcraft.io documentation</a> is a good place to start reading the whole snap and snapcraft documentation.</li>
+<li><a href="http://snapcraft.io/docs/build-snaps/syntax" target="_blank">Snapcraft syntax reference</a>, covering various available options like the daemon ones.</li>
+<li>Check how you can <a href="http://snapcraft.io/community/" target="_blank">contact us and the broader community</a>.</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-1018242-64', 'auto');
+
+    (function() {
+      var gaCodelab = '';
+      if (gaCodelab) {
+        ga('create', gaCodelab, 'auto', {name: 'codelab'});
+      }
+
+      var gaView;
+      var parts = location.search.substring(1).split('&');
+      for (var i = 0; i < parts.length; i++) {
+        var param = parts[i].split('=');
+        if (param[0] === 'viewga') {
+          gaView = param[1];
+          break;
+        }
+      }
+      if (gaView && gaView !== gaCodelab) {
+        ga('create', gaView, 'auto', {name: 'view'});
+      }
+    })();
+  </script>
+
+</template>
+
+<script>
+
+  Polymer({
+
+    is: 'create-first-snap',
+
+    properties: {
+      route: {
+        type: String
+      },
+      backURL: {
+        type: String,
+        value: "/",
+      },
+    },
+
+    observers: [
+      '_getParams(routeTail.__queryParams)'
+    ],
+
+    ready: function() {
+      
+      
+      this.$.codelabobj._goToHome = this._goToHome.bind(this)
+    },
+
+    _goToHome: function() {
+        
+        window.location.href = this.backURL;
+    },
+
+    _getParams: function(params) {
+      if (!params) {
+        return;
+      }
+      if (params.backURL !== undefined) {
+          this.backURL = decodeURIComponent(params.backURL)
+      }
+    },
+
+  });
+
+</script>
+
+</dom-module>

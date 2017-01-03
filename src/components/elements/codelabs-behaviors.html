@@ -1,0 +1,29 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<script>
+  Polymer.ColorByCategoryBehaviorImpl = {
+
+    properties: {
+      categoriesmap: {
+        type: Object,
+        value: function() {
+          return {}
+        },
+      },
+    },
+
+    _colors_by_category: function(category, categoriesmap) {
+      var colors = categoriesmap[category];
+      // set the unknown category in black
+      if (!colors) {
+        colors = categoriesmap["unknown"];
+      }
+      return colors;
+    },
+
+  };
+
+  Polymer.ColorByCategoryBehavior = [
+    Polymer.ColorByCategoryBehaviorImpl
+  ];
+</script>

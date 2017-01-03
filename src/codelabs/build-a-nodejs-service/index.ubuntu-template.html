@@ -1,0 +1,562 @@
+
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/codelab-components/google-codelab-elements.html">
+<link rel="import" href="../../../bower_components/app-route/app-route.html">
+
+<dom-module id="build-a-nodejs-service">
+
+<template>
+
+  <style>
+    :root {
+      --google-codelab-header-background: var(--app-primary-color);
+      --google-codelab-fab-background: var(--app-primary-color);
+
+      
+      --paper-blue-500: var(--app-primary-color);;
+    };
+
+    google-codelab-step {
+      --google-codelab-step-code: {
+        font-family: 'Ubuntu Mono',Helvetica,Arial;
+      };
+    };
+  </style>
+
+
+  <google-codelab id="codelabobj"
+                  title="Build a nodejs service"
+                  environment="web"
+                  feedback-link="https://github.com/ubuntu/codelabs/issues">
+    <app-route
+      route="{{route}}"
+      tail="{{routeTail}}"></app-route>
+    
+      <google-codelab-step label="Overview" duration="1">
+        <p>We are going to build together one of the most important web service of the world on our machine:  a Chuck Norris random quotation website! We are going to use a &#34;Chuck As A Service&#34; API, available at free of charge at <a href="https://chucknorris.io" target="_blank">chucknorris.io</a>. This CAAS will be accessed through a npm module named chucknorris-io that we will install alongside (even if Chuck doesn&#39;t need a npm module nor a javascript engine to render data in your browser).</p>
+<p>This website is going to run as a service, meaning a long running process which will always start when you start your device and restart if the server crashes. You will build your first webservice this way and see how to snap nodejs apps.</p>
+<p><img style="max-width: 624.00px" src="img/e2bd8c114dbb80c5.png"></p>
+<h2 class="checklist">What you&#39;ll learn</h2>
+<ul class="checklist">
+<li>How to create a service in snapd world.</li>
+<li>Some hints and best practices on how to debug a service.</li>
+<li>Using the nodejs plugin.</li>
+<li>How to enable and debug confinement issues.</li>
+<li>Basics on plugs and interfaces</li>
+<li>And more...</li>
+</ul>
+<h2>What you&#39;ll need</h2>
+<ul>
+<li>Any supported snap GNU/Linux distribution .</li>
+<li>Some very basic knowledge of command line use, know how to edit files.</li>
+<li>You should have followed the 2 following codelabs: &#34;basic snap usage&#34; and &#34;create your first snap&#34;</li>
+</ul>
+<google-codelab-survey survey-id="build-a-nodejs-service-1">
+<h4>How will you use this tutorial?</h4>
+<paper-radio-group>
+<paper-radio-button>Only read through it</paper-radio-button>
+<paper-radio-button>Read it and complete the exercises</paper-radio-button>
+</paper-radio-group>
+<h4>What is your current level of experience working with snap?</h4>
+<paper-radio-group>
+<paper-radio-button>Novice</paper-radio-button>
+<paper-radio-button>Intermediate</paper-radio-button>
+<paper-radio-button>Proficient</paper-radio-button>
+</paper-radio-group>
+</google-codelab-survey>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Getting familiar with the project" duration="1">
+        <p>This project is a nodejs application, serving a web page on request. The backend code issue a REST request through against a web API, using chucknorris-io npm module.</p>
+<h2>Get the code</h2>
+<p>Simply run:</p>
+<pre>$ git clone https://github.com/ubuntu-core/snap-codelabs-code
+$ cd snap-codelabs-code/build-a-nodejs-service/start</pre>
+<p>Your cloned directory should contain 2 files:</p>
+<ul>
+<li>a <code>main.js</code> source file, containing the code. Opening this one will show the entire application logic. Notice that we listen on port 80. We will need to point to that file and having node running it as a service.</li>
+<li>a <code>package.json</code>, which is a standard npm metadata file, defining application name, version and dependency (chucknorris-io npm module in that case).</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Start snapping your project" duration="5">
+        <h2>Metadata</h2>
+<p>Let&#39;s scaffold our default <code>snapcraft.yaml</code> file via:</p>
+<pre>$ snapcraft init
+Created snapcraft.yaml.
+Edit the file to your liking or run `snapcraft` to get started</pre>
+<p>And let&#39;s edit the top metadata to match our project definition:</p>
+<pre><code>name: chuck-norris-webserver
+version: &#39;1.0.0&#39;
+summary: Chuck Norris quotation nodejs server
+description: |
+  This example shows how to build a nodejs web server. This enables us to
+  demonstrate how service works, basic confinement rules to access and listen
+  on the network, as well as the nodejs snapcraft plugin.
+grade: devel
+confinement: devmode</code></pre>
+<p>As usual, note that we start in devmode. Let&#39;s get to the serious stuff and add our nodejs part!</p>
+<h2>Adding a nodejs part</h2>
+<p>Our application is using nodejs for execution. Luckily, snapcraft has a nodejs plugin enabling your to snap software using this technology in a breeze!</p>
+<p>It&#39;s as simple as defining:</p>
+<pre><code>parts:
+  webserver:
+    source: .
+    plugin: nodejs</code></pre>
+<p>And that&#39;s all what you need! Awesomely easy, isn&#39;t it?</p>
+<p>The nodejs plugin snapcraft will download and embed a local nodejs version, as well as any dependencies that are shipped in your <code>package.json</code> file (like chucknorris-io in our case).</p>
+<aside class="special"><p>What if I don&#39;t have any package.json file?</p>
+<p><code>snapcraft help nodejs</code> shows you specific plugin options that you can use in your <code>snapcraft.yaml</code>. One of them is named <code>node-packages</code> which is a list of npm packages you may want to download in your snap.</p>
+<p>Note that there are other options, like choosing what specific version of nodejs you want to download, the npm-run command and so on...</p>
+</aside>
+<h2>Our first build</h2>
+<p>Time to build your project (only priming it, no need for a snap for fast iteration as we saw in previous codelabs) to check that the project builds correctly.</p>
+<pre>$ snapcraft
+Preparing to pull webserver 
+Pulling webserver 
+Downloading &#39;node-v4.4.4-linux-x64.tar.gz&#39;[===============================] 100%
+Preparing to build webserver 
+Building webserver 
+npm --cache-min=Infinity install
+chucknorris-io@1.0.4 node_modules/chucknorris-io
+npm --cache-min=Infinity install --global
+[...]/parts/webserver/install/bin/chuck-norris-app -&gt; [...]/parts/webserver/install/lib/node_modules/chuck-norris-app/main.js
+chuck-norris-app@1.0.0 [...]/parts/webserver/install/lib/node_modules/chuck-norris-app
+└── chucknorris-io@1.0.4
+Staging webserver 
+Priming webserver</pre>
+<p>Good, it built! Let&#39;s look together at the created content in the prime directory:</p>
+<pre><code>$ tree prime
+├── bin
+│   ├── chuck-norris-app -&gt; ../lib/node_modules/chuck-norris-app/main.js
+│   ├── node
+│   └── npm -&gt; ../lib/node_modules/npm/bin/npm-cli.js
+├── CHANGELOG.md
+├── etc
+├── include
+│   └── node
+│       ├── [...]
+├── lib
+│   └── node_modules
+│       ├── chuck-norris-app
+│       │   ├── main.js
+│       │   ├── node_modules
+│       │   │   └── chucknorris-io
+│       │   │       ├── LICENSE
+│       │   │       ├── [...]
+│       ├── [...]
+├── LICENSE
+├── meta
+│   └── snap.yaml
+├── README.md
+└── share
+   ├── [...]</code></pre>
+<p>The interesting file, in addition the download node binary and modules installed is <code>bin/chuck-norris-app</code>. This confirms that npm install was executed at build time to generate this binary defined in <code>package.json</code> which refers to our <code>main.js</code> file.</p>
+<p>This will be our entry point for our service.</p>
+<p>No need to try to do anything at this stage as we didn&#39;t expose any command. However, we know at least that we can successfully issue a build of this project.</p>
+<h2>Adding some apps command</h2>
+<p>Before exposing your server as a service, we strongly recommend you to declare it as a simple snap application. This enables you to easily debug your service and iterate, especially when adding confinement. So let&#39;s roll in!</p>
+<p>If you remember from previous codelabs, exposing a command is easy:</p>
+<pre><code>apps:
+  node-service:
+    command: bin/chuck-norris-app</code></pre>
+<p>Note that we reference here the starting binary file generated by <code>package.json</code>.</p>
+<p>Let&#39;s rebuild it and use <code>snap try</code> to install the local snap before running the command!</p>
+<pre>$ snapcraft prime
+Skipping pull webserver (already ran)
+Skipping build webserver (already ran)
+Skipping stage webserver (already ran)
+Skipping prime webserver (already ran)
+$ snap try prime/ --devmode
+chuck-norris-webserver 1.0.0 mounted from[...]/prime
+$ chuck-norris-webserver.node-service
+events.js:141
+      throw er; // Unhandled &#39;error&#39; event
+      ^
+
+Error: listen EACCES 0.0.0.0:80
+    at Object.exports._errnoException (util.js:870:11)
+    at exports._exceptionWithHostPort (util.js:893:20)
+    at Server._listen2 (net.js:1221:19)
+    at listen (net.js:1270:10)
+    at Server.listen (net.js:1366:5)
+    at Object.&lt;anonymous&gt; (/snap/chuck-norris-webserver/x1/lib/node_modules/chuck-norris-app/main.js:71:8)
+    at Module._compile (module.js:409:26)
+    at Object.Module._extensions..js (module.js:416:10)
+    at Module.load (module.js:343:32)
+    at Function.Module._load (module.js:300:12)</pre>
+<p>Ah, a failure! We are getting a javascript stacktrace. Looking a little bit more closely, we see that the exact error is: <code>Error: listen EACCES 0.0.0.0:80</code>. Indeed, unprivileged users on a Linux system can&#39;t listen to ports &lt; 1024. We then need to run the command as the root user:</p>
+<pre>$ sudo chuck-norris-webserver.node-service 
+Server listening on: http://localhost:80</pre>
+<p>You can now point your browser to <a href="http://localhost" target="_blank">http://localhost</a> and enjoy some Chuck Norris quotes! All debug outputs will be visible on the command line prompt. Press Ctrl+C to exit it.</p>
+<p>Having a command while you are working on your snap helps you greatly in inspecting what&#39;s going on in your snap. This is why we strongly recommend that approach.</p>
+<p>Also, that means to listen to that port 80, we&#39;ll need the service to run as a privileged user. The good news is that in the snap world, thanks to confinement, all services are running as root while being safe!</p>
+<p>It&#39;s something to keep in mind while you iterate on a command which is going to be turned into a service later on: run them as root to reproduce the exact running context!</p>
+<p>It&#39;s now high time to get rid of this devmode thing and add some confinement to your snap, let&#39;s do this right away!</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Turning on confinement!" duration="5">
+        <aside class="special"><p>Lost or starting from here?</p>
+<p>Check or download <a href="https://github.com/ubuntu/snap-codelabs-code/tree/master/build-a-nodejs-service/step3" target="_blank">here</a> to see what your current directory should look like.</p>
+</aside>
+<h2>Enabling confinement</h2>
+<p>In our first snap codelab, we simply turned confinement on without any additional work. Let&#39;s try this as well!</p>
+<p>You don&#39;t forcefully need to change your <code>snapcraft.yaml</code> and rebuild (we&#39;ll do it later), both <code>snap try</code> and <code>snap install</code> have an option to force confinement on snaps declaring devmode.</p>
+<pre>$ snap try prime/ --jailmode
+chuck-norris-webserver 1.0.0 mounted from [...]/prime
+$ sudo chuck-norris-webserver.node-service 
+events.js:141
+      throw er; // Unhandled &#39;error&#39; event
+      ^
+
+Error: listen EACCES 0.0.0.0:80
+    at Object.exports._errnoException (util.js:870:11)
+    at exports._exceptionWithHostPort (util.js:893:20)
+    at Server._listen2 (net.js:1221:19)
+    at listen (net.js:1270:10)
+    at Server.listen (net.js:1366:5)
+    at Object.&lt;anonymous&gt; (/snap/chuck-norris-webserver/x2/lib/node_modules/chuck-norris-app/main.js:71:8)
+    at Module._compile (module.js:409:26)
+    at Object.Module._extensions..js (module.js:416:10)
+    at Module.load (module.js:343:32)
+    at Function.Module._load (module.js:300:12)</pre>
+<aside class="warning"><p>Important note: With current snapd (2.16/2.17), there is a bug where jailmode doesn&#39;t work correctly and thus, you won&#39;t see the above failure.<br>Check <a href="https://bugs.launchpad.net/bugs/1641885" target="_blank">https://bugs.launchpad.net/bugs/1641885</a> for more information. So, you need to turn in confinement right away (changing confinement: devmode to confinement: strict, rebuilding and just use snap try prime/ --dangerous instead)</p>
+</aside>
+<p>Thanks to keeping the service as a simple command, we see easily that, even if ran as root, the nodejs built-in web server isn&#39;t able to listen on port 80. How to easily debug and fix this?</p>
+<h2>Debugging denials tools</h2>
+<p>It seems we were denied on listening to an interface, but how to confirm this? There is a tool as part of the <code>snappy-debug</code> package especially suited for it.</p>
+<p>Let&#39;s install and get it listening to our snap:</p>
+<pre>$ snap install snappy-debug
+snappy-debug (stable) 0.26 from &#39;canonical&#39; installed
+$ sudo snappy-debug.security scanlog chuck-norris-webserver
+WARN: Could not set kernel rate limiting
+Please run &#39;snap connect snappy-debug:log-observe :log-observe&#39; as root</pre>
+<p>Ok, it seems this snap needs a little bit additional work. Indeed, the snap is not in devmode and it needs to have additional permissions through an interface. We thus have to connect the log-observe plug from snappy-debug to the log-observe slot in core snap (name can be omitted as above). If those notions aren&#39;t clear to you, please refer to the first snap codelabs.</p>
+<pre>$ sudo snappy-debug.security scanlog chuck-norris-webserver
+$ snappy-debug.security scanlog chuck-norris-webserver
+sysctl: permission denied on key &#39;kernel.printk_ratelimit&#39;
+# Type Ctrl + C
+$ sudo snappy-debug.security scanlog chuck-norris-webserver
+kernel.printk_ratelimit = 0</pre>
+<aside class="warning"><p>With current snapd (2.16), we need to define the core snap in the connect command explicitly contrary to snappy-debug output message. This will be fixed soon.</p>
+</aside>
+<aside class="special"><p>Note that we need to run the tool as a privileged user. The kernel indeed is doing some rate limiting operations which may skip some debug logs for us. Running it as root alleviate this limitation for this command for us.</p>
+</aside>
+<p>Then, the command will block and filter any output related to our snap with some advice.</p>
+<p>For example, if you run in another temrinal:</p>
+<pre>$ sudo chuck-norris-webserver.node-service 
+[ same stacktrace ]</pre>
+<p>You will see:</p>
+<pre><code>= AppArmor =
+Time: Nov 15 10:57:00
+Log: apparmor=&#34;DENIED&#34; operation=&#34;open&#34; profile=&#34;snap.chuck-norris-webserver.node-service&#34; name=&#34;/run/resolvconf/resolv.conf&#34; pid=5790 comm=&#34;node&#34; requested_mask=&#34;r&#34; denied_mask=&#34;r&#34; fsuid=0 ouid=0
+File: /run/resolvconf/resolv.conf (read)
+Suggestions:
+* adjust program to use $SNAP_DATA
+* adjust program to use /run/shm/snap.$SNAP_NAME.*
+
+= AppArmor =
+Time: Nov 15 10:57:00
+Log: apparmor=&#34;DENIED&#34; operation=&#34;create&#34; profile=&#34;snap.chuck-norris-webserver.node-service&#34; pid=5790 comm=&#34;node&#34; family=&#34;inet6&#34; sock_type=&#34;stream&#34; protocol=0 requested_mask=&#34;create&#34; denied_mask=&#34;create&#34;
+
+= AppArmor =
+Time: Nov 15 10:57:00
+Log: apparmor=&#34;DENIED&#34; operation=&#34;create&#34; profile=&#34;snap.chuck-norris-webserver.node-service&#34; pid=5790 comm=&#34;node&#34; family=&#34;inet&#34; sock_type=&#34;stream&#34; protocol=0 requested_mask=&#34;create&#34; denied_mask=&#34;create&#34;</code></pre>
+<p>This tool is filtering the output of <code>/var/log/syslog</code> to only show the denials related to your snap. However, sometimes, getting the log context (like if your command was a service, we would see the stacktrace in the <code>syslog</code> file) or additional informations are only in that file. So, it&#39;s good idea to sometimes have a look there as well.</p>
+<p>Sometimes, the tool will help us and suggests interfaces to add directly for us It doesn&#39;t seem to be the case here. We need then to investigate and think a little bit!</p>
+<h2>Listing interfaces</h2>
+<p>Let&#39;s list available interfaces on our machine to us:</p>
+<pre>$ snap interfaces
+Slot                              Plug
+:bluetooth-control                -
+:browser-support                  -
+:camera                           -
+:cups-control                     -
+:docker-support                   -
+:firewall-control                 -
+:fuse-support                     -
+:gsettings                        -
+:hardware-observe                 -
+:home                             -
+:kernel-module-control            -
+:libvirt                          -
+:locale-control                   -
+:log-observe                      snappy-debug
+:lxd-support                      -
+:modem-manager                    -
+:mount-observe                    -
+:network                          -
+:network-bind                     -
+:network-control                  -
+:network-manager                  -
+:network-observe                  -
+:network-setup-observe            -
+:opengl                           -
+:optical-drive                    -
+:ppp                              -
+:process-control                  -
+:pulseaudio                       -
+:removable-media                  -
+:screen-inhibit-control           -
+:snapd-control                    -
+:system-observe                   -
+:system-trace                     -
+:timeserver-control               -
+:timezone-control                 -
+:tpm                              -
+:unity7                           -
+:upower-observe                   -
+:x11                              -</pre>
+<p>This list of interfaces evolves over time. It also depends on your hardware capability (the gadget snap, to be precise), which defines which additional interfaces your device can expose, like GPIO devices, camera, I2C and such...</p>
+<p>You have the confirmation here that snappy-debug connects to the log-obverse slot from the core snap (slots and plugs name are abbreviated when they match).</p>
+<p>So, let&#39;s think about a web server. What do we want to do? We want to listen on a port and return requests. This is named binding to a port. <code>network-bind</code> seems to be a good candidate for this.</p>
+<p>Let&#39;s try to add this in our <code>snapcraft.yaml</code> definition. We will thus declare a plug, connecting to <code>network-bind</code> interface.</p>
+<p>We won&#39;t enter into detail of plugs and slots here, but the names can be overridden. Just note that we are using here the simplified definition where plug name == interface name.</p>
+<p>We&#39;ll use that opportunity to turn confinement to <code>strict</code>.</p>
+<pre><code>confinement: strict
+
+apps:
+  node-service:
+    command: bin/chuck-norris-app
+    plugs: [network-bind]</code></pre>
+<p>You note that plugs is an array of plugs to use. This one is defined per application.</p>
+<p>Let&#39;s rebuild, install and run it:</p>
+<pre>$ snapcraft prime
+$ snap try prime/
+$ sudo chuck-norris-webserver.node-service 
+Server listening on: http://localhost:80</pre>
+<p>Hourrah! We also notice no new output in <code>snappy-debug.security</code> output! Pointing again your browser to <a href="http://localhost" target="_blank">http://localhost</a> works as expected.</p>
+<h2>Two final notes on interfaces and confinement</h2>
+<p>Here, you should wonder about 2 things:</p>
+<h3>Why didn&#39;t I have to connect (like for snappy-debug) this slot to the core snap to enable it?</h3>
+<p>I&#39;m glad you are asking this!<br>The answer is that some interfaces are considered safer than others, and so, they are auto-connected on snap installation. Others are seen as being more dangerous, and thus, needs an explicit acknowledgment from the user. The interface list documentation (link provided at the end of codelab) will give you a definitive list of those different modes.<br>We can confirm that it was connected via snap interfaces:</p>
+<pre>$ snap interfaces chuck-norris-webserver
+Slot           Plug
+:network-bind  chuck-norris-webserver</pre>
+<h3>We are initiating outgoing request to chucknorris.io to fetch a quote from the network. However, we didn&#39;t use the network interface which seems suited for this. How come? </h3>
+<p>Actually, <code>network-bind</code> implies the <code>network</code> interface as we will do outgoing requests. You could define it if you want to be complete, but this is totally up to you.</p>
+<p>Phew, we are nearly there! We have a working snap, exposing a command which is now confined. It was easier to iterate thanks to the fact we kept the application as a command and not a service. However, now that everything is ready, let&#39;s move on our final step: exposing this application as a service!</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Exposing it as a service" duration="4">
+        <aside class="special"><p>Lost or starting from here?</p>
+<p>Check or download <a href="https://github.com/ubuntu/snap-codelabs-code/tree/master/build-a-nodejs-service/step4" target="_blank">here</a> to see what your current directory should look like.</p>
+</aside>
+<p>What is a service? A service is simply a long running command, which will ideally always be on or for a definite period of time to answer some requests.</p>
+<h2>Mutating to a service</h2>
+<p>Transforming a simple command to a service in a snap is really easy. Just add <code>daemon: simple</code> in your command definition inside your <code>snapcraft.yaml</code>:</p>
+<pre><code>apps:
+  node-service:
+    command: bin/chuck-norris-app
+    daemon: simple
+    plugs: [network-bind]</code></pre>
+<p>With that simple additional line, your service will start on device boot up (once the network and all other services are started) and will close on machine shutdown.</p>
+<aside class="special"><p>It&#39;s just a matter of preference where you want to define this <code>daemon</code> entry. We personally advise to let it under the command entry and before plugs to let the snap author remember that this entry is a service.</p>
+</aside>
+<p>The <code>simple</code> attribute means that it&#39;s a classical application. The process keeps running as long as the service itself runs.</p>
+<p>There are variations to this, like <code>forking</code>, which is the traditional double fork way for a service to be orphaned, and thus attached to PID 1. This isn&#39;t the recommended behavior on a modern Linux system. Nowadays, systemd (which is what is used by snap technology) knows how to track them efficiently, you just need to specify that you have this type of daemons.</p>
+<p><code>oneshot</code>, finally, expects that the command configured will exit once it&#39;s done (won&#39;t be a long-lasting process). The service is still considered as running though.</p>
+<p>For those used to systemd service units, indeed, there is an one to one mapping here, handy! :)</p>
+<aside class="special"><p><code>stop-command</code> and <code>timeout-command</code> are other daemon-related options you can set. Those definitions are available in the snapcraft syntax guide. You will get a link as a reference (last step of this codelab).</p>
+</aside>
+<h2>Keeping it always running</h2>
+<p>Last detail to figure out. The default behavior for a service is to restart if the applications exited in a failure state (with return code different from 0).</p>
+<p>Here, we want to always have the service running, especially if we implements a &#34;restart&#34; button and thus, the service exits successfully (0). By defining the following <code>restart-condition: always</code>, we achieve this desired behavior:</p>
+<pre><code>apps:
+  node-service:
+    command: bin/chuck-norris-app
+    daemon: simple
+    restart-condition: always
+    plugs: [network-bind]</code></pre>
+<h2>Running and testing</h2>
+<p>Let&#39;s give it a shot:</p>
+<pre>$ snapcraft prime
+$ snap try prime/
+chuck-norris-webserver 1.0.0 mounted from [...]/prime</pre>
+<p>Head over to <a href="http://localhost" target="_blank">http://localhost</a> and you should have your successful snap running your application as a service! Installing the snap started thus the service.</p>
+<h2>Where did the logs went?</h2>
+<p>Services are handled by systemd. You can access to all systemd commands to handle them. However, for traditional Linux reasons, we can also follow them in <code>/var/log/syslog</code>:</p>
+<pre><code>Nov 15 14:40:11 tidus snap[14410]: Server listening on: http://localhost:80
+Nov 15 14:47:35 tidus snap[14410]: Quoted http://api.chucknorris.io/jokes/ijpnw0birv-ogszti_wuag</code></pre>
+<p>However, this can be hard to decipher: nothing tells that the log coming from this particular service, you only know it&#39;s coming from this snap because you write this app! We need to know how to filter this a little bit.</p>
+<p>The service name (where you can find the service file generated in <code>/etc/systemd/system</code>) is named the following: &#34;snap.&lt;snap_name&gt;.&lt;app_name&gt;&#34;</p>
+<p>So, in our case: snap.chuck-norris-webserver.node-service</p>
+<p>We can thus use traditional systemd tool, like:</p>
+<h3>Checking service status and last logs:</h3>
+<pre>$ systemctl status -l snap.chuck-norris-webserver.node-service
+● snap.chuck-norris-webserver.node-service.service - Service for snap application chuck-norris-webserver.node-service
+   Loaded: loaded (/etc/systemd/system/snap.chuck-norris-webserver.node-service.service; enabled; vendor preset: enabled)
+   Active: active (running) since mar. 2016-11-15 14:40:11 CET; 17min ago
+ Main PID: 14410 (node)
+    Tasks: 9
+   Memory: 10.2M
+      CPU: 740ms
+   CGroup: /system.slice/snap.chuck-norris-webserver.node-service.service
+           └─14410 node /snap/chuck-norris-webserver/x1/bin/chuck-norris-app
+
+nov. 15 14:40:11 tidus systemd[1]: Started Service for snap application chuck-norris-webserver.node-service.
+nov. 15 14:40:11 tidus snap[14410]: Server listening on: http://localhost:80
+nov. 15 14:47:35 tidus snap[14410]: Quoted http://api.chucknorris.io/jokes/ijpnw0birv-ogszti_wuag</pre>
+<p>From the output, you can see the service is active since 17 minutes ago, you can track its process information as well as last logs.</p>
+<h3>Stopping and starting a service:</h3>
+<pre>$ sudo systemctl stop snap.chuck-norris-webserver.node-service
+$ systemctl status -l snap.chuck-norris-webserver.node-service
+● snap.chuck-norris-webserver.node-service.service - Service for snap application chuck-norris-webserver.node-service
+   Loaded: loaded (/etc/systemd/system/snap.chuck-norris-webserver.node-service.service; enabled; vendor preset: enabled)
+   Active: inactive (dead) since mar. 2016-11-15 15:03:11 CET; 33s ago
+  Process: 14410 ExecStart=/usr/bin/snap run chuck-norris-webserver.node-service (code=killed, signal=TERM)
+ Main PID: 14410 (code=killed, signal=TERM)
+
+nov. 15 14:40:11 tidus systemd[1]: Started Service for snap application chuck-norris-webserver.node-service.
+nov. 15 14:40:11 tidus snap[14410]: Server listening on: http://localhost:80
+nov. 15 14:47:35 tidus snap[14410]: Quoted http://api.chucknorris.io/jokes/ijpnw0birv-ogszti_wuag
+nov. 15 15:03:11 tidus systemd[1]: Stopping Service for snap application chuck-norris-webserver.node-service...
+nov. 15 15:03:11 tidus systemd[1]: Stopped Service for snap application chuck-norris-webserver.node-service.</pre>
+<p>The service is enabled (it will start at next reboot), but it&#39;s stopped (inactive). It got a TERM signal (normal stopping request that we issued via <code>systemctl</code>). We can as well see latest log outputs from the service, which is particularly handy in case of service crash or misbehaving for instance.</p>
+<aside class="special"><p>Small tip: systemd default behavior will try 3 times a crashing service at startup (in the very few seconds after it starts) and will give up afterwards to not overload your CPU.</p>
+</aside>
+<pre>$ sudo systemctl start snap.chuck-norris-webserver.node-service
+$ systemctl status -l snap.chuck-norris-webserver.node-service
+● snap.chuck-norris-webserver.node-service.service - Service for snap application chuck-norris-webserver.node-service
+   Loaded: loaded (/etc/systemd/system/snap.chuck-norris-webserver.node-service.service; enabled; vendor preset: enabled)
+   Active: active (running) since mar. 2016-11-15 15:12:42 CET; 2s ago
+ Main PID: 15622 (node)
+    Tasks: 5
+   Memory: 42.1M
+      CPU: 431ms
+   CGroup: /system.slice/snap.chuck-norris-webserver.node-service.service
+           └─15622 node /snap/chuck-norris-webserver/x1/bin/chuck-norris-app
+
+nov. 15 15:12:42 tidus systemd[1]: Started Service for snap application chuck-norris-webserver.node-service.
+nov. 15 15:12:43 tidus snap[15622]: Server listening on: http://localhost:80</pre>
+<p>Of course, there is a <code>systemctl restart</code> command as well!</p>
+<h3>Live log following:</h3>
+<pre>$ sudo journalctl -fu snap.chuck-norris-webserver.node-service
+-- Logs begin at mer. 2016-01-13 14:59:21 CET. --
+nov. 15 14:40:11 tidus snap[14410]: Server listening on: http://localhost:80
+nov. 15 14:47:35 tidus snap[14410]: Quoted http://api.chucknorris.io/jokes/ijpnw0birv-ogszti_wuag
+nov. 15 15:03:11 tidus systemd[1]: Stopping Service for snap application chuck-norris-webserver.node-service...
+nov. 15 15:03:11 tidus systemd[1]: Stopped Service for snap application chuck-norris-webserver.node-service.
+nov. 15 15:12:42 tidus systemd[1]: Started Service for snap application chuck-norris-webserver.node-service.
+nov. 15 15:12:43 tidus snap[15622]: Server listening on: http://localhost:80
+nov. 15 15:16:14 tidus snap[15622]: Quoted http://api.chucknorris.io/jokes/gll-vunmsluzrad8sfafwg
+nov. 15 15:16:18 tidus snap[15622]: Quoted http://api.chucknorris.io/jokes/qwv-rz6xtjmhiayprtgnvw
+nov. 15 15:16:20 tidus snap[15622]: Quoted http://api.chucknorris.io/jokes/ag_6paerrkg-mxfjjqw4ba
+nov. 15 15:17:53 tidus snap[15622]: Quoted http://api.chucknorris.io/jokes/elgv2wkvt8ioag6xywykbq</pre>
+<p>You can omit -f to not following the logs live, but only prints the ones that were printed already.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="That&#39;s all folks!" duration="1">
+        <h2>There is no Esc key on Chuck Norris&#39; keyboard, because no one escapes Chuck Norris.</h2>
+<p>Congratulations! As Chuck, you made it!</p>
+<aside class="special"><p>Final code </p>
+<p>You final code directory should now look like <a href="https://github.com/ubuntu/snap-codelabs-code/tree/master/build-a-nodejs-service/final" target="_blank">this</a>. Do not hesitate to download and build your snap from it if you only read it through!</p>
+</aside>
+<p>You should by now have a ready-to-go nodejs service, being a web server giving external quotes from Chuck Norris. Wasn&#39;t that easy to build?</p>
+<p>You now know how to snap a nodejs application, basics on confinements, connects and debugging interfaces connections, what&#39;s the process to daemonize a process (always starts with a command, enable confinement, ensure everything works, and then build it as a service!) as well as different options given to you.</p>
+<p>As a bonus, you have as well some basic training on systemd common commands to start, stop, check status and look at service logs.</p>
+<h2>Next steps</h2>
+<ul>
+<li>Learn some more advanced techniques on how to use your snap system looking for our others codelabs!</li>
+<li>Join the snapcraft.io community by subcribing to <a href="https://lists.snapcraft.io/mailman/listinfo/snapcraft" target="_blank">our mailing list</a>.</li>
+</ul>
+<h2>Further readings</h2>
+<ul>
+<li><a href="http://snapcraft.io/docs/core/interfaces" target="_blank">Snapcraft.io user interface documentation</a> will give you some basics about slots, plugs and interfaces.</li>
+<li>An <a href="http://snapcraft.io/docs/reference/interfaces" target="_blank">interface reference</a> explains and list existing interface, if they auto-connect or not and more.</li>
+<li>Some basic notions on <a href="http://snapcraft.io/docs/build-snaps/debugging" target="_blank">debugging a snap</a>.</li>
+<li><a href="http://snapcraft.io/docs/build-snaps/syntax" target="_blank">Snapcraft syntax reference</a>, covering various available options like the daemon ones.</li>
+<li>Check how you can <a href="http://snapcraft.io/community/" target="_blank">contact us and the broader community</a>.</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-1018242-64', 'auto');
+
+    (function() {
+      var gaCodelab = '';
+      if (gaCodelab) {
+        ga('create', gaCodelab, 'auto', {name: 'codelab'});
+      }
+
+      var gaView;
+      var parts = location.search.substring(1).split('&');
+      for (var i = 0; i < parts.length; i++) {
+        var param = parts[i].split('=');
+        if (param[0] === 'viewga') {
+          gaView = param[1];
+          break;
+        }
+      }
+      if (gaView && gaView !== gaCodelab) {
+        ga('create', gaView, 'auto', {name: 'view'});
+      }
+    })();
+  </script>
+
+</template>
+
+<script>
+
+  Polymer({
+
+    is: 'build-a-nodejs-service',
+
+    properties: {
+      route: {
+        type: String
+      },
+      backURL: {
+        type: String,
+        value: "/",
+      },
+    },
+
+    observers: [
+      '_getParams(routeTail.__queryParams)'
+    ],
+
+    ready: function() {
+      
+      
+      this.$.codelabobj._goToHome = this._goToHome.bind(this)
+    },
+
+    _goToHome: function() {
+        
+        window.location.href = this.backURL;
+    },
+
+    _getParams: function(params) {
+      if (!params) {
+        return;
+      }
+      if (params.backURL !== undefined) {
+          this.backURL = decodeURIComponent(params.backURL)
+      }
+    },
+
+  });
+
+</script>
+
+</dom-module>

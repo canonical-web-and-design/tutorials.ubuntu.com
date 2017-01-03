@@ -1,0 +1,86 @@
+{
+  "codelabs": [
+    {
+      "source": "1hA-ytZZjTxajh8vIIpV6MUE03poBjdJizDQVUBgurhM",
+      "title": "Create your first snap",
+      "summary": "We are going to use snapcraft to walk you through the creation of your first snap and main snapcraft concepts.",
+      "category": [
+        "snapcraft"
+      ],
+      "difficulty": 1,
+      "duration": 20,
+      "tags": [
+        "beginner",
+        "build",
+        "idf-2016",
+        "snapcraft",
+        "usage"
+      ],
+      "updated": "2016-12-01T09:05:21Z",
+      "url": "create-first-snap"
+    },
+    {
+      "source": "10jai4vAduTxF0RQMUs-pqIRbMM9TXv9dgxjNDGkxduo",
+      "title": "Basic snap usage",
+      "summary": "In this codelab, we are going to cover the very basic on how to use snaps on your distributions, and the main benefits from them.",
+      "category": [
+        "snap"
+      ],
+      "difficulty": 1,
+      "duration": 10,
+      "tags": [
+        "beginner",
+        "idf-2016",
+        "snap",
+        "usage"
+      ],
+      "updated": "2016-11-22T09:24:13Z",
+      "url": "basic-snap-usage"
+    },
+    {
+      "source": "1wV7rM478gBEidlNVh724gIgx9KiVgKdfITEzpBEmUmQ",
+      "title": "Build a nodejs service",
+      "summary": "We are going to use the nodejs snapcraft plugin to build a simple service. We'll guide you through the good practice for debugging and iterating over your web server, and basic confinement notions.",
+      "category": [
+        "snapcraft"
+      ],
+      "difficulty": 2,
+      "duration": 17,
+      "tags": [
+        "beginner",
+        "interface",
+        "nodejs",
+        "plug",
+        "service",
+        "snapcraft",
+        "webserver"
+      ],
+      "updated": "2016-11-22T09:25:09Z",
+      "url": "build-a-nodejs-service"
+    }
+  ],
+  "categories": {
+    "snap": {
+      "maincolor": "var(--paper-indigo-500)",
+      "secondarycolor": "var(--paper-indigo-700)",
+      "lightcolor": "var(--paper-indigo-300)"
+    },
+    "snapcraft": {
+      "maincolor": "var(--paper-teal-500)",
+      "secondarycolor": "var(--paper-teal-700)",
+      "lightcolor": "var(--paper-teal-300)"
+    },
+    "unknown": {
+      "maincolor": "#444",
+      "secondarycolor": "#444",
+      "lightcolor": "#444"
+    }
+  },
+  "events": {
+    "idf-2016": {
+      "name": "IDF 2016",
+      "logo": "idf16.jpg",
+      "description": "This workshop is taking place at IDF in SF (2016)."
+    }
+  }
+}

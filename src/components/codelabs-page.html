@@ -1,0 +1,75 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
+
+<dom-module id="codelabs-page">
+
+  <template>
+    <style>
+      :host {
+        display: block;
+        height: 100vh;
+      }
+    </style>
+
+    <app-route
+      route="{{route}}"
+      pattern="/:codelab"
+      data="{{routeData}}"
+      tail="{{routeTail}}"></app-route>
+
+      <iron-pages id="codelabwrapper" role="main" selected="[[codelab]]" attr-for-selected="name">
+      </iron-pages>
+
+  </template>
+
+  <script>
+
+    Polymer({
+
+      is: 'codelabs-page',
+
+      properties: {
+
+        codelab: {
+          type: String,
+          reflectToAttribute: true,
+        },
+
+        route: {
+          type: String,
+          reflectToAttribute: true,
+        }
+
+      },
+
+      observers: [
+        '_codelabChanged(routeData.codelab)'
+      ],
+
+      _codelabChanged: function(codelab) {
+        // FIXME (if upstream solution)
+        // as we data-bind "subroute", even when not active, the view in map
+        // /events/events_id -> codelab_id matches :codelabs and return invalid content
+        // escape if we are not current view
+        if (!this.classList.contains("iron-selected")) {
+          return;
+        }
+        this.codelab = codelab;
+        // load codelab import on demand.
+        var link = this.importHref(
+          this.resolveUrl("/codelabs/" + codelab + '/index.ubuntu-template.html'),
+          function() {
+            if (link) {
+              var dynamicEl = document.createElement(codelab);
+              dynamicEl.setAttribute("name", codelab);
+              dynamicEl.route = this.routeTail;
+              Polymer.dom(this.$.codelabwrapper).appendChild(dynamicEl);
+            }
+          }, null, true);
+      }
+
+    });
+
+  </script>
+
+</dom-module>

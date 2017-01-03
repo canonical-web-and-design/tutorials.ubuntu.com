@@ -1,0 +1,116 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/app-route/app-location.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+<link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+
+<link rel="import" href="codelabs-index.html">
+<link rel="import" href="codelabs-page.html">
+
+<dom-module id="ubuntu-tutorials-app">
+
+  <template>
+    <style>
+      :host {
+        display: block;
+        --app-primary-color: #dd4814;
+        --app-secondary-color: black;
+      }
+
+      app-header {
+        background-color: var(--app-primary-color);
+        color: white;
+      }
+      app-header.hidden {
+        display: none;
+      }
+
+      paper-input {
+        --paper-input-container-focus-color: white;
+        --paper-input-container-input-color: white;
+      }
+    </style>
+
+    <app-location route="{{route}}"></app-location>
+    <app-route
+        route="{{route}}"
+        pattern="/:page"
+        data="{{routeData}}"
+        tail="{{subroute}}"></app-route>
+
+      <app-header-layout>
+
+        <app-header id="header" class$="[[_isMainHeaderHidden(page)]]" condenses fixed effects="material">
+          <app-toolbar>
+            <h4 condensed-title>Snapcraft codelabs</h4>
+            <paper-input type="search" value={{currentsearch}}
+                placeholder="search for codelabs" autosave="test" results="5">
+                <paper-icon-button suffix icon="search"></paper-icon-button>
+            </paper-input>
+          </app-toolbar>
+          <app-toolbar>
+            <h1 main-title>Snapcraft codelabs</h1>
+          </app-toolbar>
+        </app-header>
+
+        <iron-pages role="main" selected="[[page]]" attr-for-selected="name">
+          <codelabs-index name="codelabs-index" current-search=[[currentsearch]]></codelabs-index>
+          <codelabs-index name="events" event-route="[[subroute]]" current-search=[[currentsearch]]></codelabs-index>
+          <codelabs-page name="codelabs" route="[[subroute]]"></codelabs-page>
+        </iron-pages>
+
+    </app-header-layout>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'ubuntu-tutorials-app',
+
+      properties: {
+        page: {
+          type: String,
+          reflectToAttribute: true,
+          observer: '_pageChanged'
+        },
+      },
+
+      observers: [
+        '_routePageChanged(routeData.page)'
+      ],
+
+      _routePageChanged: function(page) {
+        this.page = page || 'codelabs-index';
+      },
+
+      _pageChanged: function(page) {
+        // load page import on demand.
+        var pageToLoad = page;
+        if (page == "events") {
+          pageToLoad = "codelabs-index";
+        }
+        this.importHref(
+          this.resolveUrl(pageToLoad + '.html'), null, null, true);
+      },
+
+      _isMainHeaderHidden: function(page) {
+        if (page === "codelabs") {
+          // as we will make the header disappear, trigger a relayout
+          this.$.header.notifyResize();
+          return "hidden";
+        }
+        return "";
+      },
+
+    });
+  </script>
+
+</dom-module>

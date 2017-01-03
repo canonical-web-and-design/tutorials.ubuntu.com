@@ -1,0 +1,243 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
+<link rel="import" href="../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../bower_components/paper-tabs/paper-tab.html">
+
+<link rel="import" href="elements/codelabs-card.html">
+
+<dom-module id="codelabs-index">
+
+  <template>
+
+    <style include="iron-flex iron-flex-alignment">
+      :host {
+        display: block;
+      }
+      paper-tabs {
+        --paper-tabs-selection-bar-color: var(--app-primary-color);
+      }
+      paper-tab {
+        --paper-tab-ink: var(--app-primary-color);
+      }
+      .content {
+        padding: 10px;
+      }
+      codelabs-card {
+        margin: 10px;
+        max-width: 380px;
+      }
+      .event-wrapper {
+        background-color: white;
+        padding: 10px;
+      }
+      .event-logo {
+        min-width: 200px;
+      }
+      .event-description {
+        margin-left: 20px;
+      }
+    </style>
+
+    <div>
+      <template is="dom-if" if="{{currentEvent.id}}">
+        <header class="horizontal layout event-wrapper">
+          <img class="event-logo" src="/images/events/{{currentEvent.logo}}" />
+          <div class="event-description">
+            <h1>{{currentEvent.name}}</h1>
+            <p>{{currentEvent.description}}</p>
+          </div>
+        </div>
+      </template>
+      <div class="content">
+        <div class="horizontal layout end">
+          <paper-tabs selected="{{filteringMethod}}">
+            <paper-tab>DIFFICULTY</paper-tab>
+            <paper-tab>RECENT</paper-tab>
+            <paper-tab>DURATION</paper-tab>
+          </paper-tabs>
+          <div class="flex"></div>
+          <paper-dropdown-menu label="Category" value="{{selectedcategory}}">
+            <paper-listbox class="dropdown-content" selected="0">
+              <template is="dom-repeat" items="[[categories]]">
+                <paper-item>[[item]]</paper-item>
+              </template>
+            </paper-listbox>
+          </paper-dropdown-menu>
+        </div>
+        <div class="horizontal layout wrap">
+          <template is="dom-repeat" items="[[codelabs]]" filter="{{codelabfromscope(currentEvent, listofkeywords, selectedcategory)}}"
+                sort="{{_sortcodelabs(filteringMethod)}}">
+            <codelabs-card title="[[item.title]]" summary="[[item.summary]]" category="[[item.category]]"
+                          difficulty="[[item.difficulty]]" duration="[[item.duration}}" tags="[[item.tags]]"
+                          updated="[[item.updated]]" url="[[item.url]]" currenturl="[[eventRoute.prefix]][[eventRoute.path]]"
+                          categoriesmap="[[categoriesmap]]"></codelabs-card>
+          </template>
+        </div>
+      </div>
+      <iron-ajax
+        auto
+        url="/api/codelabs.json"
+        handle-as="json"
+        on-response="_codelabsInfoHandler">
+      <app-route
+        route="{{eventRoute}}"
+        pattern="/:event"
+        data="{{routeData}}"></app-route>
+    </div>
+
+  </template>
+
+  <script>
+
+    Polymer({
+
+      is: 'codelabs-index',
+
+      properties: {
+        codelabs: {
+          type: Array,
+          value: function() {
+            return [];
+          }
+        },
+        categoriesmap: Object,
+        eventsmap: Object,
+        currentSearch: {
+          type: String,
+          observer: '_updatekeywords',
+        },
+        listofkeywords: {
+          type: Array,
+          value: function() {
+            return [];
+          },
+        },
+        categories: {
+          type: Array,
+          computed: "_buildcategories(categoriesmap)",
+        },
+        eventRoute: String,
+        currentEvent: {
+          type: Object,
+          value: {},
+          computed: "_eventChanged(routeData.event, eventsmap)"
+        },
+        filteringMethod: {
+          type: Number,
+          value: 0,
+        },
+      },
+
+      _eventChanged: function(eventID, eventsmap) {
+        // FIXME (if upstream solution)
+        // as we data-bind "subroute", even when not active, the view in map
+        // /codelabs/codelab_id -> codelab_id matches :events and return invalid content
+        // escape if we are not current view
+        if (!this.classList.contains("iron-selected")) {
+          return;
+        }
+        if (eventID == "web") {
+          return {}
+        }
+        var currentEvent = {
+          "id": eventID,
+        }
+        currentEvent.name = eventsmap[eventID].name;
+        currentEvent.logo = eventsmap[eventID].logo;
+        currentEvent.description = eventsmap[eventID].description;
+        return currentEvent;
+      },
+
+      codelabfromscope: function(currentEvent, listofkeywords, selectedcategory) {
+        // return a filter function for the current search string
+        return function(item) {
+          var title = item.title.toLowerCase();
+          var summary = item.summary.toLowerCase();
+          var category = item.category[0].toLowerCase();
+          var tags = item.tags;
+
+          // filter by event matching
+          if (currentEvent.id && tags.indexOf(currentEvent.id) < 0) {
+            return false;
+          }
+
+          // filter by category
+          if (selectedcategory !== category && selectedcategory !== "All")
+            return false;
+          if (listofkeywords.length === 0)
+            return true;
+
+          var should_show = true;
+          listofkeywords.forEach(function(searchterm) {
+            var searchterm_found = false;
+            if (title.indexOf(searchterm) !== -1 || summary.indexOf(searchterm) !== -1 ||
+                category.indexOf(searchterm) !== -1) {
+              searchterm_found = true;
+            }
+            tags.forEach(function(tag) {
+              if (tag.toLowerCase().indexOf(searchterm) !== -1) {
+                searchterm_found = true;
+              }
+            }, this);
+            should_show = should_show && searchterm_found;
+          }, this);
+          return should_show;
+        };
+      },
+
+      _sortcodelabs: function(filteringMethod) {
+        switch(filteringMethod) {
+          case 0:
+            return function(codelab1, codelab2) {
+              return codelab1.difficulty > codelab2.difficulty;
+            };
+          case 1:
+          return function(codelab1, codelab2) {
+            return codelab1.updated > codelab2.updated;
+          };
+          case 2:
+          return function(codelab1, codelab2) {
+            return codelab1.duration > codelab2.duration;
+          };
+        }
+
+      },
+
+      _codelabsInfoHandler: function(event) {
+        this.categoriesmap = event.detail.response["categories"];
+        this.eventsmap = event.detail.response["events"];
+        event.detail.response["codelabs"].forEach(function(codelab) {
+          this.push("codelabs", codelab);
+        }, this);
+      },
+
+      _updatekeywords: function() {
+        // protect against uninitialized javascript
+        if (typeof this.listofkeywords === "undefined") {
+          return;
+        }
+        this.listofkeywords = [];
+        this.currentSearch.split(" ").forEach(function(searchterm) {
+          this.listofkeywords.push(searchterm.toLowerCase())
+        }, this);
+      },
+
+      _buildcategories: function(categoriesmap) {
+        var newcategories = Object.keys(categoriesmap).sort();
+        newcategories.unshift("All");
+        var indexunknown = newcategories.indexOf("unknown");
+        if (indexunknown > -1) {
+          newcategories.splice(indexunknown, 1);
+        }
+        return newcategories;
+      },
+    });
+
+  </script>
+
+</dom-module>
