@@ -1,13 +1,20 @@
 {
-  "root": "src",
+  "root": "app",
   "entrypoint": "index.html",
-  "shell": "components/ubuntu-tutorials-app.html",
+  "shell": "src/ubuntu-tutorials-app.html",
   "fragments": [
-    "components/codelabs.html",
-    "components/codelabs-selector.html"
+    "src/codelabs-index.html",
+    "src/codelabs-page.html"
   ],
   "sources": [
-    "components/**/*",
-    "**/*"
+    "api/**/*",
+    "codelabs/**/*",
+    "images/**/*",
+    "src/*"
+  ],
+  "includeDependencies": [
+    "bower_components/webcomponentsjs/webcomponents-lite.min.js",
+    "bower.json",
+    "manifest.json"
   ]
 }

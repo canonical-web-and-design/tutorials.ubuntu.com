@@ -25,5 +25,5 @@ You can serve the built versions by giving `polymer serve` a folder to serve
 from:
 
 ```
-$ polymer serve build/bundled
+$ polymer serve build/bundled/app
 ```
