@@ -1,5 +1,4 @@
 {
-  "root": "app",
   "entrypoint": "index.html",
   "shell": "src/ubuntu-tutorials-app.html",
   "fragments": [
@@ -9,8 +8,7 @@
   "sources": [
     "api/**/*",
     "codelabs/**/*",
-    "images/**/*",
-    "src/*"
+    "images/**/*"
   ],
   "includeDependencies": [
     "bower_components/webcomponentsjs/webcomponents-lite.min.js",

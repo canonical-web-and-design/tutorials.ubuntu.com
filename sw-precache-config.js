@@ -3,7 +3,9 @@ module.exports = {
     '/index.html',
     '/manifest.json',
     '/bower_components/webcomponentsjs/webcomponents-lite.min.js',
-    '/images/*'
+    '/api/**/*',
+    '/codelabs/**/*',
+    '/images/**/*'
   ],
   navigateFallback: '/index.html'
 };
