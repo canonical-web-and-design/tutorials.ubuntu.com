@@ -79,14 +79,7 @@
         </div>
         <div class="flex"></div>
         <div class="card-actions horizontal start-justified layout">
-          <!-- <div>Difficulty:
-            <template is="dom-repeat" items="[[_computeFullStars(difficulty)]]">
-              <iron-icon class="star" icon="star"></iron-icon>
-            </template>
-            <template is="dom-repeat" items="[[_computeEmptyStars(difficulty)]]">
-              <iron-icon class="star star-empty" icon="star"></iron-icon>
-            </template>
-          </div> -->
+          [[difficultyName]]
           <div class="duration">
             <iron-icon icon="device:access-time"></iron-icon>
             <span>[[duration]] min</span>
@@ -105,9 +98,8 @@
 
       behaviors: [
         Polymer.ColorByCategoryBehavior,
+        Polymer.DifficultyToNameBehavior,
       ],
-
-      MAX_DIFFICULTY: 5,
 
       properties: {
         title: String,
@@ -118,6 +110,10 @@
           computed: '_extractFirstCategory(category)',
         },
         difficulty: Number,
+        difficultyName: {
+          type: String,
+          computed: '_difficultyToName(difficulty)',
+        },
         duration: Number,
         tags: Array,
         updated: String,
@@ -127,14 +123,6 @@
           type: String,
           computed: '_generateBackParameter(currenturl)',
         },
-      },
-
-      _computeFullStars: function(count) {
-        return new Array(count);
-      },
-
-      _computeEmptyStars: function(count) {
-        return new Array(this.MAX_DIFFICULTY - count);
       },
 
       _extractFirstCategory: function(category) {
