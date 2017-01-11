@@ -90,7 +90,7 @@
         <iron-pages role="main" selected="[[page]]" attr-for-selected="name">
           <codelabs-index name="codelabs-index" current-search=[[currentsearch]]></codelabs-index>
           <codelabs-index name="events" event-route="[[subroute]]" current-search=[[currentsearch]]></codelabs-index>
-          <codelabs-page name="codelabs" route="[[subroute]]"></codelabs-page>
+          <codelabs-page name="tutorial" route="[[subroute]]"></codelabs-page>
         </iron-pages>
 
     </app-header-layout>
@@ -123,12 +123,15 @@
         if (page == "events") {
           pageToLoad = "codelabs-index";
         }
+        if (page == "tutorial") {
+          pageToLoad = "codelabs-page";
+        }
         this.importHref(
           this.resolveUrl(pageToLoad + '.html'), null, null, true);
       },
 
       _isMainHeaderHidden: function(page) {
-        if (page === "codelabs") {
+        if (page === "tutorial") {
           // as we will make the header disappear, trigger a relayout
           this.$.header.notifyResize();
           return "hidden";
