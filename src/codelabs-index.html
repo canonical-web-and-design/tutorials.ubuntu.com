@@ -85,8 +85,7 @@
           <div class="flex"></div>
         </div>
         <div class="horizontal layout wrap">
-          <template is="dom-repeat" items="[[codelabs]]" filter="{{codelabfromscope(currentEvent, listofkeywords, selectedcategory)}}"
-                sort="{{_sortcodelabs(filteringMethod)}}">
+          <template is="dom-repeat" items="[[codelabs]]" filter="{{codelabfromscope(currentEvent, listofkeywords, selectedcategory)}}">
             <codelabs-card title="[[item.title]]" summary="[[item.summary]]" category="[[item.category]]"
                           difficulty="[[item.difficulty]]" duration="[[item.duration}}" tags="[[item.tags]]"
                           updated="[[item.updated]]" url="[[item.url]]" currenturl="[[eventRoute.prefix]][[eventRoute.path]]"
