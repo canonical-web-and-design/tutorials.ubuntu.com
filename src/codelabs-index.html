@@ -25,11 +25,34 @@
         --paper-tab-ink: var(--app-primary-color);
       }
       .content {
+        margin: 0 auto;
+        max-width: 980px;
+        padding-bottom: 90px;
+        padding-top: 50px;
         padding: 10px;
+      }
+      .intro {
+        font-family: 'Ubuntu',Helvetica,Arial;
+        max-width: 600px;
+        padding-left: 10px;
+        padding-bottom: 40px;
+      }
+      .intro h1 {
+        font-size: 2.8125em;
+        font-weight: 300;
+      }
+      .intro p {
+        font-size: 23px;
+        font-weight: 300;
       }
       codelabs-card {
         margin: 10px;
-        max-width: 380px;
+        max-width: 306px;
+      }
+      @media only screen and (max-width: 768px) {
+        codelabs-card {
+          max-width: 346px;
+        }
       }
       .event-wrapper {
         background-color: white;
@@ -54,20 +77,12 @@
         </div>
       </template>
       <div class="content">
+        <div class="intro">
+          <h1>Welcome!</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
         <div class="horizontal layout end">
-          <paper-tabs selected="{{filteringMethod}}">
-            <paper-tab>DIFFICULTY</paper-tab>
-            <paper-tab>RECENT</paper-tab>
-            <paper-tab>DURATION</paper-tab>
-          </paper-tabs>
           <div class="flex"></div>
-          <paper-dropdown-menu label="Category" value="{{selectedcategory}}">
-            <paper-listbox class="dropdown-content" selected="0">
-              <template is="dom-repeat" items="[[categories]]">
-                <paper-item>[[item]]</paper-item>
-              </template>
-            </paper-listbox>
-          </paper-dropdown-menu>
         </div>
         <div class="horizontal layout wrap">
           <template is="dom-repeat" items="[[codelabs]]" filter="{{codelabfromscope(currentEvent, listofkeywords, selectedcategory)}}"
@@ -188,24 +203,6 @@
           }, this);
           return should_show;
         };
-      },
-
-      _sortcodelabs: function(filteringMethod) {
-        switch(filteringMethod) {
-          case 0:
-            return function(codelab1, codelab2) {
-              return codelab1.difficulty > codelab2.difficulty;
-            };
-          case 1:
-          return function(codelab1, codelab2) {
-            return codelab1.updated > codelab2.updated;
-          };
-          case 2:
-          return function(codelab1, codelab2) {
-            return codelab1.duration > codelab2.duration;
-          };
-        }
-
       },
 
       _codelabsInfoHandler: function(event) {

@@ -15,88 +15,84 @@
     <style include="iron-flex iron-flex-alignment">
       :host {
         display: inline-block;
+        --category-secondary: #310824;
       }
-
       paper-card {
+        font-family: 'Ubuntu',Helvetica,Arial;
         height: 100%;
+        position: relative;
+        padding-bottom: 60px;
       }
-
       .header {
+        background: url('https://assets.ubuntu.com/v1/a88aa78c-card_background.png') no-repeat right bottom;
+        background-size: cover;
         padding: 10px;
-        background-color: var(--category-color);
+        color: #fff;
       }
-
       .title {
-        margin-top: 10px;
-        @apply(--paper-font-headline);
-        font-size: 20px;
+        margin: 10px 0 0;
+        font-family: 'Ubuntu',Helvetica,Arial;
+        font-size: 28px;
+        font-weight: 300;
       }
-
       .light {
         color: white;
       }
-
+      .card-category {
+        text-align: left;
+        text-transform: uppercase;
+        float: left;
+        position: relative;
+        left: 0;
+        width: 100%;
+      }
       .duration {
         float: right;
-        font-size: 17px;
-        vertical-align: middle;
+        font-size: 16px;
+        padding-right: 10px;
+        text-align: right;
+        width: 100%;
       }
-
-      .star {
-        --iron-icon-width: 16px;
-        --iron-icon-height: 16px;
-        color: var(--paper-amber-500);
-      }
-      .star-empty {
-        color: var(--paper-grey-500);
-      }
-
       .card-actions {
+        bottom: 0;
+        box-sizing: border-box;
         margin-top: 5px;
+        position: absolute;
+        width: 100%;
+        padding: 10px;
       }
-
       a {
         text-decoration: none;
-      }
-
-      paper-button {
-        color: white;
-        background-color: var(--category-secondary);
-      }
-      paper-button:hover {
-        background-color: var(--category-light);
       }
     </style>
 
     <paper-card class="vertical layout">
-      <div class="header">
-        <div class="horizontal end-justified layout">
-          <div class="light">[[firstcategory]]</div>
+      <a href="/codelabs/[[url]][[generateBackParameter]]" tabindex="-1">
+        <div class="header">
+          <div class="horizontal end-justified layout">
+            <div class="light card-category">[[firstcategory]]</div>
+          </div>
+          <h2 class="title">[[title]]</h2>
         </div>
-        <div class="title">[[title]]
-          <div class="duration light">
+        <div class="card-content">
+          <p>[[summary]]</p>
+        </div>
+        <div class="flex"></div>
+        <div class="card-actions horizontal start-justified layout">
+          <!-- <div>Difficulty:
+            <template is="dom-repeat" items="[[_computeFullStars(difficulty)]]">
+              <iron-icon class="star" icon="star"></iron-icon>
+            </template>
+            <template is="dom-repeat" items="[[_computeEmptyStars(difficulty)]]">
+              <iron-icon class="star star-empty" icon="star"></iron-icon>
+            </template>
+          </div> -->
+          <div class="duration">
             <iron-icon icon="device:access-time"></iron-icon>
             <span>[[duration]] min</span>
           </div>
         </div>
-      </div>
-      <div class="card-content">
-        <p>[[summary]]</p>
-        <div>Difficulty:
-          <template is="dom-repeat" items="[[_computeFullStars(difficulty)]]">
-            <iron-icon class="star" icon="star"></iron-icon>
-          </template>
-          <template is="dom-repeat" items="[[_computeEmptyStars(difficulty)]]">
-            <iron-icon class="star star-empty" icon="star"></iron-icon>
-          </template>
-        </div>
-      </div>
-      <div class="flex"></div>
-      <div class="card-actions horizontal end-justified layout">
-        <a href="/codelabs/[[url]][[generateBackParameter]]" tabindex="-1">
-          <paper-button raised>Start this codelab</paper-button>
-        </a>
-      </div>
+      </a>
     </paper-card>
 
   </template>
