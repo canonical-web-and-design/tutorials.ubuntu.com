@@ -22,12 +22,6 @@
         height: 100%;
         position: relative;
       }
-
-      @media only screen and (max-width: 768px) {
-        paper-card {
-
-        } 
-      }
       
       paper-card a {
         color: var(--primary-text-color);
@@ -59,7 +53,6 @@
       .duration {
         float: right;
         font-size: 16px;
-        padding-right: 10px;
         text-align: right;
         width: 100%;
       }
@@ -77,8 +70,12 @@
         text-decoration: none;
       }
       .card-content {
-        height: 200px;
         position: relative;
+      }
+      @media only screen and (min-width: 768px) {
+        .card-content {
+          height: 200px;
+        }
       }
     </style>
 
