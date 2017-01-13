@@ -49,11 +49,15 @@
       }
       codelabs-card {
         margin: 10px;
-        max-width: 100%;
+      }
+      @media only screen and (max-width: 768px) {
+        codelabs-card {
+          width: 100%;
+        }
       }
       @media only screen and (min-width: 768px) {
         codelabs-card {
-          max-width: 306px;
+          width: 306px;
         }
       }
       .event-wrapper {
