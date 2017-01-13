@@ -19,6 +19,17 @@
         background-color: var(--color-light);
         border: 1px solid var(--color-mid-light);
       }
+      ::content pre .str, ::content code .str { color: #333; } /* string  - green */
+      ::content pre .kwd, ::content code .kwd { color: #333; } /* keyword - dark pink */
+      ::content pre .com, ::content code .com { color: #333; font-style: italic; } /* comment - gray */
+      ::content pre .typ, ::content code .typ { color: #333; } /* type - light blue */
+      ::content pre .lit, ::content code .lit { color: #333; } /* literal - blue */
+      ::content pre .pun, ::content code .pun { color: #333; } /* punctuation - white */
+      ::content pre .pln, ::content code .pln { color: #333; } /* plaintext - white */
+      ::content pre .tag, ::content code .tag { color: #333; } /* html/xml tag    - light blue */
+      ::content pre .atn, ::content code .atn { color: #333; } /* html/xml attribute name  - khaki */
+      ::content pre .atv, ::content code .atv { color: #333; } /* html/xml attribute value - green */
+      ::content pre .dec, ::content code .dec { color: #333; } /* decimal - blue */      
     </style>
 
     <app-route
