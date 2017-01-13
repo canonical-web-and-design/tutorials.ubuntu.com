@@ -1,0 +1,38 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<script src="../../bower_components/date-fns/dist/date_fns.min.js"></script>
+
+<dom-module id="time-pretty">
+
+  <template>
+    <time datetime="[[datetime]]">[[datetimePretty]]</time>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'time-pretty',
+
+      properties: {
+        datetime: {
+          type: String,
+          value: '0000-00-00T00:00:00.000Z'
+        },
+        datetimePretty: {
+          type: String,
+          computed: '_prettifyDatetime(datetime)',
+        },
+      },
+
+      _prettifyDatetime: function (datetime) {
+        if (!window.dateFns) {
+          return;
+        }
+        var date = new Date(datetime);
+        var pretty = window.dateFns.format(date, 'DD MMM YYYY');
+        return pretty;
+      },
+
+    });
+  </script>
+</dom-module>

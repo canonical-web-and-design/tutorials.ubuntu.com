@@ -5,8 +5,10 @@
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../bower_components/time-elements/time-elements.js">
 
 <link rel="import" href="codelabs-behaviors.html">
+<link rel="import" href="time-pretty.html">
 
 <dom-module id="codelabs-card">
 
@@ -84,6 +86,7 @@
           <h2 class="title">[[title]]</h2>
         </div>
         <div class="card-content">
+          <p><time-pretty datetime="[[updated]]"></time-pretty></p>
           <p>[[summary]]</p>
           <p>
             <template is="dom-repeat" items="[[tags]]">
@@ -129,7 +132,9 @@
         },
         duration: Number,
         tags: Array,
-        updated: String,
+        updated: {
+          type: String,
+        },
         url: String,
         currenturl: String,
         generateBackParameter: {
