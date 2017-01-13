@@ -52,13 +52,14 @@
         // as we data-bind "subroute", even when not active, the view in map
         // /events/events_id -> codelab_id matches :codelabs and return invalid content
         // escape if we are not current view
-        if (!this.classList.contains("iron-selected")) {
+        this.codelab = codelab;
+        // Skip loading page if nothing is selected
+        if (this.codelab === undefined) {
           return;
         }
-        this.codelab = codelab;
         // load codelab import on demand.
         var link = this.importHref(
-          this.resolveUrl("/codelabs/" + codelab + '/index.ubuntu-template.html'),
+          this.resolveUrl("/src/codelabs/" + codelab + '/index.ubuntu-template.html'),
           function() {
             if (link) {
               var dynamicEl = document.createElement(codelab);
