@@ -6,9 +6,18 @@
 
   <template>
     <style>
+      :root {
+        --google-codelab-header-background: var(--app-secondary-color);    
+      }
       :host {
         display: block;
         height: 100vh;
+      }
+
+      ::content pre {
+        color: var(--color-dark);
+        background-color: var(--color-light);
+        border: 1px solid var(--color-mid-light);
       }
     </style>
 
