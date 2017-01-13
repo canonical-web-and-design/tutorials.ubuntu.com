@@ -85,6 +85,11 @@
         </div>
         <div class="card-content">
           <p>[[summary]]</p>
+          <p>
+            <template is="dom-repeat" items="[[tags]]">
+              <span>[[item]]</span>
+            </template>
+          </p>
         </div>
         <div class="flex"></div>
         <div class="card-actions horizontal start-justified layout">
