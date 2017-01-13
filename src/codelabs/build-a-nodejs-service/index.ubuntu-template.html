@@ -5,15 +5,33 @@
   <style>
     :root {
       --google-codelab-header-background: var(--app-primary-color);
-      --google-codelab-fab-background: var(--app-primary-color);
-
-      
-      --paper-blue-500: var(--app-primary-color);
+      --google-codelab-fab-background: var(--app-primary-color);      
+      --paper-blue-500: var(--app-secondary-color);
+      --google-codelab-header-background: var(--app-secondary-color);
+      --google-codelab-fab-background: var(--app-secondary-color);
     };
+
+    .toc-item.completed {
+      color: var(--secondary-color);
+    }
+    
+    google-codelab-survey {
+      border: 1px solid #19B6EE;
+      background: rgba(25, 182, 238, 0.1);
+      border-radius: 2px;
+    }
 
     google-codelab-step {
       --google-codelab-step-code: {
         font-family: 'Ubuntu Mono',Helvetica,Arial;
+      };
+      --google-codelab-step-warn: {
+        border-color: #ED3146;
+        background: rgba(237, 49, 70, 0.1);
+      };
+      --google-codelab-step-tip: {
+        border-color: #ECA918;
+        background: rgba(236, 169, 24, 0.1);
       };
     };
   </style>
