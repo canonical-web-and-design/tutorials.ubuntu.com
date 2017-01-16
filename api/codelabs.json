@@ -1,23 +1,22 @@
 {
   "codelabs": [
     {
-      "source": "1r--iLBwfCyBp8ZUfNSYrykve87BvLqwX58WBXN7ZcaM",
-      "title": "Setup Intel Joule",
-      "summary": "In this codelab, we are going to setup Ubutu Core on your Intel flash. We'll flash the sd card with an Ubuntu Core image and then configure it.",
+      "source": "1uzHPfT8B_-aTFgDJO80tb1HtxWHSe6uEa32HI3pzlpo",
+      "title": "Using Intel Realsense SDK in Desktop",
+      "summary": "We are going to illustrate how to build some Intel Realsense SDK samples on an ubuntu desktop image. You will be able to hook up on your Intel Joule and build the samples, explore some of the code and try them!",
       "category": [
         "snap"
       ],
-      "difficulty": 1,
-      "duration": 35,
+      "difficulty": 2,
+      "duration": 64,
       "tags": [
-        "beginner",
-        "console-conf",
+        "classic",
         "joule",
-        "snap",
-        "usage"
+        "realsense",
+        "snap"
       ],
-      "updated": "2017-01-12T13:09:21Z",
-      "url": "setup-ubuntu-core-intel-joule"
+      "updated": "2017-01-12T10:33:01Z",
+      "url": "using-intel-realsense-sdk"
     },
     {
       "source": "1wV7rM478gBEidlNVh724gIgx9KiVgKdfITEzpBEmUmQ",
@@ -41,23 +40,43 @@
       "url": "build-a-nodejs-service"
     },
     {
-      "source": "1hA-ytZZjTxajh8vIIpV6MUE03poBjdJizDQVUBgurhM",
-      "title": "Create your first snap",
-      "summary": "We are going to use snapcraft to walk you through the creation of your first snap and main snapcraft concepts.",
+      "source": "172iM3jTkg2os8HgqtSpVug3IR5pjqS2zz607hTi3KVg",
+      "title": "Create your own Core image",
+      "summary": "Create your own Ubuntu Core image for a particular model, by assembling snaps available in the store. Make your own device image with some snap preinstalled or additional functionalities!",
       "category": [
-        "snapcraft"
+        "snap"
+      ],
+      "difficulty": 3,
+      "duration": 18,
+      "tags": [
+        "assertion",
+        "device",
+        "image",
+        "model",
+        "snap",
+        "ubuntu-image"
+      ],
+      "updated": "2017-01-16T06:34:34Z",
+      "url": "create-your-own-core-image"
+    },
+    {
+      "source": "1r--iLBwfCyBp8ZUfNSYrykve87BvLqwX58WBXN7ZcaM",
+      "title": "Setup Intel Joule",
+      "summary": "In this codelab, we are going to setup Ubutu Core on your Intel flash. We'll flash the sd card with an Ubuntu Core image and then configure it.",
+      "category": [
+        "snap"
       ],
       "difficulty": 1,
-      "duration": 20,
+      "duration": 35,
       "tags": [
         "beginner",
-        "build",
-        "idf-2016",
-        "snapcraft",
+        "console-conf",
+        "joule",
+        "snap",
         "usage"
       ],
-      "updated": "2017-01-13T12:09:55Z",
-      "url": "create-first-snap"
+      "updated": "2017-01-12T13:09:21Z",
+      "url": "setup-ubuntu-core-intel-joule"
     },
     {
       "source": "10jai4vAduTxF0RQMUs-pqIRbMM9TXv9dgxjNDGkxduo",
@@ -78,24 +97,23 @@
       "url": "basic-snap-usage"
     },
     {
-      "source": "172iM3jTkg2os8HgqtSpVug3IR5pjqS2zz607hTi3KVg",
-      "title": "Create your own Core image",
-      "summary": "Create your own Ubuntu Core image for a particular model, by assembling snaps available in the store. Make your own device image with some snap preinstalled or additional functionalities!",
+      "source": "1hA-ytZZjTxajh8vIIpV6MUE03poBjdJizDQVUBgurhM",
+      "title": "Create your first snap",
+      "summary": "We are going to use snapcraft to walk you through the creation of your first snap and main snapcraft concepts.",
       "category": [
-        "snap"
+        "snapcraft"
       ],
-      "difficulty": 3,
-      "duration": 18,
+      "difficulty": 1,
+      "duration": 20,
       "tags": [
-        "assertion",
-        "device",
-        "image",
-        "model",
-        "snap",
-        "ubuntu-image"
+        "beginner",
+        "build",
+        "idf-2016",
+        "snapcraft",
+        "usage"
       ],
-      "updated": "2017-01-16T06:34:34Z",
-      "url": "create-your-own-core-image"
+      "updated": "2017-01-13T12:09:55Z",
+      "url": "create-first-snap"
     }
   ],
   "categories": {
