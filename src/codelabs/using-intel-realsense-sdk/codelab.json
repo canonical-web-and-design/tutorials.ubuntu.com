@@ -1,0 +1,28 @@
+{
+  "environment": "web",
+  "source": "1uzHPfT8B_-aTFgDJO80tb1HtxWHSe6uEa32HI3pzlpo",
+  "format": "ubuntu-template.html",
+  "prefix": "../../..",
+  "mainga": "UA-1018242-64",
+  "updated": "2017-01-12T10:33:01Z",
+  "id": "using-intel-realsense-sdk",
+  "duration": 64,
+  "title": "Using Intel Realsense SDK in Desktop",
+  "summary": "We are going to illustrate how to build some Intel Realsense SDK samples on an ubuntu desktop image. You will be able to hook up on your Intel Joule and build the samples, explore some of the code and try them!",
+  "theme": "snap",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "snap"
+  ],
+  "tags": [
+    "classic",
+    "joule",
+    "realsense",
+    "snap"
+  ],
+  "feedback": "https://github.com/ubuntu/codelabs/issues",
+  "difficulty": 2,
+  "url": "using-intel-realsense-sdk"
+}
