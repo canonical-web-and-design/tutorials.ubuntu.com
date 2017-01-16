@@ -48,12 +48,6 @@
         document.head.appendChild(e);
       }
     })();
-    // load pre-caching service worker
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function() {
-        navigator.serviceWorker.register('/service-worker.js');
-      });
-    }
   </script>
 
   <link rel="import" href="/src/ubuntu-tutorials-app.html">
