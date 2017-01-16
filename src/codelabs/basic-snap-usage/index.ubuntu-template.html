@@ -1,3 +1,4 @@
+
 <dom-module id="basic-snap-usage">
 
 <template>
@@ -12,7 +13,7 @@
     .toc-item.completed {
       color: var(--secondary-color);
     }
-    
+
     google-codelab-survey {
       border: 1px solid #19B6EE;
       background: rgba(25, 182, 238, 0.1);
@@ -38,7 +39,7 @@
   <google-codelab id="codelabobj"
                   title="Basic snap usage"
                   environment="web"
-                  feedback-link="https://github.com/ubuntudesign/tutorials.ubuntu.com/issues">
+                  feedback-link="https://github.com/ubuntu/codelabs/issues">
     <app-route
       route="{{route}}"
       tail="{{routeTail}}"></app-route>
@@ -163,7 +164,7 @@ $ sudo snap refresh
 core updated
 hello 64.75 MB [=====================================&gt;___]   12s
 </pre>
-<p>But these aren&#39;t the only features of the <code>snap</code> command: you can get way more fine-grained in terms of tracking various versions of the same app, depending on how close to current development you want to be. This is all possible thanks to the channel feature!</p>
+<p>But these aren&#39;t the only features of the <code>snap</code> command: you can get way more fine-grained in terms of tracking various versions of the same app, depending on how close to current development you want to be. This is all possible thanks to the channel feature! We might delve into this later on.</p>
 
 
       </google-codelab-step>
@@ -200,7 +201,7 @@ hello-world removed</pre>
 <h2>Switching channel for installed apps</h2>
 <pre>$ sudo snap refresh hello --channel=beta
 
-hello (beta) 2.10.1 from &#39;canonical&#39; upgraded</pre>
+hello (beta) 2.10.1 from &#39;canonical&#39; refreshed</pre>
 <p>Now, you can run the beta version of the snap and see its output is different:</p>
 <pre>$ hello
 Hello, snap padawan!</pre>

@@ -1,0 +1,29 @@
+{
+  "environment": "web",
+  "source": "1r--iLBwfCyBp8ZUfNSYrykve87BvLqwX58WBXN7ZcaM",
+  "format": "ubuntu-template.html",
+  "prefix": "../../..",
+  "mainga": "UA-1018242-64",
+  "updated": "2017-01-12T13:09:21Z",
+  "id": "setup-ubuntu-core-intel-joule",
+  "duration": 35,
+  "title": "Setup Intel Joule",
+  "summary": "In this codelab, we are going to setup Ubutu Core on your Intel flash. We'll flash the sd card with an Ubuntu Core image and then configure it.",
+  "theme": "snap",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "snap"
+  ],
+  "tags": [
+    "beginner",
+    "console-conf",
+    "joule",
+    "snap",
+    "usage"
+  ],
+  "feedback": "https://github.com/ubuntu/codelabs/issues",
+  "difficulty": 1,
+  "url": "setup-ubuntu-core-intel-joule"
+}

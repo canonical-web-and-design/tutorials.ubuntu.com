@@ -1,3 +1,4 @@
+
 <dom-module id="create-first-snap">
 
 <template>
@@ -9,11 +10,10 @@
       --google-codelab-fab-background: var(--secondary-color);
     };
 
-    
     .toc-item.completed {
       color: var(--secondary-color);
     }
-    
+
     google-codelab-survey {
       border: 1px solid #19B6EE;
       background: rgba(25, 182, 238, 0.1);
@@ -33,15 +33,13 @@
         background: rgba(236, 169, 24, 0.1);
       };
     };
-    
-
   </style>
 
 
   <google-codelab id="codelabobj"
                   title="Create your first snap"
                   environment="web"
-                  feedback-link="https://github.com/ubuntudesign/tutorials.ubuntu.com/issues">
+                  feedback-link="https://github.com/ubuntu/codelabs/issues">
     <app-route
       route="{{route}}"
       tail="{{routeTail}}"></app-route>
@@ -85,6 +83,17 @@
         <p>If you are on Ubuntu 16.04 LTS or Ubuntu 16.10, getting all the required tools is very easy. </p>
 <aside class="special"><p>Note: other GNU/Linux distributions are currently in the process of building packages for snapcraft.</p>
 </aside>
+<h2>If you are running ubuntu core</h2>
+<p>Ubuntu Core is not a traditional Linux distribution: there is no &#34;apt&#34;, the system is read-only. How can you develop and build snap in such an environment then? We have a special snap for this!</p>
+<p>Enter the &#34;classic&#34; snap. This snap will get you into a lxc container, where you have a traditional Ubuntu distribution. You can there installing more packages, change files projects and run snapcraft to build your snap. The home directory is shared between the container and ubuntu core. You can thus build a snap, then, outside of the classic snap, install and test it.</p>
+<p>To install the classic snap, just type:</p>
+<pre>$ sudo snap install classic --edge --devmode</pre>
+<p>Every time you want to install packages, build a snap and so on, just enter it:</p>
+<pre>$ sudo classic
+(classic)foo@localhost:~$</pre>
+<p>You will note that the shell is prepended with <code>(classic)</code> to remind you that you are running those commands inside the classic snap. You can exit the shell classically by typing <code>exit</code>.</p>
+<p>You can now run the commands and build a snap as if you were on a classic system (we won&#39;t remind you about that in the following and others codelabs. Just remember that when you run the &#34;snap&#34; (and not snapcraft) command to interact or install a snap, you need to be outside of this classic snap (you can open a second ssh connexion for instance).</p>
+<h2>Installing dependencies</h2>
 <p>Now simply run:</p>
 <pre>$ sudo apt install snapcraft build-essential</pre>
 <p>This will install snapcraft and some additional build tools we are going to need for our specific example. As snapcraft uses a plugin architecture (to let you build snaps from all kinds of projects), some required build tools need to be installed separately. In our case, that&#39;s <code>build-essential</code>.</p>
@@ -149,15 +158,16 @@ confinement: devmode</code></pre>
         source: http://ftp.gnu.org/gnu/hello/hello-2.10.tar.gz
         plugin: autotools</code></pre>
 <p>In the list of parts, we add simply one called <code>gnu-hello</code> (the part name can take whatever identifier you like). As source we simply use a tarball from the GNU project&#39;s ftp server - snapcraft will download and extract it automatically. As plugin you pick autotools which uses the pretty common <code>./configure &amp;&amp; make &amp;&amp; make install</code> steps to build the part under the hood.</p>
-<p>Now on to the exciting part: let&#39;s build it! All you need to do here is:</p>
+<p>Now to the exciting part: let&#39;s build it! All you need to do here is:</p>
 <pre>~/hello$ snapcraft
 [...]
 Staging gnu-hello
 Priming gnu-hello
 Snapping &#39;hello&#39; |                                                   
 Snapped hello_2.10_amd64.snap</pre>
+<p>If your system does not have installed some dependencies such as &#34;autopoint&#34; and &#34;libtool&#34; needed for this example, snapcraft will prompt for the system password to install them. </p>
 <p>You just built your first snap! Congratulations! Let&#39;s install it now.</p>
-<pre>~/hello$ sudo snap install --devmode hello_2.10_amd64.snap
+<pre>~/hello$ sudo snap install hello_2.10_amd64.snap --devmode 
 
 hello 2.10 installed
 ~/hello$ snap list
@@ -172,6 +182,10 @@ The program &#39;hello&#39; can be found in the following packages:
  * hello
  * hello-traditional
 Try: sudo apt install &lt;selected package&gt;</pre>
+<p>Or you might get another error if you installed the hello snap before:</p>
+<pre>~/hello$ hello
+bash: /snap/bin/hello No such file
+... </pre>
 <p>On ubuntu core:</p>
 <pre>~/hello$ hello
 hello: command not found</pre>
@@ -342,9 +356,11 @@ bash-4.3$ exit</pre>
 <h2>Registering an account</h2>
 <p>Open My Apps in your browser and follow the instructions to register an account:</p>
 <p><img style="max-width: 624.00px" src="img/d5592c70e3d136ed.png"></p>
+<p>Select &#34;I am a new Ubuntu One user&#34; and complete the needed data.</p>
 <p><img style="max-width: 624.00px" src="img/1c7822a6487fd2f3.png"></p>
 <p>Enter your email address, name and password, accept the terms of service and create the account. Remember as well to choose a namespace on myapps before registering your snap.</p>
 <p>It&#39;s then time for you to get authenticated from snapcraft:</p>
+<p>If it is your first time you will get a message to enable multifactor authentication and agree with the developer terms and conditions.</p>
 <pre>~/hello$ snapcraft login
 Enter your Ubuntu One SSO credentials.
 Email: myemail@provider.com

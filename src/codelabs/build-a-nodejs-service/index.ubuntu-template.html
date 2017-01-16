@@ -1,3 +1,4 @@
+
 <dom-module id="build-a-nodejs-service">
 
 <template>
@@ -12,7 +13,7 @@
     .toc-item.completed {
       color: var(--secondary-color);
     }
-    
+
     google-codelab-survey {
       border: 1px solid #19B6EE;
       background: rgba(25, 182, 238, 0.1);
@@ -38,7 +39,7 @@
   <google-codelab id="codelabobj"
                   title="Build a nodejs service"
                   environment="web"
-                  feedback-link="https://github.com/ubuntudesign/tutorials.ubuntu.com/issues">
+                  feedback-link="https://github.com/ubuntu/codelabs/issues">
     <app-route
       route="{{route}}"
       tail="{{routeTail}}"></app-route>
@@ -83,7 +84,7 @@
         <p>This project is a nodejs application, serving a web page on request. The backend code issue a REST request through against a web API, using chucknorris-io npm module.</p>
 <h2>Get the code</h2>
 <p>Simply run:</p>
-<pre>$ git clone https://github.com/ubuntu-core/snap-codelabs-code
+<pre>$ git clone https://github.com/ubuntu/snap-codelabs-code
 $ cd snap-codelabs-code/build-a-nodejs-service/start</pre>
 <p>Your cloned directory should contain 2 files:</p>
 <ul>
@@ -325,7 +326,7 @@ Slot                              Plug
 :upower-observe                   -
 :x11                              -</pre>
 <p>This list of interfaces evolves over time. It also depends on your hardware capability (the gadget snap, to be precise), which defines which additional interfaces your device can expose, like GPIO devices, camera, I2C and such...</p>
-<p>You have the confirmation here that snappy-debug connects to the log-obverse slot from the core snap (slots and plugs name are abbreviated when they match).</p>
+<p>You have the confirmation here that snappy-debug connects to the log-observe slot from the core snap (slots and plugs name are abbreviated when they match).</p>
 <p>So, let&#39;s think about a web server. What do we want to do? We want to listen on a port and return requests. This is named binding to a port. <code>network-bind</code> seems to be a good candidate for this.</p>
 <p>Let&#39;s try to add this in our <code>snapcraft.yaml</code> definition. We will thus declare a plug, connecting to <code>network-bind</code> interface.</p>
 <p>We won&#39;t enter into detail of plugs and slots here, but the names can be overridden. Just note that we are using here the simplified definition where plug name == interface name.</p>

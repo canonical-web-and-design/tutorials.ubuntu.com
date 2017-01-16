@@ -1,0 +1,302 @@
+
+<dom-module id="setup-ubuntu-core-intel-joule">
+
+<template>
+
+  <style>
+    :root {
+      --google-codelab-header-background: var(--secondary-color);
+      --paper-blue-500: var(--secondary-color);
+      --google-codelab-fab-background: var(--secondary-color);
+    };
+
+    .toc-item.completed {
+      color: var(--secondary-color);
+    }
+
+    google-codelab-survey {
+      border: 1px solid #19B6EE;
+      background: rgba(25, 182, 238, 0.1);
+      border-radius: 2px;
+    }
+
+    google-codelab-step {
+      --google-codelab-step-code: {
+        font-family: 'Ubuntu Mono',Helvetica,Arial;
+      };
+      --google-codelab-step-warn: {
+        border-color: #ED3146;
+        background: rgba(237, 49, 70, 0.1);
+      };
+      --google-codelab-step-tip: {
+        border-color: #ECA918;
+        background: rgba(236, 169, 24, 0.1);
+      };
+    };
+  </style>
+
+
+  <google-codelab id="codelabobj"
+                  title="Setup Intel Joule"
+                  environment="web"
+                  feedback-link="https://github.com/ubuntu/codelabs/issues">
+    <app-route
+      route="{{route}}"
+      tail="{{routeTail}}"></app-route>
+    
+      <google-codelab-step label="Introduction" duration="15">
+        <p>Welcome to the world of Ubuntu Core! In this codelab, we are going to introduce you how to flash your eMMC for your Intel Joule board, and finally turn your Intel Joule into a Ubuntu Core 16 system.</p>
+<p><img style="max-width: 624.00px" src="img/c7f2edf913b3558f.png"></p>
+<h2 class="checklist">What you&#39;ll learn</h2>
+<ul class="checklist">
+<li>Create a Ubuntu SSO (Single-Sign-On) account</li>
+<li>How to setup your hardware environment</li>
+<li>How to flash Ubuntu Core 16 for your Intel Joule board</li>
+<li>How to do console-conf for your Ubuntu Core 16 system</li>
+</ul>
+<h2>What you&#39;ll need</h2>
+<ul>
+<li>1 Intel Joule Dev Kit</li>
+<li>1 HDMI monitor</li>
+<li>1 USB keyboard</li>
+<li>1 USB mouse</li>
+<li>1 USB hub (connecting both keyboard and mouse)</li>
+<li>1 micro HDMI to HDMI cable (connecting HDMI monitor)</li>
+<li>1 SD card adapter</li>
+<li>1 Ubuntu Desktop (16.04) or Windows system</li>
+</ul>
+<google-codelab-survey survey-id="setup-ubuntu-core-intel-joule-1">
+<h4>How will you use this tutorial?</h4>
+<paper-radio-group>
+<paper-radio-button>Only read through it</paper-radio-button>
+<paper-radio-button>Read it and complete the exercises</paper-radio-button>
+</paper-radio-group>
+<h4>What is your current level of experience working with snap?</h4>
+<paper-radio-group>
+<paper-radio-button>Novice</paper-radio-button>
+<paper-radio-button>Intermediate</paper-radio-button>
+<paper-radio-button>Proficient</paper-radio-button>
+</paper-radio-group>
+</google-codelab-survey>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Getting set up" duration="7">
+        <h2>Register a Ubuntu SSO account</h2>
+<p>If you have already had an SSO account, you can skip this step and move to the next. The account is used for console-conf in the following steps.</p>
+<ol type="1" start="1">
+<li>Ubuntu SSO account is required to setup user profile. A user needs to create a ubuntu SSO account before using Ubuntu Core 16</li>
+<li>To create Ubuntu SSO account, go to <a href="https://login.ubuntu.com" target="_blank">https://login.ubuntu.com</a></li>
+</ol>
+<p><img style="max-width: 488.99px" src="img/618736eb54f0e88.png"></p>
+<ol type="1" start="3">
+<li>Complete account verification</li>
+</ol>
+<p><img style="max-width: 534.00px" src="img/e7a1ab16ad88c1d.png"></p>
+<p><img style="max-width: 518.40px" src="img/c8cb5be4ab219f54.png"></p>
+<p><img style="max-width: 515.86px" src="img/61076221edf715b9.png"></p>
+<ol type="1" start="4">
+<li>Create a SSH Key</li>
+</ol>
+<p>        This step is only necessary if you don&#39;t have a SSH key on your system.</p>
+<ul>
+<li>On your Ubuntu desktop, here is how you would create it:</li>
+</ul>
+<pre>$ mkdir ~/.ssh
+$ chmod 700 ~/.ssh
+$ ssh-keygen -t rsa</pre>
+<p>You will be prompted for a location to save the keys, and a passphrase for the keys. This passphrase will protect your private key while it&#39;s stored on the hard drive:</p>
+<pre>Generating public/private rsa key pair.
+Enter file in which to save the key (/home/b/.ssh/id_rsa):
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /home/b/.ssh/id_rsa.
+Your public key has been saved in /home/b/.ssh/id_rsa.pub.</pre>
+<p>Your public key is now available as <code>.ssh/id_rsa.pub</code> in your home folder.</p>
+<ul>
+<li>For Window users, please refer to the following link about how to generate SSH key: <a href="https://support.rackspace.com/how-to/generating-rsa-keys-with-ssh-puttygen" target="_blank">https://support.rackspace.com/how-to/generating-rsa-keys-with-ssh-puttygen</a>.</li>
+</ul>
+<ol type="1" start="5">
+<li>Import SSH Key</li>
+</ol>
+<p>Clicking &#34;SSH keys&#34; on the left side shows the following screen. You can now just copy and paste the content of  <code>id_rsa.pub</code> file into the field. Confirm your ssh key by clicking on &#34;Import SSH key&#34;.</p>
+<p><img style="max-width: 500.50px" src="img/d1ccb7af5bc5f755.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Create a bootable Ubuntu Core 16 SD card" duration="7">
+        <p>In this step,  you are going to flash a bootable image into a Ubuntu Core 16 SD card. </p>
+<ol type="1" start="1">
+<li>Firstly, build your own Ubuntu Core image</li>
+<li>Insert your SD card or USB flash drive (you need an SD card adapter)</li>
+<li>Identify its address by opening the &#34;Disks&#34; application and look for the &#34;Device&#34; line. If the line is in the <code>/dev/mmcblk0p1</code> format, then your drive address is: /dev/mmcblk0. If it is in the <code>/dev/sdb1</code> format, then the address is <code>/dev/sdb</code>. </li>
+</ol>
+<p>        You may also use the following command to find out your device&#39;s name:</p>
+<pre>$ lsblk</pre>
+<ol type="1" start="4">
+<li>Unmount it by right clicking its icon in the launcher bar, the eject icon in a file manager or the square icon in the &#34;Disks&#34; application</li>
+<li>It&#39;s time to copy the image to your removable drive</li>
+</ol>
+<ol type="1" start="1">
+<li>If the Ubuntu Core image file you have downloaded ends with an .xz file extension, run:</li>
+</ol>
+<pre>$ xzcat &lt;image_path&gt;/&lt;image_file.xz&gt; | sudo dd of=&lt;drive address&gt; bs=32M</pre>
+<ol type="1" start="2">
+<li>Else, run:</li>
+</ol>
+<pre>$ sudo dd if=&lt;image_path&gt;/&lt;image_file&gt; of=&lt;drive address&gt; bs=32M</pre>
+<ol type="1" start="6">
+<li>Then, run the sync command to finalize the process</li>
+</ol>
+<pre>$ sync</pre>
+<ol type="1" start="7">
+<li>You can now eject your removable drive from your desktop</li>
+</ol>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Ubuntu Core initial setup" duration="5">
+        <h2>Boot Intel Joule with Ubuntu Core 16</h2>
+<p><img style="max-width: 292.50px" src="img/95b650d9f2ed7c69.png"></p>
+<p>Power on the Joule board for booting on your new image:</p>
+<ol type="1" start="1">
+<li>Insert your SD card into your Intel Joule board</li>
+<li>Configure your Joule&#39;s BIOS so that SD card has higher boot priority over eMMC (you may enter BIOS by pressing F2 hotkey during the boot)</li>
+<li>The system will boot two times then become ready to configure</li>
+<li>The device will display  the prompt &#34;Press enter to configure&#34;</li>
+<li>Follow the instructions on the screen to  configure your device</li>
+<li>Press enter then select &#34;Start&#34; to begin configuring your network and an administrator account</li>
+</ol>
+<p><img style="max-width: 1722.27px" src="img/c1472791d8e332f4.png"></p>
+<p><img style="max-width: 813.23px" src="img/cd9524b038761643.png"></p>
+<ol type="1" start="7">
+<li>Configure network setting. Move cursor and select the wireless LAN interface (wlan0). And press enter.</li>
+</ol>
+<p><img style="max-width: 907.43px" src="img/3dfdf005ba763bb2.png"></p>
+<p>Select ‘Configure WIFI settings&#39; and press enter to get to screen that allows for choosing a visible network, scan for networks or manually enter <em>SSID</em> and Password.</p>
+<p><img style="max-width: 1064.82px" src="img/b7d906dbeef8133d.png"></p>
+<p>Input your network SSID and password and select ‘Done&#39;. Or use ‘Choose a visible network&#39; to pick a name from the network list. ‘Scan for networks&#39; is used to trigger a new WiFi scan.</p>
+<p><img style="max-width: 861.45px" src="img/b4e6b255ee18040a.png"></p>
+<p>Edit IPv4 and IPv6 configurations if necessary and select ‘Done&#39;.</p>
+<p><img style="max-width: 1324.41px" src="img/a0e27fdba20e032d.png"></p>
+<p>The network settings will be applied.</p>
+<p><img style="max-width: 1630.09px" src="img/a6fefe1977ebe4fc.png"></p>
+<ol type="1" start="8">
+<li>Enter user&#39;s account on <a href="https://login.ubuntu.com" target="_blank">Ubuntu One</a>. Select &#34;Done&#34; to complete.</li>
+</ol>
+<p><img style="max-width: 1363.69px" src="img/e9ee29d6a8d44bc9.png"></p>
+<ol type="1" start="9">
+<li>The configuration is completed. On the screen, the Ubuntu SSO username and the device IP address will be shown. The SSH keys linked to the user will be shown as well.</li>
+</ol>
+<p><img style="max-width: 989.60px" src="img/59471eeb6387aa12.png"></p>
+<ol type="1" start="10">
+<li>The user can now login to the system with username and ssh key registered on Ubuntu One. Use ssh client to login the system from another machine which has the same network as your Intel Joule board.</li>
+</ol>
+<p>NOTE: only remote access via ssh is enabled until a password is set via instructions in the next step.</p>
+<p>Use the command to login Joule via ssh: </p>
+<pre>$ ssh &lt;username of Ubuntu One&gt;@10.101.46.211</pre>
+<p>where &#34;10.101.46.211&#34; is the IP address of your Ubuntu Core Joule device. It is shown at the top-left corner of your HDMI monitor after booting.</p>
+<p>Your device is now ready to be used. Enjoy! You can now play with snap commands and check that your image contains all desired snaps with ‘ snap list&#39; .</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="That&#39;s all folks!" duration="1">
+        <h2>Easy, wasn&#39;t it?</h2>
+<p>Congratulations! You made it!</p>
+<p>By now you should have successfully flashed and configured your Intel Joule board. You now are running latest Ubuntu Core system. You did configure a personal account to connect to it, and prevented the need for a default user account like &#34;ubuntu&#34; due to security concerns.</p>
+<h2>Next steps</h2>
+<ul>
+<li>Your can log into Ubuntu Core system and start to explore the snap commands. You can take a look at our next codelab called &#34;Basic snap usage&#34; for exploration.</li>
+<li>Join the snapcraft.io community by subcribing to <a href="https://lists.snapcraft.io/mailman/listinfo/snapcraft" target="_blank">our mailing list</a>.</li>
+</ul>
+<h2>Further readings</h2>
+<ul>
+<li><a href="http://snapcraft.io/docs/" target="_blank">Snapcraft.io documentation</a> is a good place to start reading the whole snap and snapcraft doc.</li>
+<li>Check how you can <a href="http://snapcraft.io/community/" target="_blank">contact us and the broader community</a>.</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-1018242-64', 'auto');
+
+    (function() {
+      var gaCodelab = '';
+      if (gaCodelab) {
+        ga('create', gaCodelab, 'auto', {name: 'codelab'});
+      }
+
+      var gaView;
+      var parts = location.search.substring(1).split('&');
+      for (var i = 0; i < parts.length; i++) {
+        var param = parts[i].split('=');
+        if (param[0] === 'viewga') {
+          gaView = param[1];
+          break;
+        }
+      }
+      if (gaView && gaView !== gaCodelab) {
+        ga('create', gaView, 'auto', {name: 'view'});
+      }
+    })();
+  </script>
+
+</template>
+
+<script>
+
+  Polymer({
+
+    is: 'setup-ubuntu-core-intel-joule',
+
+    properties: {
+      route: {
+        type: String
+      },
+      backURL: {
+        type: String,
+        value: "/",
+      },
+    },
+
+    observers: [
+      '_getParams(routeTail.__queryParams)'
+    ],
+
+    ready: function() {
+      
+      
+      this.$.codelabobj._goToHome = this._goToHome.bind(this)
+    },
+
+    _goToHome: function() {
+        
+        window.location.href = this.backURL;
+    },
+
+    _getParams: function(params) {
+      if (!params) {
+        return;
+      }
+      if (params.backURL !== undefined) {
+          this.backURL = decodeURIComponent(params.backURL)
+      }
+    },
+
+  });
+
+</script>
+
+</dom-module>
