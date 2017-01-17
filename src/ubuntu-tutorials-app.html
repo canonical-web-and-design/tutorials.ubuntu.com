@@ -35,45 +35,38 @@
         line-height: 1.5;
         --category-color: white;
       }
-      
       app-header {
         background-color: var(--app-primary-color);
         color: white;
         padding: 0;
       }
-      
       app-toolbar {
         margin: 0 auto;
         max-width: 984px;
         padding: 0;
         height: 48px;
       }
-      
       app-logo {
         margin-left: 10px;
       }
-      
       @media only screen and (max-width: 984px) {
         app-logo {
           margin-left: 20px;
         }
       }
-      
       app-logo a {
         color: #fff;
         text-decoration: none;
       }
-      
       app-header.hidden {
         display: none;
       }
-      
       paper-input {
         --paper-input-container-focus-color: white;
         --paper-input-container-input-color: white;
       }
     </style>
-
+    
     <app-location route="{{route}}"></app-location>
     <app-route
         route="{{route}}"

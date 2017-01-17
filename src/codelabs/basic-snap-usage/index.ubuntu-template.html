@@ -8,34 +8,35 @@
       --google-codelab-header-background: var(--secondary-color);
       --paper-blue-500: var(--secondary-color);
       --google-codelab-fab-background: var(--secondary-color);
+      
     };
-
-    .toc-item.completed {
-      color: var(--secondary-color);
+    #codelabobj pre {
+      background-color: var(--color-light);
+      border-radius: 2px;
+      border: 1px solid var(--color-mid-light);
+      color: var(--color-dark);
     }
-
+    #codelabobj pre .str.str, #codelabobj pre .kwd.kwd, #codelabobj pre .com.com, #codelabobj pre .typ.typ, #codelabobj pre .lit.lit, #codelabobj pre .pun.pun, #codelabobj pre .pln.pln, #codelabobj pre .tag.tag, #codelabobj pre .atn.atn, #codelabobj pre .atv.atv, #codelabobj pre .dec.dec {
+      color: #333;
+    }    
     google-codelab-survey {
-      border: 1px solid #19B6EE;
       background: rgba(25, 182, 238, 0.1);
+      border: 1px solid #19B6EE;
       border-radius: 2px;
     }
-
     google-codelab-step {
-      --google-codelab-step-code: {
-        font-family: 'Ubuntu Mono',Helvetica,Arial;
-      };
       --google-codelab-step-warn: {
-        border: 1px solid #ED3146;
         background: rgba(237, 49, 70, 0.1);
+        border: 1px solid #ED3146;
       };
       --google-codelab-step-tip: {
-        border: 1px solid #ECA918;
         background: rgba(236, 169, 24, 0.1);
+        border: 1px solid #ECA918;
+        color: var(--secondary-color);
       };
     };
   </style>
-
-
+  
   <google-codelab id="codelabobj"
                   title="Basic snap usage"
                   environment="web"
