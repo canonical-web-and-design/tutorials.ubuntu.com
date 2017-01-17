@@ -17,7 +17,7 @@
     }
     #codelabobj pre .str.str, #codelabobj pre .kwd.kwd, #codelabobj pre .com.com, #codelabobj pre .typ.typ, #codelabobj pre .lit.lit, #codelabobj pre .pun.pun, #codelabobj pre .pln.pln, #codelabobj pre .tag.tag, #codelabobj pre .atn.atn, #codelabobj pre .atv.atv, #codelabobj pre .dec.dec {
       color: #333;
-    }    
+    }
     google-codelab-survey {
       border: 1px solid #19B6EE;
       background: rgba(25, 182, 238, 0.1);
@@ -40,24 +40,24 @@
 
 
   <google-codelab id="codelabobj"
-                  title="Using Intel Realsense SDK in Desktop"
+                  title="Using Intel RealSense SDK on the desktop"
                   environment="web"
-                  feedback-link="https://github.com/ubuntu/codelabs/issues">
+                  feedback-link="https://github.com/ubuntudesign/tutorials.ubuntu.com/issues">
     <app-route
       route="{{route}}"
       tail="{{routeTail}}"></app-route>
     
       <google-codelab-step label="Overview" duration="1">
-        <p>We are going to illustrate how to build some <a href="http://www.intel.fr/content/www/fr/fr/architecture-and-technology/realsense-overview.html" target="_blank">Intel Realsense</a> SDK samples on an ubuntu core image using the classic snap. You will be able to hook up on your <a href="https://software.intel.com/en-us/iot/hardware/joule/dev-kit" target="_blank">Intel Joule</a> and build the samples, explore some of the code and try them!</p>
+        <p>We are going to illustrate how to build some <a href="http://www.intel.eu/content/www/eu/en/architecture-and-technology/realsense-overview.html" target="_blank">Intel RealSense</a> SDK samples on an Ubuntu Core image using the classic snap. You will be able to hook up on your <a href="https://software.intel.com/en-us/iot/hardware/joule/dev-kit" target="_blank">Intel Joule</a> and build the samples, explore some of the code and try them!</p>
 <h2 class="checklist">What you&#39;ll learn</h2>
 <ul class="checklist">
-<li>What compose the Intel Realsense SDK.</li>
+<li>What compose the Intel RealSense SDK.</li>
 <li>How to use the classic snap as a traditional ubuntu environment for developing.</li>
 <li>How to setup the SDK and build existing samples.</li>
 </ul>
 <h2>What you&#39;ll need</h2>
 <ul>
-<li>An Intel Joule device, with Ubuntu Core 16 (or classic LTS) installed on it.</li>
+<li>An Intel Joule device, with Ubuntu classic LTS installed on it.</li>
 <li>A realsense camera (ZR300 was tested).</li>
 <li>Some very basic knowledge of command line use.</li>
 </ul>
@@ -100,8 +100,11 @@ $ curl -o realsense_sdk_beta3.tar.bz2 &lt;download_link&gt;</pre>
 <p>As building the whole SDK and dependencies is quite a long process, let&#39;s start building it right away before looking at its content.</p>
 <pre>$ cd realsense_sdk_beta3
 $ sudo ./install_script.sh</pre>
-<p>This process will take a very long time, it will as well ensure ensure that your Intel Realsense camera is recognized. Unplug it and plug it back again once the script has finished.</p>
-<h2>Realsense SDK Content</h2>
+<p>This process will take a very long time, let&#39;s use that opportunity to open a second ssh connection to the board, and ensure that you will get your Intel RealSense camera recognized:</p>
+<aside class="special"><p>Note: this is the only change that needs to be done outside the classic snap, as we need system services like udev to know about it.</p>
+</aside>
+<p>You can now unplug and plug back your Intel RealSense camera. It will be detected by the system.</p>
+<h2>RealSense SDK Content</h2>
 <p>While the build is proceeding, let&#39;s look at the files extracted from the bz2 archive:</p>
 <pre>~/realsense_sdk_beta3$ ls
 README.md
@@ -214,11 +217,12 @@ zr300_firmware_update_prq_2.zip</pre>
     
       <google-codelab-step label="Available samples" duration="30">
         <h2>Preliminary notes</h2>
-<p>Ubuntu core doesn&#39;t have any graphical server by default. Consequently, you can&#39;t run most of the samples rendering some graphical UI. However, there are a lot of samples with a _web appendix. They are spawning a web interface that you can access to the network, showing you real time data and capture from the camera.</p>
-<p>Those are the examples you should focus on right now.</p>
+<p>On ubuntu desktop, you can run any examples you want (graphical and non graphical).  Most of the samples are rendering some graphical UI. Those have the rs_ prefix for realsense SDK and cpp_ prefix for those using librealsense (the bare protocole).</p>
+<p>Ubuntu Core, on itself, doesn&#39;t have any graphical server by default. Consequently, you can&#39;t run most of the samples rendering some graphical UI. However, there are a lot of samples with a _web appendix. They are spawning a web interface that you can access to the network, showing you real time data and capture from the camera.</p>
+<p>You can focus and experiment on both kind of examples.</p>
 <h2>Running your first sample</h2>
 <p>Here is an example with rs_pt_tutorial_1_web:</p>
-<pre>(classic)foo@localhost:~$ rs_pt_tutorial_1_web 
+<pre>$ rs_pt_tutorial_1_web 
 
 enabling: stream:DEPTH, 320x240x30, format:Z16
 
@@ -233,12 +237,12 @@ Server: waiting for client to connect...
 
 Best host: 192.168.0.29 of ifa type: wlan0
  &gt;&gt;&gt; point your browser to: http://192.168.0.29:8000/view.html</pre>
-<p>Then, point your browser to <a href="http://192.168.0.29:8000/view.html" target="_blank">http://192.168.0.29:8000/view.html</a> (of course, your IP will be different) and you will get something like:</p>
+<p>Then, point your browser to <a href="http://localhost:8000/view.html" target="_blank">http://localhost:8000/view.html</a> (or a remote IP if you are trying to browser from a different machine) and you will get something like:</p>
 <p><img style="max-width: 624.00px" src="img/ceac1fe2c15e7a59.png"></p>
 <p>The corresponding code is in <code>~/realsense_sdk_beta3/build/realsense_samples-0.6.2/samples/pt_tutorial_1_web/cpp/main.cpp</code></p>
 <p>You can spend some times here to study the various SDK examples in the same samples/ directory and execute them one after another.</p>
 <p>All corresponding commands will be prepended with rs_. librealsense samples are prepended with cpp_ and their code is in <code>realsense_sdk_beta3/build/librealsense-1.11.2/examples/</code>.</p>
-<h2>Realsense sample description</h2>
+<h2>RealSense sample description</h2>
 <p>To guide you through the samples, here is some description of the existing SDK samples:</p>
 <ul>
 <li>rs_or_tutorial_1: This console app demonstrates the use of librealsense, Object Library, and the Linux SDK Framework, along with the RealSense camera&#39;s depth and color sensors to identify objects in the scene. <br>Each object identified is printed on the command line along with the confidence value for the object. Objects must take up ~50% of the screen to be recognized.</li>
@@ -251,17 +255,17 @@ Best host: 192.168.0.29 of ifa type: wlan0
 <li>rs_or_tutorial_2_gui: This GUI/console app builds on the rs_or_tutorial_2 app, and demonstrates how to utilize object localization and 3D localization. A GUI is displayed in a pop-up window along with output in the console. Recognized objects will be highlighted with a bounding box, label, and confidence level drawn in a live video stream. Other information is displayed for each recognized object in a table in the pop-up window and in the console.</li>
 <li>rs_or_tutorial_3_gui: This GUI/console app builds on the rs_or_tutorial_3 app, and demonstrates how to add object tracking functionality with localization and 3D localization. Tracked objects can be as small as 1% of the screen. The coordinates of the tracked object(s) are displayed in a pop-up window and the console. Tracked objects are shown by a labeled bounding rectangle drawn over a live video stream. The user can trigger the localization function using the mouse.</li>
 <li>rs_or_tutorial_4_gui: This GUI/console app builds on the rs_or_tutorial_3 app, and demonstrates how to add object tracking functionality. The coordinates of the tracked object(s) are displayed in pop-up window and the console. Tracked objects are shown the pop-up window by a labeled bounding rectangle drawn over a live video stream. The user will choose the tracked object using the mouse.</li>
-<li>rs_pt_tutorial_1: This sample app demonstrates the use of libRealsense, Person Library, and the Linux SDK Framework to use the ZR300 camera&#39;s depth and color sensors to detect people in the scene. The number of people detected in the scene will be displayed as a quantity in the console.</li>
+<li>rs_pt_tutorial_1: This sample app demonstrates the use of libRealSense, Person Library, and the Linux SDK Framework to use the ZR300 camera&#39;s depth and color sensors to detect people in the scene. The number of people detected in the scene will be displayed as a quantity in the console.</li>
 <li>rs_pt_tutorial_2: This sample app demonstrates how to analyze someone&#39;s posture. When a person is in the FOV, the app should display the following information once every second: his head direction (yaw, pitch, roll values) and his body direction (front/side/back values).</li>
 <li>rs_pt_tutorial_3: This sample app demonstrates how to get the body tracking points and detect a pointing gesture. The app will display 6 body points, a &#34;Pointing Detected&#34; alert when the gesture is performed, and the pointing vector.</li>
 <li>rs_pt_tutorial_1_web: This GUI app builds on the rs_pt_tutorial_1 app and displays the live color preview from the camera within a browser and draw rectangles around the person(s) detected in the camera frame and draws a color dot indicating the center of mass for the detected person in the image. There is also a table as part of the GUI that shows the person id, center of mass world coordinates (x,y,z) and the cumulative count of persons detected.</li>
 <li>rs_pt_tutorial_2_web: This GUI app builds on the rs_pt_tutorial_2 app and displays the live color preview from the camera within a browser and draws rectangle around the head of a person detected in the camera frame. There is also a table as part of the GUI that shows the person id, head pose information, and the person orientation (front, left, right, etc.) with confidence score.</li>
 <li>rs_pt_tutorial_3_web: This GUI app builds on the rs_pt_tutorial_3 app and displays the live color preview from the camera within a browser and draws rectangle around the person detected in the camera frame. Also draws an arrow to indicate the direction of the pointing gesture. There is also a table as part of the GUI that shows the person id, gesture origin (x,y,z) and gesture direction.</li>
-<li>rs_or_pt_tutorial_1: This console app demonstrates the use of libRealsense, Object Library, and Person Library, using the ZR300 camera identify objects and persons. The name of the object, along with the confidence value will be printed in the console. Person information like person id and the 2D box coordinates will be printed in the console.</li>
+<li>rs_or_pt_tutorial_1: This console app demonstrates the use of libRealSense, Object Library, and Person Library, using the ZR300 camera identify objects and persons. The name of the object, along with the confidence value will be printed in the console. Person information like person id and the 2D box coordinates will be printed in the console.</li>
 <li>rs_or_pt_tutorial_1_web: This GUI app builds on the rs_or_pt_tutorial_1 app and displays the live color preview from the camera within a browser and draw rectangles around the person(s) and object(s) detected in the camera frame. There is also a table as part of the GUI that shows the person id, center of mass world coordinates(x,y,z) along with object label, object center world coordinates and confidence score.</li>
-<li>rs_slam_or_pt_tutorial_1: This console app demonstrates the use of libRealsense, SLAM, Object Library, and Person Library, using the ZR300 camera to print out the current camera module position and identified objects and identified persons. The name of the object along with the confidence value will be printed in the console for identified objects. Person information like person id and the 2D box coordinates will be printed in the console.</li>
+<li>rs_slam_or_pt_tutorial_1: This console app demonstrates the use of libRealSense, SLAM, Object Library, and Person Library, using the ZR300 camera to print out the current camera module position and identified objects and identified persons. The name of the object along with the confidence value will be printed in the console for identified objects. Person information like person id and the 2D box coordinates will be printed in the console.</li>
 <li>rs_slam_or_pt_tutorial_1_web: This GUI app builds on the rs_slam_or_pt_tutorial_1 app and displays live fisheye and color preview, occupancy map, input and tracking fps for fisheye, depth, gyro and accelerometer frames, within a browser. Draws rectangles around recognized objects and persons in the color preview.</li>
-<li>rs_slam_tutorial_1: This app demonstrates the use of librealsense and SLAM Library. The librealsense library streams depth, fish eye, and IMU data from the ZR300 camera which are used as input to the SLAM Library library. The SLAM Library outputs the camera pose (position and orientation) and occupancy map. The occupancy map is a 2D map of the surroundings that shows which areas are occupied by obstacles to navigation. It also illustrates how to save a ROS compatible occupancy PNG file and metadata .yaml file.</li>
+<li>rs_slam_tutorial_1: This app demonstrates the use of librealsense and SLAM Library. The librealsense library streams depth, fish eye, and IMU data from the ZR300 camera which are used as input to the SLAM Library library. The SLAM Library outputs the camera pose (position and orientation) and occupancy map. The occupancy map is a 2D map of the surroundings that shows which areas are occupied by obstacles to navigation. It also illustrates how to save a ROS compatible occupancy PNG file and meta data .yaml file.</li>
 <li>rs_slam_tutorial_1_web: This GUI app builds on the rs_slam_tutorial_1 app and displays live fisheye preview, occupancy map, input and tracking fps for fisheye, depth, gyro and accelerometer frames, within a browser.<br></li>
 </ul>
 
@@ -269,16 +273,16 @@ Best host: 192.168.0.29 of ifa type: wlan0
       </google-codelab-step>
     
       <google-codelab-step label="That&#39;s all folks!" duration="1">
-        <p>Congratulations! You have played with the Intel Realsense SDK, installed and enabled it on your Ubuntu Core image in the Joule. You now have as well some samples and looked at some code on using the SDK.</p>
-<p>You should by now be familiar with the various parts composing the SDK, what each of them is responsible for and some basic ideas on how to use them. You also know what  features the Intel Realsense supports and have some samples on how to utilize them.</p>
+        <p>Congratulations! You have played with the Intel RealSense SDK, installed and enabled it on your Ubuntu Core image in the Joule. You now have as well some samples and looked at some code on using the SDK.</p>
+<p>You should by now be familiar with the various parts composing the SDK, what each of them is responsible for and some basic ideas on how to use them. You also know what  features the Intel RealSense supports and have some samples on how to utilize them.</p>
 <h2>Next steps</h2>
 <ul>
-<li>Learn some more advanced techniques on how to use your snap system looking for our others codelabs!</li>
+<li>Learn some more advanced techniques on how to use your snap system looking for our others tutorials!</li>
 <li>Join the snapcraft.io community by subcribing to <a href="https://lists.snapcraft.io/mailman/listinfo/snapcraft" target="_blank">our mailing list</a>.</li>
 </ul>
 <h2>Further readings</h2>
 <ul>
-<li>The <a href="http://www.intel.fr/content/www/fr/fr/architecture-and-technology/realsense-overview.html" target="_blank">Intel Realsense</a> website is a good one to learn more about this technology.</li>
+<li>The <a href="http://www.intel.fr/content/www/fr/fr/architecture-and-technology/realsense-overview.html" target="_blank">Intel RealSense</a> website is a good one to learn more about this technology.</li>
 <li>Check how you can <a href="http://snapcraft.io/community/" target="_blank">contact us and the broader community</a>.</li>
 </ul>
 

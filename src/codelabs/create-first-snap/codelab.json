@@ -23,7 +23,7 @@
     "snapcraft",
     "usage"
   ],
-  "feedback": "https://github.com/ubuntu/codelabs/issues",
+  "feedback": "https://github.com/ubuntudesign/tutorials.ubuntu.com/issues",
   "difficulty": 1,
   "url": "create-first-snap"
 }

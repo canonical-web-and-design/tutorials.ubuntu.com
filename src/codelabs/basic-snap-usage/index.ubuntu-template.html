@@ -17,7 +17,7 @@
     }
     #codelabobj pre .str.str, #codelabobj pre .kwd.kwd, #codelabobj pre .com.com, #codelabobj pre .typ.typ, #codelabobj pre .lit.lit, #codelabobj pre .pun.pun, #codelabobj pre .pln.pln, #codelabobj pre .tag.tag, #codelabobj pre .atn.atn, #codelabobj pre .atv.atv, #codelabobj pre .dec.dec {
       color: #333;
-    }    
+    }
     google-codelab-survey {
       border: 1px solid #19B6EE;
       background: rgba(25, 182, 238, 0.1);
@@ -37,15 +37,16 @@
       };
     };
   </style>
-  
+
+
   <google-codelab id="codelabobj"
                   title="Basic snap usage"
                   environment="web"
-                  feedback-link="https://github.com/ubuntu/codelabs/issues">
+                  feedback-link="https://github.com/ubuntudesign/tutorials.ubuntu.com/issues">
     <app-route
       route="{{route}}"
       tail="{{routeTail}}"></app-route>
-    
+
       <google-codelab-step label="Introduction" duration="1">
         <p>Welcome to the world of snaps! In this codelab, we are going to cover the very basics on how to use <a href="http://snapcraft.io/" target="_blank">snaps</a> on your Linux distribution, and you&#39;ll directly see the main benefits of them in action.</p>
 <p><img style="max-width: 500.00px" src="img/17e5009256674631.png"></p>
@@ -81,7 +82,7 @@
 
 
       </google-codelab-step>
-    
+
       <google-codelab-step label="Getting set up" duration="2">
         <h2>Installing snapd</h2>
 <p><code>snapd</code> is the service which runs on your machine and keeps track of your installed snaps, interacts with the store and provides the <code>snap</code> command for you to interact with it. Installing it on any of the Linux distributions mentioned below is straight-forward.</p>
@@ -124,7 +125,7 @@ $ sudo zypper install snapd</pre>
 
 
       </google-codelab-step>
-    
+
       <google-codelab-step label="Installing and running your first snap" duration="3">
         <h2>Searching for a snap</h2>
 <p><code>snapd</code> is up and running now, so let&#39;s start using it! Here is how you can find any &#34;hello world&#34; kind of snaps in the store:</p>
@@ -170,7 +171,7 @@ hello 64.75 MB [=====================================&gt;___]   12s
 
 
       </google-codelab-step>
-    
+
       <google-codelab-step label="More snap features" duration="1">
         <h2>Snap can ship one or more commands</h2>
 <p>Our first example was simple and shipped only one command, but in general snap packages can contain more than one command (for example a set of tools shipped in one snap). All commands are then namespaced by the snap package name. Run the steps below to see an example in action:</p>
@@ -196,7 +197,7 @@ hello-world removed</pre>
 
 
       </google-codelab-step>
-    
+
       <google-codelab-step label="Using versions and channels" duration="2">
         <p>Developers can release stable, candidate, beta and edge versions of a snap at the same time, to engage with a community who are willing to test upcoming changes. You decide how close to the leading edge you want to be.</p>
 <p>By default, snaps are installed from the stable channel. By convention, developers use the candidate channel to provide a heads-up of a new stable revision, putting it in candidate a few days before stable so that people can test it out. The beta channel is for unfinished but interesting milestones, and the edge channel is conventionally used for regular or daily development builds that have passed some lightweight smoke-testing.</p>
@@ -222,7 +223,7 @@ Hello, world!</pre>
 
 
       </google-codelab-step>
-    
+
       <google-codelab-step label="That&#39;s all folks!" duration="1">
         <h2>Easy, wasn&#39;t it?</h2>
 <p>Congratulations! You made it!</p>
@@ -240,7 +241,7 @@ Hello, world!</pre>
 
 
       </google-codelab-step>
-    
+
   </google-codelab>
 
 </template>
@@ -266,13 +267,13 @@ Hello, world!</pre>
     ],
 
     ready: function() {
-      
-      
+
+
       this.$.codelabobj._goToHome = this._goToHome.bind(this)
     },
 
     _goToHome: function() {
-        
+
         window.location.href = this.backURL;
     },
 

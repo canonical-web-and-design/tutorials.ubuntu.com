@@ -25,7 +25,7 @@
     "snapcraft",
     "webserver"
   ],
-  "feedback": "https://github.com/ubuntu/codelabs/issues",
+  "feedback": "https://github.com/ubuntudesign/tutorials.ubuntu.com/issues",
   "difficulty": 2,
   "url": "build-a-nodejs-service"
 }
