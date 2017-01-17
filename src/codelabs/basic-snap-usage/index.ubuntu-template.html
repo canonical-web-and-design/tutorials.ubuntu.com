@@ -8,7 +8,6 @@
       --google-codelab-header-background: var(--secondary-color);
       --paper-blue-500: var(--secondary-color);
       --google-codelab-fab-background: var(--secondary-color);
-      
     };
     #codelabobj pre {
       background-color: var(--color-light);
@@ -20,19 +19,21 @@
       color: #333;
     }    
     google-codelab-survey {
-      background: rgba(25, 182, 238, 0.1);
       border: 1px solid #19B6EE;
+      background: rgba(25, 182, 238, 0.1);
       border-radius: 2px;
     }
     google-codelab-step {
+      --google-codelab-step-code: {
+        font-family: 'Ubuntu Mono',Helvetica,Arial;
+      };
       --google-codelab-step-warn: {
-        background: rgba(237, 49, 70, 0.1);
         border: 1px solid #ED3146;
+        background: rgba(237, 49, 70, 0.1);
       };
       --google-codelab-step-tip: {
-        background: rgba(236, 169, 24, 0.1);
         border: 1px solid #ECA918;
-        color: var(--secondary-color);
+        background: rgba(236, 169, 24, 0.1);
       };
     };
   </style>
