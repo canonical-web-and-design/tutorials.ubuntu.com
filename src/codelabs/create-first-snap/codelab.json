@@ -4,14 +4,14 @@
   "format": "ubuntu-template.html",
   "prefix": "../../..",
   "mainga": "UA-1018242-64",
-  "updated": "2017-01-13T12:09:55Z",
+  "updated": "2017-01-17T16:36:29Z",
   "id": "create-first-snap",
   "duration": 20,
   "title": "Create your first snap",
   "summary": "We are going to use snapcraft to walk you through the creation of your first snap and main snapcraft concepts.",
   "theme": "snapcraft",
   "status": [
-    "draft"
+    "published"
   ],
   "category": [
     "snapcraft"
