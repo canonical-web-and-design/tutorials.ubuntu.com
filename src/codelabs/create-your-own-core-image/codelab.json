@@ -24,7 +24,7 @@
     "snap",
     "ubuntu-image"
   ],
-  "feedback": "https://github.com/ubuntu/codelabs/issues",
+  "feedback": "https://github.com/ubuntudesign/tutorials.ubuntu.com/issues",
   "difficulty": 3,
   "url": "create-your-own-core-image"
 }

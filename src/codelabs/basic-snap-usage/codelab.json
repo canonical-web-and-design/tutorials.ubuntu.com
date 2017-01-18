@@ -22,7 +22,7 @@
     "snap",
     "usage"
   ],
-  "feedback": "https://github.com/ubuntu/codelabs/issues",
+  "feedback": "https://github.com/ubuntudesign/tutorials.ubuntu.com/issues",
   "difficulty": 1,
   "url": "basic-snap-usage"
 }
