@@ -4,14 +4,14 @@
   "format": "ubuntu-template.html",
   "prefix": "../../..",
   "mainga": "UA-1018242-64",
-  "updated": "2017-01-16T06:34:34Z",
+  "updated": "2017-01-18T13:20:53Z",
   "id": "create-your-own-core-image",
   "duration": 18,
   "title": "Create your own Core image",
   "summary": "Create your own Ubuntu Core image for a particular model, by assembling snaps available in the store. Make your own device image with some snap preinstalled or additional functionalities!",
   "theme": "snap",
   "status": [
-    "draft"
+    "published"
   ],
   "category": [
     "snap"

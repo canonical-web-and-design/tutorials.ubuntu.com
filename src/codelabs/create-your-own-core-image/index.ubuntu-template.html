@@ -46,9 +46,9 @@
     <app-route
       route="{{route}}"
       tail="{{routeTail}}"></app-route>
-    
+
       <google-codelab-step label="Overview" duration="1">
-        <p>We are going to build an image for the <a href="https://software.intel.com/en-us/iot/hardware/joule/dev-kit" target="_blank">Intel Joule</a> device. Including extra snaps compared to the default provided Intel Joule ubuntu core image. The same techniques can be replicated on any other devices.</p>
+        <p>We are going to build an image for the <a href="https://software.intel.com/en-us/iot/hardware/joule/dev-kit" target="_blank">Intel Joule</a> device. Including extra snaps compared to the default provided Intel Joule Ubuntu Core image. The same techniques can be replicated on any other devices.</p>
 <p>We are going to create your own authority keys, making the snap store aware of them, create and sign your model assertion before building your image.</p>
 <p>This document will walk you through all the steps to build an image for a device family. You will learn how to:</p>
 <h2 class="checklist">What you&#39;ll learn</h2>
@@ -61,7 +61,7 @@
 </ul>
 <h2>What you&#39;ll need</h2>
 <ul>
-<li>Ubuntu 16.04 LTS desktop. You can&#39;t do this on an ubuntu core device directly as creating your image can take quite some disk spaces. A VM can work as well.</li>
+<li>Ubuntu 16.04 LTS desktop. You can&#39;t do this on an Ubuntu Core device directly as creating your image can take quite some disk spaces. A VM can work as well.</li>
 <li>Some very basic knowledge of command line use, know how to edit files.</li>
 </ul>
 <google-codelab-survey survey-id="create-your-own-core-image-1">
@@ -80,7 +80,7 @@
 
 
       </google-codelab-step>
-    
+
       <google-codelab-step label="Getting started" duration="1">
         <p>If you are on Ubuntu 16.04 LTS or Ubuntu 16.10, getting all the required tools is very easy. </p>
 <aside class="special"><p>Note: other GNU/Linux distributions are currently in the process of building images.</p>
@@ -150,11 +150,11 @@ State machine options:
                         inclusively. STEP can be a name or number.
   -r, --resume          Continue the state machine from the previously saved
                         state. It is an error if there is no previous state.</pre>
-<p>You will see that the requirement argument for ubuntu-image is the model assertion. Let&#39;s discuss about what this is and what compose an ubuntu core image exactly.</p>
+<p>You will see that the requirement argument for ubuntu-image is the model assertion. Let&#39;s discuss about what this is and what compose an Ubuntu Core image exactly.</p>
 
 
       </google-codelab-step>
-    
+
       <google-codelab-step label="Dissection of an Ubuntu Core image" duration="4">
         <h2>What your image is made of</h2>
 <p><img style="max-width: 476.00px" src="img/e0a97139605870d3.png"></p>
@@ -164,7 +164,7 @@ Name         Version                 Rev  Developer  Notes
 core         16.04.1                 714  canonical  -
 joule        16.04-0.8+1             1    canonical  -
 joule-linux  4.4.0-1000-0+joule08-1  1    canonical  -</pre>
-<p>You will always have at least 3 snaps installed on your ubuntu device:</p>
+<p>You will always have at least 3 snaps installed on your Ubuntu device:</p>
 <ul>
 <li>A Core snap.</li>
 <li>A Kernel snap</li>
@@ -179,10 +179,10 @@ publisher: canonical
 description: |
   The core runtime environment for snapd
 type:        core
-tracking:    
+tracking:
 installed:   16.04.1 (714) 79MB -
 refreshed:   2016-12-16 04:28:38 +0000 UTC
-channels:                  
+channels:
   stable:    16.04.1 (714) 0B -
   candidate: 16.04.1 (714) 0B -
   beta:      16.04.1 (714) 0B -
@@ -198,10 +198,10 @@ publisher: canonical
 description: |
   Kernel snap for Intel Joule
 type:        kernel
-tracking:    
+tracking:
 installed:   4.4.0-1000-0+joule08-1 (1) 140MB -
 refreshed:   2016-12-11 12:03:09 +0000 UTC
-channels:                               
+channels:
   candidate: 4.4.0-1000-0+joule08-1 (1) 0B -
   beta:      4.4.0-1000-0+joule08-1 (1) 0B -
   edge:      4.4.0-1000-0+joule08-1 (1) 0B -</pre>
@@ -215,15 +215,15 @@ summary:   &#34;Joule system package&#34;
 publisher: canonical
 description: |
   system configuration of Intel Joule platform
-  
+
 type:      gadget
-tracking:  
+tracking:
 installed: 16.04-0.8+1 (1) 1MB -
 refreshed: 2016-11-18 08:47:45 +0000 UTC</pre>
 <p>The gadget snap is a key snap for device boot, as it contains the description of the boot and file system layout, which is then used for image building. The gadget snap is also responsible for defining and manipulating the system properties which are specific to one or more devices (like default configuration for some services). You can thus have multiple devices with the exact same hardware, but different gadget snap for different level of use (beginner, intermediate, experts) or different kind of use (home router, enterprise configuration...).</p>
 <p>You can as well build your own gadget snap, upload it to the store after signing it, but here, we are going to reuse the existing one as well.</p>
 <h2>Model assertion</h2>
-<p>The model is a json file that specify which model you are building, what ubuntu core series you are tracking for which architecture, and what gadget and kernel snap you are using in your image creation for your device.</p>
+<p>The model is a json file that specify which model you are building, what Ubuntu Core series you are tracking for which architecture, and what gadget and kernel snap you are using in your image creation for your device.</p>
 <p>You can as well specify extra required snaps that will be installed by default on the image.</p>
 <p>An assertion is a digitally signed documents that express a fact or policy by a particular authority about a particular object in the snap universe. An assertion consists of a set of structured headers, which vary based on the type of assertion, an optional body (variable format, depends on type of assertion) and the signature.</p>
 <p>We are thus going to create a model json file, and then sign it with our authority account to create a model assertion that will be accepted by ubuntu-image.</p>
@@ -231,7 +231,7 @@ refreshed: 2016-11-18 08:47:45 +0000 UTC</pre>
 
 
       </google-codelab-step>
-    
+
       <google-codelab-step label="Create your signature keys" duration="5">
         <p>Before starting with building the image, you need to create a key to sign your future store uploads. You will only to do this one for your signature authority</p>
 <h2>Create a key</h2>
@@ -259,7 +259,7 @@ Select a key:
 Key number: 2
 Enter your Ubuntu One SSO credentials.
 Email: my-email@ubuntu.com
-Password: 
+Password:
 Second-factor auth:
 
 Login successful.
@@ -275,7 +275,7 @@ Done. The key &#34;my-key-name&#34; (zSC0HgMmN76pF7Y-ZbeCkmDkRB7nGDARS6CPlyOlPcJ
 
 
       </google-codelab-step>
-    
+
       <google-codelab-step label="Creating a model assertion" duration="3">
         <p>Let&#39;s create a model definition file, specifying the definition of our device and what snaps composes it by default.</p>
 <h2>Model definition</h2>
@@ -294,7 +294,7 @@ Done. The key &#34;my-key-name&#34; (zSC0HgMmN76pF7Y-ZbeCkmDkRB7nGDARS6CPlyOlPcJ
 <p>Here are the keys we are defining:</p>
 <ul>
 <li>type: the assertion type you are creating (here a model assertion)</li>
-<li>series: the ubuntu core series you are targeting. We are targeting here Core 16.</li>
+<li>series: the Ubuntu Core series you are targeting. We are targeting here Core 16.</li>
 <li>model: a free form lower-case name for your target device.</li>
 <li>architecture: the architecture of the device you are building the image for. Note that every snaps that will be installed on that image will respect that architecture. As Intel Joule is an 64 bits intel base processor, we set here amd64 as the architecture name. On other model, you can specify x86 (intel 32 bits), armhf (armel 32 bits) or amr64 (armel 64 bits).</li>
 <li>gadget: name of the gadget snap as published on the store. Note that this snap can be a file on disk.</li>
@@ -356,26 +356,31 @@ LmMuuAPwoeDkimRr9M6WY6XAso9Qku25kIH2IyDFMQ==
 
 
       </google-codelab-step>
-    
+
       <google-codelab-step label="Building the image" duration="3">
         <p>Now that we have a signed model assertions, defining all bits we need to create our image, it&#39;s time to build it!</p>
 <h2>Using ubuntu-image</h2>
 <p><code>ubuntu-image</code> is the command line tool used to create your device image. For making this workshop a little bit more exciting, we are going to fetch the snaps from the beta channel, and write its output to <code>joule.img</code>.</p>
-<pre><code>c</code></pre>
+<pre><code>$ sudo ubuntu-image -o joule.img -c beta joule.model
+Fetching core
+Fetching joule-linux
+Fetching joule
+Fetching hello
+Fetching hello-world</code></pre>
 <p>You can see that the core, gadget, kernel, hello and hello-world snaps are downloaded one after another from the beta channel. They are then all assembled to form this device image.</p>
-<pre><code>$ ls -lh joule.img 
+<pre><code>$ ls -lh joule.img
 -rw-rw-r-- 1 didrocks didrocks 695M Jan  6 17:20 joule.img</code></pre>
-<aside class="special"><p>Note that the device image default size (that can be changed via the --image-size option) will only match the needed space for all those snaps. First ubuntu core image boot will take longer than usual as it match the image size with the space available on disk.</p>
+<aside class="special"><p>Note that the device image default size (that can be changed via the --image-size option) will only match the needed space for all those snaps. First Ubuntu Core image boot will take longer than usual as it match the image size with the space available on disk.</p>
 </aside>
 <p>And here is your device image file, which contains your extra snaps! This one can be copied to any removable device like</p>
 <pre><code>$ sudo dd if joule.img of=/dev/sdXX bs=32M; sync;</code></pre>
 
 
       </google-codelab-step>
-    
+
       <google-codelab-step label="That&#39;s all folks!" duration="1">
         <p>Congratulations! You now have your own device image file for your specific device. This image is easily flashable on any SDCard or eMMC and can be booted right away.</p>
-<p>You should by now be familiar with the various snaps composing an ubuntu image: Core snap, kernel, gadget. You know that snapd is using a model assertion to define all pieces composing an image and this is what is used to build the image via the ubuntu-image tool.</p>
+<p>You should by now be familiar with the various snaps composing an Ubuntu image: Core snap, kernel, gadget. You know that snapd is using a model assertion to define all pieces composing an image and this is what is used to build the image via the ubuntu-image tool.</p>
 <p>Finally, you know also that you can change those default snaps, and add more applications snaps as you require them. If you produce your own gadget or kernel snap, you can swap as well default ones and enable a new board that way.</p>
 <h2>Next steps</h2>
 <ul>
@@ -393,7 +398,7 @@ LmMuuAPwoeDkimRr9M6WY6XAso9Qku25kIH2IyDFMQ==
 
 
       </google-codelab-step>
-    
+
   </google-codelab>
 
 </template>
@@ -419,13 +424,13 @@ LmMuuAPwoeDkimRr9M6WY6XAso9Qku25kIH2IyDFMQ==
     ],
 
     ready: function() {
-      
-      
+
+
       this.$.codelabobj._goToHome = this._goToHome.bind(this)
     },
 
     _goToHome: function() {
-        
+
         window.location.href = this.backURL;
     },
 

@@ -4,14 +4,14 @@
   "format": "ubuntu-template.html",
   "prefix": "../../..",
   "mainga": "UA-1018242-64",
-  "updated": "2017-01-13T10:50:11Z",
+  "updated": "2017-01-17T16:36:24Z",
   "id": "build-a-nodejs-service",
   "duration": 17,
   "title": "Build a nodejs service",
   "summary": "We are going to use the nodejs snapcraft plugin to build a simple service. We'll guide you through the good practice for debugging and iterating over your web server, and basic confinement notions.",
   "theme": "snapcraft",
   "status": [
-    "draft"
+    "published"
   ],
   "category": [
     "snapcraft"
