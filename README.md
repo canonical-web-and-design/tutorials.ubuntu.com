@@ -30,4 +30,4 @@ $ polymer serve build/bundled/app
 
 ---
 
-Based on [ubuntu/codelabs-source](https://github.com/ubuntu/codelabs-source) (by @didrocks), which is in turn based on [googlecodelabs/codelab-components](https://github.com/googlecodelabs/codelab-components).
+Based on [ubuntu/codelabs-source](https://github.com/ubuntu/codelabs-source) (by [@didrocks](https://github.com/didrocks)), which is in turn based on [googlecodelabs/codelab-components](https://github.com/googlecodelabs/codelab-components).
