@@ -241,8 +241,6 @@ Error: listen EACCES 0.0.0.0:80
     at Object.Module._extensions..js (module.js:416:10)
     at Module.load (module.js:343:32)
     at Function.Module._load (module.js:300:12)</pre>
-<aside class="warning"><p>Important note: With current snapd (2.16/2.17), there is a bug where jailmode doesn&#39;t work correctly and thus, you won&#39;t see the above failure.<br>Check <a href="https://bugs.launchpad.net/bugs/1641885" target="_blank">https://bugs.launchpad.net/bugs/1641885</a> for more information. So, you need to turn in confinement right away (changing confinement: devmode to confinement: strict, rebuilding and just use snap try prime/ --dangerous instead)</p>
-</aside>
 <p>Thanks to keeping the service as a simple command, we see easily that, even if ran as root, the nodejs built-in web server isn&#39;t able to listen on port 80. How to easily debug and fix this?</p>
 <h2>Debugging denials tools</h2>
 <p>It seems we were denied on listening to an interface, but how to confirm this? There is a tool as part of the <code>snappy-debug</code> package especially suited for it.</p>
