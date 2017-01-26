@@ -68,11 +68,27 @@
         text-decoration: none;
       }
       .card-content {
+        padding-top: 0;
         position: relative;
+      }
+      .meta {
+        color: var(--secondary-text-color);
+        font-size: .875em;
+      }
+      .meta--tags {
+        bottom: 0;
+        position: absolute;
+      }
+      .meta--tags .meta__tag:after {
+        content: ' ,';
+        display: inline-block;
+      }
+      .meta--tags .meta__tag:last-of-type:after {
+        content: '';
       }
       @media only screen and (min-width: 768px) {
         .card-content {
-          height: 200px;
+          height: 260px;
         }
       }
     </style>
@@ -86,11 +102,11 @@
           <h2 class="title">[[title]]</h2>
         </div>
         <div class="card-content">
-          <p><time-pretty datetime="[[updated]]"></time-pretty></p>
+          <p class="meta"><time-pretty datetime="[[updated]]">[[updated]]</time-pretty></p>
           <p>[[summary]]</p>
-          <p>
+          <p class="meta meta--tags">
             <template is="dom-repeat" items="[[tags]]">
-              <span>[[item]]</span>
+              <span class="meta__tag">[[item]]</span>
             </template>
           </p>
         </div>

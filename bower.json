@@ -2,7 +2,7 @@
   "name": "ubuntu-tutorials",
   "main": "index.html",
   "dependencies": {
-    "polymer": "Polymer/polymer#^1.4.0",
+    "polymer": "Polymer/polymer#^1.4.0"
   },
   "devDependencies": {
     "app-layout": "polymerelements/app-layout#^0.10.0",
