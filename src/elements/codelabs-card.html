@@ -70,6 +70,12 @@
       .card-content {
         padding-top: 0;
         position: relative;
+        padding-bottom: 4em;
+      }
+      @media only screen and (min-width: 768px) {
+        .card-content {
+          height: 260px;
+        }
       }
       .meta {
         color: var(--secondary-text-color);
@@ -85,11 +91,6 @@
       }
       .meta--tags .meta__tag:last-of-type:after {
         content: '';
-      }
-      @media only screen and (min-width: 768px) {
-        .card-content {
-          height: 260px;
-        }
       }
     </style>
 
