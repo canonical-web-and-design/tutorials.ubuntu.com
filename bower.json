@@ -8,6 +8,7 @@
     "app-layout": "polymerelements/app-layout#^0.10.0",
     "app-route": "polymerelements/app-route#^0.9.1",
     "codelab-components": "https://github.com/googlecodelabs/codelab-components.git#^2.0.2",
+    "date-fns": "^1.27.1",
     "iron-ajax": "^1.4.0",
     "iron-flex-layout": "polymerelements/iron-flex-layout#^1.0.0",
     "iron-icon": "polymerelements/iron-icon#^1.0.0",
