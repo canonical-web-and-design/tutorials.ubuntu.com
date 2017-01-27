@@ -70,7 +70,9 @@
       .card-content {
         padding-top: 0;
         position: relative;
-        padding-bottom: 4em;
+      }
+      .summary {
+        margin-bottom: 4em;
       }
       @media only screen and (min-width: 768px) {
         .card-content {
@@ -104,7 +106,7 @@
         </div>
         <div class="card-content">
           <p class="meta"><time-pretty datetime="[[updated]]">[[updated]]</time-pretty></p>
-          <p>[[summary]]</p>
+          <p class="summary">[[summary]]</p>
           <p class="meta meta--tags">
             <template is="dom-repeat" items="[[tags]]">
               <span class="meta__tag">[[item]]</span>
