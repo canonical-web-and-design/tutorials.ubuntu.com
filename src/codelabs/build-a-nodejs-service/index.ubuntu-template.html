@@ -48,7 +48,7 @@
       tail="{{routeTail}}"></app-route>
     
       <google-codelab-step label="Overview" duration="1">
-        <p>We are going to build together one of the most important web service of the world on our machine:  a Chuck Norris random quotation website! We are going to use a &#34;Chuck As A Service&#34; API, available at free of charge at <a href="https://chucknorris.io" target="_blank">chucknorris.io</a>. This CAAS will be accessed through a npm module named chucknorris-io that we will install alongside (even if Chuck doesn&#39;t need a npm module nor a javascript engine to render data in your browser).</p>
+        <p>We are going to build together one of the most important web service of the world on our machine:  a Chuck Norris random quotation website! We are going to use a &#34;Chuck As A Service&#34; API, available free of charge at <a href="https://chucknorris.io" target="_blank">chucknorris.io</a>. This CAAS will be accessed through a npm module named chucknorris-io that we will install alongside (even if Chuck doesn&#39;t need a npm module nor a javascript engine to render data in your browser).</p>
 <p>This website is going to run as a service, meaning a long running process which will always start when you start your device and restart if the server crashes. You will build your first webservice this way and see how to snap nodejs apps.</p>
 <p><img style="max-width: 624.00px" src="img/e2bd8c114dbb80c5.png"></p>
 <h2 class="checklist">What you&#39;ll learn</h2>
@@ -130,7 +130,7 @@ confinement: devmode</code></pre>
 </aside>
 <h2>Our first build</h2>
 <p>Time to build your project (only priming it, no need for a snap for fast iteration as we saw in previous codelabs) to check that the project builds correctly.</p>
-<pre>$ snapcraft
+<pre>$ snapcraft prime
 Preparing to pull webserver 
 Pulling webserver 
 Downloading &#39;node-v4.4.4-linux-x64.tar.gz&#39;[===============================] 100%
@@ -241,8 +241,6 @@ Error: listen EACCES 0.0.0.0:80
     at Object.Module._extensions..js (module.js:416:10)
     at Module.load (module.js:343:32)
     at Function.Module._load (module.js:300:12)</pre>
-<aside class="warning"><p>Important note: With current snapd (2.16/2.17), there is a bug where jailmode doesn&#39;t work correctly and thus, you won&#39;t see the above failure.<br>Check <a href="https://bugs.launchpad.net/bugs/1641885" target="_blank">https://bugs.launchpad.net/bugs/1641885</a> for more information. So, you need to turn in confinement right away (changing confinement: devmode to confinement: strict, rebuilding and just use snap try prime/ --dangerous instead)</p>
-</aside>
 <p>Thanks to keeping the service as a simple command, we see easily that, even if ran as root, the nodejs built-in web server isn&#39;t able to listen on port 80. How to easily debug and fix this?</p>
 <h2>Debugging denials tools</h2>
 <p>It seems we were denied on listening to an interface, but how to confirm this? There is a tool as part of the <code>snappy-debug</code> package especially suited for it.</p>
