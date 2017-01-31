@@ -1,44 +1,3 @@
-
-<dom-module id="create-your-own-core-image">
-
-<template>
-
-  <style>
-    :root {
-      --google-codelab-header-background: var(--secondary-color);
-      --paper-blue-500: var(--secondary-color);
-      --google-codelab-fab-background: var(--secondary-color);
-    };
-    #codelabobj pre {
-      background-color: var(--color-light);
-      border-radius: 2px;
-      border: 1px solid var(--color-mid-light);
-      color: var(--color-dark);
-    }
-    #codelabobj pre .str.str, #codelabobj pre .kwd.kwd, #codelabobj pre .com.com, #codelabobj pre .typ.typ, #codelabobj pre .lit.lit, #codelabobj pre .pun.pun, #codelabobj pre .pln.pln, #codelabobj pre .tag.tag, #codelabobj pre .atn.atn, #codelabobj pre .atv.atv, #codelabobj pre .dec.dec {
-      color: #333;
-    }
-    google-codelab-survey {
-      border: 1px solid #19B6EE;
-      background: rgba(25, 182, 238, 0.1);
-      border-radius: 2px;
-    }
-    google-codelab-step {
-      --google-codelab-step-code: {
-        font-family: 'Ubuntu Mono',Helvetica,Arial;
-      };
-      --google-codelab-step-warn: {
-        border: 1px solid #ED3146;
-        background: rgba(237, 49, 70, 0.1);
-      };
-      --google-codelab-step-tip: {
-        border: 1px solid #ECA918;
-        background: rgba(236, 169, 24, 0.1);
-      };
-    };
-  </style>
-
-
   <google-codelab id="codelabobj"
                   title="Create your own Core image"
                   environment="web"
@@ -157,7 +116,7 @@ State machine options:
 
       <google-codelab-step label="Dissection of an Ubuntu Core image" duration="4">
         <h2>What your image is made of</h2>
-<p><img style="max-width: 476.00px" src="img/e0a97139605870d3.png"></p>
+<p><img style="max-width: 476.00px" src="/src/codelabs/create-your-own-core-image/img/e0a97139605870d3.png"></p>
 <p>If you simply run &#34;snap list&#34; on your Ubuntu Core image, you will see that your image is already composed of many snap. For instance, on our Intel Joule:</p>
 <pre>$ snap list
 Name         Version                 Rev  Developer  Notes
@@ -400,51 +359,3 @@ Fetching hello-world</code></pre>
       </google-codelab-step>
 
   </google-codelab>
-
-</template>
-
-<script>
-
-  Polymer({
-
-    is: 'create-your-own-core-image',
-
-    properties: {
-      route: {
-        type: String
-      },
-      backURL: {
-        type: String,
-        value: "/",
-      },
-    },
-
-    observers: [
-      '_getParams(routeTail.__queryParams)'
-    ],
-
-    ready: function() {
-
-
-      this.$.codelabobj._goToHome = this._goToHome.bind(this)
-    },
-
-    _goToHome: function() {
-
-        window.location.href = this.backURL;
-    },
-
-    _getParams: function(params) {
-      if (!params) {
-        return;
-      }
-      if (params.backURL !== undefined) {
-          this.backURL = decodeURIComponent(params.backURL)
-      }
-    },
-
-  });
-
-</script>
-
-</dom-module>
