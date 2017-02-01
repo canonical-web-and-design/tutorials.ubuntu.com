@@ -4,11 +4,11 @@
   "format": "ubuntu-template.html",
   "prefix": "../../..",
   "mainga": "UA-1018242-64",
-  "updated": "2017-01-17T17:48:44Z",
+  "updated": "2017-01-21T06:36:07Z",
   "id": "setup-ubuntu-core-intel-joule",
   "duration": 35,
   "title": "Setup Intel Joule",
-  "summary": "In this codelab, we are going to setup Ubuntu Core on your Intel flash. We'll flash the sd card with an Ubuntu Core image and then configure it.",
+  "summary": "In this codelab, we are going to setup Ubuntu Core on your Intel Joule. We'll flash the sd card with an Ubuntu Core image and then configure it.",
   "theme": "snap",
   "status": [
     "published"

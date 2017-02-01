@@ -1,13 +1,14 @@
-  <google-codelab id="codelabobj"
-                  title="Create your own Core image"
-                  environment="web"
-                  feedback-link="https://github.com/ubuntudesign/tutorials.ubuntu.com/issues">
-    <app-route
-      route="{{route}}"
-      tail="{{routeTail}}"></app-route>
+<google-codelab
+  id="codelabobj"
+  title="Create your own Core image"
+  environment="web"
+  feedback-link="https://github.com/ubuntudesign/tutorials.ubuntu.com/issues">
+  <app-route
+    route="{{route}}"
+    tail="{{routeTail}}"></app-route>
 
-      <google-codelab-step label="Overview" duration="1">
-        <p>We are going to build an image for the <a href="https://software.intel.com/en-us/iot/hardware/joule/dev-kit" target="_blank">Intel Joule</a> device. Including extra snaps compared to the default provided Intel Joule Ubuntu Core image. The same techniques can be replicated on any other devices.</p>
+  <google-codelab-step label="Overview" duration="1">
+    <p>We are going to build an image for the <a href="https://software.intel.com/en-us/iot/hardware/joule/dev-kit" target="_blank">Intel Joule</a> device. Including extra snaps compared to the default provided Intel Joule Ubuntu Core image. The same techniques can be replicated on any other devices.</p>
 <p>We are going to create your own authority keys, making the snap store aware of them, create and sign your model assertion before building your image.</p>
 <p>This document will walk you through all the steps to build an image for a device family. You will learn how to:</p>
 <h2 class="checklist">What you&#39;ll learn</h2>
@@ -38,10 +39,10 @@
 </google-codelab-survey>
 
 
-      </google-codelab-step>
+  </google-codelab-step>
 
-      <google-codelab-step label="Getting started" duration="1">
-        <p>If you are on Ubuntu 16.04 LTS or Ubuntu 16.10, getting all the required tools is very easy. </p>
+  <google-codelab-step label="Getting started" duration="1">
+    <p>If you are on Ubuntu 16.04 LTS or Ubuntu 16.10, getting all the required tools is very easy. </p>
 <aside class="special"><p>Note: other GNU/Linux distributions are currently in the process of building images.</p>
 </aside>
 <p>Now simply run:</p>
@@ -112,10 +113,10 @@ State machine options:
 <p>You will see that the requirement argument for ubuntu-image is the model assertion. Let&#39;s discuss about what this is and what compose an Ubuntu Core image exactly.</p>
 
 
-      </google-codelab-step>
+  </google-codelab-step>
 
-      <google-codelab-step label="Dissection of an Ubuntu Core image" duration="4">
-        <h2>What your image is made of</h2>
+  <google-codelab-step label="Dissection of an Ubuntu Core image" duration="4">
+    <h2>What your image is made of</h2>
 <p><img style="max-width: 476.00px" src="/src/codelabs/create-your-own-core-image/img/e0a97139605870d3.png"></p>
 <p>If you simply run &#34;snap list&#34; on your Ubuntu Core image, you will see that your image is already composed of many snap. For instance, on our Intel Joule:</p>
 <pre>$ snap list
@@ -189,10 +190,10 @@ refreshed: 2016-11-18 08:47:45 +0000 UTC</pre>
 <p>Let&#39;s create those keys for signing before diving into the model itself!</p>
 
 
-      </google-codelab-step>
+  </google-codelab-step>
 
-      <google-codelab-step label="Create your signature keys" duration="5">
-        <p>Before starting with building the image, you need to create a key to sign your future store uploads. You will only to do this one for your signature authority</p>
+  <google-codelab-step label="Create your signature keys" duration="5">
+    <p>Before starting with building the image, you need to create a key to sign your future store uploads. You will only to do this one for your signature authority</p>
 <h2>Create a key</h2>
 <p>As a first step, you have to generate a key that will be linked to your Ubuntu Store account. To do so, run:</p>
 <pre>$ snap create-key my-key-name
@@ -233,10 +234,10 @@ Done. The key &#34;my-key-name&#34; (zSC0HgMmN76pF7Y-ZbeCkmDkRB7nGDARS6CPlyOlPcJ
 <p>The key is now registered with the store and you can start creating the model assertion!</p>
 
 
-      </google-codelab-step>
+  </google-codelab-step>
 
-      <google-codelab-step label="Creating a model assertion" duration="3">
-        <p>Let&#39;s create a model definition file, specifying the definition of our device and what snaps composes it by default.</p>
+  <google-codelab-step label="Creating a model assertion" duration="3">
+    <p>Let&#39;s create a model definition file, specifying the definition of our device and what snaps composes it by default.</p>
 <h2>Model definition</h2>
 <p>The model definition is a json simple file. In a directory create <code>joule-model.json</code> with that content:</p>
 <pre><code>{
@@ -314,10 +315,10 @@ LmMuuAPwoeDkimRr9M6WY6XAso9Qku25kIH2IyDFMQ==
 <p>The last step will be the easiest: actually building the image!</p>
 
 
-      </google-codelab-step>
+  </google-codelab-step>
 
-      <google-codelab-step label="Building the image" duration="3">
-        <p>Now that we have a signed model assertions, defining all bits we need to create our image, it&#39;s time to build it!</p>
+  <google-codelab-step label="Building the image" duration="3">
+    <p>Now that we have a signed model assertions, defining all bits we need to create our image, it&#39;s time to build it!</p>
 <h2>Using ubuntu-image</h2>
 <p><code>ubuntu-image</code> is the command line tool used to create your device image. For making this workshop a little bit more exciting, we are going to fetch the snaps from the beta channel, and write its output to <code>joule.img</code>.</p>
 <pre><code>$ sudo ubuntu-image -o joule.img -c beta joule.model
@@ -335,10 +336,10 @@ Fetching hello-world</code></pre>
 <pre><code>$ sudo dd if joule.img of=/dev/sdXX bs=32M; sync;</code></pre>
 
 
-      </google-codelab-step>
+  </google-codelab-step>
 
-      <google-codelab-step label="That&#39;s all folks!" duration="1">
-        <p>Congratulations! You now have your own device image file for your specific device. This image is easily flashable on any SDCard or eMMC and can be booted right away.</p>
+  <google-codelab-step label="That&#39;s all folks!" duration="1">
+    <p>Congratulations! You now have your own device image file for your specific device. This image is easily flashable on any SDCard or eMMC and can be booted right away.</p>
 <p>You should by now be familiar with the various snaps composing an Ubuntu image: Core snap, kernel, gadget. You know that snapd is using a model assertion to define all pieces composing an image and this is what is used to build the image via the ubuntu-image tool.</p>
 <p>Finally, you know also that you can change those default snaps, and add more applications snaps as you require them. If you produce your own gadget or kernel snap, you can swap as well default ones and enable a new board that way.</p>
 <h2>Next steps</h2>
@@ -356,6 +357,6 @@ Fetching hello-world</code></pre>
 </ul>
 
 
-      </google-codelab-step>
+  </google-codelab-step>
 
-  </google-codelab>
+</google-codelab>

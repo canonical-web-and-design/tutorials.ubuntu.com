@@ -1,13 +1,14 @@
-  <google-codelab id="codelabobj"
-                  title="Build a nodejs service"
-                  environment="web"
-                  feedback-link="https://github.com/ubuntudesign/tutorials.ubuntu.com/issues">
-    <app-route
-      route="{{route}}"
-      tail="{{routeTail}}"></app-route>
+<google-codelab
+  id="codelabobj"
+  title="Build a nodejs service"
+  environment="web"
+  feedback-link="https://github.com/ubuntudesign/tutorials.ubuntu.com/issues">
+  <app-route
+    route="{{route}}"
+    tail="{{routeTail}}"></app-route>
 
-      <google-codelab-step label="Overview" duration="1">
-        <p>We are going to build together one of the most important web service of the world on our machine:  a Chuck Norris random quotation website! We are going to use a &#34;Chuck As A Service&#34; API, available free of charge at <a href="https://chucknorris.io" target="_blank">chucknorris.io</a>. This CAAS will be accessed through a npm module named chucknorris-io that we will install alongside (even if Chuck doesn&#39;t need a npm module nor a javascript engine to render data in your browser).</p>
+  <google-codelab-step label="Overview" duration="1">
+    <p>We are going to build together one of the most important web service of the world on our machine:  a Chuck Norris random quotation website! We are going to use a &#34;Chuck As A Service&#34; API, available free of charge at <a href="https://chucknorris.io" target="_blank">chucknorris.io</a>. This CAAS will be accessed through a npm module named chucknorris-io that we will install alongside (even if Chuck doesn&#39;t need a npm module nor a javascript engine to render data in your browser).</p>
 <p>This website is going to run as a service, meaning a long running process which will always start when you start your device and restart if the server crashes. You will build your first webservice this way and see how to snap nodejs apps.</p>
 <p><img style="max-width: 624.00px" src="/src/codelabs/build-a-nodejs-service/img/e2bd8c114dbb80c5.png"></p>
 <h2 class="checklist">What you&#39;ll learn</h2>
@@ -40,10 +41,10 @@
 </google-codelab-survey>
 
 
-      </google-codelab-step>
+  </google-codelab-step>
 
-      <google-codelab-step label="Getting familiar with the project" duration="1">
-        <p>This project is a nodejs application, serving a web page on request. The backend code issue a REST request through against a web API, using chucknorris-io npm module.</p>
+  <google-codelab-step label="Getting familiar with the project" duration="1">
+    <p>This project is a nodejs application, serving a web page on request. The backend code issue a REST request through against a web API, using chucknorris-io npm module.</p>
 <h2>Get the code</h2>
 <p>Simply run:</p>
 <pre>$ git clone https://github.com/ubuntu/snap-codelabs-code
@@ -55,10 +56,10 @@ $ cd snap-codelabs-code/build-a-nodejs-service/start</pre>
 </ul>
 
 
-      </google-codelab-step>
+  </google-codelab-step>
 
-      <google-codelab-step label="Start snapping your project" duration="5">
-        <h2>Metadata</h2>
+  <google-codelab-step label="Start snapping your project" duration="5">
+    <h2>Metadata</h2>
 <p>Let&#39;s scaffold our default <code>snapcraft.yaml</code> file via:</p>
 <pre>$ snapcraft init
 Created snapcraft.yaml.
@@ -173,10 +174,10 @@ Server listening on: http://localhost:80</pre>
 <p>It&#39;s now high time to get rid of this devmode thing and add some confinement to your snap, let&#39;s do this right away!</p>
 
 
-      </google-codelab-step>
+  </google-codelab-step>
 
-      <google-codelab-step label="Turning on confinement!" duration="5">
-        <aside class="special"><p>Lost or starting from here?</p>
+  <google-codelab-step label="Turning on confinement!" duration="5">
+    <aside class="special"><p>Lost or starting from here?</p>
 <p>Check or download <a href="https://github.com/ubuntu/snap-codelabs-code/tree/master/build-a-nodejs-service/step3" target="_blank">here</a> to see what your current directory should look like.</p>
 </aside>
 <h2>Enabling confinement</h2>
@@ -210,18 +211,16 @@ $ sudo snappy-debug.security scanlog chuck-norris-webserver
 WARN: Could not set kernel rate limiting
 Please run &#39;snap connect snappy-debug:log-observe :log-observe&#39; as root</pre>
 <p>Ok, it seems this snap needs a little bit additional work. Indeed, the snap is not in devmode and it needs to have additional permissions through an interface. We thus have to connect the log-observe plug from snappy-debug to the log-observe slot in core snap (name can be omitted as above). If those notions aren&#39;t clear to you, please refer to the first snap codelabs.</p>
-<pre>$ sudo snappy-debug.security scanlog chuck-norris-webserver
+<pre>$ snap connect snappy-debug:log-observe :log-observe
 $ snappy-debug.security scanlog chuck-norris-webserver
 sysctl: permission denied on key &#39;kernel.printk_ratelimit&#39;
 # Type Ctrl + C
 $ sudo snappy-debug.security scanlog chuck-norris-webserver
 kernel.printk_ratelimit = 0</pre>
-<aside class="warning"><p>With current snapd (2.16), we need to define the core snap in the connect command explicitly contrary to snappy-debug output message. This will be fixed soon.</p>
-</aside>
 <aside class="special"><p>Note that we need to run the tool as a privileged user. The kernel indeed is doing some rate limiting operations which may skip some debug logs for us. Running it as root alleviate this limitation for this command for us.</p>
 </aside>
 <p>Then, the command will block and filter any output related to our snap with some advice.</p>
-<p>For example, if you run in another temrinal:</p>
+<p>For example, if you run in another terminal:</p>
 <pre>$ sudo chuck-norris-webserver.node-service
 [ same stacktrace ]</pre>
 <p>You will see:</p>
@@ -316,10 +315,10 @@ Slot           Plug
 <p>Phew, we are nearly there! We have a working snap, exposing a command which is now confined. It was easier to iterate thanks to the fact we kept the application as a command and not a service. However, now that everything is ready, let&#39;s move on our final step: exposing this application as a service!</p>
 
 
-      </google-codelab-step>
+  </google-codelab-step>
 
-      <google-codelab-step label="Exposing it as a service" duration="4">
-        <aside class="special"><p>Lost or starting from here?</p>
+  <google-codelab-step label="Exposing it as a service" duration="4">
+    <aside class="special"><p>Lost or starting from here?</p>
 <p>Check or download <a href="https://github.com/ubuntu/snap-codelabs-code/tree/master/build-a-nodejs-service/step4" target="_blank">here</a> to see what your current directory should look like.</p>
 </aside>
 <p>What is a service? A service is simply a long running command, which will ideally always be on or for a definite period of time to answer some requests.</p>
@@ -426,10 +425,10 @@ nov. 15 15:17:53 tidus snap[15622]: Quoted http://api.chucknorris.io/jokes/elgv2
 <p>You can omit -f to not following the logs live, but only prints the ones that were printed already.</p>
 
 
-      </google-codelab-step>
+  </google-codelab-step>
 
-      <google-codelab-step label="That&#39;s all folks!" duration="1">
-        <h2>There is no Esc key on Chuck Norris&#39; keyboard, because no one escapes Chuck Norris.</h2>
+  <google-codelab-step label="That&#39;s all folks!" duration="1">
+    <h2>There is no Esc key on Chuck Norris&#39; keyboard, because no one escapes Chuck Norris.</h2>
 <p>Congratulations! As Chuck, you made it!</p>
 <aside class="special"><p>Final code </p>
 <p>You final code directory should now look like <a href="https://github.com/ubuntu/snap-codelabs-code/tree/master/build-a-nodejs-service/final" target="_blank">this</a>. Do not hesitate to download and build your snap from it if you only read it through!</p>
@@ -452,6 +451,6 @@ nov. 15 15:17:53 tidus snap[15622]: Quoted http://api.chucknorris.io/jokes/elgv2
 </ul>
 
 
-      </google-codelab-step>
+  </google-codelab-step>
 
-  </google-codelab>
+</google-codelab>

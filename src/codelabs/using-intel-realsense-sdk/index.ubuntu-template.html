@@ -1,13 +1,14 @@
-  <google-codelab id="codelabobj"
-                  title="Using Intel RealSense SDK on the desktop"
-                  environment="web"
-                  feedback-link="https://github.com/ubuntudesign/tutorials.ubuntu.com/issues">
-    <app-route
-      route="{{route}}"
-      tail="{{routeTail}}"></app-route>
+<google-codelab
+  id="codelabobj"
+  title="Using Intel RealSense SDK on the desktop"
+  environment="web"
+  feedback-link="https://github.com/ubuntudesign/tutorials.ubuntu.com/issues">
+  <app-route
+    route="{{route}}"
+    tail="{{routeTail}}"></app-route>
 
-      <google-codelab-step label="Overview" duration="1">
-        <p>We are going to illustrate how to build some <a href="http://www.intel.eu/content/www/eu/en/architecture-and-technology/realsense-overview.html" target="_blank">Intel RealSense</a> SDK samples on an Ubuntu Core image using the classic snap. You will be able to hook up on your <a href="https://software.intel.com/en-us/iot/hardware/joule/dev-kit" target="_blank">Intel Joule</a> and build the samples, explore some of the code and try them!</p>
+  <google-codelab-step label="Overview" duration="1">
+    <p>We are going to illustrate how to build some <a href="http://www.intel.eu/content/www/eu/en/architecture-and-technology/realsense-overview.html" target="_blank">Intel RealSense</a> SDK samples on an Ubuntu Core image using the classic snap. You will be able to hook up on your <a href="https://software.intel.com/en-us/iot/hardware/joule/dev-kit" target="_blank">Intel Joule</a> and build the samples, explore some of the code and try them!</p>
 <h2 class="checklist">What you&#39;ll learn</h2>
 <ul class="checklist">
 <li>What compose the Intel RealSense SDK.</li>
@@ -35,10 +36,10 @@
 </google-codelab-survey>
 
 
-      </google-codelab-step>
+  </google-codelab-step>
 
-      <google-codelab-step label="Getting started" duration="2">
-        <p>If you are on Ubuntu 16.04 LTS or Ubuntu 16.10, getting all the required tools is very easy. </p>
+  <google-codelab-step label="Getting started" duration="2">
+    <p>If you are on Ubuntu 16.04 LTS or Ubuntu 16.10, getting all the required tools is very easy. </p>
 <aside class="special"><p>Note: other GNU/Linux distributions are currently in the process of building packages for snapcraft.</p>
 </aside>
 <h2>Downloading the SDK</h2>
@@ -52,10 +53,10 @@ $ curl -o realsense_sdk_beta3.tar.bz2 &lt;download_link&gt;</pre>
 <p>Now that we have the SDK extracted, let&#39;s look in detail to its content and build it!</p>
 
 
-      </google-codelab-step>
+  </google-codelab-step>
 
-      <google-codelab-step label="Building the SDK" duration="30">
-        <h2>Starting building</h2>
+  <google-codelab-step label="Building the SDK" duration="30">
+    <h2>Starting building</h2>
 <p>As building the whole SDK and dependencies is quite a long process, let&#39;s start building it right away before looking at its content.</p>
 <pre>$ cd realsense_sdk_beta3
 $ sudo ./install_script.sh</pre>
@@ -172,10 +173,10 @@ zr300_firmware_update_prq_2.zip</pre>
 <p>We are going to detail the available samples in the next section!</p>
 
 
-      </google-codelab-step>
+  </google-codelab-step>
 
-      <google-codelab-step label="Available samples" duration="30">
-        <h2>Preliminary notes</h2>
+  <google-codelab-step label="Available samples" duration="30">
+    <h2>Preliminary notes</h2>
 <p>On ubuntu desktop, you can run any examples you want (graphical and non graphical).  Most of the samples are rendering some graphical UI. Those have the rs_ prefix for realsense SDK and cpp_ prefix for those using librealsense (the bare protocole).</p>
 <p>Ubuntu Core, on itself, doesn&#39;t have any graphical server by default. Consequently, you can&#39;t run most of the samples rendering some graphical UI. However, there are a lot of samples with a _web appendix. They are spawning a web interface that you can access to the network, showing you real time data and capture from the camera.</p>
 <p>You can focus and experiment on both kind of examples.</p>
@@ -229,10 +230,10 @@ Best host: 192.168.0.29 of ifa type: wlan0
 </ul>
 
 
-      </google-codelab-step>
+  </google-codelab-step>
 
-      <google-codelab-step label="That&#39;s all folks!" duration="1">
-        <p>Congratulations! You have played with the Intel RealSense SDK, installed and enabled it on your Ubuntu Core image in the Joule. You now have as well some samples and looked at some code on using the SDK.</p>
+  <google-codelab-step label="That&#39;s all folks!" duration="1">
+    <p>Congratulations! You have played with the Intel RealSense SDK, installed and enabled it on your Ubuntu Core image in the Joule. You now have as well some samples and looked at some code on using the SDK.</p>
 <p>You should by now be familiar with the various parts composing the SDK, what each of them is responsible for and some basic ideas on how to use them. You also know what  features the Intel RealSense supports and have some samples on how to utilize them.</p>
 <h2>Next steps</h2>
 <ul>
@@ -246,6 +247,6 @@ Best host: 192.168.0.29 of ifa type: wlan0
 </ul>
 
 
-      </google-codelab-step>
+  </google-codelab-step>
 
-  </google-codelab>
+</google-codelab>
