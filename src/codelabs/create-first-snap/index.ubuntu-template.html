@@ -1,13 +1,14 @@
-  <google-codelab id="codelabobj"
-                  title="Create your first snap"
-                  environment="web"
-                  feedback-link="https://github.com/ubuntudesign/tutorials.ubuntu.com/issues">
-    <app-route
-      route="{{route}}"
-      tail="{{routeTail}}"></app-route>
+<google-codelab
+  id="codelabobj"
+  title="Create your first snap"
+  environment="web"
+  feedback-link="https://github.com/ubuntudesign/tutorials.ubuntu.com/issues">
+  <app-route
+    route="{{route}}"
+    tail="{{routeTail}}"></app-route>
 
-      <google-codelab-step label="Overview" duration="1">
-        <p><code>snapcraft</code> is our tool of choice to build snaps. It reads a simple, declarative file and runs the build for you. You will get to play with snapcraft, see how easy it is to use and create your first snap along the way.</p>
+  <google-codelab-step label="Overview" duration="1">
+    <p><code>snapcraft</code> is our tool of choice to build snaps. It reads a simple, declarative file and runs the build for you. You will get to play with snapcraft, see how easy it is to use and create your first snap along the way.</p>
 <p><img style="max-width: 500.00px" src="/src/codelabs/create-first-snap/img/17e5009256674631.png"></p>
 <h2 class="checklist">What you&#39;ll learn</h2>
 <ul class="checklist">
@@ -39,10 +40,10 @@
 </google-codelab-survey>
 
 
-      </google-codelab-step>
+  </google-codelab-step>
 
-      <google-codelab-step label="Getting started" duration="1">
-        <p>If you are on Ubuntu 16.04 LTS or Ubuntu 16.10, getting all the required tools is very easy. </p>
+  <google-codelab-step label="Getting started" duration="1">
+    <p>If you are on Ubuntu 16.04 LTS or Ubuntu 16.10, getting all the required tools is very easy. </p>
 <aside class="special"><p>Note: other GNU/Linux distributions are currently in the process of building packages for snapcraft.</p>
 </aside>
 <h2>If you are running ubuntu core</h2>
@@ -54,7 +55,9 @@
 <pre>$ sudo classic
 (classic)foo@localhost:~$</pre>
 <p>You will note that the shell is prepended with <code>(classic)</code> to remind you that you are running those commands inside the classic snap. You can exit the shell classically by typing <code>exit</code>.</p>
-<p>You can now run the commands and build a snap as if you were on a classic system (we won&#39;t remind you about that in the following and others codelabs. Just remember that when you run the &#34;snap&#34; (and not snapcraft) command to interact or install a snap, you need to be outside of this classic snap (you can open a second ssh connection for instance).</p>
+<p>You can now run the commands and build a snap as if you were on a classic system (we won&#39;t remind you about that in the following and others codelabs. Just remember that when you run the &#34;snap&#34; (and not snapcraft) command to interact or install a snap, you need to be outside of this classic snap (you can open a second ssh connexion for instance).</p>
+<p>Let&#39;s initialize the apt database in this classic snap as first thing:</p>
+<pre>(classic)foo@localhost:~$ sudo apt update</pre>
 <h2>Installing dependencies</h2>
 <p>Now simply run:</p>
 <pre>$ sudo apt install snapcraft build-essential</pre>
@@ -62,10 +65,10 @@
 <p>We&#39;re all set now, let&#39;s get cracking and let&#39;s build your first snap!</p>
 
 
-      </google-codelab-step>
+  </google-codelab-step>
 
-      <google-codelab-step label="Building a snap is easy" duration="4">
-        <h2>Starting the project</h2>
+  <google-codelab-step label="Building a snap is easy" duration="4">
+    <h2>Starting the project</h2>
 <p>As we are starting from scratch, the first steps are to create a directory and use a simple template for your snap definition. In the terminal, just run:</p>
 <pre>$ mkdir hello
 $ cd hello
@@ -88,7 +91,7 @@ confinement: devmode # use &#39;strict&#39; once you have the right plugs and sl
 <p>This part of <code>snapcraft.yaml</code> is mandatory and describes the very basics of the snap metadata. Let&#39;s go through this line by line:</p>
 <ul>
 <li>name describes the name of the snap.</li>
-<li>version is the current version of the snap.</li>
+<li>version is the current version of the snap. This is just a human readable string. The ascii order doesn&#39;t matter: all snap uploads will get an incremental snap revision, which is independant from the version. It&#39;s so separated that you can upload multiple times the same snap for the same architecture with the exact same version. See it as a string that indicates to your user the current version, like &#34;stable&#34;, &#34;2.0&#34; and such.</li>
 <li>summary is a short, one-line summary or tag-line for your snap.</li>
 <li>description should provide the user with enough information to judge if the snap is going to be useful to them. This description can span over multiple lines if prefixed with |.</li>
 <li>grade can be used by the publisher to indicate the quality confidence in the build. The store will prevent publishing &#34;devel&#34; grade builds to stable channels.</li>
@@ -120,6 +123,8 @@ confinement: devmode</code></pre>
         source: http://ftp.gnu.org/gnu/hello/hello-2.10.tar.gz
         plugin: autotools</code></pre>
 <p>In the list of parts, we add simply one called <code>gnu-hello</code> (the part name can take whatever identifier you like). As source we simply use a tarball from the GNU project&#39;s ftp server - snapcraft will download and extract it automatically. As plugin you pick autotools which uses the pretty common <code>./configure &amp;&amp; make &amp;&amp; make install</code> steps to build the part under the hood.</p>
+<aside class="special"><p>You can get the exhaustive list of supported snapcraft plugins with &#34;snapcraft list-plugins&#34; command. Those maps popular build tools that projects could use.</p>
+</aside>
 <p>Now to the exciting part: let&#39;s build it! All you need to do here is:</p>
 <pre>~/hello$ snapcraft
 [...]
@@ -129,7 +134,7 @@ Snapping &#39;hello&#39; |
 Snapped hello_2.10_amd64.snap</pre>
 <p>If your system does not have installed some dependencies such as &#34;autopoint&#34; and &#34;libtool&#34; needed for this example, snapcraft will prompt for the system password to install them. </p>
 <p>You just built your first snap! Congratulations! Let&#39;s install it now.</p>
-<pre>~/hello$ sudo snap install hello_2.10_amd64.snap --devmode
+<pre>~/hello$ sudo snap install --devmode hello_2.10_amd64.snap
 
 hello 2.10 installed
 ~/hello$ snap list
@@ -156,10 +161,10 @@ hello: command not found</pre>
 </aside>
 
 
-      </google-codelab-step>
+  </google-codelab-step>
 
-      <google-codelab-step label="Exposing an app via your snap!" duration="3">
-        <aside class="special"><p>Lost or starting from here?</p>
+  <google-codelab-step label="Exposing an app via your snap!" duration="3">
+    <aside class="special"><p>Lost or starting from here?</p>
 <p>Check or download <a href="https://github.com/ubuntu/snap-codelabs-code/tree/master/create-your-first-snap/step3" target="_blank">here</a> to see what your current directory should look like.</p>
 </aside>
 <h2>Defining commands</h2>
@@ -176,6 +181,12 @@ hello: command not found</pre>
     command: bin/hello</code></pre>
 <p>This defines an app named <code>hello</code>, which points to the executable <code>bin/hello</code> in the directory structure shipped by the snap.</p>
 <p>This way, the <code>hello</code> command will be available to our users.</p>
+<p>We generally advise to put this stanza after the snap description one (with name, version, grade...) and before the parts. The order itself doesn&#39;t matter, but it makes your snapcraft.yaml more readable. Indeed, you will have that way:</p>
+<ol type="1" start="1">
+<li>General snap info (name, version, grade...)</li>
+<li>Commands that you expose (apps)</li>
+<li>Build recipes (parts)</li>
+</ol>
 <h2>Iterating over your snap</h2>
 <p>So the command is defined, let&#39;s rebuild the snap to see if it&#39;s working now. Instead of running snapcraft, here&#39;s a technique to quickly iterate over your snap during development:</p>
 <pre>~/hello$ snapcraft prime
@@ -197,19 +208,23 @@ Hello, world!
 <p>Well done! Congratulations - this is your first working snap!</p>
 
 
-      </google-codelab-step>
+  </google-codelab-step>
 
-      <google-codelab-step label="A snap is made of parts" duration="3">
-        <aside class="special"><p>Lost or starting from here?</p>
+  <google-codelab-step label="A snap is made of parts" duration="3">
+    <aside class="special"><p>Lost or starting from here?</p>
 <p>Check or download <a href="https://github.com/ubuntu/snap-codelabs-code/tree/master/create-your-first-snap/step4" target="_blank">here</a> to see what your current directory should look like.</p>
 </aside>
-<p>Let&#39;s add another part to make the snap a bit more interesting. In the parts definition, add:</p>
-<pre><code>  gnu-bash:
+<p>Let&#39;s add another part to make the snap a bit more interesting. In the parts definition, add a new part:</p>
+<pre><code>parts:
+  [...]
+  gnu-bash:
         source: http://ftp.gnu.org/gnu/bash/bash-4.3.tar.gz
         plugin: autotools</code></pre>
 <p>You will notice that this part (named <code>gnu-bash</code>) works very much like the <code>gnu-hello</code> part from the steps before. It downloads a tarball too and builds it using the <code>autotools</code> plugin.</p>
 <p>You learned this during the step before, we still need to define the command we want to expose. Let&#39;s do this now. In the <code>apps</code> definition, add:</p>
-<pre><code>  bash:
+<pre><code>apps:
+  [...]
+  bash:
         command: bash</code></pre>
 <p>This time the command name is different from the snap name. By default, all commands are exposed to the user as <code>&lt;snap-name&gt;.&lt;command-name&gt;</code>. This binary will thus be <code>hello.bash</code>. That way we will avoid a clash with <code>/bin/bash</code> (system binaries trump binaries shipped by snaps) or any other snaps shipping a <code>bash</code> command. However, maybe you remember, the first binary is simply named <code>hello</code>. This is due to the simplification when &lt;command-name&gt; equals &lt;snap-name&gt;. Instead of <code>hello.hello</code>, we have the command condensed to simply <code>hello</code>.</p>
 <p>Our snap will thus result in two binaries being shipped: <code>hello</code> and <code>hello.bash</code>. Now execute </p>
@@ -258,23 +273,22 @@ Hello, world!
 ~/hello$ hello.bash
 bash-4.3$ env
 [ Environment variables list ]
-bash-4.3$ exit
-exit</pre>
+bash-4.3$ exit</pre>
 <aside class="special"><p>Note: You will see that the environment variables available from your snap are a little different from your user environment: some additional variables are added like $SNAP_* and some system environment variables have been altered to point to your snap directory, like $PATH or $LD_LIBRARY_PATH. Take the time to get familiar with them!</p>
 </aside>
 <p>Excellent work! You have it all nice and working!</p>
 
 
-      </google-codelab-step>
+  </google-codelab-step>
 
-      <google-codelab-step label="Removing devmode" duration="2">
-        <aside class="special"><p>Lost or starting from here?</p>
+  <google-codelab-step label="Removing devmode" duration="2">
+    <aside class="special"><p>Lost or starting from here?</p>
 <p>Check or download <a href="https://github.com/ubuntu/snap-codelabs-code/tree/master/create-your-first-snap/step5" target="_blank">here</a> to see what your current directory should look like.</p>
 </aside>
 <p>One last thing you might want to do before the snap is ready for wider consumption is to remove the <code>devmode</code> status.</p>
 <aside class="warning"><p>Users of snaps using <code>devmode</code>, will need to pass <code>--devmode</code> during the installation, so they explicitly agree to trust you and your snap. Another benefit of removing <code>devmode</code> is that you will be able to ship your snap on the stable or candidate channels (you can only publish to the other channels, like beta or edge as your snap is less trusted) and users will be able to search for it using <code>snap find</code>.</p>
 </aside>
-<p>For this to be declared in your snap, let&#39;s set <code>confinement</code> to <code>strict</code>:</p>
+<p>For this to be declared in your snap, let&#39;s set <code>confinement</code> to <code>strict</code> in your <code>snapcraft.yaml</code>:</p>
 <pre><code>confinement: strict</code></pre>
 <p>Now let&#39;s build the snap and install it! We are going to call <code>snapcraft</code> without <code>prime</code> this time and <code>snap install</code> (as opposed to <code>snap try</code> earlier) to try everything under normal conditions. You should also stop using the <code>--devmode</code> switch to really test it under confinement:</p>
 <pre>~/hello$ snapcraft
@@ -308,10 +322,10 @@ bash-4.3$ exit</pre>
 <p>You are done. This snap is ready for publication!</p>
 
 
-      </google-codelab-step>
+  </google-codelab-step>
 
-      <google-codelab-step label="Upload to the store" duration="5">
-        <aside class="special"><p>Lost or starting from here?</p>
+  <google-codelab-step label="Upload to the store" duration="5">
+    <aside class="special"><p>Lost or starting from here?</p>
 <p>Check or download <a href="https://github.com/ubuntu/snap-codelabs-code/tree/master/create-your-first-snap/step6" target="_blank">here</a> to see what your current directory should look like.</p>
 </aside>
 <p>Apps can easily be uploaded to the store via <a href="http://myapps.developer.ubuntu.com" target="_blank">My Apps</a>. Registering an account is easy, so let&#39;s do that first.</p>
@@ -390,10 +404,10 @@ edge       ^          ^</pre>
 </aside>
 
 
-      </google-codelab-step>
+  </google-codelab-step>
 
-      <google-codelab-step label="That&#39;s all folks!" duration="1">
-        <h2>Easy, wasn&#39;t it?</h2>
+  <google-codelab-step label="That&#39;s all folks!" duration="1">
+    <h2>Easy, wasn&#39;t it?</h2>
 <p>Congratulations! You made it!</p>
 <aside class="special"><p>Final code </p>
 <p>You final code directory should now look like <a href="https://github.com/ubuntu/snap-codelabs-code/tree/master/create-your-first-snap/final" target="_blank">this</a>. Do not hesitate to download and build your snap from it if you only read it through!</p>
@@ -413,6 +427,6 @@ edge       ^          ^</pre>
 </ul>
 
 
-      </google-codelab-step>
+  </google-codelab-step>
 
-  </google-codelab>
+</google-codelab>

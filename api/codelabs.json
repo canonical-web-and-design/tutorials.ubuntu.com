@@ -1,6 +1,43 @@
 {
   "codelabs": [
     {
+      "source": "1HQ98mq-OAlqrgmVUhOF84lYsNGdIf0jkZIC2JkmMS00",
+      "title": "Using Intel RealSense SDK on the desktop",
+      "summary": "We are going to illustrate how to build some Intel RealSense SDK samples on an ubuntu desktop. You will be able to hook up on your Intel Joule and build the samples, explore some of the code and try them!",
+      "category": [
+        "snap"
+      ],
+      "difficulty": 2,
+      "duration": 64,
+      "tags": [
+        "classic",
+        "joule",
+        "realsense",
+        "snap"
+      ],
+      "updated": "2017-01-17T16:36:42Z",
+      "url": "using-intel-realsense-sdk"
+    },
+    {
+      "source": "1hA-ytZZjTxajh8vIIpV6MUE03poBjdJizDQVUBgurhM",
+      "title": "Create your first snap",
+      "summary": "We are going to use snapcraft to walk you through the creation of your first snap and main snapcraft concepts.",
+      "category": [
+        "snapcraft"
+      ],
+      "difficulty": 1,
+      "duration": 20,
+      "tags": [
+        "beginner",
+        "build",
+        "idf-2016",
+        "snapcraft",
+        "usage"
+      ],
+      "updated": "2017-02-01T12:27:55Z",
+      "url": "create-first-snap"
+    },
+    {
       "source": "10jai4vAduTxF0RQMUs-pqIRbMM9TXv9dgxjNDGkxduo",
       "title": "Basic snap usage",
       "summary": "In this codelab, we are going to cover the very basic on how to use snaps on your distributions, and the main benefits from them.",
@@ -15,7 +52,7 @@
         "snap",
         "usage"
       ],
-      "updated": "2017-01-13T10:57:07Z",
+      "updated": "2017-02-01T14:11:46Z",
       "url": "basic-snap-usage"
     },
     {
@@ -36,64 +73,8 @@
         "snapcraft",
         "webserver"
       ],
-      "updated": "2017-01-13T10:50:11Z",
+      "updated": "2017-01-31T15:38:25Z",
       "url": "build-a-nodejs-service"
-    },
-    {
-      "source": "1HQ98mq-OAlqrgmVUhOF84lYsNGdIf0jkZIC2JkmMS00",
-      "title": "Using Intel RealSense SDK on the desktop",
-      "summary": "We are going to illustrate how to build some Intel RealSense SDK samples on an ubuntu desktop. You will be able to hook up on your Intel Joule and build the samples, explore some of the code and try them!",
-      "category": [
-        "snap"
-      ],
-      "difficulty": 2,
-      "duration": 64,
-      "tags": [
-        "classic",
-        "joule",
-        "realsense",
-        "snap"
-      ],
-      "updated": "2017-01-17T16:36:42Z",
-      "url": "using-intel-realsense-sdk"
-    },
-    {
-      "source": "1r--iLBwfCyBp8ZUfNSYrykve87BvLqwX58WBXN7ZcaM",
-      "title": "Setup Intel Joule",
-      "summary": "In this codelab, we are going to setup Ubutu Core on your Intel flash. We'll flash the sd card with an Ubuntu Core image and then configure it.",
-      "category": [
-        "snap"
-      ],
-      "difficulty": 1,
-      "duration": 35,
-      "tags": [
-        "beginner",
-        "console-conf",
-        "joule",
-        "snap",
-        "usage"
-      ],
-      "updated": "2017-01-12T13:09:21Z",
-      "url": "setup-ubuntu-core-intel-joule"
-    },
-    {
-      "source": "1hA-ytZZjTxajh8vIIpV6MUE03poBjdJizDQVUBgurhM",
-      "title": "Create your first snap",
-      "summary": "We are going to use snapcraft to walk you through the creation of your first snap and main snapcraft concepts.",
-      "category": [
-        "snapcraft"
-      ],
-      "difficulty": 1,
-      "duration": 20,
-      "tags": [
-        "beginner",
-        "build",
-        "idf-2016",
-        "snapcraft",
-        "usage"
-      ],
-      "updated": "2017-01-13T12:09:55Z",
-      "url": "create-first-snap"
     },
     {
       "source": "172iM3jTkg2os8HgqtSpVug3IR5pjqS2zz607hTi3KVg",
@@ -112,8 +93,27 @@
         "snap",
         "ubuntu-image"
       ],
-      "updated": "2017-01-16T06:34:34Z",
+      "updated": "2017-02-01T12:33:45Z",
       "url": "create-your-own-core-image"
+    },
+    {
+      "source": "1r--iLBwfCyBp8ZUfNSYrykve87BvLqwX58WBXN7ZcaM",
+      "title": "Setup Intel Joule",
+      "summary": "In this codelab, we are going to setup Ubuntu Core on your Intel Joule. We'll flash the sd card with an Ubuntu Core image and then configure it.",
+      "category": [
+        "snap"
+      ],
+      "difficulty": 1,
+      "duration": 35,
+      "tags": [
+        "beginner",
+        "console-conf",
+        "joule",
+        "snap",
+        "usage"
+      ],
+      "updated": "2017-01-21T06:36:07Z",
+      "url": "setup-ubuntu-core-intel-joule"
     }
   ],
   "categories": {
