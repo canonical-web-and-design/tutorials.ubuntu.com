@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+CODELABS_FOLDER='src/codelabs/*'
+REPLACE_FROM='src="img/'
+
+for tutorial_folder in `find ${CODELABS_FOLDER} -maxdepth 0 -type d`
+do
+    tutorial_file="${tutorial_folder}/index.ubuntu-template.html"
+    replace_to="src=\"/${tutorial_folder}/img/"
+
+    echo "Setting absolute img src in ${tutorial_file}"
+
+    sed -i -- "s@${REPLACE_FROM}@${replace_to}@g" "${tutorial_file}"
+done

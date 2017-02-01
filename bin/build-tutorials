@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+BUILD_TOOL='./tools/codelabs'
+GDOC_IDS_FILE='config/google-documents'
+
+while read ID; do
+  ${BUILD_TOOL} add "${ID}"
+done <"${GDOC_IDS_FILE}"
+
+./bin/patch-absolute-img-src
