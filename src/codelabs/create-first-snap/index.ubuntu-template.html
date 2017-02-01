@@ -1,44 +1,3 @@
-
-<dom-module id="create-first-snap">
-
-<template>
-
-  <style>
-    :root {
-      --google-codelab-header-background: var(--secondary-color);
-      --paper-blue-500: var(--secondary-color);
-      --google-codelab-fab-background: var(--secondary-color);
-    };
-    #codelabobj pre {
-      background-color: var(--color-light);
-      border-radius: 2px;
-      border: 1px solid var(--color-mid-light);
-      color: var(--color-dark);
-    }
-    #codelabobj pre .str.str, #codelabobj pre .kwd.kwd, #codelabobj pre .com.com, #codelabobj pre .typ.typ, #codelabobj pre .lit.lit, #codelabobj pre .pun.pun, #codelabobj pre .pln.pln, #codelabobj pre .tag.tag, #codelabobj pre .atn.atn, #codelabobj pre .atv.atv, #codelabobj pre .dec.dec {
-      color: #333;
-    }
-    google-codelab-survey {
-      border: 1px solid #19B6EE;
-      background: rgba(25, 182, 238, 0.1);
-      border-radius: 2px;
-    }
-    google-codelab-step {
-      --google-codelab-step-code: {
-        font-family: 'Ubuntu Mono',Helvetica,Arial;
-      };
-      --google-codelab-step-warn: {
-        border: 1px solid #ED3146;
-        background: rgba(237, 49, 70, 0.1);
-      };
-      --google-codelab-step-tip: {
-        border: 1px solid #ECA918;
-        background: rgba(236, 169, 24, 0.1);
-      };
-    };
-  </style>
-
-
   <google-codelab id="codelabobj"
                   title="Create your first snap"
                   environment="web"
@@ -46,10 +5,10 @@
     <app-route
       route="{{route}}"
       tail="{{routeTail}}"></app-route>
-    
+
       <google-codelab-step label="Overview" duration="1">
         <p><code>snapcraft</code> is our tool of choice to build snaps. It reads a simple, declarative file and runs the build for you. You will get to play with snapcraft, see how easy it is to use and create your first snap along the way.</p>
-<p><img style="max-width: 500.00px" src="img/17e5009256674631.png"></p>
+<p><img style="max-width: 500.00px" src="/src/codelabs/create-first-snap/img/17e5009256674631.png"></p>
 <h2 class="checklist">What you&#39;ll learn</h2>
 <ul class="checklist">
 <li>How to install snapcraft.</li>
@@ -81,7 +40,7 @@
 
 
       </google-codelab-step>
-    
+
       <google-codelab-step label="Getting started" duration="1">
         <p>If you are on Ubuntu 16.04 LTS or Ubuntu 16.10, getting all the required tools is very easy. </p>
 <aside class="special"><p>Note: other GNU/Linux distributions are currently in the process of building packages for snapcraft.</p>
@@ -104,7 +63,7 @@
 
 
       </google-codelab-step>
-    
+
       <google-codelab-step label="Building a snap is easy" duration="4">
         <h2>Starting the project</h2>
 <p>As we are starting from scratch, the first steps are to create a directory and use a simple template for your snap definition. In the terminal, just run:</p>
@@ -166,11 +125,11 @@ confinement: devmode</code></pre>
 [...]
 Staging gnu-hello
 Priming gnu-hello
-Snapping &#39;hello&#39; |                                                   
+Snapping &#39;hello&#39; |
 Snapped hello_2.10_amd64.snap</pre>
 <p>If your system does not have installed some dependencies such as &#34;autopoint&#34; and &#34;libtool&#34; needed for this example, snapcraft will prompt for the system password to install them. </p>
 <p>You just built your first snap! Congratulations! Let&#39;s install it now.</p>
-<pre>~/hello$ sudo snap install hello_2.10_amd64.snap --devmode 
+<pre>~/hello$ sudo snap install hello_2.10_amd64.snap --devmode
 
 hello 2.10 installed
 ~/hello$ snap list
@@ -198,7 +157,7 @@ hello: command not found</pre>
 
 
       </google-codelab-step>
-    
+
       <google-codelab-step label="Exposing an app via your snap!" duration="3">
         <aside class="special"><p>Lost or starting from here?</p>
 <p>Check or download <a href="https://github.com/ubuntu/snap-codelabs-code/tree/master/create-your-first-snap/step3" target="_blank">here</a> to see what your current directory should look like.</p>
@@ -239,7 +198,7 @@ Hello, world!
 
 
       </google-codelab-step>
-    
+
       <google-codelab-step label="A snap is made of parts" duration="3">
         <aside class="special"><p>Lost or starting from here?</p>
 <p>Check or download <a href="https://github.com/ubuntu/snap-codelabs-code/tree/master/create-your-first-snap/step4" target="_blank">here</a> to see what your current directory should look like.</p>
@@ -307,7 +266,7 @@ exit</pre>
 
 
       </google-codelab-step>
-    
+
       <google-codelab-step label="Removing devmode" duration="2">
         <aside class="special"><p>Lost or starting from here?</p>
 <p>Check or download <a href="https://github.com/ubuntu/snap-codelabs-code/tree/master/create-your-first-snap/step5" target="_blank">here</a> to see what your current directory should look like.</p>
@@ -327,7 +286,7 @@ Skipping stage gnu-bash (already ran)
 Skipping stage gnu-hello (already ran)
 Skipping prime gnu-bash (already ran)
 Skipping prime gnu-hello (already ran)
-Snapping &#39;hello&#39; - 
+Snapping &#39;hello&#39; -
 Snapped hello_2.10_amd64.snap</pre>
 <p>Let&#39;s try to install it!</p>
 <pre>~/hello$ sudo snap install hello_2.10_amd64.snap
@@ -350,7 +309,7 @@ bash-4.3$ exit</pre>
 
 
       </google-codelab-step>
-    
+
       <google-codelab-step label="Upload to the store" duration="5">
         <aside class="special"><p>Lost or starting from here?</p>
 <p>Check or download <a href="https://github.com/ubuntu/snap-codelabs-code/tree/master/create-your-first-snap/step6" target="_blank">here</a> to see what your current directory should look like.</p>
@@ -358,16 +317,16 @@ bash-4.3$ exit</pre>
 <p>Apps can easily be uploaded to the store via <a href="http://myapps.developer.ubuntu.com" target="_blank">My Apps</a>. Registering an account is easy, so let&#39;s do that first.</p>
 <h2>Registering an account</h2>
 <p>Open My Apps in your browser and follow the instructions to register an account:</p>
-<p><img style="max-width: 624.00px" src="img/d5592c70e3d136ed.png"></p>
+<p><img style="max-width: 624.00px" src="/src/codelabs/create-first-snap/img/d5592c70e3d136ed.png"></p>
 <p>Select &#34;I am a new Ubuntu One user&#34; and complete the needed data.</p>
-<p><img style="max-width: 624.00px" src="img/1c7822a6487fd2f3.png"></p>
+<p><img style="max-width: 624.00px" src="/src/codelabs/create-first-snap/img/1c7822a6487fd2f3.png"></p>
 <p>Enter your email address, name and password, accept the terms of service and create the account. Remember as well to choose a namespace on myapps before registering your snap.</p>
 <p>It&#39;s then time for you to get authenticated from snapcraft:</p>
 <p>If it is your first time you will get a message to enable multifactor authentication and agree with the developer terms and conditions.</p>
 <pre>~/hello$ snapcraft login
 Enter your Ubuntu One SSO credentials.
 Email: myemail@provider.com
-Password: 
+Password:
 One-time password (just press enter if you don&#39;t use two-factor authentication):
 Authenticating against Ubuntu One SSO.
 Login successful.</pre>
@@ -402,7 +361,7 @@ Skipping stage gnu-bash (already ran)
 Skipping stage gnu-hello (already ran)
 Skipping prime gnu-bash (already ran)
 Skipping prime gnu-hello (already ran)
-Snapping &#39;hello-didrocks&#39; -                                      
+Snapping &#39;hello-didrocks&#39; -
 Snapped hello-didrocks_2.10_amd64.snap</pre>
 <h2>Upload your snap</h2>
 <p>It&#39;s high time to make this snap available to the world!</p>
@@ -410,7 +369,7 @@ Snapped hello-didrocks_2.10_amd64.snap</pre>
 <pre>~/hello$ snapcraft push hello-didrocks_2.10_amd64.snap --release=candidate
 Uploading hello-didrocks_2.10_amd64.snap.
 Uploading hello-didrocks_2.10_amd64.snap [================================] 100%
-Ready to release!|                                                              
+Ready to release!|
 Revision 1 of &#39;hello-didrocks&#39; created.
 The candidate channel is now open.
 
@@ -432,7 +391,7 @@ edge       ^          ^</pre>
 
 
       </google-codelab-step>
-    
+
       <google-codelab-step label="That&#39;s all folks!" duration="1">
         <h2>Easy, wasn&#39;t it?</h2>
 <p>Congratulations! You made it!</p>
@@ -455,53 +414,5 @@ edge       ^          ^</pre>
 
 
       </google-codelab-step>
-    
+
   </google-codelab>
-
-</template>
-
-<script>
-
-  Polymer({
-
-    is: 'create-first-snap',
-
-    properties: {
-      route: {
-        type: String
-      },
-      backURL: {
-        type: String,
-        value: "/",
-      },
-    },
-
-    observers: [
-      '_getParams(routeTail.__queryParams)'
-    ],
-
-    ready: function() {
-      
-      
-      this.$.codelabobj._goToHome = this._goToHome.bind(this)
-    },
-
-    _goToHome: function() {
-        
-        window.location.href = this.backURL;
-    },
-
-    _getParams: function(params) {
-      if (!params) {
-        return;
-      }
-      if (params.backURL !== undefined) {
-          this.backURL = decodeURIComponent(params.backURL)
-      }
-    },
-
-  });
-
-</script>
-
-</dom-module>

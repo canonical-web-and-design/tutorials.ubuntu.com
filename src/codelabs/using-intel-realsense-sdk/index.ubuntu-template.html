@@ -1,44 +1,3 @@
-
-<dom-module id="using-intel-realsense-sdk">
-
-<template>
-
-  <style>
-    :root {
-      --google-codelab-header-background: var(--secondary-color);
-      --paper-blue-500: var(--secondary-color);
-      --google-codelab-fab-background: var(--secondary-color);
-    };
-    #codelabobj pre {
-      background-color: var(--color-light);
-      border-radius: 2px;
-      border: 1px solid var(--color-mid-light);
-      color: var(--color-dark);
-    }
-    #codelabobj pre .str.str, #codelabobj pre .kwd.kwd, #codelabobj pre .com.com, #codelabobj pre .typ.typ, #codelabobj pre .lit.lit, #codelabobj pre .pun.pun, #codelabobj pre .pln.pln, #codelabobj pre .tag.tag, #codelabobj pre .atn.atn, #codelabobj pre .atv.atv, #codelabobj pre .dec.dec {
-      color: #333;
-    }
-    google-codelab-survey {
-      border: 1px solid #19B6EE;
-      background: rgba(25, 182, 238, 0.1);
-      border-radius: 2px;
-    }
-    google-codelab-step {
-      --google-codelab-step-code: {
-        font-family: 'Ubuntu Mono',Helvetica,Arial;
-      };
-      --google-codelab-step-warn: {
-        border: 1px solid #ED3146;
-        background: rgba(237, 49, 70, 0.1);
-      };
-      --google-codelab-step-tip: {
-        border: 1px solid #ECA918;
-        background: rgba(236, 169, 24, 0.1);
-      };
-    };
-  </style>
-
-
   <google-codelab id="codelabobj"
                   title="Using Intel RealSense SDK on the desktop"
                   environment="web"
@@ -46,7 +5,7 @@
     <app-route
       route="{{route}}"
       tail="{{routeTail}}"></app-route>
-    
+
       <google-codelab-step label="Overview" duration="1">
         <p>We are going to illustrate how to build some <a href="http://www.intel.eu/content/www/eu/en/architecture-and-technology/realsense-overview.html" target="_blank">Intel RealSense</a> SDK samples on an Ubuntu Core image using the classic snap. You will be able to hook up on your <a href="https://software.intel.com/en-us/iot/hardware/joule/dev-kit" target="_blank">Intel Joule</a> and build the samples, explore some of the code and try them!</p>
 <h2 class="checklist">What you&#39;ll learn</h2>
@@ -77,7 +36,7 @@
 
 
       </google-codelab-step>
-    
+
       <google-codelab-step label="Getting started" duration="2">
         <p>If you are on Ubuntu 16.04 LTS or Ubuntu 16.10, getting all the required tools is very easy. </p>
 <aside class="special"><p>Note: other GNU/Linux distributions are currently in the process of building packages for snapcraft.</p>
@@ -94,7 +53,7 @@ $ curl -o realsense_sdk_beta3.tar.bz2 &lt;download_link&gt;</pre>
 
 
       </google-codelab-step>
-    
+
       <google-codelab-step label="Building the SDK" duration="30">
         <h2>Starting building</h2>
 <p>As building the whole SDK and dependencies is quite a long process, let&#39;s start building it right away before looking at its content.</p>
@@ -214,7 +173,7 @@ zr300_firmware_update_prq_2.zip</pre>
 
 
       </google-codelab-step>
-    
+
       <google-codelab-step label="Available samples" duration="30">
         <h2>Preliminary notes</h2>
 <p>On ubuntu desktop, you can run any examples you want (graphical and non graphical).  Most of the samples are rendering some graphical UI. Those have the rs_ prefix for realsense SDK and cpp_ prefix for those using librealsense (the bare protocole).</p>
@@ -222,7 +181,7 @@ zr300_firmware_update_prq_2.zip</pre>
 <p>You can focus and experiment on both kind of examples.</p>
 <h2>Running your first sample</h2>
 <p>Here is an example with rs_pt_tutorial_1_web:</p>
-<pre>$ rs_pt_tutorial_1_web 
+<pre>$ rs_pt_tutorial_1_web
 
 enabling: stream:DEPTH, 320x240x30, format:Z16
 
@@ -238,7 +197,7 @@ Server: waiting for client to connect...
 Best host: 192.168.0.29 of ifa type: wlan0
  &gt;&gt;&gt; point your browser to: http://192.168.0.29:8000/view.html</pre>
 <p>Then, point your browser to <a href="http://localhost:8000/view.html" target="_blank">http://localhost:8000/view.html</a> (or a remote IP if you are trying to browser from a different machine) and you will get something like:</p>
-<p><img style="max-width: 624.00px" src="img/ceac1fe2c15e7a59.png"></p>
+<p><img style="max-width: 624.00px" src="/src/codelabs/using-intel-realsense-sdk/img/ceac1fe2c15e7a59.png"></p>
 <p>The corresponding code is in <code>~/realsense_sdk_beta3/build/realsense_samples-0.6.2/samples/pt_tutorial_1_web/cpp/main.cpp</code></p>
 <p>You can spend some times here to study the various SDK examples in the same samples/ directory and execute them one after another.</p>
 <p>All corresponding commands will be prepended with rs_. librealsense samples are prepended with cpp_ and their code is in <code>realsense_sdk_beta3/build/librealsense-1.11.2/examples/</code>.</p>
@@ -271,7 +230,7 @@ Best host: 192.168.0.29 of ifa type: wlan0
 
 
       </google-codelab-step>
-    
+
       <google-codelab-step label="That&#39;s all folks!" duration="1">
         <p>Congratulations! You have played with the Intel RealSense SDK, installed and enabled it on your Ubuntu Core image in the Joule. You now have as well some samples and looked at some code on using the SDK.</p>
 <p>You should by now be familiar with the various parts composing the SDK, what each of them is responsible for and some basic ideas on how to use them. You also know what  features the Intel RealSense supports and have some samples on how to utilize them.</p>
@@ -288,53 +247,5 @@ Best host: 192.168.0.29 of ifa type: wlan0
 
 
       </google-codelab-step>
-    
+
   </google-codelab>
-
-</template>
-
-<script>
-
-  Polymer({
-
-    is: 'using-intel-realsense-sdk',
-
-    properties: {
-      route: {
-        type: String
-      },
-      backURL: {
-        type: String,
-        value: "/",
-      },
-    },
-
-    observers: [
-      '_getParams(routeTail.__queryParams)'
-    ],
-
-    ready: function() {
-      
-      
-      this.$.codelabobj._goToHome = this._goToHome.bind(this)
-    },
-
-    _goToHome: function() {
-        
-        window.location.href = this.backURL;
-    },
-
-    _getParams: function(params) {
-      if (!params) {
-        return;
-      }
-      if (params.backURL !== undefined) {
-          this.backURL = decodeURIComponent(params.backURL)
-      }
-    },
-
-  });
-
-</script>
-
-</dom-module>

@@ -3,21 +3,59 @@
 <link rel="import" href="../bower_components/codelab-components/google-codelab-elements.html">
 
 <dom-module id="codelabs-page">
-
   <template>
     <style>
       :root {
-        --google-codelab-header-background: var(--app-secondary-color);
+        --google-codelab-header-background: var(--secondary-color);
+        --paper-blue-500: var(--secondary-color);
+        --google-codelab-fab-background: var(--secondary-color);
       }
       :host {
         display: block;
         min-height: 100vh;
       }
-      #codelabobj pre {
+      google-codelab-step {
+        --google-codelab-step-code: {
+          font-family: 'Ubuntu Mono',Helvetica,Arial;
+        };
+        --google-codelab-step-warn: {
+          border: 1px solid #ED3146;
+          background: rgba(237, 49, 70, 0.1);
+          color: #333;
+        };
+        --google-codelab-step-tip: {
+          border: 1px solid #ECA918;
+          background: rgba(236, 169, 24, 0.1);
+          color: #333;
+        };
+      }
+      #contentContainer google-codelab pre {
         background-color: var(--color-light);
         border-radius: 2px;
         border: 1px solid var(--color-mid-light);
         color: var(--color-dark);
+      }
+      #contentContainer google-codelab pre .str,
+      #contentContainer google-codelab pre .kwd,
+      #contentContainer google-codelab pre .com,
+      #contentContainer google-codelab pre .typ,
+      #contentContainer google-codelab pre .lit,
+      #contentContainer google-codelab pre .pun,
+      #contentContainer google-codelab pre .pln,
+      #contentContainer google-codelab pre .tag,
+      #contentContainer google-codelab pre .atn,
+      #contentContainer google-codelab pre .atv,
+      #contentContainer google-codelab pre .dec {
+        color: #333;
+      }
+      #contentContainer google-codelab-step::shadow .instructions {
+        /* TODO: Move arrows down on smaller viewports */
+        /*margin-bottom: 96px;*/
+      }
+      #contentContainer google-codelab-survey {
+        border: 1px solid #19B6EE;
+        background: rgba(25, 182, 238, 0.1);
+        border-radius: 2px;
       }
     </style>
 
@@ -25,62 +63,48 @@
       route="{{route}}"
       pattern="/:codelab"
       data="{{routeData}}"
-      tail="{{routeTail}}"></app-route>
-
-      <iron-pages id="codelabwrapper" role="main" selected="[[codelab]]" attr-for-selected="name">
-      </iron-pages>
-
+      tail="{{routeTail}}">
+    </app-route>
+    <iron-ajax
+      url="/src/codelabs/[[routeData.codelab]]/index.ubuntu-template.html"
+      handle-as="text"
+      auto
+      loading="{{loading}}"
+      on-response="_loadTutorial">
+    </iron-ajax>
+    <div id="contentContainer"></div>
   </template>
 
   <script>
-
     Polymer({
-
       is: 'codelabs-page',
 
       properties: {
-
-        codelab: {
-          type: String,
-          reflectToAttribute: true,
-        },
-
         route: {
           type: String,
-          reflectToAttribute: true,
-        }
-
+        },
+        loading: {
+          type: Boolean,
+          notify: true,
+          value: false,
+        },
       },
 
       observers: [
-        '_codelabChanged(routeData.codelab)'
+        '_handleLoading(loading)',
       ],
 
-      _codelabChanged: function(codelab) {
-        // FIXME (if upstream solution)
-        // as we data-bind "subroute", even when not active, the view in map
-        // /events/events_id -> codelab_id matches :codelabs and return invalid content
-        // escape if we are not current view
-        this.codelab = codelab;
-        // Skip loading page if nothing is selected
-        if (this.codelab === undefined) {
+      _handleLoading: function(loading) {
+        if (loading !== true) {
           return;
         }
-        // load codelab import on demand.
-        var link = this.importHref(
-          this.resolveUrl("/src/codelabs/" + codelab + '/index.ubuntu-template.html'),
-          function() {
-            if (link) {
-              var dynamicEl = document.createElement(codelab);
-              dynamicEl.setAttribute("name", codelab);
-              dynamicEl.route = this.routeTail;
-              Polymer.dom(this.$.codelabwrapper).appendChild(dynamicEl);
-            }
-          }, null, true);
-      }
+        Polymer.dom(this.$.contentContainer).innerHTML = '';
+      },
 
+      _loadTutorial: function(e) {
+        const resp = e.detail.response;
+        Polymer.dom(this.$.contentContainer).innerHTML = resp;
+      },
     });
-
   </script>
-
 </dom-module>

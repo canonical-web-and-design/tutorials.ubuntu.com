@@ -1,44 +1,3 @@
-
-<dom-module id="basic-snap-usage">
-
-<template>
-
-  <style>
-    :root {
-      --google-codelab-header-background: var(--secondary-color);
-      --paper-blue-500: var(--secondary-color);
-      --google-codelab-fab-background: var(--secondary-color);
-    };
-    #codelabobj pre {
-      background-color: var(--color-light);
-      border-radius: 2px;
-      border: 1px solid var(--color-mid-light);
-      color: var(--color-dark);
-    }
-    #codelabobj pre .str.str, #codelabobj pre .kwd.kwd, #codelabobj pre .com.com, #codelabobj pre .typ.typ, #codelabobj pre .lit.lit, #codelabobj pre .pun.pun, #codelabobj pre .pln.pln, #codelabobj pre .tag.tag, #codelabobj pre .atn.atn, #codelabobj pre .atv.atv, #codelabobj pre .dec.dec {
-      color: #333;
-    }
-    google-codelab-survey {
-      border: 1px solid #19B6EE;
-      background: rgba(25, 182, 238, 0.1);
-      border-radius: 2px;
-    }
-    google-codelab-step {
-      --google-codelab-step-code: {
-        font-family: 'Ubuntu Mono',Helvetica,Arial;
-      };
-      --google-codelab-step-warn: {
-        border: 1px solid #ED3146;
-        background: rgba(237, 49, 70, 0.1);
-      };
-      --google-codelab-step-tip: {
-        border: 1px solid #ECA918;
-        background: rgba(236, 169, 24, 0.1);
-      };
-    };
-  </style>
-
-
   <google-codelab id="codelabobj"
                   title="Basic snap usage"
                   environment="web"
@@ -49,7 +8,7 @@
 
       <google-codelab-step label="Introduction" duration="1">
         <p>Welcome to the world of snaps! In this codelab, we are going to cover the very basics on how to use <a href="http://snapcraft.io/" target="_blank">snaps</a> on your Linux distribution, and you&#39;ll directly see the main benefits of them in action.</p>
-<p><img style="max-width: 500.00px" src="img/17e5009256674631.png"></p>
+<p><img style="max-width: 500.00px" src="/src/codelabs/basic-snap-usage/img/17e5009256674631.png"></p>
 <h2 class="checklist">What you&#39;ll learn</h2>
 <ul class="checklist">
 <li>How to install the <code>snapd</code> service on your system.</li>
@@ -86,7 +45,7 @@
       <google-codelab-step label="Getting set up" duration="2">
         <h2>Installing snapd</h2>
 <p><code>snapd</code> is the service which runs on your machine and keeps track of your installed snaps, interacts with the store and provides the <code>snap</code> command for you to interact with it. Installing it on any of the Linux distributions mentioned below is straight-forward.</p>
-<p><img style="max-width: 500.00px" src="img/f9f287c2e1980df1.png"></p>
+<p><img style="max-width: 500.00px" src="/src/codelabs/basic-snap-usage/img/f9f287c2e1980df1.png"></p>
 <h2>Different distributions:</h2>
 <h3>Arch</h3>
 <pre>$ sudo pacman -S snapd
@@ -243,51 +202,3 @@ Hello, world!</pre>
       </google-codelab-step>
 
   </google-codelab>
-
-</template>
-
-<script>
-
-  Polymer({
-
-    is: 'basic-snap-usage',
-
-    properties: {
-      route: {
-        type: String
-      },
-      backURL: {
-        type: String,
-        value: "/",
-      },
-    },
-
-    observers: [
-      '_getParams(routeTail.__queryParams)'
-    ],
-
-    ready: function() {
-
-
-      this.$.codelabobj._goToHome = this._goToHome.bind(this)
-    },
-
-    _goToHome: function() {
-
-        window.location.href = this.backURL;
-    },
-
-    _getParams: function(params) {
-      if (!params) {
-        return;
-      }
-      if (params.backURL !== undefined) {
-          this.backURL = decodeURIComponent(params.backURL)
-      }
-    },
-
-  });
-
-</script>
-
-</dom-module>

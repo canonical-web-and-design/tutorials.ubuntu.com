@@ -1,44 +1,3 @@
-
-<dom-module id="setup-ubuntu-core-intel-joule">
-
-<template>
-
-  <style>
-    :root {
-      --google-codelab-header-background: var(--secondary-color);
-      --paper-blue-500: var(--secondary-color);
-      --google-codelab-fab-background: var(--secondary-color);
-    };
-    #codelabobj pre {
-      background-color: var(--color-light);
-      border-radius: 2px;
-      border: 1px solid var(--color-mid-light);
-      color: var(--color-dark);
-    }
-    #codelabobj pre .str.str, #codelabobj pre .kwd.kwd, #codelabobj pre .com.com, #codelabobj pre .typ.typ, #codelabobj pre .lit.lit, #codelabobj pre .pun.pun, #codelabobj pre .pln.pln, #codelabobj pre .tag.tag, #codelabobj pre .atn.atn, #codelabobj pre .atv.atv, #codelabobj pre .dec.dec {
-      color: #333;
-    }
-    google-codelab-survey {
-      border: 1px solid #19B6EE;
-      background: rgba(25, 182, 238, 0.1);
-      border-radius: 2px;
-    }
-    google-codelab-step {
-      --google-codelab-step-code: {
-        font-family: 'Ubuntu Mono',Helvetica,Arial;
-      };
-      --google-codelab-step-warn: {
-        border: 1px solid #ED3146;
-        background: rgba(237, 49, 70, 0.1);
-      };
-      --google-codelab-step-tip: {
-        border: 1px solid #ECA918;
-        background: rgba(236, 169, 24, 0.1);
-      };
-    };
-  </style>
-
-
   <google-codelab id="codelabobj"
                   title="Setup Intel Joule"
                   environment="web"
@@ -46,10 +5,10 @@
     <app-route
       route="{{route}}"
       tail="{{routeTail}}"></app-route>
-    
+
       <google-codelab-step label="Introduction" duration="15">
         <p>Welcome to the world of Ubuntu Core! In this codelab, we are going to introduce you how to flash your eMMC for your Intel Joule board, and finally turn your Intel Joule into a Ubuntu Core 16 system.</p>
-<p><img style="max-width: 624.00px" src="img/c7f2edf913b3558f.png"></p>
+<p><img style="max-width: 624.00px" src="/src/codelabs/setup-ubuntu-core-intel-joule/img/c7f2edf913b3558f.png"></p>
 <h2 class="checklist">What you&#39;ll learn</h2>
 <ul class="checklist">
 <li>Create a Ubuntu SSO (Single-Sign-On) account</li>
@@ -84,7 +43,7 @@
 
 
       </google-codelab-step>
-    
+
       <google-codelab-step label="Getting set up" duration="7">
         <h2>Register a Ubuntu SSO account</h2>
 <p>If you have already had an SSO account, you can skip this step and move to the next. The account is used for console-conf in the following steps.</p>
@@ -92,13 +51,13 @@
 <li>Ubuntu SSO account is required to setup user profile. A user needs to create a ubuntu SSO account before using Ubuntu Core 16</li>
 <li>To create Ubuntu SSO account, go to <a href="https://login.ubuntu.com" target="_blank">https://login.ubuntu.com</a></li>
 </ol>
-<p><img style="max-width: 488.99px" src="img/618736eb54f0e88.png"></p>
+<p><img style="max-width: 488.99px" src="/src/codelabs/setup-ubuntu-core-intel-joule/img/618736eb54f0e88.png"></p>
 <ol type="1" start="3">
 <li>Complete account verification</li>
 </ol>
-<p><img style="max-width: 534.00px" src="img/e7a1ab16ad88c1d.png"></p>
-<p><img style="max-width: 518.40px" src="img/c8cb5be4ab219f54.png"></p>
-<p><img style="max-width: 515.86px" src="img/61076221edf715b9.png"></p>
+<p><img style="max-width: 534.00px" src="/src/codelabs/setup-ubuntu-core-intel-joule/img/e7a1ab16ad88c1d.png"></p>
+<p><img style="max-width: 518.40px" src="/src/codelabs/setup-ubuntu-core-intel-joule/img/c8cb5be4ab219f54.png"></p>
+<p><img style="max-width: 515.86px" src="/src/codelabs/setup-ubuntu-core-intel-joule/img/61076221edf715b9.png"></p>
 <ol type="1" start="4">
 <li>Create a SSH Key</li>
 </ol>
@@ -124,11 +83,11 @@ Your public key has been saved in /home/b/.ssh/id_rsa.pub.</pre>
 <li>Import SSH Key</li>
 </ol>
 <p>Clicking &#34;SSH keys&#34; on the left side shows the following screen. You can now just copy and paste the content of  <code>id_rsa.pub</code> file into the field. Confirm your ssh key by clicking on &#34;Import SSH key&#34;.</p>
-<p><img style="max-width: 500.50px" src="img/d1ccb7af5bc5f755.png"></p>
+<p><img style="max-width: 500.50px" src="/src/codelabs/setup-ubuntu-core-intel-joule/img/d1ccb7af5bc5f755.png"></p>
 
 
       </google-codelab-step>
-    
+
       <google-codelab-step label="Create a bootable Ubuntu Core 16 SD card" duration="7">
         <p>In this step,  you are going to flash a bootable image into a Ubuntu Core 16 SD card. </p>
 <ol type="1" start="1">
@@ -160,10 +119,10 @@ Your public key has been saved in /home/b/.ssh/id_rsa.pub.</pre>
 
 
       </google-codelab-step>
-    
+
       <google-codelab-step label="Ubuntu Core initial setup" duration="5">
         <h2>Boot Intel Joule with Ubuntu Core 16</h2>
-<p><img style="max-width: 292.50px" src="img/95b650d9f2ed7c69.png"></p>
+<p><img style="max-width: 292.50px" src="/src/codelabs/setup-ubuntu-core-intel-joule/img/95b650d9f2ed7c69.png"></p>
 <p>Power on the Joule board for booting on your new image:</p>
 <ol type="1" start="1">
 <li>Insert your SD card into your Intel Joule board</li>
@@ -173,28 +132,28 @@ Your public key has been saved in /home/b/.ssh/id_rsa.pub.</pre>
 <li>Follow the instructions on the screen to  configure your device</li>
 <li>Press enter then select &#34;Start&#34; to begin configuring your network and an administrator account</li>
 </ol>
-<p><img style="max-width: 1722.27px" src="img/c1472791d8e332f4.png"></p>
-<p><img style="max-width: 813.23px" src="img/cd9524b038761643.png"></p>
+<p><img style="max-width: 1722.27px" src="/src/codelabs/setup-ubuntu-core-intel-joule/img/c1472791d8e332f4.png"></p>
+<p><img style="max-width: 813.23px" src="/src/codelabs/setup-ubuntu-core-intel-joule/img/cd9524b038761643.png"></p>
 <ol type="1" start="7">
 <li>Configure network setting. Move cursor and select the wireless LAN interface (wlan0). And press enter.</li>
 </ol>
-<p><img style="max-width: 907.43px" src="img/3dfdf005ba763bb2.png"></p>
+<p><img style="max-width: 907.43px" src="/src/codelabs/setup-ubuntu-core-intel-joule/img/3dfdf005ba763bb2.png"></p>
 <p>Select ‘Configure WIFI settings&#39; and press enter to get to screen that allows for choosing a visible network, scan for networks or manually enter <em>SSID</em> and Password.</p>
-<p><img style="max-width: 1064.82px" src="img/b7d906dbeef8133d.png"></p>
+<p><img style="max-width: 1064.82px" src="/src/codelabs/setup-ubuntu-core-intel-joule/img/b7d906dbeef8133d.png"></p>
 <p>Input your network SSID and password and select ‘Done&#39;. Or use ‘Choose a visible network&#39; to pick a name from the network list. ‘Scan for networks&#39; is used to trigger a new WiFi scan.</p>
-<p><img style="max-width: 861.45px" src="img/b4e6b255ee18040a.png"></p>
+<p><img style="max-width: 861.45px" src="/src/codelabs/setup-ubuntu-core-intel-joule/img/b4e6b255ee18040a.png"></p>
 <p>Edit IPv4 and IPv6 configurations if necessary and select ‘Done&#39;.</p>
-<p><img style="max-width: 1324.41px" src="img/a0e27fdba20e032d.png"></p>
+<p><img style="max-width: 1324.41px" src="/src/codelabs/setup-ubuntu-core-intel-joule/img/a0e27fdba20e032d.png"></p>
 <p>The network settings will be applied.</p>
-<p><img style="max-width: 1630.09px" src="img/a6fefe1977ebe4fc.png"></p>
+<p><img style="max-width: 1630.09px" src="/src/codelabs/setup-ubuntu-core-intel-joule/img/a6fefe1977ebe4fc.png"></p>
 <ol type="1" start="8">
 <li>Enter user&#39;s account on <a href="https://login.ubuntu.com" target="_blank">Ubuntu One</a>. Select &#34;Done&#34; to complete.</li>
 </ol>
-<p><img style="max-width: 1363.69px" src="img/e9ee29d6a8d44bc9.png"></p>
+<p><img style="max-width: 1363.69px" src="/src/codelabs/setup-ubuntu-core-intel-joule/img/e9ee29d6a8d44bc9.png"></p>
 <ol type="1" start="9">
 <li>The configuration is completed. On the screen, the Ubuntu SSO username and the device IP address will be shown. The SSH keys linked to the user will be shown as well.</li>
 </ol>
-<p><img style="max-width: 989.60px" src="img/59471eeb6387aa12.png"></p>
+<p><img style="max-width: 989.60px" src="/src/codelabs/setup-ubuntu-core-intel-joule/img/59471eeb6387aa12.png"></p>
 <ol type="1" start="10">
 <li>The user can now login to the system with username and ssh key registered on Ubuntu One. Use ssh client to login the system from another machine which has the same network as your Intel Joule board.</li>
 </ol>
@@ -206,7 +165,7 @@ Your public key has been saved in /home/b/.ssh/id_rsa.pub.</pre>
 
 
       </google-codelab-step>
-    
+
       <google-codelab-step label="That&#39;s all folks!" duration="1">
         <h2>Easy, wasn&#39;t it?</h2>
 <p>Congratulations! You made it!</p>
@@ -224,53 +183,5 @@ Your public key has been saved in /home/b/.ssh/id_rsa.pub.</pre>
 
 
       </google-codelab-step>
-    
+
   </google-codelab>
-
-</template>
-
-<script>
-
-  Polymer({
-
-    is: 'setup-ubuntu-core-intel-joule',
-
-    properties: {
-      route: {
-        type: String
-      },
-      backURL: {
-        type: String,
-        value: "/",
-      },
-    },
-
-    observers: [
-      '_getParams(routeTail.__queryParams)'
-    ],
-
-    ready: function() {
-      
-      
-      this.$.codelabobj._goToHome = this._goToHome.bind(this)
-    },
-
-    _goToHome: function() {
-        
-        window.location.href = this.backURL;
-    },
-
-    _getParams: function(params) {
-      if (!params) {
-        return;
-      }
-      if (params.backURL !== undefined) {
-          this.backURL = decodeURIComponent(params.backURL)
-      }
-    },
-
-  });
-
-</script>
-
-</dom-module>

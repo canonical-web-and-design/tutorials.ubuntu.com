@@ -1,44 +1,3 @@
-
-<dom-module id="build-a-nodejs-service">
-
-<template>
-
-  <style>
-    :root {
-      --google-codelab-header-background: var(--secondary-color);
-      --paper-blue-500: var(--secondary-color);
-      --google-codelab-fab-background: var(--secondary-color);
-    };
-    #codelabobj pre {
-      background-color: var(--color-light);
-      border-radius: 2px;
-      border: 1px solid var(--color-mid-light);
-      color: var(--color-dark);
-    }
-    #codelabobj pre .str.str, #codelabobj pre .kwd.kwd, #codelabobj pre .com.com, #codelabobj pre .typ.typ, #codelabobj pre .lit.lit, #codelabobj pre .pun.pun, #codelabobj pre .pln.pln, #codelabobj pre .tag.tag, #codelabobj pre .atn.atn, #codelabobj pre .atv.atv, #codelabobj pre .dec.dec {
-      color: #333;
-    }
-    google-codelab-survey {
-      border: 1px solid #19B6EE;
-      background: rgba(25, 182, 238, 0.1);
-      border-radius: 2px;
-    }
-    google-codelab-step {
-      --google-codelab-step-code: {
-        font-family: 'Ubuntu Mono',Helvetica,Arial;
-      };
-      --google-codelab-step-warn: {
-        border: 1px solid #ED3146;
-        background: rgba(237, 49, 70, 0.1);
-      };
-      --google-codelab-step-tip: {
-        border: 1px solid #ECA918;
-        background: rgba(236, 169, 24, 0.1);
-      };
-    };
-  </style>
-
-
   <google-codelab id="codelabobj"
                   title="Build a nodejs service"
                   environment="web"
@@ -46,11 +5,11 @@
     <app-route
       route="{{route}}"
       tail="{{routeTail}}"></app-route>
-    
+
       <google-codelab-step label="Overview" duration="1">
         <p>We are going to build together one of the most important web service of the world on our machine:  a Chuck Norris random quotation website! We are going to use a &#34;Chuck As A Service&#34; API, available free of charge at <a href="https://chucknorris.io" target="_blank">chucknorris.io</a>. This CAAS will be accessed through a npm module named chucknorris-io that we will install alongside (even if Chuck doesn&#39;t need a npm module nor a javascript engine to render data in your browser).</p>
 <p>This website is going to run as a service, meaning a long running process which will always start when you start your device and restart if the server crashes. You will build your first webservice this way and see how to snap nodejs apps.</p>
-<p><img style="max-width: 624.00px" src="img/e2bd8c114dbb80c5.png"></p>
+<p><img style="max-width: 624.00px" src="/src/codelabs/build-a-nodejs-service/img/e2bd8c114dbb80c5.png"></p>
 <h2 class="checklist">What you&#39;ll learn</h2>
 <ul class="checklist">
 <li>How to create a service in snapd world.</li>
@@ -82,7 +41,7 @@
 
 
       </google-codelab-step>
-    
+
       <google-codelab-step label="Getting familiar with the project" duration="1">
         <p>This project is a nodejs application, serving a web page on request. The backend code issue a REST request through against a web API, using chucknorris-io npm module.</p>
 <h2>Get the code</h2>
@@ -97,7 +56,7 @@ $ cd snap-codelabs-code/build-a-nodejs-service/start</pre>
 
 
       </google-codelab-step>
-    
+
       <google-codelab-step label="Start snapping your project" duration="5">
         <h2>Metadata</h2>
 <p>Let&#39;s scaffold our default <code>snapcraft.yaml</code> file via:</p>
@@ -131,18 +90,18 @@ confinement: devmode</code></pre>
 <h2>Our first build</h2>
 <p>Time to build your project (only priming it, no need for a snap for fast iteration as we saw in previous codelabs) to check that the project builds correctly.</p>
 <pre>$ snapcraft prime
-Preparing to pull webserver 
-Pulling webserver 
+Preparing to pull webserver
+Pulling webserver
 Downloading &#39;node-v4.4.4-linux-x64.tar.gz&#39;[===============================] 100%
-Preparing to build webserver 
-Building webserver 
+Preparing to build webserver
+Building webserver
 npm --cache-min=Infinity install
 chucknorris-io@1.0.4 node_modules/chucknorris-io
 npm --cache-min=Infinity install --global
 [...]/parts/webserver/install/bin/chuck-norris-app -&gt; [...]/parts/webserver/install/lib/node_modules/chuck-norris-app/main.js
 chuck-norris-app@1.0.0 [...]/parts/webserver/install/lib/node_modules/chuck-norris-app
 └── chucknorris-io@1.0.4
-Staging webserver 
+Staging webserver
 Priming webserver</pre>
 <p>Good, it built! Let&#39;s look together at the created content in the prime directory:</p>
 <pre><code>$ tree prime
@@ -205,7 +164,7 @@ Error: listen EACCES 0.0.0.0:80
     at Module.load (module.js:343:32)
     at Function.Module._load (module.js:300:12)</pre>
 <p>Ah, a failure! We are getting a javascript stacktrace. Looking a little bit more closely, we see that the exact error is: <code>Error: listen EACCES 0.0.0.0:80</code>. Indeed, unprivileged users on a Linux system can&#39;t listen to ports &lt; 1024. We then need to run the command as the root user:</p>
-<pre>$ sudo chuck-norris-webserver.node-service 
+<pre>$ sudo chuck-norris-webserver.node-service
 Server listening on: http://localhost:80</pre>
 <p>You can now point your browser to <a href="http://localhost" target="_blank">http://localhost</a> and enjoy some Chuck Norris quotes! All debug outputs will be visible on the command line prompt. Press Ctrl+C to exit it.</p>
 <p>Having a command while you are working on your snap helps you greatly in inspecting what&#39;s going on in your snap. This is why we strongly recommend that approach.</p>
@@ -215,7 +174,7 @@ Server listening on: http://localhost:80</pre>
 
 
       </google-codelab-step>
-    
+
       <google-codelab-step label="Turning on confinement!" duration="5">
         <aside class="special"><p>Lost or starting from here?</p>
 <p>Check or download <a href="https://github.com/ubuntu/snap-codelabs-code/tree/master/build-a-nodejs-service/step3" target="_blank">here</a> to see what your current directory should look like.</p>
@@ -225,7 +184,7 @@ Server listening on: http://localhost:80</pre>
 <p>You don&#39;t forcefully need to change your <code>snapcraft.yaml</code> and rebuild (we&#39;ll do it later), both <code>snap try</code> and <code>snap install</code> have an option to force confinement on snaps declaring devmode.</p>
 <pre>$ snap try prime/ --jailmode
 chuck-norris-webserver 1.0.0 mounted from [...]/prime
-$ sudo chuck-norris-webserver.node-service 
+$ sudo chuck-norris-webserver.node-service
 events.js:141
       throw er; // Unhandled &#39;error&#39; event
       ^
@@ -263,7 +222,7 @@ kernel.printk_ratelimit = 0</pre>
 </aside>
 <p>Then, the command will block and filter any output related to our snap with some advice.</p>
 <p>For example, if you run in another temrinal:</p>
-<pre>$ sudo chuck-norris-webserver.node-service 
+<pre>$ sudo chuck-norris-webserver.node-service
 [ same stacktrace ]</pre>
 <p>You will see:</p>
 <pre><code>= AppArmor =
@@ -342,7 +301,7 @@ apps:
 <p>Let&#39;s rebuild, install and run it:</p>
 <pre>$ snapcraft prime
 $ snap try prime/
-$ sudo chuck-norris-webserver.node-service 
+$ sudo chuck-norris-webserver.node-service
 Server listening on: http://localhost:80</pre>
 <p>Hourrah! We also notice no new output in <code>snappy-debug.security</code> output! Pointing again your browser to <a href="http://localhost" target="_blank">http://localhost</a> works as expected.</p>
 <h2>Two final notes on interfaces and confinement</h2>
@@ -358,7 +317,7 @@ Slot           Plug
 
 
       </google-codelab-step>
-    
+
       <google-codelab-step label="Exposing it as a service" duration="4">
         <aside class="special"><p>Lost or starting from here?</p>
 <p>Check or download <a href="https://github.com/ubuntu/snap-codelabs-code/tree/master/build-a-nodejs-service/step4" target="_blank">here</a> to see what your current directory should look like.</p>
@@ -468,7 +427,7 @@ nov. 15 15:17:53 tidus snap[15622]: Quoted http://api.chucknorris.io/jokes/elgv2
 
 
       </google-codelab-step>
-    
+
       <google-codelab-step label="That&#39;s all folks!" duration="1">
         <h2>There is no Esc key on Chuck Norris&#39; keyboard, because no one escapes Chuck Norris.</h2>
 <p>Congratulations! As Chuck, you made it!</p>
@@ -494,53 +453,5 @@ nov. 15 15:17:53 tidus snap[15622]: Quoted http://api.chucknorris.io/jokes/elgv2
 
 
       </google-codelab-step>
-    
+
   </google-codelab>
-
-</template>
-
-<script>
-
-  Polymer({
-
-    is: 'build-a-nodejs-service',
-
-    properties: {
-      route: {
-        type: String
-      },
-      backURL: {
-        type: String,
-        value: "/",
-      },
-    },
-
-    observers: [
-      '_getParams(routeTail.__queryParams)'
-    ],
-
-    ready: function() {
-      
-      
-      this.$.codelabobj._goToHome = this._goToHome.bind(this)
-    },
-
-    _goToHome: function() {
-        
-        window.location.href = this.backURL;
-    },
-
-    _getParams: function(params) {
-      if (!params) {
-        return;
-      }
-      if (params.backURL !== undefined) {
-          this.backURL = decodeURIComponent(params.backURL)
-      }
-    },
-
-  });
-
-</script>
-
-</dom-module>
