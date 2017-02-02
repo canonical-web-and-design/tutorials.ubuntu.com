@@ -1,0 +1,26 @@
+{
+  "categories": {
+    "example": {
+      "maincolor": "var(--paper-indigo-500)",
+      "secondarycolor": "var(--paper-indigo-700)",
+      "lightcolor": "var(--paper-indigo-300)"
+    },
+    "another": {
+      "maincolor": "var(--paper-teal-500)",
+      "secondarycolor": "var(--paper-teal-700)",
+      "lightcolor": "var(--paper-teal-300)"
+    },
+    "unknown": {
+      "maincolor": "#444",
+      "secondarycolor": "#444",
+      "lightcolor": "#444"
+    }
+  },
+  "events": {
+    "idf-2016": {
+      "name": "IDF 2016",
+      "logo": "idf16.jpg",
+      "description": "This workshop is taking place at IDF in SF (2016)."
+    }
+  }
+}
