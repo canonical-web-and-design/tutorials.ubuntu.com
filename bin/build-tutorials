@@ -5,6 +5,6 @@ GDOC_IDS_FILE='config/google-documents'
 
 while read ID; do
   ${BUILD_TOOL} add "${ID}"
-done <"${GDOC_IDS_FILE}"
+done < "${GDOC_IDS_FILE}" | sed -e '/^\s*$/ d' -e '/^#/ d'
 
 ./bin/patch-absolute-img-src
