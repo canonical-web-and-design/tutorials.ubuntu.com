@@ -1,4 +1,6 @@
 bower_components
 build
 node_modules
+src/codelabs/*
+!src/codelabs/example
 tools/claat-linux-amd64
