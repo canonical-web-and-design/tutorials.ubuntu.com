@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 BUILD_TOOL='./tools/codelabs'
 GDOC_IDS_FILE='config/google-documents'
 
