@@ -1,0 +1,128 @@
+#!/usr/bin/env python3
+
+import argparse
+import json
+import os
+from operator import itemgetter
+
+
+DEFAULT_SOURCE = './api/codelabs.json'
+DEFAULT_DESTINATION = './api/tutorials'
+
+MAX_ITEMS = 10
+URL_FORMAT = 'https://tutorials.ubuntu.com/tutorial/{id}'
+
+DIFFICULTY_MAP = {
+    1: 'Beginner',
+    2: 'Intermediate',
+    3: 'Intermediate',
+    4: 'Advanced',
+    5: 'Advanced',
+}
+
+
+def process_categories(categories):
+    if 'unknown' in categories:
+        categories.remove('unknown')
+    return categories
+
+
+def process_tutorials(tutorials):
+    # Add items to tutorials list
+    for tutorial in tutorials:
+        tutorial['link'] = URL_FORMAT.format(id=tutorial['url'])
+        if tutorial.get('difficulty'):
+            difficulty = tutorial['difficulty']
+            if difficulty in DIFFICULTY_MAP:
+                tutorial['difficultyName'] = DIFFICULTY_MAP[difficulty]
+    return tutorials
+
+
+def process_events(events):
+    return events
+
+
+def parse_json_file(path):
+    with open(path, 'r') as json_file:
+        json_data = json.load(json_file)
+    data = dict()
+    data['categories'] = list(json_data['categories'].keys())
+    data['events'] = list(json_data['events'].keys())
+    data['tutorials'] = json_data['codelabs']
+    return data
+
+
+def write_json_file(
+    data, destination,
+    category=None,
+    event=None,
+    order='recent',
+):
+    filename = '-'.join(filter(None, [order, category]))
+    filename = ''.join([filename, '.json'])
+    filepath = os.path.join(destination, event or '', filename)
+    destination_dir = os.path.dirname(filepath)
+    if not os.path.exists(destination_dir):
+        os.makedirs(destination_dir)
+
+    data = data[:MAX_ITEMS]
+
+    print(filepath)
+    with open(filepath, 'w') as api_file:
+        json.dump(data, api_file)
+
+
+def build_api(source, destination):
+    parsed_data = parse_json_file(source)
+    categories = process_categories(parsed_data['categories'])
+    tutorials = process_tutorials(parsed_data['tutorials'])
+    events = process_events(parsed_data['events'])
+
+    # Sort tutorials by updated key, descending
+    tutorials = sorted(tutorials, key=itemgetter('updated'), reverse=True)
+
+    # Create standard recent.json
+    write_json_file(tutorials, destination)
+
+    # Write recent tutorials, filtered by category
+    for category in categories:
+        category_tutorials = [
+            tutorial for tutorial in tutorials
+            if category in tutorial['category']
+        ]
+        write_json_file(category_tutorials, destination, category=category)
+
+    # Write recent tutorials, filtered by event
+    for event in events:
+        event_tutorials = [
+            tutorial for tutorial in tutorials
+            if event in tutorial['tags']
+        ]
+        write_json_file(event_tutorials, destination, event=event)
+
+
+def build_arguments():
+    parser = argparse.ArgumentParser(
+        description='Build API files from a JSON input'
+    )
+    parser.add_argument(
+        '-s', '--source',
+        type=str,
+        default=DEFAULT_SOURCE,
+        help='JSON file containing tutorials and categories.'
+    )
+    parser.add_argument(
+        '-d', '--destination',
+        type=str,
+        default=DEFAULT_DESTINATION,
+        help='Destination for output files'
+    )
+    return parser.parse_args()
+
+
+if __name__ == "__main__":
+    arguments = build_arguments()
+    build_api(
+        destination=arguments.destination,
+        source=arguments.source,
+    )
