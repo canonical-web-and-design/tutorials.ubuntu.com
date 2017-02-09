@@ -12,6 +12,14 @@ DEFAULT_DESTINATION = './api/tutorials'
 MAX_ITEMS = 10
 URL_FORMAT = 'https://tutorials.ubuntu.com/tutorial/{id}'
 
+DIFFICULTY_MAP = {
+    1: 'Beginner',
+    2: 'Intermediate',
+    3: 'Intermediate',
+    4: 'Advanced',
+    5: 'Advanced',
+}
+
 
 def process_categories(categories):
     if 'unknown' in categories:
@@ -23,6 +31,10 @@ def process_tutorials(tutorials):
     # Add items to tutorials list
     for tutorial in tutorials:
         tutorial['link'] = URL_FORMAT.format(id=tutorial['url'])
+        if tutorial.get('difficulty'):
+            difficulty = tutorial['difficulty']
+            if difficulty in DIFFICULTY_MAP:
+                tutorial['difficultyName'] = DIFFICULTY_MAP[difficulty]
     return tutorials
 
 
