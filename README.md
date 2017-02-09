@@ -1,9 +1,17 @@
 # tutorials.ubuntu.com
 
+The Polymer application that runs <https://tutorials.ubuntu.com>.
 
-## Install the Polymer-CLI
+## Local development
 
-First, make sure you have the [Polymer CLI](https://www.npmjs.com/package/polymer-cli) installed. Then run `polymer serve` to serve your application locally.
+You can run this project locally with [Polymer CLI](https://www.npmjs.com/package/polymer-cli).
+
+### Dependencies
+
+``` bash
+npm install -g polymer-cli bower  # Install Polymer and Bower
+bower install                     # Pull down Bower dependencies
+```
 
 ## Viewing Your Application
 
