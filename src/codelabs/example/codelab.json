@@ -1,6 +1,6 @@
 {
   "environment": "web",
-  "source": "",
+  "source": ".",
   "format": "ubuntu-template.html",
   "prefix": "../../..",
   "mainga": "UA-1018242-64",
@@ -11,12 +11,13 @@
   "summary": "This is an example tutorial.",
   "theme": "snap",
   "status": [
-    "published"
+    "hidden"
   ],
   "category": [
     "snap"
   ],
   "tags": [
+    "hidden",
     "example",
     "tag",
     "lorem",
