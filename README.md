@@ -23,6 +23,24 @@ bower install                     # Pull down Bower dependencies
 $ polymer serve
 ```
 
+## Importing Codelabs
+
+Upon loading the website initially, you will likely be met with example content.
+To import live content, you will need to run:
+
+```
+$ ./bin/build-tutorials
+```
+
+This will import the defined Google Doc IDs from the config folder.
+
+If you encounter an auth error, trying to import with this command should give you instructions on getting the token.
+
+```
+$ ./tools/codelabs add [GOOGLE_DOC_ID]
+```
+
+
 ## Building Your Application
 
 ```

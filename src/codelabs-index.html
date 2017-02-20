@@ -82,7 +82,7 @@
         background-repeat: no-repeat;
         background-size: 0.7em 0.7em;
         padding-right: 0.9em;
-    }    
+    }
     </style>
 
     <div>
@@ -229,6 +229,10 @@
         this.categoriesmap = event.detail.response["categories"];
         this.eventsmap = event.detail.response["events"];
         event.detail.response["codelabs"].forEach(function(codelab) {
+          // filter hidden items
+          if (codelab.tags.indexOf('hidden') !== -1) {
+            return;
+          }
           this.push("codelabs", codelab);
         }, this);
       },
