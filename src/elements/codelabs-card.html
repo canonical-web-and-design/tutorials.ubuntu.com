@@ -54,12 +54,12 @@
       }
       .duration {
         float: right;
-        font-size: 16px;
         text-align: right;
         width: 100%;
       }
       .card-actions {
         box-sizing: border-box;
+        font-size: 1em;
         width: 100%;
         line-height: 2;
       }
@@ -97,7 +97,7 @@
     </style>
 
     <paper-card class="horizontal layout">
-      <a href="/tutorial/[[url]][[generateBackParameter]]" tabindex="-1">
+      <a href="/tutorial/[[url]][[generateBackParameter]]">
         <div class="header horizontal">
           <div class="horizontal end-justified layout">
             <div class="light card-category">[[firstcategory]]</div>
@@ -115,7 +115,9 @@
         </div>
         <div class="flex"></div>
         <div class="card-actions horizontal start-justified layout">
-          [[difficultyName]]
+          <div class="difficulty">
+            [[difficultyName]]
+          </div>
           <div class="duration">
             <span>[[duration]] minutes</span>
           </div>
