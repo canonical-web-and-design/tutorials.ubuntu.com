@@ -1,0 +1,60 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="tutorials-app-logo.html">
+
+<dom-module id="tutorials-app-header">
+  <template>
+    <style>
+      app-header {
+        background-color: var(--app-primary-color);
+        color: white;
+        padding: 0;
+      }
+      app-toolbar {
+        margin: 0 auto;
+        max-width: 984px;
+        padding: 0;
+        height: 48px;
+      }
+      app-logo {
+        margin-left: 10px;
+      }
+      @media only screen and (max-width: 984px) {
+        app-logo {
+          margin-left: 20px;
+        }
+      }
+      app-logo a {
+        color: #fff;
+        text-decoration: none;
+      }
+      paper-input {
+        --paper-input-container-focus-color: white;
+        --paper-input-container-input-color: white;
+      }
+    </style>
+    <app-header-layout>
+      <template is="dom-if" if="[[!hidden]]">
+        <app-header condenses fixed>
+          <app-toolbar>
+          <app-logo class="app-logo">
+            <a href="/">
+                <tutorials-app-logo></tutorials-app-logo>
+            </a>
+          </app-logo>
+          </app-toolbar>
+        </app-header>
+      </template>
+    </app-header-layout>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'tutorials-app-header',
+
+      properties: {
+        hidden: Boolean,
+      },
+    });
+  </script>
+</dom-module>
