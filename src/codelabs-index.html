@@ -5,10 +5,12 @@
 <link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../bower_components/app-route/app-route.html">
+<link rel="import" href="../bower_components/iron-input/iron-input.html">
 <link rel="import" href="../bower_components/paper-tabs/paper-tabs.html">
 <link rel="import" href="../bower_components/paper-tabs/paper-tab.html">
 
 <link rel="import" href="elements/codelabs-card.html">
+<link rel="import" href="elements/tutorials-filters.html">
 
 <dom-module id="codelabs-index">
 
@@ -102,6 +104,12 @@
 
           <p>For now, the tutorials focus mainly on building and using snaps and Ubuntu Core.<br /><a href="https://github.com/ubuntudesign/tutorials.ubuntu.com/issues/new" class="external">If you'd like to see tutorials cover more topics, let us know</a></p>
         </div>
+        <div>
+          <input type="search" is="iron-input" bind-value="{{searchString}}" />
+        </div>
+        <div>
+          <tutorials-filters></tutorials-filters>
+        </div>
         <div class="horizontal layout end">
           <div class="flex"></div>
         </div>
@@ -142,10 +150,6 @@
         },
         categoriesmap: Object,
         eventsmap: Object,
-        currentSearch: {
-          type: String,
-          observer: '_updatekeywords',
-        },
         listofkeywords: {
           type: Array,
           value: function() {
@@ -165,6 +169,10 @@
         filteringMethod: {
           type: Number,
           value: 0,
+        },
+        searchString: {
+          type: String,
+          observer: '_updatekeywords',
         },
       },
 
@@ -237,13 +245,13 @@
         }, this);
       },
 
-      _updatekeywords: function() {
+      _updatekeywords: function(searchString) {
         // protect against uninitialized javascript
         if (typeof this.listofkeywords === "undefined") {
           return;
         }
         this.listofkeywords = [];
-        this.currentSearch.split(" ").forEach(function(searchterm) {
+        searchString.split(" ").forEach(function(searchterm) {
           this.listofkeywords.push(searchterm.toLowerCase())
         }, this);
       },
