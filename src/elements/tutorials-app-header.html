@@ -10,6 +10,9 @@
         color: white;
         padding: 0;
       }
+      app-header-layout {
+        z-index: 9999;
+      }
       app-toolbar {
         margin: 0 auto;
         max-width: 984px;
@@ -35,7 +38,7 @@
     </style>
     <app-header-layout>
       <template is="dom-if" if="[[!hidden]]">
-        <app-header condenses fixed>
+        <app-header fixed>
           <app-toolbar>
           <app-logo class="app-logo">
             <a href="/">
