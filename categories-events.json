@@ -1,19 +1,14 @@
 {
   "categories": {
-    "example": {
+    "snap": {
       "maincolor": "var(--paper-indigo-500)",
       "secondarycolor": "var(--paper-indigo-700)",
       "lightcolor": "var(--paper-indigo-300)"
     },
-    "another": {
+    "snapcraft": {
       "maincolor": "var(--paper-teal-500)",
       "secondarycolor": "var(--paper-teal-700)",
       "lightcolor": "var(--paper-teal-300)"
-    },
-    "unknown": {
-      "maincolor": "#444",
-      "secondarycolor": "#444",
-      "lightcolor": "#444"
     }
   },
   "events": {
