@@ -1,0 +1,90 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../bower_components/paper-tabs/paper-tab.html">
+<link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
+
+<dom-module id="tutorials-filters">
+  <template>
+    <style>
+    </style>
+
+    <div class="horizontal layout end">
+
+      <paper-dropdown-menu label="Category" value="{{selectedCategory}}">
+        <paper-listbox id="categorySelect" class="dropdown-content">
+          <template is="dom-repeat" items="[[categoryOptions]]">
+            <paper-item>[[item]]</paper-item>
+          </template>
+        </paper-listbox>
+      </paper-dropdown-menu>
+
+      <paper-dropdown-menu label="User" value="{{selectedUser}}" disabled="true">
+        <paper-listbox id="userSelect" class="dropdown-content">
+          <template is="dom-repeat" items="[[userOptions]]">
+            <paper-item>[[item]]</paper-item>
+          </template>
+        </paper-listbox>
+      </paper-dropdown-menu>
+
+      <paper-icon-button suffix icon="clear" on-tap="_resetFilters">
+      </paper-icon-button>
+
+    </div>
+    <div class="horizontal layout end">
+
+      <paper-tabs selected="{{selectedSort}}">
+        <template is="dom-repeat" items="[[sortOptions]]">
+          <paper-tab>[[item]]</paper-tab>
+        </template>
+      </paper-tabs>
+
+    </div>
+
+  </template>
+
+  <script>
+    Polymer({
+      is: 'tutorials-filters',
+
+      properties: {
+        categoryOptions:  {
+          type: Array,
+          value: [
+            '',
+            'snap',
+            'snapcraft',
+          ],
+        },
+        sortOptions: {
+          type: Array,
+          value: [
+            'difficulty',
+            'duration',
+          ],
+        },
+        userOptions: {
+          type: Array,
+          value: [
+            '',
+            'Desktop user',
+            'Developer',
+          ],
+        },
+        selectedCategory: String,
+        selectedSort: {
+          type: String,
+          value: 'difficulty',
+        },
+        selectedUser: String,
+      },
+
+      _resetFilters: function() {
+        this.$.categorySelect.selected = null;
+        this.$.userSelect.selected = null;
+      },
+    });
+  </script>
+</dom-module>
