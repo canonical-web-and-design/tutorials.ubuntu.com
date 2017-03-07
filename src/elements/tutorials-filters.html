@@ -46,19 +46,20 @@
     </style>
 
     <div class="horizontal layout end">
+      Filter results by:
 
-      <paper-dropdown-menu label="<topic>" value="{{selectedCategory}}" no-label-float noink no-animations>
-        <paper-listbox id="categorySelect" class="dropdown-content">
-          <template is="dom-repeat" items="[[categoryOptions]]">
-            <paper-item>[[item]]</paper-item>
+      <paper-dropdown-menu label="<topic>" no-label-float noink no-animations>
+        <paper-listbox id="categorySelect" class="dropdown-content" attr-for-selected="data-sort" selected="{{selectedCategory}}">
+          <template is="dom-repeat" items="[[_toArray(categoryOptions)]]">
+            <paper-item data-sort$="[[item.value]]">[[item.name]]</paper-item>
           </template>
         </paper-listbox>
       </paper-dropdown-menu>
 
-      <paper-dropdown-menu label="<user>" value="{{selectedUser}}" disabled="true" no-label-float noink no-animations>
-        <paper-listbox id="userSelect" class="dropdown-content">
-          <template is="dom-repeat" items="[[userOptions]]">
-            <paper-item>[[item]]</paper-item>
+      <paper-dropdown-menu label="<user>" disabled="true" no-label-float noink no-animations>
+        <paper-listbox id="userSelect" class="dropdown-content" attr-for-selected="data-sort" selected="{{selectedUser}}">
+          <template is="dom-repeat" items="[[_toArray(userOptions)]]">
+            <paper-item data-sort$="[[item.value]]">[[item.name]]</paper-item>
           </template>
         </paper-listbox>
       </paper-dropdown-menu>
@@ -82,12 +83,12 @@
 
       properties: {
         categoryOptions:  {
-          type: Array,
-          value: [
-            '',
-            'snap',
-            'snapcraft',
-          ],
+          type: Object,
+          value: {
+            '': 'All topics',
+            'snap': 'snap',
+            'snapcraft': 'snapcraft',
+          },
         },
         sortOptions: {
           type: Object,
@@ -101,12 +102,12 @@
           },
         },
         userOptions: {
-          type: Array,
-          value: [
-            '',
-            'Desktop user',
-            'Developer',
-          ],
+          type: Object,
+          value: {
+            '': 'All user types',
+            'desktop-user': 'Desktop user',
+            'developer': 'Developer',
+          },
         },
         selectedCategory: {
           type: String,
@@ -132,8 +133,8 @@
       },
 
       _resetFilters: function() {
-        this.$.categorySelect.selected = null;
-        this.$.userSelect.selected = null;
+        this.$.categorySelect.selected = '';
+        this.$.userSelect.selected = '';
       },
     });
   </script>

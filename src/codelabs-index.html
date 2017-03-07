@@ -280,6 +280,13 @@
           tutorials = tutorials.filter(this._getSearchFilterFunction(searchKeywords));
         }
         this.searchResultCount = tutorials.length;
+        if (
+          currentEvent !== '' ||
+          currentCategory !== '' ||
+          currentUser !== ''
+        ) {
+          tutorials = tutorials.filter(this._getFilterFunction(currentEvent, currentCategory, currentUser));
+        }
         return tutorials;
       },
 
@@ -319,10 +326,8 @@
         };
       },
 
-      _getFilterFunction: function(searchKeywords, currentEvent, currentCategory) {
+      _getFilterFunction: function(currentEvent, currentCategory, currentUser) {
         return function(item) {
-          var title = item.title.toLowerCase();
-          var summary = item.summary.toLowerCase();
           var category = item.category[0].toLowerCase();
           var tags = item.tags;
 
@@ -332,26 +337,13 @@
           }
 
           // filter by category
-          if (currentCategory !== category && currentCategory !== "all")
+          if (currentCategory !== '' && currentCategory !== category) {
             return false;
-          if (searchKeywords.length === 0)
-            return true;
+          }
 
-          var should_show = true;
-          searchKeywords.forEach(function(searchterm) {
-            var searchterm_found = false;
-            if (title.indexOf(searchterm) !== -1 || summary.indexOf(searchterm) !== -1 ||
-                category.indexOf(searchterm) !== -1) {
-              searchterm_found = true;
-            }
-            tags.forEach(function(tag) {
-              if (tag.toLowerCase().indexOf(searchterm) !== -1) {
-                searchterm_found = true;
-              }
-            }, this);
-            should_show = should_show && searchterm_found;
-          }, this);
-          return should_show;
+          // TODO: filter by user
+
+          return true;
         };
       },
 
