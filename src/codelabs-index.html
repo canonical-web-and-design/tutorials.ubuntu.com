@@ -26,6 +26,23 @@
       paper-tab {
         --paper-tab-ink: var(--app-primary-color);
       }
+
+      input[type="search"] {
+        background-color: transparent;
+        border: 1px solid #cdcdcd;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12) inset;
+        font-family: 'Ubuntu',Helvetica,Arial;
+        font-size: 1em;
+        font-weight: 300;
+        line-height: 24px;
+        margin-bottom: 2em;
+        margin-right: -38px;
+        margin-top: 1em;
+        max-width: 480px;
+        outline-offset: -2px;
+        padding: 6px 38px 6px 10px;
+        width: 100%;
+      }
       .content {
         margin: 0 auto;
         max-width: 980px;
@@ -35,9 +52,9 @@
       }
       .intro {
         font-family: 'Ubuntu',Helvetica,Arial;
-        max-width: 620px;
         padding-left: 10px;
-        padding-bottom: 40px;
+        padding-bottom: 60px;
+        display: block;
       }
       .intro h1 {
         font-size: 2.8125em;
@@ -45,6 +62,7 @@
       }
       .intro p {
         font-weight: 300;
+        max-width: 620px;
       }
       .intro a {
         color: var(--app-primary-color);
@@ -103,13 +121,17 @@
           <p>Ubuntu Tutorials are just like learning from pair programming except you can do it on your own. They provide a step-by-step process to doing development and devops activities on Ubuntu machines, servers or devices.</p>
 
           <p>For now, the tutorials focus mainly on building and using snaps and Ubuntu Core.<br /><a href="https://github.com/ubuntudesign/tutorials.ubuntu.com/issues/new" class="external">If you'd like to see tutorials cover more topics, let us know</a></p>
-        </div>
+
         <div>
-          <input type="search" is="iron-input" bind-value="{{searchString}}" />
+          <label class="accessibility-aid" for="edit-keys" hidden="hidden">Search</label>
+          <input id="edit-keys" type="search" placeholder="Search tutorials" is="iron-input" bind-value="{{searchString}}" />
+          <paper-icon-button icon="search"></paper-icon-button>
         </div>
         <div>
           <tutorials-filters></tutorials-filters>
         </div>
+        </div>
+
         <div class="horizontal layout end">
           <div class="flex"></div>
         </div>
