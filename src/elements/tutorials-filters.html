@@ -9,11 +9,45 @@
 <dom-module id="tutorials-filters">
   <template>
     <style>
+      paper-dropdown-menu {
+        --paper-input-container-focus-color: white;
+
+        --paper-input-container: {
+          background: white;
+          border: 1px solid var(--color-mid-light);
+          box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12) inset;
+          padding: 6px 10px;
+        };
+        --paper-input-container-input: {
+          color: var(--primary-text-color);
+          font-weight: 300;
+        };
+        --paper-input-container-label: {
+          color: var(--primary-text-color);
+          font-weight: 300;
+        };
+        --paper-input-container-underline: {
+          display: none;
+        };
+      }
+      paper-dropdown-menu.sort {
+        float: right;
+        margin-right: 12px;
+        margin-top: 70px;
+      }
+      paper-button.button--primary {
+        background: white;
+        border: 1px solid var(--color-mid-light);
+        top: -14px;
+        padding: 6px 10px;
+        text-transform: none;
+        position: relative;
+      }
     </style>
 
     <div class="horizontal layout end">
 
-      <paper-dropdown-menu label="Category" value="{{selectedCategory}}">
+      <paper-dropdown-menu label="<topic>" value="{{selectedCategory}}" no-label-float noink no-animations>
         <paper-listbox id="categorySelect" class="dropdown-content">
           <template is="dom-repeat" items="[[categoryOptions]]">
             <paper-item>[[item]]</paper-item>
@@ -21,7 +55,7 @@
         </paper-listbox>
       </paper-dropdown-menu>
 
-      <paper-dropdown-menu label="User" value="{{selectedUser}}" disabled="true">
+      <paper-dropdown-menu label="<user>" value="{{selectedUser}}" disabled="true" no-label-float noink no-animations>
         <paper-listbox id="userSelect" class="dropdown-content">
           <template is="dom-repeat" items="[[userOptions]]">
             <paper-item>[[item]]</paper-item>
@@ -29,20 +63,17 @@
         </paper-listbox>
       </paper-dropdown-menu>
 
-      <paper-icon-button suffix icon="clear" on-tap="_resetFilters">
-      </paper-icon-button>
+      <paper-button class="button--primary white" on-tap="_resetFilters" noink>Clear filters</paper-button>
+
+      <paper-dropdown-menu class="sort" label="Sort" selected="{{selectedSort}}" no-label-float noink no-animations>
+        <paper-listbox id="sortSelect" class="dropdown-content">
+          <template is="dom-repeat" items="[[sortOptions]]">
+            <paper-item>[[item]]</paper-item>
+          </template>
+        </paper-listbox>
+      </paper-dropdown-menu>
 
     </div>
-    <div class="horizontal layout end">
-
-      <paper-tabs selected="{{selectedSort}}">
-        <template is="dom-repeat" items="[[sortOptions]]">
-          <paper-tab>[[item]]</paper-tab>
-        </template>
-      </paper-tabs>
-
-    </div>
-
   </template>
 
   <script>
