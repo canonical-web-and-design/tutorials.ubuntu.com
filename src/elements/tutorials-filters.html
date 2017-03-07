@@ -67,8 +67,8 @@
 
       <paper-dropdown-menu class="sort" label="Sort" no-label-float noink no-animations>
         <paper-listbox id="sortSelect" class="dropdown-content" attr-for-selected="data-sort" selected="{{selectedSort}}">
-          <template is="dom-repeat" items="[[sortOptions]]">
-            <paper-item data-sort$="[[item]]">[[item]]</paper-item>
+          <template is="dom-repeat" items="[[_toArray(sortOptions)]]">
+            <paper-item data-sort$="[[item.value]]">[[item.name]]</paper-item>
           </template>
         </paper-listbox>
       </paper-dropdown-menu>
@@ -90,11 +90,15 @@
           ],
         },
         sortOptions: {
-          type: Array,
-          value: [
-            'difficulty',
-            'duration',
-          ],
+          type: Object,
+          value: {
+            'updated-desc': 'Newest first',
+            'updated-asc': 'Oldest first',
+            'duration-asc': 'Shortest first',
+            'duration-desc': 'Longest first',
+            'difficulty-desc': 'Most difficult first',
+            'difficulty-asc': 'Least difficult first',
+          },
         },
         userOptions: {
           type: Array,
@@ -110,13 +114,21 @@
         },
         selectedSort: {
           type: String,
-          value: 'difficulty',
           notify: true,
         },
         selectedUser: {
           type: String,
           notify: true,
         },
+      },
+
+      _toArray: function(obj) {
+          return Object.keys(obj).map(function(key) {
+              return {
+                  name: obj[key],
+                  value: key,
+              };
+          });
       },
 
       _resetFilters: function() {

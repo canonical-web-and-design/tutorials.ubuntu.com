@@ -146,7 +146,10 @@
           <div class="flex"></div>
         </div>
         <div class="horizontal layout wrap">
-          <template is="dom-repeat" items="[[codelabs]]" filter="{{codelabfromscope(currentEvent, listofkeywords, filterCategory)}}">
+          <template is="dom-repeat" items="[[codelabs]]"
+            filter="{{codelabfromscope(currentEvent, listofkeywords, filterCategory)}}"
+            sort="{{_getSortFunction(filterSort)}}"
+            >
             <codelabs-card title="[[item.title]]" summary="[[item.summary]]" category="[[item.category]]"
                           difficulty="[[item.difficulty]]" duration="[[item.duration}}" tags="[[item.tags]]"
                           updated="[[item.updated]]" url="[[item.url]]" currenturl="[[eventRoute.prefix]][[eventRoute.path]]"
@@ -201,13 +204,42 @@
         filterCategory: String,
         filterSort: {
           type: String,
-          value: 'difficulty',
+          value: 'updated-desc',
         },
         filterUser: String,
         filterSearch: {
           type: String,
           observer: '_updatekeywords',
         },
+      },
+
+      _getSortFunction: function(sortOption) {
+        switch(sortOption) {
+          case 'updated-asc':
+            return function(a, b) {
+              return a.updated > b.updated;
+            };
+          case 'updated-desc':
+            return function(a, b) {
+              return a.updated < b.updated;
+            };
+          case 'duration-asc':
+            return function(a, b) {
+              return a.duration > b.duration;
+            };
+          case 'duration-desc':
+            return function(a, b) {
+              return a.duration < b.duration;
+            };
+          case 'difficulty-desc':
+            return function(a, b) {
+              return a.difficulty < b.difficulty;
+            };
+          case 'difficulty-asc':
+            return function(a, b) {
+              return a.difficulty < b.difficulty;
+            };
+        };
       },
 
       _eventChanged: function(eventID, eventsmap) {
