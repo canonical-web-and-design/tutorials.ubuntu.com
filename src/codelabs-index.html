@@ -124,11 +124,21 @@
 
         <div>
           <label class="accessibility-aid" for="edit-keys" hidden="hidden">Search</label>
-          <input id="edit-keys" type="search" placeholder="Search tutorials" is="iron-input" bind-value="{{searchString}}" />
+          <input id="edit-keys" type="search" placeholder="Search tutorials" is="iron-input" bind-value="{{filterSearch}}" />
           <paper-icon-button icon="search"></paper-icon-button>
+          <template is="dom-if" if="[[filterSearch]]">
+            <p>
+              Searching
+            </p>
+          </template>
         </div>
         <div>
-          <tutorials-filters></tutorials-filters>
+          <tutorials-filters
+            selected-category="{{filterCategory}}"
+            selected-sort="{{filterSort}}"
+            selected-user="{{filterUser}}"
+            >
+          </tutorials-filters>
         </div>
         </div>
 
@@ -136,7 +146,7 @@
           <div class="flex"></div>
         </div>
         <div class="horizontal layout wrap">
-          <template is="dom-repeat" items="[[codelabs]]" filter="{{codelabfromscope(currentEvent, listofkeywords, selectedcategory)}}">
+          <template is="dom-repeat" items="[[codelabs]]" filter="{{codelabfromscope(currentEvent, listofkeywords, filterCategory)}}">
             <codelabs-card title="[[item.title]]" summary="[[item.summary]]" category="[[item.category]]"
                           difficulty="[[item.difficulty]]" duration="[[item.duration}}" tags="[[item.tags]]"
                           updated="[[item.updated]]" url="[[item.url]]" currenturl="[[eventRoute.prefix]][[eventRoute.path]]"
@@ -188,11 +198,13 @@
           value: {},
           computed: "_eventChanged(routeData.event, eventsmap)"
         },
-        filteringMethod: {
-          type: Number,
-          value: 0,
+        filterCategory: String,
+        filterSort: {
+          type: String,
+          value: 'difficulty',
         },
-        searchString: {
+        filterUser: String,
+        filterSearch: {
           type: String,
           observer: '_updatekeywords',
         },
@@ -267,13 +279,13 @@
         }, this);
       },
 
-      _updatekeywords: function(searchString) {
+      _updatekeywords: function(filterSearch) {
         // protect against uninitialized javascript
         if (typeof this.listofkeywords === "undefined") {
           return;
         }
         this.listofkeywords = [];
-        searchString.split(" ").forEach(function(searchterm) {
+        filterSearch.split(" ").forEach(function(searchterm) {
           this.listofkeywords.push(searchterm.toLowerCase())
         }, this);
       },

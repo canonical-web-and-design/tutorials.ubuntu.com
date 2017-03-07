@@ -65,10 +65,10 @@
 
       <paper-button class="button--primary white" on-tap="_resetFilters" noink>Clear filters</paper-button>
 
-      <paper-dropdown-menu class="sort" label="Sort" selected="{{selectedSort}}" no-label-float noink no-animations>
-        <paper-listbox id="sortSelect" class="dropdown-content">
+      <paper-dropdown-menu class="sort" label="Sort" no-label-float noink no-animations>
+        <paper-listbox id="sortSelect" class="dropdown-content" attr-for-selected="data-sort" selected="{{selectedSort}}">
           <template is="dom-repeat" items="[[sortOptions]]">
-            <paper-item>[[item]]</paper-item>
+            <paper-item data-sort$="[[item]]">[[item]]</paper-item>
           </template>
         </paper-listbox>
       </paper-dropdown-menu>
@@ -104,12 +104,19 @@
             'Developer',
           ],
         },
-        selectedCategory: String,
+        selectedCategory: {
+          type: String,
+          notify: true,
+        },
         selectedSort: {
           type: String,
           value: 'difficulty',
+          notify: true,
         },
-        selectedUser: String,
+        selectedUser: {
+          type: String,
+          notify: true,
+        },
       },
 
       _resetFilters: function() {
