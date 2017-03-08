@@ -26,11 +26,11 @@
       paper-tab {
         --paper-tab-ink: var(--app-primary-color);
       }
-
       input[type="search"] {
         background-color: transparent;
         border: 1px solid #cdcdcd;
         box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12) inset;
+        box-sizing: border-box;
         font-family: 'Ubuntu',Helvetica,Arial;
         font-size: 1em;
         font-weight: 300;
@@ -41,7 +41,7 @@
         max-width: 480px;
         outline-offset: -2px;
         padding: 6px 38px 6px 10px;
-        width: 100%;
+        width: 98%;
       }
       .content {
         margin: 0 auto;
@@ -51,10 +51,15 @@
         padding: 10px;
       }
       .intro {
-        font-family: 'Ubuntu',Helvetica,Arial;
-        padding-left: 10px;
-        padding-bottom: 80px;
+        box-sizing: border-box;
+        clear: both;
         display: block;
+        font-family: 'Ubuntu',Helvetica,Arial;
+        height: 100%;
+        overflow: hidden;
+        padding: 0 10px 10px;
+        position: relative;
+        width: 100%;
       }
       .intro h1 {
         font-size: 2.8125em;
@@ -128,7 +133,7 @@
         </div>
       </template>
       <div class="content">
-        <div class="intro">
+        <div class="wrap intro">
           <h1>Let's get coding!</h1>
           <p>Ubuntu Tutorials are just like learning from pair programming except you can do it on your own. They provide a step-by-step process to doing development and devops activities on Ubuntu machines, servers or devices.</p>
 
@@ -139,9 +144,9 @@
           <input id="edit-keys" type="search" placeholder="Search tutorials" is="iron-input" bind-value="{{filterSearch}}" />
           <paper-icon-button icon="search"></paper-icon-button>
           <template is="dom-if" if="[[filterSearch]]">
-            <p>
+            <h2>
               [[searchResultCount]] search results for [[filterSearch]]
-            </p>
+            </h2>
           </template>
         </div>
         <div>
@@ -168,7 +173,7 @@
               </template>
             </template>
             <template is="dom-if" if="[[isEmpty]]">
-              Why not try widening your search?
+              <h2>Why not try widening your search?</h2>
             </template>
           </template>
         </div>
