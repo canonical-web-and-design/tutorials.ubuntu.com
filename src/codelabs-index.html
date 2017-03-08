@@ -72,6 +72,12 @@
       .intro a {
         color: var(--app-primary-color);
       }
+      .heading-results {
+        font-size: 1.625em;
+        font-weight: 300;
+        line-height: 1.3;
+        margin-bottom: 2.25em;
+      }
       codelabs-card {
         margin: 10px;
       }
@@ -144,7 +150,7 @@
           <input id="edit-keys" type="search" placeholder="Search tutorials" is="iron-input" bind-value="{{filterSearch}}" />
           <paper-icon-button icon="search"></paper-icon-button>
           <template is="dom-if" if="[[filterSearch]]">
-            <h2>
+            <h2 class="heading-results">
               [[searchResultCount]] search results for [[filterSearch]]
             </h2>
           </template>
@@ -173,7 +179,7 @@
               </template>
             </template>
             <template is="dom-if" if="[[isEmpty]]">
-              <h2>Why not try widening your search?</h2>
+              <h2 class="heading-results">Why not try widening your search?</h2>
             </template>
           </template>
         </div>
