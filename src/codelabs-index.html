@@ -337,7 +337,7 @@
               return;
             }
             searchterm = searchterm.toLowerCase();
-            let searchterm_found = false;
+            var searchterm_found = false;
 
             if (
               title.indexOf(searchterm) > -1 ||
@@ -418,7 +418,7 @@
 
         // Force a binding update. Officially recommended, really!
         // https://www.polymer-project.org/1.0/docs/devguide/model-data#override-dirty-check
-        let codelabs = this.codelabs;
+        var codelabs = this.codelabs;
         this.codelabs = [];
         this.codelabs = codelabs;
       },
