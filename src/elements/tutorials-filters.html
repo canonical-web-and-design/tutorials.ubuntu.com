@@ -9,8 +9,19 @@
 <dom-module id="tutorials-filters">
   <template>
     <style>
+      .filter-label {
+        display: inline-block;
+        float: left;
+        margin-right: 1em;
+        margin-top: 7px;
+        position: relative;
+        width: auto;
+      }
       paper-dropdown-menu {
         --paper-input-container-focus-color: white;
+        float: left;
+        margin-right: .5em;
+        margin-bottom: 1em;
 
         --paper-input-container: {
           background: white;
@@ -30,23 +41,26 @@
           display: none;
         };
       }
-      paper-dropdown-menu.sort {
+      .sort {
         float: right;
-        margin-right: 12px;
-        margin-top: 70px;
+        margin-top: 40px;
+        position: relative;
+      }
+      .sort paper-dropdown-menu {
+        margin-right: 2px;
       }
       paper-button.button--primary {
         background: white;
         border: 1px solid var(--color-mid-light);
-        padding: 6px 10px;
-        text-transform: none;
+        float: left;
+        padding: 7px 11px;
         position: relative;
+        text-transform: none;
       }
     </style>
 
-    <div class="horizontal layout end">
-      Filter results by:
-
+    <div class="horizontal clearfix end">
+      <p class="filter-label">Filter results by:</p>
       <paper-dropdown-menu label="<topic>" no-label-float noink no-animations>
         <paper-listbox id="categorySelect" class="dropdown-content" attr-for-selected="data-sort" selected="{{selectedCategory}}">
           <template is="dom-repeat" items="[[_toArray(categoryOptions)]]">
@@ -63,15 +77,18 @@
         </paper-listbox>
       </paper-dropdown-menu>
 
-      <paper-button class="button--primary white" on-tap="_resetFilters" noink>Clear filters</paper-button>
+      <paper-button class="button--primary white" on-tap="_resetFilters">Clear filters</paper-button>
 
-      <paper-dropdown-menu class="sort" label="Sort" no-label-float noink no-animations>
-        <paper-listbox id="sortSelect" class="dropdown-content" attr-for-selected="data-sort" selected="{{selectedSort}}">
-          <template is="dom-repeat" items="[[_toArray(sortOptions)]]">
-            <paper-item data-sort$="[[item.value]]">[[item.name]]</paper-item>
-          </template>
-        </paper-listbox>
-      </paper-dropdown-menu>
+      <div class="sort">
+        <p class="filter-label">Sort results by:</p>
+        <paper-dropdown-menu no-label no-label-float noink no-animations>
+          <paper-listbox id="sortSelect" class="dropdown-content" attr-for-selected="data-sort" selected="{{selectedSort}}">
+            <template is="dom-repeat" items="[[_toArray(sortOptions)]]">
+              <paper-item data-sort$="[[item.value]]">[[item.name]]</paper-item>
+            </template>
+          </paper-listbox>
+        </paper-dropdown-menu>
+      </div>
 
     </div>
   </template>
