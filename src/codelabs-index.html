@@ -72,11 +72,26 @@
       .intro a {
         color: var(--app-primary-color);
       }
-      .heading-results {
+      h2 {
+        display: block;
         font-size: 1.625em;
         font-weight: 300;
         line-height: 1.3;
         margin-bottom: 2.25em;
+        width: 100%;
+      }
+      h3 {
+        display: block;
+        font-size: 1.4375em;
+        font-weight: 300;
+        line-height: 1.3;
+        width: 100%;
+      }
+      .heading-results__highlight {
+        font-weight: normal;
+      }
+      .no-results h2 {
+        margin-bottom: 1em;
       }
       codelabs-card {
         margin: 10px;
@@ -151,7 +166,7 @@
           <paper-icon-button icon="search"></paper-icon-button>
           <template is="dom-if" if="[[filterSearch]]">
             <h2 class="heading-results">
-              [[searchResultCount]] search results for [[filterSearch]]
+              <span class="heading-results__highlight">[[searchResultCount]]</span> search results for <span class="heading-results__highlight">[[filterSearch]]</span>
             </h2>
           </template>
         </div>
@@ -179,7 +194,15 @@
               </template>
             </template>
             <template is="dom-if" if="[[isEmpty]]">
-              <h2 class="heading-results">Why not try widening your search?</h2>
+              <div class="no-results">
+                <h2>Why not try widening your search?</h2>
+                <h3>You can do this by:</h3>
+                <ul>
+                  <li>Removing any filters</li>
+                  <li>Using individual words instead of phrases</li>
+                  <li>Trying a different spelling</li>
+                </ul>
+              </div>
             </template>
           </template>
         </div>
