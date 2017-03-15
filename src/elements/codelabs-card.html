@@ -1,12 +1,13 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/paper-card/paper-card.html">
-<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
-<link rel="import" href="../../bower_components/iron-icons/device-icons.html">
-<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
-<link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/iron-icons/device-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
 
 <link rel="import" href="codelabs-behaviors.html">
+<link rel="import" href="difficulty-indicator.html">
 <link rel="import" href="time-pretty.html">
 
 <dom-module id="codelabs-card">
@@ -22,6 +23,10 @@
         font-family: 'Ubuntu',Helvetica,Arial;
         height: 100%;
         position: relative;
+
+        --paper-card-content: {
+          padding: 0 16px 16px 16px;
+        };
       }
       paper-card a {
         color: var(--primary-text-color);
@@ -53,7 +58,6 @@
         width: 100%;
       }
       .duration {
-        float: right;
         text-align: right;
         width: 100%;
       }
@@ -66,21 +70,13 @@
       a {
         text-decoration: none;
       }
-      .card-content {
-        padding-top: 0;
-        position: relative;
-      }
       .summary {
         margin-bottom: 4em;
       }
-      @media only screen and (min-width: 768px) {
-        .card-content {
-          height: 260px;
-        }
-      }
       .meta {
         color: var(--secondary-text-color);
-        font-size: 1em;
+        font-size: .875em;
+        white-space: nowrap;
       }
       .meta--tags {
         bottom: 0;
@@ -93,6 +89,9 @@
       }
       .meta--tags .meta__tag:last-of-type:after {
         content: '';
+      }
+      .duration__value {
+        color: var(--primary-text-color);
       }
     </style>
 
@@ -107,19 +106,13 @@
         <div class="card-content">
           <p class="meta"><time-pretty datetime="[[updated]]">[[updated]]</time-pretty></p>
           <p class="summary">[[summary]]</p>
-          <p class="meta meta--tags">
-            <template is="dom-repeat" items="[[tags]]">
-              <span class="meta__tag">[[item]]</span>
-            </template>
-          </p>
-        </div>
-        <div class="flex"></div>
-        <div class="card-actions horizontal start-justified layout">
-          <div class="difficulty">
-            [[difficultyName]]
-          </div>
-          <div class="duration">
-            <span>[[duration]] minutes</span>
+          <div class="horizontal start-justified layout meta">
+            <div class="difficulty">
+              Difficulty: <difficulty-indicator difficulty="[[difficulty]]"></difficulty-indicator>
+            </div>
+            <div class="duration">
+              Duration: <span class="duration__value">[[duration]] min</span>
+            </div>
           </div>
         </div>
       </a>
@@ -135,7 +128,6 @@
 
       behaviors: [
         Polymer.ColorByCategoryBehavior,
-        Polymer.DifficultyToNameBehavior,
       ],
 
       properties: {
@@ -147,10 +139,6 @@
           computed: '_extractFirstCategory(category)',
         },
         difficulty: Number,
-        difficultyName: {
-          type: String,
-          computed: '_difficultyToName(difficulty)',
-        },
         duration: Number,
         tags: Array,
         updated: {

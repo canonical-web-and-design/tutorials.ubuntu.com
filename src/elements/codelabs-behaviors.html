@@ -27,34 +27,4 @@
     Polymer.ColorByCategoryBehaviorImpl
   ];
 
-
-  Polymer.DifficultyToNameBehaviorImpl = {
-
-    properties: {
-      difficultyMap: {
-        type: Object,
-        value: function() {
-          return {
-              1: 'Beginner',
-              2: 'Intermediate',
-              3: 'Intermediate',
-              4: 'Advanced',
-              5: 'Advanced',
-          }
-        },
-      },
-    },
-
-    _difficultyToName: function(difficulty) {
-      var difficultyName = this.difficultyMap[difficulty];
-      return difficultyName;
-    },
-
-  };
-
-  Polymer.DifficultyToNameBehavior = [
-    Polymer.DifficultyToNameBehaviorImpl
-  ];
-
-
 </script>
