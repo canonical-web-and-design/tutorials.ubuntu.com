@@ -2,7 +2,7 @@
 
 ## Guidelines
 
-We are building tutorial guidelines in our [guidelines document](https://docs.google.com/document/d/1rlFGWh-zcLpEtWygYTVMpMDqVvVkgNnnjdTVRQlNlko/edit)
+We are building tutorial guidelines in our [guidelines document](https://docs.google.com/document/d/1u5qmSNIcE8SjuAg6aKjTxOBGWIjBW0kYf01t4Dfw6-U/edit)
 
 ## Tutorial content
 
