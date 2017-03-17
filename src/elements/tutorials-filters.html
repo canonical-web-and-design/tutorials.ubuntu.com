@@ -12,16 +12,19 @@
       .filter-label {
         display: inline-block;
         float: left;
-        margin-right: 1em;
+        margin-right: .625rem;
         margin-top: 7px;
         position: relative;
         width: auto;
       }
+
       paper-dropdown-menu {
         --paper-input-container-focus-color: white;
+        font-family: 'Ubuntu',Helvetica,Arial;
         float: left;
-        margin-right: .5em;
+        margin-right: 20px;
         margin-bottom: 1em;
+        width: 100%;
 
         --paper-input-container: {
           background: white;
@@ -32,6 +35,8 @@
         --paper-input-container-input: {
           color: var(--primary-text-color);
           font-weight: 300;
+          width: 100%;
+          display: block;
         };
         --paper-input-container-label: {
           color: var(--primary-text-color);
@@ -40,6 +45,19 @@
         --paper-input-container-underline: {
           display: none;
         };
+      }
+      @media only screen and (min-width: 768px) {
+        paper-dropdown-menu {
+          width: 228px;
+        }
+      }
+      @media only screen and (min-width: 769px) {
+        paper-dropdown-menu {
+          width: auto;
+        }
+      }
+      paper-menu-button {
+        width: 100%;
       }
       .sort {
         float: right;
@@ -52,10 +70,26 @@
       paper-button.button--primary {
         background: white;
         border: 1px solid var(--color-mid-light);
+        color: black;
         float: left;
         padding: 7px 11px;
         position: relative;
         text-transform: none;
+        margin-left: 0;
+      }
+      paper-button.button--primary:hover {
+        background: var(--color-light);
+        border-color: var(--secondary-text-color);
+      }
+      paper-listbox {
+        padding: 0;
+      }
+      paper-item {
+        font-weight: 300;
+        width: 204px;
+      }
+      paper-item.iron-selected {
+        font-weight: 300;
       }
     </style>
 
@@ -77,7 +111,7 @@
         </paper-listbox>
       </paper-dropdown-menu>
 
-      <paper-button class="button--primary white" on-tap="_resetFilters">Clear filters</paper-button>
+      <paper-button noink class="button--primary white" on-tap="_resetFilters">Clear filters</paper-button>
 
       <div class="sort">
         <p class="filter-label">Sort results by:</p>
