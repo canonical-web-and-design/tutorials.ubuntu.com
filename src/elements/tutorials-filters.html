@@ -81,6 +81,8 @@
         background: var(--color-light);
         border-color: var(--secondary-text-color);
       }
+      paper-button[disabled].button--primary {
+      }
       paper-listbox {
         padding: 0;
       }
@@ -111,7 +113,7 @@
         </paper-listbox>
       </paper-dropdown-menu>
 
-      <paper-button noink class="button--primary white" on-tap="_resetFilters">Clear filters</paper-button>
+      <paper-button noink class="button--primary white" on-tap="_resetFilters" disabled="{{isClearDisabled}}">Clear filters</paper-button>
 
       <div class="sort">
         <p class="filter-label">Sort results by:</p>
@@ -171,6 +173,14 @@
           type: String,
           notify: true,
         },
+        isClearDisabled: {
+          type: Boolean,
+          computed: '_isClearDisabled(selectedCategory, selectedUser)',
+        },
+      },
+
+      _isClearDisabled: function(selectedCategory, selectedUser) {
+          return (selectedCategory.length === 0 && selectedUser.length === 0);
       },
 
       _toArray: function(obj) {
