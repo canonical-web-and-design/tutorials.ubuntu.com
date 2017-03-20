@@ -105,15 +105,19 @@
         </paper-listbox>
       </paper-dropdown-menu>
 
-      <paper-dropdown-menu label="<user>" disabled="true" no-label-float noink no-animations>
-        <paper-listbox id="userSelect" class="dropdown-content" attr-for-selected="data-sort" selected="{{selectedUser}}">
-          <template is="dom-repeat" items="[[_toArray(userOptions)]]">
-            <paper-item data-sort$="[[item.value]]">[[item.name]]</paper-item>
-          </template>
-        </paper-listbox>
-      </paper-dropdown-menu>
+      <template is="dom-if" if="[[showUsers]]">
+        <paper-dropdown-menu label="<user>" disabled="true" no-label-float noink no-animations>
+          <paper-listbox id="userSelect" class="dropdown-content" attr-for-selected="data-sort" selected="{{selectedUser}}">
+            <template is="dom-repeat" items="[[_toArray(userOptions)]]">
+              <paper-item data-sort$="[[item.value]]">[[item.name]]</paper-item>
+            </template>
+          </paper-listbox>
+        </paper-dropdown-menu>
+      </template>
 
-      <paper-button noink class="button--primary white" on-tap="_resetFilters" disabled="{{isClearDisabled}}">Clear filters</paper-button>
+      <template is="dom-if" if="[[showClear]]">
+        <paper-button noink class="button--primary white" on-tap="_resetFilters" disabled="{{isClearDisabled}}">Clear filters</paper-button>
+      </template>
 
       <div class="sort">
         <p class="filter-label">Sort results by:</p>
