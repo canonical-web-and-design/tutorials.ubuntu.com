@@ -5,10 +5,12 @@
 <link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../bower_components/app-route/app-route.html">
+<link rel="import" href="../bower_components/iron-input/iron-input.html">
 <link rel="import" href="../bower_components/paper-tabs/paper-tabs.html">
 <link rel="import" href="../bower_components/paper-tabs/paper-tab.html">
 
 <link rel="import" href="elements/codelabs-card.html">
+<link rel="import" href="elements/tutorials-filters.html">
 
 <dom-module id="codelabs-index">
 
@@ -24,6 +26,61 @@
       paper-tab {
         --paper-tab-ink: var(--app-primary-color);
       }
+      input[type="search"] {
+        background-color: white;
+        border: 1px solid var(--color-mid-light);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12) inset;
+        box-sizing: border-box;
+        font-family: 'Ubuntu',Helvetica,Arial;
+        font-size: 1em;
+        font-weight: 300;
+        line-height: 24px;
+        margin-bottom: 2.5em;
+        margin-right: -38px;
+        margin-top: 1em;
+        max-width: 480px;
+        outline-offset: -2px;
+        padding: 6px 38px 6px 10px;
+        width: 98%;
+        -webkit-appearance: none;
+      }
+      @media only screen and (min-width: 769px) {
+        margin-bottom: 3em;
+      }
+      input[type="search"]:focus {
+        border-color: var(--tertiary-text-color);
+        color: var(--tertiary-text-color);
+      }
+      paper-icon-button.search {
+        color: var(--color-mid-light);
+      }
+      paper-icon-button.search:hover {
+        color: var(--tertiary-text-color);
+      }
+      ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+        color: var(--secondary-text-color);
+      }
+      ::-moz-placeholder { /* Firefox 19+ */
+        color: var(--secondary-text-color);
+      }
+      :-ms-input-placeholder { /* IE 10+ */
+        color: var(--secondary-text-color);
+      }
+      :-moz-placeholder { /* Firefox 18- */
+        color: var(--secondary-text-color);
+      }
+      :focus::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+        color: var(--tertiary-text-color);
+      }
+      :focus::-moz-placeholder { /* Firefox 19+ */
+        color: var(--tertiary-text-color);
+      }
+      :focus:-ms-input-placeholder { /* IE 10+ */
+        color: var(--tertiary-text-color);
+      }
+      :focus:-moz-placeholder { /* Firefox 18- */
+        color: var(--tertiary-text-color);
+      }
       .content {
         margin: 0 auto;
         max-width: 980px;
@@ -32,10 +89,15 @@
         padding: 10px;
       }
       .intro {
+        box-sizing: border-box;
+        clear: both;
+        display: block;
         font-family: 'Ubuntu',Helvetica,Arial;
-        max-width: 620px;
-        padding-left: 10px;
-        padding-bottom: 40px;
+        height: 100%;
+        overflow: hidden;
+        padding: 0 10px 10px;
+        position: relative;
+        width: 100%;
       }
       .intro h1 {
         font-size: 2.8125em;
@@ -43,9 +105,44 @@
       }
       .intro p {
         font-weight: 300;
+        max-width: 620px;
       }
       .intro a {
         color: var(--app-primary-color);
+      }
+      h2 {
+        display: block;
+        font-size: 1.625em;
+        font-weight: 300;
+        line-height: 1.3;
+        margin-bottom: 2.25em;
+        width: 100%;
+      }
+      h3 {
+        display: block;
+        font-size: 1.4375em;
+        font-weight: 300;
+        line-height: 1.3;
+        width: 100%;
+      }
+      .heading-results {
+        margin-bottom: 1em;
+      }
+      @media only screen and (min-width: 768px) {
+        .heading-results {
+          margin-bottom: 1.75em;
+        }
+      }
+      @media only screen and (min-width: 769px) {
+        .heading-results {
+          margin-bottom: 2em;
+        }
+      }
+      .heading-results__highlight {
+        font-weight: normal;
+      }
+      .no-results h2 {
+        margin-bottom: 1em;
       }
       codelabs-card {
         margin: 10px;
@@ -85,6 +182,18 @@
     }
     </style>
 
+    <app-route
+      route="{{eventRoute}}"
+      pattern="/:event"
+      data="{{routeData}}"></app-route>
+
+    <iron-ajax
+      auto
+      url="/api/codelabs.json"
+      handle-as="json"
+      on-response="_codelabsInfoHandler"
+      loading="{{isLoading}}"></iron-ajax>
+
     <div>
       <template is="dom-if" if="{{currentEvent.id}}">
         <header class="horizontal layout event-wrapper">
@@ -96,35 +205,60 @@
         </div>
       </template>
       <div class="content">
-        <div class="intro">
+        <div class="wrap intro">
           <h1>Let's get coding!</h1>
           <p>Ubuntu Tutorials are just like learning from pair programming except you can do it on your own. They provide a step-by-step process to doing development and devops activities on Ubuntu machines, servers or devices.</p>
 
           <p>For now, the tutorials focus mainly on building and using snaps and Ubuntu Core.<br /><a href="https://github.com/ubuntudesign/tutorials.ubuntu.com/issues/new" class="external">If you'd like to see tutorials cover more topics, let us know</a></p>
+
+        <div>
+          <label class="accessibility-aid" for="edit-keys" hidden="hidden">Search</label>
+          <input id="edit-keys" type="search" placeholder="Search tutorials" is="iron-input" bind-value="{{filterSearch}}" />
+          <paper-icon-button class="search" icon="search"></paper-icon-button>
+          <template is="dom-if" if="[[filterSearch]]">
+            <h2 class="heading-results">
+              <span class="heading-results__highlight">[[searchResultCount]]</span> search results for <span class="heading-results__highlight">[[filterSearch]]</span>
+            </h2>
+          </template>
         </div>
+        <div>
+          <tutorials-filters
+            selected-category="{{filterCategory}}"
+            selected-sort="{{filterSort}}"
+            selected-user="{{filterUser}}"
+            >
+          </tutorials-filters>
+        </div>
+        </div>
+
         <div class="horizontal layout end">
           <div class="flex"></div>
         </div>
         <div class="horizontal layout wrap">
-          <template is="dom-repeat" items="[[codelabs]]" filter="{{codelabfromscope(currentEvent, listofkeywords, selectedcategory)}}">
-            <codelabs-card title="[[item.title]]" summary="[[item.summary]]" category="[[item.category]]"
-                          difficulty="[[item.difficulty]]" duration="[[item.duration}}" tags="[[item.tags]]"
-                          updated="[[item.updated]]" url="[[item.url]]" currenturl="[[eventRoute.prefix]][[eventRoute.path]]"
-                          categoriesmap="[[categoriesmap]]"></codelabs-card>
+          <template is="dom-if" if="[[!isLoading]]">
+            <template is="dom-if" if="[[!isEmpty]]">
+              <template is="dom-repeat" items="[[filteredTutorials]]" sort="[[_getSortFunction(filterSort)]]">
+                <codelabs-card title="[[item.title]]" summary="[[item.summary]]" category="[[item.category]]"
+                              difficulty="[[item.difficulty]]" duration="[[item.duration}}" tags="[[item.tags]]"
+                              updated="[[item.updated]]" url="[[item.url]]" currenturl="[[eventRoute.prefix]][[eventRoute.path]]"
+                              categoriesmap="[[categoriesmap]]"></codelabs-card>
+              </template>
+            </template>
+            <template is="dom-if" if="[[isEmpty]]">
+              <div class="no-results">
+                <h2>Why not try widening your search?</h2>
+                <h3>You can do this by:</h3>
+                <ul>
+                  <li>Removing any filters</li>
+                  <li>Using individual words instead of phrases</li>
+                  <li>Trying a different spelling</li>
+                </ul>
+              </div>
+            </template>
           </template>
         </div>
       </div>
-      <iron-ajax
-        auto
-        url="/api/codelabs.json"
-        handle-as="json"
-        on-response="_codelabsInfoHandler">
-      <app-route
-        route="{{eventRoute}}"
-        pattern="/:event"
-        data="{{routeData}}"></app-route>
     </div>
-
   </template>
 
   <script>
@@ -138,34 +272,168 @@
           type: Array,
           value: function() {
             return [];
-          }
+          },
+          notify: true,
         },
         categoriesmap: Object,
         eventsmap: Object,
-        currentSearch: {
-          type: String,
-          observer: '_updatekeywords',
-        },
-        listofkeywords: {
+        searchKeywords: {
           type: Array,
-          value: function() {
-            return [];
-          },
+          notify: true,
+          computed: '_searchKeywords(filterSearch)',
         },
         categories: {
           type: Array,
           computed: "_buildcategories(categoriesmap)",
         },
         eventRoute: String,
-        currentEvent: {
+        filterCategory: {
+          type: String,
+          value: '',
+          notify: true,
+        },
+        filterEvent: {
           type: Object,
           value: {},
+          notify: true,
           computed: "_eventChanged(routeData.event, eventsmap)"
         },
-        filteringMethod: {
+        filterSort: {
+          type: String,
+          value: 'updated-desc',
+          notify: true,
+        },
+        filterUser: {
+          type: String,
+          value: '',
+          notify: true,
+        },
+        filterSearch: {
+          type: String,
+          notify: true,
+        },
+        filteredTutorials: {
+          type: Array,
+          value: [],
+          notify: true,
+          computed: "_getFilteredTutorials(codelabs, searchKeywords, filterEvent, filterCategory, filterUser)",
+        },
+        isEmpty: {
+          type: Boolean,
+          notify: true,
+          computed: '_isEmpty(filteredTutorials)',
+        },
+        isLoading: Boolean,
+        searchResultCount: {
           type: Number,
           value: 0,
+          notify: true,
         },
+      },
+
+      _getSortFunction: function(sortOption) {
+        switch(sortOption) {
+          case 'updated-asc':
+            return function(a, b) {
+              return a.updated > b.updated;
+            };
+          case 'updated-desc':
+            return function(a, b) {
+              return a.updated < b.updated;
+            };
+          case 'duration-asc':
+            return function(a, b) {
+              return a.duration > b.duration;
+            };
+          case 'duration-desc':
+            return function(a, b) {
+              return a.duration < b.duration;
+            };
+          case 'difficulty-desc':
+            return function(a, b) {
+              return a.difficulty < b.difficulty;
+            };
+          case 'difficulty-asc':
+            return function(a, b) {
+              return a.difficulty > b.difficulty;
+            };
+        };
+      },
+
+      _getFilteredTutorials: function(tutorials, searchKeywords, currentEvent, currentCategory, currentUser) {
+        if (searchKeywords.length > 0) {
+          tutorials = tutorials.filter(this._getSearchFilterFunction(searchKeywords));
+        }
+        this.searchResultCount = tutorials.length;
+        if (
+          currentEvent !== '' ||
+          currentCategory !== '' ||
+          currentUser !== ''
+        ) {
+          tutorials = tutorials.filter(this._getFilterFunction(currentEvent, currentCategory, currentUser));
+        }
+        return tutorials;
+      },
+
+      _getSearchFilterFunction: function(searchKeywords) {
+        return function(item) {
+          var title = item.title.toLowerCase();
+          var summary = item.summary.toLowerCase();
+          var category = item.category[0].toLowerCase();
+          var tags = item.tags;
+
+          var should_show = true;
+          searchKeywords.forEach(function(searchterm) {
+            if (searchterm === '') {
+              return;
+            }
+            searchterm = searchterm.toLowerCase();
+            var searchterm_found = false;
+
+            if (
+              title.indexOf(searchterm) > -1 ||
+              summary.indexOf(searchterm) > -1 ||
+              category.indexOf(searchterm) > -1
+            ) {
+              searchterm_found = true;
+              return;
+            }
+
+            tags.forEach(function(tag) {
+              if (tag.toLowerCase().indexOf(searchterm) > -1) {
+                searchterm_found = true;
+                return;
+              }
+            }, this);
+            should_show = should_show && searchterm_found;
+          }, this);
+          return should_show;
+        };
+      },
+
+      _getFilterFunction: function(currentEvent, currentCategory, currentUser) {
+        return function(item) {
+          var category = item.category[0].toLowerCase();
+          var tags = item.tags;
+
+          // filter by event matching
+          if (currentEvent.id && tags.indexOf(currentEvent.id) < 0) {
+            return false;
+          }
+
+          // filter by category
+          if (currentCategory !== '' && currentCategory !== category) {
+            return false;
+          }
+
+          // TODO: filter by user
+
+          return true;
+        };
+      },
+
+      _isEmpty: function(results) {
+        return results.length <= 0;
       },
 
       _eventChanged: function(eventID, eventsmap) {
@@ -188,43 +456,6 @@
         return currentEvent;
       },
 
-      codelabfromscope: function(currentEvent, listofkeywords, selectedcategory) {
-        // return a filter function for the current search string
-        return function(item) {
-          var title = item.title.toLowerCase();
-          var summary = item.summary.toLowerCase();
-          var category = item.category[0].toLowerCase();
-          var tags = item.tags;
-
-          // filter by event matching
-          if (currentEvent.id && tags.indexOf(currentEvent.id) < 0) {
-            return false;
-          }
-
-          // filter by category
-          if (selectedcategory !== category && selectedcategory !== "All")
-            return false;
-          if (listofkeywords.length === 0)
-            return true;
-
-          var should_show = true;
-          listofkeywords.forEach(function(searchterm) {
-            var searchterm_found = false;
-            if (title.indexOf(searchterm) !== -1 || summary.indexOf(searchterm) !== -1 ||
-                category.indexOf(searchterm) !== -1) {
-              searchterm_found = true;
-            }
-            tags.forEach(function(tag) {
-              if (tag.toLowerCase().indexOf(searchterm) !== -1) {
-                searchterm_found = true;
-              }
-            }, this);
-            should_show = should_show && searchterm_found;
-          }, this);
-          return should_show;
-        };
-      },
-
       _codelabsInfoHandler: function(event) {
         this.categoriesmap = event.detail.response["categories"];
         this.eventsmap = event.detail.response["events"];
@@ -235,17 +466,19 @@
           }
           this.push("codelabs", codelab);
         }, this);
+
+        // Force a binding update. Officially recommended, really!
+        // https://www.polymer-project.org/1.0/docs/devguide/model-data#override-dirty-check
+        var codelabs = this.codelabs;
+        this.codelabs = [];
+        this.codelabs = codelabs;
       },
 
-      _updatekeywords: function() {
-        // protect against uninitialized javascript
-        if (typeof this.listofkeywords === "undefined") {
-          return;
+      _searchKeywords: function(searchString) {
+        if (searchString.length > 0) {
+          return searchString.split(" ");
         }
-        this.listofkeywords = [];
-        this.currentSearch.split(" ").forEach(function(searchterm) {
-          this.listofkeywords.push(searchterm.toLowerCase())
-        }, this);
+        return [];
       },
 
       _buildcategories: function(categoriesmap) {
