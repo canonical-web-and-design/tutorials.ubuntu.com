@@ -1,0 +1,73 @@
+#!/usr/bin/env python3
+
+# This assumes you are using a prerender.io server
+# https://github.com/prerender/prerender
+
+
+import argparse
+import json
+import os
+import requests
+
+
+BUILD_PATH_TEMPLATE = './static/{path}'
+REQUEST_TEMPLATE = '{prerender_host}/{src_host}/{path}'
+TUTORIAL_PATH_TEMPLATE = 'tutorial/{tutorial}'
+TUTORIALS_JSON = './api/codelabs.json'
+
+
+def render(prerender_host, src_host, path):
+    destination_dir = os.path.dirname(BUILD_PATH_TEMPLATE.format(path=path))
+    if not os.path.exists(destination_dir):
+        os.makedirs(destination_dir)
+
+    response = requests.get(
+        REQUEST_TEMPLATE.format(
+            prerender_host=prerender_host,
+            src_host=src_host,
+            path=path,
+        )
+    )
+    file_path = BUILD_PATH_TEMPLATE.format(path=path or 'index')
+    with open(file_path, 'wb') as rendered_file:
+        rendered_file.write(response.content)
+
+
+def prerender(prerender_host, src_host):
+    # Render index page at /
+    render(prerender_host, src_host, '')
+
+    json_data = None
+    with open(TUTORIALS_JSON, 'r') as json_file:
+        json_data = json.load(json_file)
+
+    for tutorial in json_data['codelabs']:
+        tutorial_path = TUTORIAL_PATH_TEMPLATE.format(tutorial=tutorial['url'])
+        render(prerender_host, src_host, tutorial_path)
+
+
+def build_arguments():
+    parser = argparse.ArgumentParser(
+        description='Prerender HTML files using a local prerender.io server.'
+    )
+    parser.add_argument(
+        '--prerender-host',
+        type=str,
+        required=True,
+        help='Full prerender.io host location, no slash at end'
+    )
+    parser.add_argument(
+        '--src-host',
+        type=str,
+        required=True,
+        help='Tutorials host location, no slash at end'
+    )
+    return parser.parse_args()
+
+
+if __name__ == "__main__":
+    arguments = build_arguments()
+    prerender(
+        prerender_host=arguments.prerender_host,
+        src_host=arguments.src_host,
+    )
