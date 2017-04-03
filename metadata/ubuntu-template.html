@@ -1,14 +1,13 @@
 <google-codelab
   id="codelabobj"
-  title="{{.Meta.Title}}"
-  environment="{{index .Env}}"
+  title="{{.Title}}"
   feedback-link="https://github.com/ubuntudesign/tutorials.ubuntu.com/issues">
   <app-route
     route="{{"{{"}}route{{"}}"}}"
     tail="{{"{{"}}routeTail{{"}}"}}"></app-route>
-  {{range .Steps}}{{if matchEnv .Tags $.Env}}
+  {{range .Steps}}
   <google-codelab-step label="{{.Title}}" duration="{{.Duration.Minutes}}">
-    {{.Content | renderHTML $.Env}}
+    {{.Content | renderHTML ""}}
   </google-codelab-step>
-  {{end}}{{end}}
+  {{end}}
 </google-codelab>
