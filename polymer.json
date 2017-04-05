@@ -8,7 +8,8 @@
   "sources": [
     "api/**/*",
     "images/**/*",
-    "src/codelabs/**/*"
+    "src/codelabs/**/*",
+    "static/**/*"
   ],
   "includeDependencies": [
     "bower_components/webcomponentsjs/webcomponents-lite.min.js",
