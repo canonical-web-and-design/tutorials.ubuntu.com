@@ -66,9 +66,9 @@
       tail="{{routeTail}}">
     </app-route>
     <iron-ajax
+      id="tutorialAjax"
       url="[[url]]/index.html"
       handle-as="text"
-      auto
       loading="{{loading}}"
       on-response="_loadTutorial">
     </iron-ajax>
@@ -96,7 +96,14 @@
 
       observers: [
         '_handleLoading(loading, url)',
+        '_onPageChange(routeData.codelab)',
       ],
+
+      _onPageChange: function(slug) {
+        if (slug) {
+          document.querySelector("#tutorialAjax").generateRequest();
+        }
+      },
 
       _handleLoading: function(loading) {
         if (loading !== true) {
