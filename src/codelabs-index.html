@@ -235,7 +235,7 @@
           <template is="dom-if" if="[[!isLoading]]">
             <template is="dom-if" if="[[!isEmpty]]">
               <template is="dom-repeat" items="[[filteredTutorials]]" sort="[[_getSortFunction(filterSort)]]">
-                <codelabs-card title="[[item.title]]" summary="[[item.summary]]" category="[[item.category]]"
+                <codelabs-card heading="[[item.title]]" summary="[[item.summary]]" category="[[item.category]]"
                               difficulty="[[item.difficulty]]" duration="[[item.duration}}" tags="[[item.tags]]"
                               updated="[[item.updated]]" url="[[item.url]]" currenturl="[[eventRoute.prefix]][[eventRoute.path]]"
                               categoriesmap="[[categoriesmap]]"></codelabs-card>

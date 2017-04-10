@@ -40,7 +40,7 @@
         color: #fff;
         border-radius: 2px 2px 0 0;
       }
-      .title {
+      .heading {
         margin: 10px 0 0;
         font-family: 'Ubuntu',Helvetica,Arial;
         font-size: 28px;
@@ -101,7 +101,7 @@
           <div class="horizontal end-justified layout">
             <div class="light card-category">[[firstcategory]]</div>
           </div>
-          <h2 class="title">[[title]]</h2>
+          <h2 class="heading">[[heading]]</h2>
         </div>
         <div class="card-content">
           <p class="meta"><time-pretty datetime="[[updated]]">[[updated]]</time-pretty></p>
@@ -131,8 +131,8 @@
       ],
 
       properties: {
-        title: String,
         summary: String,
+        heading: String,
         category: Array,
         firstcategory: {
           type: String,
