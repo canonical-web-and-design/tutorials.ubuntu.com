@@ -72,6 +72,11 @@
       loading="{{loading}}"
       on-response="_loadTutorial">
     </iron-ajax>
+    <iron-ajax
+      auto
+      url="/api/codelabs.json"
+      handle-as="json"
+      on-response="_codelabsInfoHandler"></iron-ajax>
     <div id="contentContainer"></div>
   </template>
 
@@ -91,6 +96,12 @@
           type: Boolean,
           notify: true,
           value: false,
+        },
+        codelabs: {
+          type: Array,
+          value: function() {
+            return [];
+          },
         },
       },
 
@@ -112,9 +123,38 @@
         Polymer.dom(this.$.contentContainer).innerHTML = '';
       },
 
+      _updateMetadata: function() {
+        var currentUrl = this.routeData.codelab;
+        var metadata = this.codelabs.find(function(metadata) {
+          return metadata.url === currentUrl;
+        });
+        if (metadata !== []) {
+          this.fire('app-metadata', {
+            title: `${metadata.title} | Ubuntu tutorials`,
+            description: metadata.summary,
+          });
+        }
+      },
+
+      _codelabsInfoHandler: function(event) {
+        this.categoriesmap = event.detail.response["categories"];
+        this.eventsmap = event.detail.response["events"];
+        event.detail.response["codelabs"].forEach(function(codelab) {
+          this.push("codelabs", codelab);
+        }, this);
+
+        // Force a binding update. Officially recommended, really!
+        // https://www.polymer-project.org/1.0/docs/devguide/model-data#override-dirty-check
+        var codelabs = this.codelabs;
+        this.codelabs = [];
+        this.codelabs = codelabs;
+        this._updateMetadata();
+      },
+
       _loadTutorial: function(e, url) {
         const resp = e.detail.response;
         Polymer.dom(this.$.contentContainer).innerHTML = resp.replace(/CODELABURL/g, this.url);
+        this._updateMetadata();
       },
 
       _codelaburl: function(codelabpath) {

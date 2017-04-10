@@ -1,4 +1,5 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/app-metadata/app-metadata.html">
 <link rel="import" href="../bower_components/app-route/app-location.html">
 <link rel="import" href="../bower_components/app-route/app-route.html">
 <link rel="import" href="../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
@@ -75,6 +76,10 @@
       observers: [
         '_routePageChanged(routeData.page)'
       ],
+
+      attached: function() {
+        Polymer.AppMetadata.requestAvailability();
+      },
 
       _routePageChanged: function(page) {
         this.page = page || 'codelabs-index';

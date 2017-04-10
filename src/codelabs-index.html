@@ -328,6 +328,13 @@
         },
       },
 
+      attached: function() {
+        this.fire('app-metadata', {
+          title: 'Ubuntu tutorials',
+          description: 'This is the page description',
+        });
+      },
+
       _getSortFunction: function(sortOption) {
         switch(sortOption) {
           case 'updated-asc':
