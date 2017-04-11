@@ -1,0 +1,12 @@
+snap: 
+  lightcolor: var(--paper-indigo-300)
+  maincolor: var(--paper-indigo-500)
+  secondarycolor: var(--paper-indigo-700)
+snapcraft: 
+  lightcolor: var(--paper-teal-300)
+  maincolor: var(--paper-teal-500)
+  secondarycolor: var(--paper-teal-700)
+unknown: 
+  lightcolor: "#444"
+  maincolor: "#444"
+  secondarycolor: "#444"
