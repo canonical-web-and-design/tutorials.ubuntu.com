@@ -130,7 +130,7 @@
         });
         if (metadata !== []) {
           this.fire('app-metadata', {
-            title: `${metadata.title} | Ubuntu tutorials`,
+            title: metadata.title + ' | Ubuntu tutorials',
             description: metadata.summary,
           });
         }
