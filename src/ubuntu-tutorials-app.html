@@ -54,9 +54,12 @@
     </tutorials-app-header>
 
     <iron-pages role="main" selected="[[page]]" attr-for-selected="name">
-      <codelabs-index name="codelabs-index" current-search=[[currentsearch]]></codelabs-index>
-      <codelabs-index name="events" event-route="[[subroute]]" current-search=[[currentsearch]]></codelabs-index>
-      <codelabs-page name="tutorial" route="[[subroute]]"></codelabs-page>
+      <section name="index">
+        <codelabs-index id="page-index" route="[[subroute]]" current-search=[[currentsearch]]></codelabs-index>
+      </section>
+      <section name="tutorial">
+        <codelabs-page id="page-tutorial" route="[[subroute]]"></codelabs-page>
+      </section>
     </iron-pages>
 
   </template>
@@ -69,33 +72,39 @@
         page: {
           type: String,
           reflectToAttribute: true,
-          observer: '_pageChanged'
         },
       },
 
       observers: [
-        '_routePageChanged(routeData.page)'
+        '_loadPage(routeData.page)',
       ],
 
       attached: function() {
         Polymer.AppMetadata.requestAvailability();
       },
 
-      _routePageChanged: function(page) {
-        this.page = page || 'codelabs-index';
-      },
-
-      _pageChanged: function(page) {
+      _loadPage: function _loadPage(page) {
         // load page import on demand.
+        page = page || 'index';
         var pageToLoad = page;
-        if (page == "events") {
-          pageToLoad = "codelabs-index";
+        if (page == 'index' || page == 'events') {
+          page = 'index';
+          pageToLoad = 'codelabs-index';
         }
-        if (page == "tutorial") {
-          pageToLoad = "codelabs-page";
+        if (page == 'tutorial') {
+          pageToLoad = 'codelabs-page';
         }
+
+        if (Polymer.isInstance(this.$['page-' + page])) {
+          this.page = page;
+          return;
+        }
+
+        var hrefToImport = this.resolveUrl(pageToLoad + '.html');
         this.importHref(
-          this.resolveUrl(pageToLoad + '.html'), null, null, true);
+          hrefToImport,
+          function loadPage() {this.page = page;}
+        );
       },
 
       _isMainHeaderHidden: function(page) {
