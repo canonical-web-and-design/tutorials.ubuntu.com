@@ -6,7 +6,6 @@
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
 
-<link rel="import" href="codelabs-behaviors.html">
 <link rel="import" href="difficulty-indicator.html">
 <link rel="import" href="time-pretty.html">
 
@@ -126,10 +125,6 @@
 
       is: 'codelabs-card',
 
-      behaviors: [
-        Polymer.ColorByCategoryBehavior,
-      ],
-
       properties: {
         summary: String,
         heading: String,
@@ -154,11 +149,6 @@
 
       _extractFirstCategory: function(category) {
         var firstcategory = category[0];
-        var colors = this._colors_by_category(firstcategory, this.categoriesmap);
-        this.customStyle['--category-color'] = colors.maincolor;
-        this.customStyle['--category-secondary'] = colors.secondarycolor;
-        this.customStyle['--category-light'] = colors.lightcolor;
-        this.updateStyles();
         return firstcategory;
       },
 

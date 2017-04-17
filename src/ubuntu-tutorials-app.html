@@ -7,6 +7,7 @@
 <link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
 <link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
@@ -41,6 +42,14 @@
       }
     </style>
 
+    <iron-ajax
+      auto
+      url="/api/codelabs.json"
+      handle-as="json"
+      on-response="_codelabsInfoHandler"
+      last-response="{{_codelabsLastResponse}}"
+      loading="{{isLoading}}"></iron-ajax>
+
     <app-location route="{{route}}"></app-location>
     <app-route
         route="{{route}}"
@@ -55,10 +64,10 @@
 
     <iron-pages role="main" selected="[[page]]" attr-for-selected="name">
       <section name="index">
-        <codelabs-index id="page-index" route="[[subroute]]" current-search=[[currentsearch]]></codelabs-index>
+        <codelabs-index id="page-index" route="[[subroute]]" current-search=[[currentsearch]] codelabs="{{codelabs}}"></codelabs-index>
       </section>
       <section name="tutorial">
-        <codelabs-page id="page-tutorial" route="[[subroute]]"></codelabs-page>
+        <codelabs-page id="page-tutorial" route="[[subroute]]" codelabs="{{codelabs}}"></codelabs-page>
       </section>
     </iron-pages>
 
@@ -69,6 +78,11 @@
       is: 'ubuntu-tutorials-app',
 
       properties: {
+        _codelabsLastResponse: Object,
+        codelabs: {
+          type: Array,
+          notify: true,
+        },
         page: {
           type: String,
           reflectToAttribute: true,
@@ -109,6 +123,27 @@
 
       _isMainHeaderHidden: function(page) {
         return page === "tutorial";
+      },
+
+      _codelabsInfoHandler: function(event) {
+        var codelabs = [];
+        if (this.codelabs !== undefined) {
+          codelabs = this.codelabs;
+        }
+        this.categoriesmap = event.detail.response["categories"];
+        this.eventsmap = event.detail.response["events"];
+        event.detail.response["codelabs"].forEach(function(codelab) {
+          // filter hidden items
+          if (codelab.tags.indexOf('hidden') !== -1) {
+            return;
+          }
+          codelabs.push(codelab);
+        }, this);
+
+        // Force a binding update. Officially recommended, really!
+        // https://www.polymer-project.org/1.0/docs/devguide/model-data#override-dirty-check
+        this.codelabs = [];
+        this.codelabs = codelabs;
       },
 
     });
