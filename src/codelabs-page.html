@@ -122,9 +122,9 @@
           return;
         }
         var currentUrl = this.routeData.codelab;
-        var metadata = this.codelabs.find(function(metadata) {
+        var metadata = this.codelabs.filter(function(metadata) {
           return metadata.url === currentUrl;
-        });
+        })[0];
         if (metadata !== undefined) {
           this.fire('app-metadata', {
             title: metadata.title + ' | Ubuntu tutorials',
