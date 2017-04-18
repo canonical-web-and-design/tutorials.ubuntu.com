@@ -7,3 +7,7 @@ src/codelabs/*
 !src/codelabs/example
 tools/claat-linux-amd64
 static/
+
+# ignore downloaded binaries
+bin/*.real
+bin/*.version
