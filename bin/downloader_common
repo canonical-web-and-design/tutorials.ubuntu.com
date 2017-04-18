@@ -1,0 +1,42 @@
+GITHUB="https://github.com"
+REPO="ubuntu/tutorial-deployment"
+BINARY_DIR=`dirname "$0"`
+
+if [ -z "`which curl`" ]; then
+    echo curl is required for this tool:
+    echo $ apt install curl
+    exit 1
+fi
+
+function has_new_release {
+    bin_name="$1"
+    exec_path="$BINARY_DIR/$bin_name.real"
+    version_file="$BINARY_DIR/$bin_name.version"
+
+    source $version_file 2>/dev/null || RELEASE=""
+    latest_release=`curl -L -s -H 'Accept: application/json' $GITHUB/$REPO/releases/latest | sed -e 's/.*"tag_name":"\([^"]*\)".*/\1/'`
+
+    # exec file present and no newer release
+    if  [ -x "$exec_path" ] && [ "$latest_release" == "$RELEASE" ]; then
+        echo ""
+        return
+    fi
+
+    echo $latest_release
+}
+
+function download_version {
+    bin_name="$1"
+    latest_release="$2"
+    exec_path="$BINARY_DIR/$bin_name.real"
+    version_file="$BINARY_DIR/$bin_name.version"
+
+    curl -L -o $exec_path $GITHUB/$REPO/releases/download/$latest_release/$bin_name
+    chmod +x $exec_path
+    echo "RELEASE=$latest_release" > $version_file
+}
+
+function get_exec_path {
+    bin_name="$1"
+    echo "$BINARY_DIR/$bin_name.real"
+}
