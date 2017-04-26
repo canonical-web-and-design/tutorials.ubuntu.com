@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -eu
+
+. `dirname "$0"`/downloader_common
+
+binary_name="generate"
+
+new_release=`has_new_release $binary_name`
+if [ -n "$new_release" ]; then
+    echo "Downloading a new update of $binary_name"
+    download_version $binary_name $new_release
+fi
+
+exec `get_exec_path $binary_name` "$@"

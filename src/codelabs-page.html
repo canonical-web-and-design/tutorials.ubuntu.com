@@ -66,7 +66,7 @@
       tail="{{routeTail}}">
     </app-route>
     <iron-ajax
-      url="/src/codelabs/[[routeData.codelab]]/index.ubuntu-template.html"
+      url="[[url]]/index.html"
       handle-as="text"
       auto
       loading="{{loading}}"
@@ -80,6 +80,10 @@
       is: 'codelabs-page',
 
       properties: {
+        url: {
+          type: String,
+          computed: '_codelaburl(routeData.codelab)'
+        },
         route: {
           type: String,
         },
@@ -91,7 +95,7 @@
       },
 
       observers: [
-        '_handleLoading(loading)',
+        '_handleLoading(loading, url)',
       ],
 
       _handleLoading: function(loading) {
@@ -101,9 +105,13 @@
         Polymer.dom(this.$.contentContainer).innerHTML = '';
       },
 
-      _loadTutorial: function(e) {
+      _loadTutorial: function(e, url) {
         const resp = e.detail.response;
-        Polymer.dom(this.$.contentContainer).innerHTML = resp;
+        Polymer.dom(this.$.contentContainer).innerHTML = resp.replace(/CODELABURL/g, this.url);
+      },
+
+      _codelaburl: function(codelabpath) {
+        return '/src/codelabs/' + codelabpath;
       },
     });
   </script>

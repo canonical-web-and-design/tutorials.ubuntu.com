@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+set -eu
+
+. `dirname "$0"`/downloader_common
+
+binary_name="serve"
+
+function download {
+    new_release=`has_new_release $binary_name`
+    if [ -n "$new_release" ]; then
+        echo "Downloading a new update of $binary_name"
+        download_version $binary_name $new_release
+    fi
+}
+
+# We want to serve as quickly as possible, so process only a blocking download if no binary
+# is present (even not latest).
+if [ ! -x `get_exec_path $binary_name` ]; then
+    download
+
+# Optionally download newer function, in the background without executing the new binary
+else
+    download 2>/dev/null &
+fi
+
+exec `get_exec_path $binary_name` "$@"

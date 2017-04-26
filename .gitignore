@@ -1,8 +1,12 @@
-api/tutorials
+api/
 bower_components
 build
+images/assets
 node_modules
-src/codelabs/*
-!src/codelabs/example
+src/codelabs
 tools/claat-linux-amd64
 static/
+
+# ignore downloaded binaries
+bin/*.real
+bin/*.version
