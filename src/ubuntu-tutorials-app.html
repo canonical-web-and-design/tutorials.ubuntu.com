@@ -12,6 +12,7 @@
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 
 <link rel="import" href="elements/tutorials-app-header.html">
+<link rel="import" href="elements/websocket-reloader.html">
 <link rel="import" href="codelabs-index.html">
 <link rel="import" href="codelabs-page.html">
 
@@ -45,6 +46,8 @@
         pattern="/:page"
         data="{{routeData}}"
         tail="{{subroute}}"></app-route>
+
+    <websocket-reloader></websocket-reloader>
 
     <tutorials-app-header hidden="[[_isMainHeaderHidden(page)]]">
     </tutorials-app-header>
