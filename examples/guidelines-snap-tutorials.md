@@ -1,7 +1,7 @@
-# Example snap tutorial
+# Ubuntu tutorial guidelines
 
 // id is used as tutorial url
-id: example-snap-tutorial
+id: tutorial-guidelines
 summary: A summary tutorial description. Remember the content of it (as the title) is searchable. It should be around 26 words.
 // Categories correspond to one or multiple area of the developer site
 categories: snapcraft
