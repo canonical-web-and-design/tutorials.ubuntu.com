@@ -31,8 +31,9 @@ function download_version {
     exec_path="$BINARY_DIR/$bin_name.real"
     version_file="$BINARY_DIR/$bin_name.version"
 
-    curl -L -o $exec_path $GITHUB/$REPO/releases/download/$latest_release/$bin_name
-    chmod +x $exec_path
+    curl -L -o $exec_path.new $GITHUB/$REPO/releases/download/$latest_release/$bin_name
+    chmod +x $exec_path.new
+    mv $exec_path.new $exec_path
     echo "RELEASE=$latest_release" > $version_file
 }
 
