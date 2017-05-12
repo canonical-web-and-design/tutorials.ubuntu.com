@@ -1,6 +1,7 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/app-route/app-route.html">
 <link rel="import" href="../bower_components/codelab-components/google-codelab-elements.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 
 <dom-module id="codelabs-page">
   <template>
@@ -66,9 +67,9 @@
       tail="{{routeTail}}">
     </app-route>
     <iron-ajax
+      id="tutorialAjax"
       url="[[url]]/index.html"
       handle-as="text"
-      auto
       loading="{{loading}}"
       on-response="_loadTutorial">
     </iron-ajax>
@@ -92,11 +93,22 @@
           notify: true,
           value: false,
         },
+        codelabs: {
+          type: Array,
+          notify: true,
+        },
       },
 
       observers: [
         '_handleLoading(loading, url)',
+        '_onPageChange(routeData.codelab)',
       ],
+
+      _onPageChange: function(slug) {
+        if (slug) {
+          this.$.tutorialAjax.generateRequest();
+        }
+      },
 
       _handleLoading: function(loading) {
         if (loading !== true) {
@@ -105,7 +117,39 @@
         Polymer.dom(this.$.contentContainer).innerHTML = '';
       },
 
+      _updateMetadata: function() {
+        if (!this.codelabs) {
+          return;
+        }
+        var currentUrl = this.routeData.codelab;
+        var metadata = this.codelabs.filter(function(metadata) {
+          return metadata.url === currentUrl;
+        })[0];
+        if (metadata !== undefined) {
+          this.fire('app-metadata', {
+            title: metadata.title + ' | Ubuntu tutorials',
+            description: metadata.summary,
+          });
+        }
+      },
+
+      _codelabsInfoHandler: function(event) {
+        this.categoriesmap = event.detail.response["categories"];
+        this.eventsmap = event.detail.response["events"];
+        event.detail.response["codelabs"].forEach(function(codelab) {
+          this.push("codelabs", codelab);
+        }, this);
+
+        // Force a binding update. Officially recommended, really!
+        // https://www.polymer-project.org/1.0/docs/devguide/model-data#override-dirty-check
+        var codelabs = this.codelabs;
+        this.codelabs = [];
+        this.codelabs = codelabs;
+        this._updateMetadata();
+      },
+
       _loadTutorial: function(e, url) {
+        this._updateMetadata();
         const resp = e.detail.response;
         Polymer.dom(this.$.contentContainer).innerHTML = resp.replace(/CODELABURL/g, this.url);
       },

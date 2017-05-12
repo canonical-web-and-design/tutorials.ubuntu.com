@@ -6,7 +6,6 @@
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
 
-<link rel="import" href="codelabs-behaviors.html">
 <link rel="import" href="difficulty-indicator.html">
 <link rel="import" href="time-pretty.html">
 
@@ -40,7 +39,7 @@
         color: #fff;
         border-radius: 2px 2px 0 0;
       }
-      .title {
+      .heading {
         margin: 10px 0 0;
         font-family: 'Ubuntu',Helvetica,Arial;
         font-size: 28px;
@@ -101,7 +100,7 @@
           <div class="horizontal end-justified layout">
             <div class="light card-category">[[firstcategory]]</div>
           </div>
-          <h2 class="title">[[title]]</h2>
+          <h2 class="heading">[[heading]]</h2>
         </div>
         <div class="card-content">
           <p class="meta"><time-pretty datetime="[[updated]]">[[updated]]</time-pretty></p>
@@ -126,13 +125,9 @@
 
       is: 'codelabs-card',
 
-      behaviors: [
-        Polymer.ColorByCategoryBehavior,
-      ],
-
       properties: {
-        title: String,
         summary: String,
+        heading: String,
         category: Array,
         firstcategory: {
           type: String,
@@ -154,11 +149,6 @@
 
       _extractFirstCategory: function(category) {
         var firstcategory = category[0];
-        var colors = this._colors_by_category(firstcategory, this.categoriesmap);
-        this.customStyle['--category-color'] = colors.maincolor;
-        this.customStyle['--category-secondary'] = colors.secondarycolor;
-        this.customStyle['--category-light'] = colors.lightcolor;
-        this.updateStyles();
         return firstcategory;
       },
 
