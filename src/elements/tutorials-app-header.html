@@ -1,4 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../../bower_components/app-layout/app-toolbar/app-toolbar.html">
 
 <link rel="import" href="tutorials-app-logo.html">
 
@@ -19,15 +22,15 @@
         padding: 0;
         height: 48px;
       }
-      app-logo {
+      .app-logo {
         margin-left: 10px;
       }
       @media only screen and (max-width: 984px) {
-        app-logo {
+        .app-logo {
           margin-left: 20px;
         }
       }
-      app-logo a {
+      .app-logo a {
         color: #fff;
         text-decoration: none;
       }
@@ -40,11 +43,11 @@
       <template is="dom-if" if="[[!hidden]]">
         <app-header fixed>
           <app-toolbar>
-          <app-logo class="app-logo">
-            <a href="/">
-                <tutorials-app-logo></tutorials-app-logo>
-            </a>
-          </app-logo>
+            <div class="app-logo">
+              <a href="/">
+                  <tutorials-app-logo></tutorials-app-logo>
+              </a>
+            </div>
           </app-toolbar>
         </app-header>
       </template>
