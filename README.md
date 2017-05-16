@@ -9,48 +9,8 @@ For technical details and help, go to [HACKING.md](HACKING.md)
 
 ## Running this site
 
-There are two primary ways to run this website locally. We recommend using the `./run` command, which runs the site through Docker. The site can also run directly on the system with our build tools and Polymer.
 
-
-### `./run` command
-
-
-#### Dependencies
-
-- Latest version of Docker
-
-
-#### Quick start
-
-Start up a local server which watches serves content from the `examples` folder:
-``` bash
-$ ./run
-```
-
- Start up a local server which watches a given file or folder for changes relative to the project root.
-``` bash
-./run serve [file or folder]
-```
-
-
-#### Usage
-
-- `./run`: Run local server with example content.
-- `./run serve [file or folder]`: Run server and watch a local file or folder.
-- `./run build`: Generate Tutorials and build live site.
-- `./run help`: Print help.
-
-NPM/Yarn scripts:
-- `./run yarn serve-live`: Run local server with live content.
-- `./run yarn build-site`: Build site to `build` folder.
-- `./run yarn build-tutorials`: Generate live tutorials.
-- `./run yarn polymer [args]`: Run a command through Polymer.
-
-
-### Running without Docker
-
-
-#### Dependencies
+### Dependencies
 
 - Yarn or NPM
 - Bower
@@ -64,7 +24,7 @@ $ bower install
 ```
 
 
-#### Quick start
+### Quick start
 
 Start up a local server which watches the `examples` folder:
 ``` bash
@@ -73,7 +33,7 @@ $ ./yarn run serve examples
 The `examples` in the command can be replaced with another path.
 
 
-#### Usage
+### Usage
 
 Scripts are set up through the `package.json` file and run through Yarn:
 
