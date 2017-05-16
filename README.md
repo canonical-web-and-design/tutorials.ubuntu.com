@@ -2,61 +2,54 @@
 
 The Polymer application that runs <https://tutorials.ubuntu.com>.
 
-For guidelines and help on how to build tutorial content, go to [CONTRIBUTING.md](CONTRIBUTING.md)
+For anyone wishing to contribute work or file issues, please read [CONTRIBUTING.md](CONTRIBUTING.md).
 
-For more in depth information on how the site works, go to [HACKING.md](HACKING.md)
+For technical details and help, go to [HACKING.md](HACKING.md)
 
-## Local development
 
-You can run this project locally with [Polymer CLI](https://www.npmjs.com/package/polymer-cli).
+## Running this site
+
 
 ### Dependencies
 
+- Yarn or NPM
+- Bower
+
+(`npm` can be used in place of `yarn` in this document.)
+
+Install NPM and Bower dependencies:
 ``` bash
-npm install -g polymer-cli bower  # Install Polymer and Bower
-bower install                     # Pull down Bower dependencies
+$ yarn install
+$ bower install
 ```
 
-## Viewing Your Application
 
+### Quick start
+
+Start up a local server which watches the `examples` folder:
+``` bash
+$ ./yarn run serve examples
 ```
-$ polymer serve
-```
+The `examples` in the command can be replaced with another path.
 
-## Importing Codelabs
 
-Upon loading the website initially, you will likely be met with example content.
-To import live content, you will need to run:
+### Usage
 
-```
-$ ./bin/build-tutorials
-```
+Scripts are set up through the `package.json` file and run through Yarn:
 
-This will import the defined Google Doc IDs from the config folder.
-
-If you encounter an auth error, trying to import with this command should give you instructions on getting the token.
-
-```
-$ ./tools/codelabs add [GOOGLE_DOC_ID]
-```
+- `yarn run serve [file or folder]`: Run server and watch a local file or folder.
+- `yarn run build`: Generate Tutorials and build live site.
+- `yarn run serve-live`: Run local server with live content.
+- `yarn run build-site`: Build site to `build` folder.
+- `yarn run build-tutorials`: Generate live tutorials.
+- `yarn run polymer [args]`: Run a command through Polymer.
 
 
 ## Building Your Application
 
-```
-$ polymer build
-```
-
-This will create a `build/` folder with `bundled/` and `unbundled/` sub-folders
+Running the build command will generate a `build/` folder with `bundled/` and `unbundled/` sub-folders
 containing a bundled (Vulcanized) and unbundled builds, both run through HTML,
 CSS, and JS optimizers.
-
-You can serve the built versions by giving `polymer serve` a folder to serve
-from:
-
-```
-$ polymer serve build/bundled/app
-```
 
 ---
 
