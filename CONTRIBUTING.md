@@ -42,7 +42,7 @@ The markdown is rendered by [Google's claat markdown parser](https://github.com/
 
 #### Where should I save the file?
 
-The build tool allows files to be saved in in a single folder. We have best practices in our repository to maintain consistency.
+The build tool allows files to be saved in a single folder. We have best practices in our repository to maintain consistency.
 
 Please save new markdown files in a folder inside `./tutorials`, and save images in an `images` subfolder.
 ```
