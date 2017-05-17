@@ -1,16 +1,23 @@
-# Ubuntu tutorial guidelines
-
-// id is used as tutorial url
+---
 id: tutorial-guidelines
 summary: A summary tutorial description. Remember the content of it (as the title) is searchable. It should be around 26 words.
-// Categories correspond to one or multiple area of the developer site
 categories: snapcraft
-// Remember that tags are searchable as well.
 tags: tutorial,guidelines,snap
-// Beginners without previous knowledge from a topic should be able to take and understands tutorials from level 1 without any other prerequisites.
-// Difficulty spans from 1 to 5
 difficulty: 2
 status: Published
+
+---
+
+# Ubuntu tutorial guidelines
+
+id is used as tutorial url
+
+Categories correspond to one or multiple area of the developer site
+
+Remember that tags are searchable as well.
+
+Difficulty spans from 1 to 5. Beginners without previous knowledge from a topic should be able to take and understands tutorials from level 1 without any other prerequisites.
+
 
 Tutorial title is 5 words maximum.
 
