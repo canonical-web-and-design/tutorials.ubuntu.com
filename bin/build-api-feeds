@@ -78,8 +78,8 @@ def build_api(source, destination):
     tutorials = process_tutorials(parsed_data['tutorials'])
     events = process_events(parsed_data['events'])
 
-    # Sort tutorials by updated key, descending
-    tutorials = sorted(tutorials, key=itemgetter('updated'), reverse=True)
+    # Sort tutorials by published key, descending
+    tutorials = sorted(tutorials, key=itemgetter('published'), reverse=True)
 
     # Create standard recent.json
     write_json_file(tutorials, destination)
