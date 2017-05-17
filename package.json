@@ -1,0 +1,28 @@
+{
+  "name": "tutorials.ubuntu.com",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/canonical-websites/tutorials.ubuntu.com.git"
+  },
+  "bugs": {
+    "url": "https://github.com/canonical-websites/tutorials.ubuntu.com/issues"
+  },
+  "homepage": "https://tutorials.ubuntu.com",
+  "scripts": {
+    "build": "npm-run-all -s build-tutorials build-site",
+    "build-site": "npm-run-all polymer-build",
+    "build-tutorials": "./bin/generate",
+    "polymer": "polymer",
+    "polymer-build": "polymer build",
+    "polymer-lint": "polymer lint",
+    "polymer-serve": "polymer serve",
+    "serve": "npm-run-all serve-examples",
+    "serve-examples": "./bin/serve $(if [ -z \"$*\" ]; then echo \"examples\"; fi)",
+    "serve-live": "./bin/serve"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.0.2",
+    "polymer-cli": "^0.18.2"
+  }
+}
