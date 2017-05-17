@@ -5,6 +5,7 @@ categories: snapcraft
 tags: tutorial,guidelines,snap
 difficulty: 2
 status: Published
+Published: 2017-01-13
 
 ---
 
@@ -18,6 +19,7 @@ Remember that tags are searchable as well.
 
 Difficulty spans from 1 to 5. Beginners without previous knowledge from a topic should be able to take and understands tutorials from level 1 without any other prerequisites.
 
+Published is a date in YYYY-MM-DD format. Bump it for any major updates you are doing to the tutorial. This will put it as one of the first elements on the website.
 
 Tutorial title is 5 words maximum.
 
