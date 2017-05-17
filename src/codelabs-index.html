@@ -224,7 +224,7 @@
             <template is="dom-repeat" items="[[filteredTutorials]]" sort="[[_getSortFunction(filterSort)]]">
               <codelabs-card heading="[[item.title]]" summary="[[item.summary]]" category="[[item.category]]"
                             difficulty="[[item.difficulty]]" duration="[[item.duration}}" tags="[[item.tags]]"
-                            updated="[[item.updated]]" url="[[item.url]]" currenturl="[[eventRoute.prefix]][[eventRoute.path]]"
+                            published="[[item.published]]" url="[[item.url]]" currenturl="[[eventRoute.prefix]][[eventRoute.path]]"
                             categoriesmap="[[categoriesmap]]"></codelabs-card>
             </template>
           </template>
@@ -280,7 +280,7 @@
         },
         filterSort: {
           type: String,
-          value: 'updated-desc',
+          value: 'published-desc',
           notify: true,
         },
         filterUser: {
@@ -322,13 +322,13 @@
 
       _getSortFunction: function(sortOption) {
         switch(sortOption) {
-          case 'updated-asc':
+          case 'published-asc':
             return function(a, b) {
-              return a.updated > b.updated;
+              return a.published > b.published;
             };
-          case 'updated-desc':
+          case 'published-desc':
             return function(a, b) {
-              return a.updated < b.updated;
+              return a.published < b.published;
             };
           case 'duration-asc':
             return function(a, b) {
