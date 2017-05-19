@@ -37,11 +37,11 @@ $ ./run
 
 - `./run`: Run local server with example content.
 - `./run serve [file or folder]`: Run server and watch a local file or folder.
-- `./run build`: Generate Tutorials and build live site.
 - `./run help`: Print help.
 
 NPM/Yarn scripts:
 - `./run yarn serve-live`: Run local server with live content.
+- `./run yarn build-all`: Generate live tutorials and build live site.
 - `./run yarn build-site`: Build site to `build` folder.
 - `./run yarn build-tutorials`: Generate live tutorials.
 - `./run yarn polymer [args]`: Run a command through Polymer.

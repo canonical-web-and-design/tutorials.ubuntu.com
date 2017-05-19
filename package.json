@@ -10,7 +10,8 @@
   },
   "homepage": "https://tutorials.ubuntu.com",
   "scripts": {
-    "build": "npm-run-all -s build-tutorials build-site",
+    "build": "echo 'To build site, please use build-all'",
+    "build-all": "npm-run-all -s build-tutorials build-site",
     "build-site": "npm-run-all polymer-build",
     "build-tutorials": "./bin/generate",
     "polymer": "polymer",
