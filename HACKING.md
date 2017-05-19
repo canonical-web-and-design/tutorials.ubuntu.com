@@ -19,6 +19,8 @@ tutorials.ubuntu.com is built with Google's Polymer, using web components. You c
 
 Our tooling used to serve and generate this project is available at our [Ubuntu tutorial deployment repository](https://github.com/ubuntu/tutorial-deployment).
 
+We also make use of a `./run` command that we generate with our [generator-canonical-webteam Yeoman generator](https://github.com/canonical-webteam/generator-canonical-webteam)
+
 
 ### Google's claat
 
