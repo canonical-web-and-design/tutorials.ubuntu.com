@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -eu
+
+function set_port {
+  if [ -n "${PORT:-}" ] && [ "${1:-}" == "serve" ]; then
+    if [[ "${@}" != *"-p="* ]] && [[ "${@}" != *"--port "* ]]; then
+        echo "--port ${PORT}"
+    fi
+  fi
+}
+
+exec ./node_modules/polymer-cli/bin/polymer.js $@ $(set_port $@)

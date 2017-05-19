@@ -6,6 +6,7 @@ node_modules
 src/codelabs
 tools/claat-linux-amd64
 static/
+.docker-project
 
 # ignore downloaded binaries
 bin/*.real
