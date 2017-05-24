@@ -9,47 +9,21 @@ For technical details and help, go to [HACKING.md](HACKING.md)
 
 ## Running this site
 
-
-### Dependencies
-
-- Yarn or NPM
-- Bower
-
-(`npm` can be used in place of `yarn` in this document.)
-
-Install NPM and Bower dependencies:
-``` bash
-$ yarn install
-$ bower install
-```
-
+The easiest way to get running is to use our `./run` command. This script requires Docker to be installed on your system.
+For more advanced usage or information how to run without Docker, read [HACKING.md](HACKING.md).
 
 ### Quick start
 
-Start up a local server which watches the `examples` folder:
+Start up a local server which watches serves content from the `examples` folder:
 ``` bash
-$ ./yarn run serve examples
+$ ./run
 ```
-The `examples` in the command can be replaced with another path.
 
+ Start up a local server which watches a given file or folder for changes relative to the project root.
+``` bash
+./run serve [file or folder]
+```
 
-### Usage
-
-Scripts are set up through the `package.json` file and run through Yarn:
-
-- `yarn run serve [file or folder]`: Run server and watch a local file or folder.
-- `yarn run build`: Generate Tutorials and build live site.
-- `yarn run serve-live`: Run local server with live content.
-- `yarn run build-site`: Build site to `build` folder.
-- `yarn run build-tutorials`: Generate live tutorials.
-- `yarn run polymer [args]`: Run a command through Polymer.
-
-
-## Building Your Application
-
-Running the build command will generate a `build/` folder with `bundled/` and `unbundled/` sub-folders
-containing a bundled (Vulcanized) and unbundled builds, both run through HTML,
-CSS, and JS optimizers.
 
 ---
 
