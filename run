@@ -210,7 +210,7 @@ case $run_command in
         
 
         # Run the serve container, publishing the port, and detaching if required
-        node_run "${project}-serve" "yarn run serve" "--env PORT=${PORT} --publish ${PORT}:${PORT} ${detach}"
+        node_run "${project}-serve" "yarn run serve ${*}" "--env PORT=${PORT} --publish ${PORT}:${PORT} ${detach}"
         
     ;;
     "stop")
@@ -256,6 +256,6 @@ case $run_command in
         if [ -n "${containers_using_volume}" ]; then docker rm --force ${containers_using_volume}; fi
         docker volume rm --force ${node_cache_volume}
     ;;
-    "node") node_run "${project}-node-$(date +'%s')" "${@}" ;;
+    "node") node_run "${project}-node-$(date +'%s')" "${*}" ;;
     *) invalid "Command '${run_command}' not recognised." ;;
 esac
