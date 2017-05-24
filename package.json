@@ -14,6 +14,7 @@
     "build-all": "npm-run-all -s build-tutorials build-site",
     "build-site": "npm-run-all polymer-build",
     "build-tutorials": "./bin/generate",
+    "clean": "rm -rf bower_components node_modules build",
     "polymer": "./bin/polymer",
     "polymer-build": "npm-run-all 'polymer build {@}' --",
     "polymer-lint": "npm-run-all 'polymer lint {@}' --",
