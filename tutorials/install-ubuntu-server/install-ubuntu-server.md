@@ -1,7 +1,7 @@
 ---
 id: tutorial-install-ubuntu-server
 summary: A very high-level guide on how to install Ubuntu Server for genderal use.
-categories: desktop
+categories: server
 tags: tutorial,installation,ubuntu,server,Ubuntu 16.04 LTS
 difficulty: 2
 status: Published
