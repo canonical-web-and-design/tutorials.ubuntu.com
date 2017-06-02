@@ -11,3 +11,4 @@ static/
 # ignore downloaded binaries
 bin/*.real
 bin/*.version
+.DS_Store
