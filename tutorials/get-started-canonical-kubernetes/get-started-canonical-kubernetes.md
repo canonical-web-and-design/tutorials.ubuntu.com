@@ -92,7 +92,7 @@ Duration: 5:00
 ![Commit changes](./images/commit-changes.png)
 
 
-4. Once deployment is complete, you can visit the K8s dashboard with your web browser. Copy the public IP number and port (e.g. *xxx.xxx.xxx.xxx:443*) and paste it in a new browser window in the form *https://xxx.xxx.xxx.xxx:443/ui*. 
+4. Once deployment is complete, you can visit the K8s dashboard with your web browser. Copy the public IP number and port (e.g. *xxx.xxx.xxx.xxx:6443*) and paste it in a new browser window in the form *https://xxx.xxx.xxx.xxx:6443/ui*. 
 ![Public IP](./images/public-ip.png)
 Please notice that you will need to type the **https://** protocol and path to **/ui** in the browser bar.
 ![Browser URL](./images/browser-url.png)
