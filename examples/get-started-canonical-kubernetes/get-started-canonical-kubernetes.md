@@ -107,6 +107,7 @@ For **Centos and other Linuxes**:
  
 6. JAAS users with existing models, might first need to switch to the relevant model:
 `$ juju models`
+
 `$ juju switch <model-name>`
  
  
