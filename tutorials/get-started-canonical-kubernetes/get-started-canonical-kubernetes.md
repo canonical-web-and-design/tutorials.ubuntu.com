@@ -21,8 +21,8 @@ Duration: 1:00
  
 This solution is a highly available (HA) production ready Kubernetes cluster — with 2 masters, 3 workers, 3 etcd nodes and a load balancer for the HA control plane. It includes logging, monitoring, and the operational tools to automate deployment, scaling, and lifecycle management of your cluster. 
  
-[Learn more about this bundle](https://jujucharms.com/canonical-kubernetes/).
-To learn more about Kubernetes check out its [website](https://kubernetes.io/).
+Learn more about [The Canonical Distribution of Kubernetes](https://jujucharms.com/canonical-kubernetes/).
+Learn more about [Kubernetes](https://kubernetes.io/).
  
 ![Kubernetes bundle](./images/kubernetes-bundle.png)
  
@@ -49,7 +49,7 @@ Duration: 1:00
  
 With JAAS, you don’t need to deal with the setup and configuration of Juju. All you will need is your preferred cloud credentials.
  
-If you haven’t already deployed The Canonical Distribution of Kubernetes, do so by clicking [direct deploy](https://jujucharms.com/new?dd=bundle/canonical-kubernetes). 
+You will need to deploy [The Canonical Distribution of Kubernetes](https://jujucharms.com/new?dd=bundle/canonical-kubernetes) before you get started. 
  
 Deployment will take several minutes as Juju creates new instances in the cloud and sets up the Kubernetes cluster components. Pending units are outlined in *orange*. Up and running ones are outlined in *black*.
 ![Status GUI](./images/status-gui.png)
