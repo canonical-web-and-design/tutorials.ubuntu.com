@@ -51,7 +51,7 @@ With JAAS, you don’t need to deal with the setup and configuration of Juju. Al
  
 If you haven’t already deployed The Canonical Distribution of Kubernetes, do so by clicking [direct deploy](https://jujucharms.com/new?dd=bundle/canonical-kubernetes). 
  
-Deployment will take several minutes as Juju creates new instances in the cloud and sets up the Kubernetes cluster components. Pending units are outlined in *orange*. Up and running are outlined in *black*.
+Deployment will take several minutes as Juju creates new instances in the cloud and sets up the Kubernetes cluster components. Pending units are outlined in *orange*. Up and running ones are outlined in *black*.
 ![Status GUI](./images/status-gui.png)
  
  
@@ -84,7 +84,7 @@ For general help in the CLI:
  
 ### Operate your cluster with kubectl 
  
-To deploy and manage applications on Kubernetes you need *kubectl*. You can get more information from the [official documentation](https://kubernetes.io/docs/tasks/tools/install-kubectl/).
+To deploy and manage applications on Kubernetes you need *kubectl*. Learn more by visiting the [official documentation](https://kubernetes.io/docs/user-guide/kubectl/).
  
 1. For **Ubuntu** users, install the [kubectl command line](https://kubernetes.io/docs/tasks/tools/install-kubectl/): 
 `$ sudo snap install kubectl --classic`
@@ -92,7 +92,7 @@ If you are running **macOS**:
 `$ brew install kubectl`
 For **Windows** users, use [Chocolatey](https://chocolatey.org/install):
 `$ choco install kubectl`
-For **Centos and other Linuxes**:
+For **CentOS and other Linuxes**:
 `$ sudo snap install kubectl --classic` 
  
 2. Verify you can run kubectl. You will see a list of commands to control your cluster.
@@ -105,9 +105,10 @@ For **Centos and other Linuxes**:
  
 5. You will then be asked to enter a descriptive name for the JAAS controller.  We suggest using *jaas*. 
  
-6. JAAS users with existing models, might first need to switch to the relevant model:
+6. JAAS users with existing models might first need to switch to the relevant model. To see all your models:
 `$ juju models`
 
+7. To select the relevant one, run:
 `$ juju switch <model-name>`
  
  
@@ -117,18 +118,20 @@ Duration: 5:00
  
 1. Fetch the credentials from the Kubernetes Master charm. 
 `$ mkdir -p ~/.kube`
+
+2. Then run:
 `$ juju scp kubernetes-master/0:config ~/.kube/config`
 This might open a separate modal window, in which you should enter the passphrase for your SSH key.
 ![Passphrase window](./images/passphrase-window.png)
  
-2. Establish a secure proxy to the apiserver with the command:
+3. Establish a secure proxy to the apiserver with the command:
 `$ kubectl proxy`
  
-3. Navigate to the Kubernetes dashboard UI through the proxy **xxx.xxx.xxx.xxx:8001/ui**.
+4. Navigate to the Kubernetes dashboard UI through the proxy **xxx.xxx.xxx.xxx:8001/ui**.
 ![Kubectl proxy](./images/kubectl-proxy.png)
 **Note**: The browser may warn you that the connection is not private or secure. Bypass the warnings (via the ‘Advanced’) option. The browser will then ask you to login. The default username and password are both **admin**.
  
-4. You can now use the Kubernetes Dashboard to drive your cluster.
+5. You can now use the Kubernetes Dashboard to drive your cluster.
 ![Kubernetes dashboard](./images/kubernetes-dashboard.png)
  
  
