@@ -49,7 +49,7 @@ Duration: 1:00
 
 With JAAS, you don’t need to deal with the setup and configuration of Juju. All you will need is credentials for AWS, GCE, or Azure.
 
-Kick off, [deply The Canonical Distribution of Kubernetes](https://jujucharms.com/new?dd=bundle/canonical-kubernetes) (if you haven't done this already).
+Kick off, [deploy The Canonical Distribution of Kubernetes](https://jujucharms.com/new?dd=bundle/canonical-kubernetes) (if you haven't done this already).
 
 Deployment will take several minutes as Juju creates new instances in the cloud and sets up the Kubernetes cluster components. Pending units are outlined in *orange*. Up and running ones are outlined in *black*.
 ![Status GUI](./images/status-gui.png)
