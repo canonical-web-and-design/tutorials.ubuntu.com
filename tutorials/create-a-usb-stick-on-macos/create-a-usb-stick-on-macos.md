@@ -9,7 +9,7 @@ published: 2017-05-31
 
 ---
 
-# How to create a bootable USB stick on macOS
+# Create a bootable USB stick on macOS
 
 ## Getting started
 Duration: 0:05

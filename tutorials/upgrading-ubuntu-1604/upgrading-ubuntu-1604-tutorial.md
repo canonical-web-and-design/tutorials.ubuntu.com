@@ -9,7 +9,7 @@ published: 2017-05-31
 
 ---
 
-# Upgrade from a previous version of Ubuntu
+# Upgrade Ubuntu desktop
 
 ## Before you start
 Duration: 0:01

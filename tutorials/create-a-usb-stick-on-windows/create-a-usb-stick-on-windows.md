@@ -9,7 +9,7 @@ published: 2017-05-31
 
 ---
 
-# How to create a bootable USB stick on Windows
+# Create a bootable USB stick on Windows
 
 ## Getting started
 Duration: 0:05
