@@ -19,7 +19,7 @@ Duration: 1:00
 
 ### About the Canonical Distribution of Kubernetes
 
-This solution builds a highly available (HA) production ready Kubernetes cluster — with 2 masters, 3 workers, 3 etcd nodes and a load balancer for the HA control plane. It includes logging, monitoring, and the operational tools to automate deployment, scaling, and lifecycle management of your cluster.
+This solution builds a highly available (HA) production ready Kubernetes cluster — with 2 masters, 3 workers, 3 etcd nodes and a load balancer for the HA control plane. It includes logging, monitoring, scaling and the operational tools to automate deployment and lifecycle management of your cluster.
 
 Learn more about [The Canonical Distribution of Kubernetes](https://jujucharms.com/canonical-kubernetes/).
 Learn more about [Kubernetes](https://kubernetes.io/).
@@ -40,30 +40,26 @@ Learn more about [Kubernetes](https://kubernetes.io/).
 
 * An [Ubuntu One account](https://login.ubuntu.com/)
 * An SSH key. [More on using SSH keys in Juju](https://jujucharms.com/docs/2.1/users-auth#credentials-and-ssh-keys).
-* Basic knowledge of command line
+* Credentials for AWS, GCE, or Azure
 
 
 
-## Deploying your model with JAAS
-Duration: 1:00
+## Deploying with JAAS
+Duration: 8:00
 
-With JAAS, you don’t need to deal with the setup and configuration of Juju. All you will need is credentials for AWS, GCE, or Azure.
-
-Kick off, [deploy The Canonical Distribution of Kubernetes](https://jujucharms.com/new?dd=bundle/canonical-kubernetes) (if you haven't done this already).
+To kick off, **[open a Canonical distribution of Kubernetes](https://jujucharms.com/new/?deploy-target=cs:bundle/canonical-kubernetes)** and click the blue _Deploy changes (49)_ button in the bottom right.
 
 Deployment will take several minutes as Juju creates new instances in the cloud and sets up the Kubernetes cluster components. Pending units are outlined in *orange*. Up and running ones are outlined in *black*.
 ![Status GUI](./images/status-gui.png)
 
-
-
 ## Getting started
-Duration: 5:00
+Duration: 3:00
 
 ### Install the Juju client
 
 **You will need to have Juju installed locally to operate your cluster. Skip this step if you already have it.**
 
-Juju is available as a client on many platforms and distributions. Regardless of your operating system, getting all the required tools is very easy. Visit the [install docs](https://jujucharms.com/docs/stable/reference-install#getting-the-latest-juju) to get the latest version of Juju on **macOS**, **Windows** or **CentOS**.
+Juju is available as a client on many platforms and distributions. To get the latest version of Juju on **macOS**, **Windows** or **CentOS** see the [install docs](https://jujucharms.com/docs/stable/reference-install#getting-the-latest-juju).
 
 If you are running **Ubuntu**, you can install Juju through the following steps:
 
@@ -75,9 +71,6 @@ If you are running **Ubuntu**, you can install Juju through the following steps:
 `$ juju`
 
 Learn more about [getting started with Juju](https://jujucharms.com/docs/stable/getting-started).
-
-For help in the CLI:
-`$ juju help`
 
 
 ### Operate your cluster with kubectl
@@ -98,7 +91,7 @@ For **CentOS and other Linuxes**:
 
 
 ## Operating your Kubernetes cluster
-Duration: 5:00
+Duration: 7:00
 
 To operate your cluster with kubectl you need to download the configuration
 needed to speak to your cluster. The first step to getting the config is to
@@ -110,25 +103,24 @@ make sure you have an SSH key in your JAAS deployment of your cluster.
 3. You will then be asked to enter a descriptive name for the JAAS controller.  We suggest using *jaas*
 4. You can now import you SSH key from Launchpad or Github into your cluster - if you didn't add it earlier. For instance, a user with the Github username 'ghuser' would use the following command:
 `$ juju import-ssh-key gh:ghuser`
-5. Verify your SSH key is working by running the date command on the
-   first machine
+5. Verify your SSH key is working by running the date command on the first machine 
 `$ juju run --machine 0 -- date`
-With SSH operating properly you can now setup *kubectl*. Learn more by visiting the [official documentation](https://kubernetes.io/docs/user-guide/kubectl/)
-6. Fetch the credentials from the Kubernetes Master charm
-7. Make a directory:
+With SSH operating properly you can now setup *kubectl*.
+6. Fetch the credentials from the Kubernetes Master charm:
+Make a directory
 `$ mkdir -p ~/.kube`
 and then copy the config file
 `$ juju scp kubernetes-master/0:config ~/.kube/config`
 This might open a separate modal window, in which you should enter the passphrase for your SSH key you added in step 4
 ![Passphrase window](./images/passphrase-window.png)
-8. Establish a secure proxy to the apiserver with the command:
+7. Establish a secure proxy to the Kubernetes apiserver with the command:
 `$ kubectl proxy`
 
-9. Navigate to the Kubernetes dashboard UI through the proxy **xxx.xxx.xxx.xxx:8001/ui**. Note the trailing `/ui`.
+8. Navigate to the Kubernetes dashboard UI through the proxy **xxx.xxx.xxx.xxx:8001/ui**. Note the trailing `/ui`.
 ![Kubectl proxy](./images/kubectl-proxy.png)
 _**Note**: The browser may warn you that the connection is not private or secure. Bypass the warnings (via the ‘Advanced’) option. The browser will then ask you to login. The default username and password are both **admin**._
 
-10. You can now use the Kubernetes Dashboard to drive your cluster
+9. You can now use the Kubernetes Dashboard to drive your cluster
 ![Kubernetes dashboard](./images/kubernetes-dashboard.png)
 
 
