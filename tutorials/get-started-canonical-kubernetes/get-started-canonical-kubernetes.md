@@ -49,7 +49,7 @@ Duration: 1:00
 
 With JAAS, you don’t need to deal with the setup and configuration of Juju. All you will need is credentials for AWS, GCE, or Azure.
 
-Kick off deployment of your Kubernetes cluster by clicking the follow link: [The Canonical Distribution of Kubernetes](https://jujucharms.com/new?dd=bundle/canonical-kubernetes).
+Kick off, [deply The Canonical Distribution of Kubernetes](https://jujucharms.com/new?dd=bundle/canonical-kubernetes) (if you haven't done this already).
 
 Deployment will take several minutes as Juju creates new instances in the cloud and sets up the Kubernetes cluster components. Pending units are outlined in *orange*. Up and running ones are outlined in *black*.
 ![Status GUI](./images/status-gui.png)
@@ -67,16 +67,16 @@ Juju is available as a client on many platforms and distributions. Regardless of
 
 If you are running **Ubuntu**, you can install Juju through the following steps:
 
-1. It’s helpful to Install Snappy if you don’t have it already.
+1. First, install Snappy, if you don't have it already:
 `$ sudo apt install snapd`
 2. Install Juju to get the command line client.
 `$ sudo snap install juju --classic`
 3. Verify you can run Juju. You will see a summary and a list of common commands.
 `$ juju`
 
-You’re done! To learn more on how to get started with Juju, visit the [documentation](https://jujucharms.com/docs/stable/getting-started).
+Learn more about [getting started with Juju](https://jujucharms.com/docs/stable/getting-started).
 
-For general help in the CLI:
+For help in the CLI:
 `$ juju help`
 
 
@@ -108,24 +108,26 @@ make sure you have an SSH key in your JAAS deployment of your cluster.
 `$ juju register jimm.jujucharms.com`
 2. This command will open a new window in your browser. Use Ubuntu SSO to login and authorise your account
 3. You will then be asked to enter a descriptive name for the JAAS controller.  We suggest using *jaas*
-4. You can now import you SSH key from Launchpad or Github into your cluster. For instance, a user with the Github username 'ghuser' would use the following command:
+4. You can now import you SSH key from Launchpad or Github into your cluster - if you didn't add it earlier. For instance, a user with the Github username 'ghuser' would use the following command:
 `$ juju import-ssh-key gh:ghuser`
-5. Verify your SSH key is working by attempting to run the date command on the
+5. Verify your SSH key is working by running the date command on the
    first machine
-`$ juju run --machine 0 -- date
+`$ juju run --machine 0 -- date`
 With SSH operating properly you can now setup *kubectl*. Learn more by visiting the [official documentation](https://kubernetes.io/docs/user-guide/kubectl/)
 6. Fetch the credentials from the Kubernetes Master charm
+7. Make a directory:
 `$ mkdir -p ~/.kube`
-7. Then run:
+and then copy the config file
 `$ juju scp kubernetes-master/0:config ~/.kube/config`
 This might open a separate modal window, in which you should enter the passphrase for your SSH key you added in step 4
 ![Passphrase window](./images/passphrase-window.png)
 8. Establish a secure proxy to the apiserver with the command:
 `$ kubectl proxy`
 
-9. Navigate to the Kubernetes dashboard UI through the proxy **xxx.xxx.xxx.xxx:8001/ui**
+9. Navigate to the Kubernetes dashboard UI through the proxy **xxx.xxx.xxx.xxx:8001/ui**. Note the trailing `/ui`.
 ![Kubectl proxy](./images/kubectl-proxy.png)
-**Note**: The browser may warn you that the connection is not private or secure. Bypass the warnings (via the ‘Advanced’) option. The browser will then ask you to login. The default username and password are both **admin**.
+_**Note**: The browser may warn you that the connection is not private or secure. Bypass the warnings (via the ‘Advanced’) option. The browser will then ask you to login. The default username and password are both **admin**._
+
 10. You can now use the Kubernetes Dashboard to drive your cluster
 ![Kubernetes dashboard](./images/kubernetes-dashboard.png)
 
@@ -142,9 +144,7 @@ Spin up a simple static website in your Kubernetes cluster.
  `$ juju show-action-output [id above]`
 You should get a similar response to:
 ![Address microbot](./images/access-microbot.png)
-
-Positive
-: **Note**: Your FQDN will be different and contains the address of the cloud instance.
+_**Note**: Your FQDN will be different and contains the address of the cloud instance._
 
 4. Copy and paste the microbot address into your web browser: **microbot.xxx.xxx.xxx.xip.io**. It’s normal to see a 502/ 503 error during initial application turnup
 ![App microbot](./images/app-microbot.png)
