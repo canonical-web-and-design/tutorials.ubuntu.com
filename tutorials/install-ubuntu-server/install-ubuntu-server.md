@@ -1,6 +1,6 @@
 ---
 id: tutorial-install-ubuntu-server
-summary: A very high-level guide on how to install Ubuntu Server for genderal use.
+summary: A very high-level guide on how to install Ubuntu Server for general use.
 categories: server
 tags: tutorial,installation,ubuntu,server,Ubuntu 16.04 LTS
 difficulty: 2
