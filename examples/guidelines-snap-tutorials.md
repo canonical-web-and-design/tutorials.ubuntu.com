@@ -5,28 +5,15 @@ categories: snapcraft
 tags: tutorial,guidelines,snap
 difficulty: 2
 status: Published
-Published: 2017-01-13
+author: Javier Lopez <javier.lopez@example.com>
+published: 2017-01-13
 
 ---
 
 # Ubuntu tutorial guidelines
 
-id is used as tutorial url
-
-Categories correspond to one or multiple area of the developer site
-
-Remember that tags are searchable as well.
-
-Difficulty spans from 1 to 5. Beginners without previous knowledge from a topic should be able to take and understands tutorials from level 1 without any other prerequisites.
-
-Published is a date in YYYY-MM-DD format. Bump it for any major updates you are doing to the tutorial. This will put it as one of the first elements on the website.
-
-Tutorial title is 5 words maximum.
-
 ## General guidelines
 Duration: 2:00
-Each step is delimited by a second level title.
-It should have a step duration, following immediately the step. The total tutorial time will then be computed automatically. A h3 or empty line will break into the step content.
 
 ### Mission of tutorials
 
@@ -36,30 +23,95 @@ Each tutorial should:
 * be oriented on one topic or a very small group of related topics. Keep it *simple*! People who want to learn multiple subjects will take multiple tutorials.
 * produce a tangible result. The topic is demonstrated with a *practical (small) project* and not only in theory or a hello world example. The tutorial attendee will come out of it with a working example on his environment.
 * be short. An estimated 60 minutes for a tutorial is an absolute maximum. Most tutorials should be in the range of 15 - 30 minutes.
-* divided in short steps. Each step is practical and ends up in some user-visible progress.
+* be divided in short steps. Each step is practical and results in user-visible progress.
 * be entertaining! Try to have a fun project to work on, even if useless!
 
 ### Tone
 
-The tone of your tutorial should be friendly. Really make the attendee feel he’s part of building and learning something together. Put him or her on your side and try to build a rapport.
+The tone of your tutorial should be friendly. Try to make the reader feel that they're building and learning something together with you.
 
-Also, be conscious that we want all tutorials to feel the same, cross-topics. This is why you should perform one or two tutorials first before starting writing one, to match the tone we are trying to establish.
+All tutorials should have the same tone, regardless of the topic. This is why you should complete one or two of the existing tutorials before writing your first one.
 
-In short, this isn’t a teacher/student paradigm, but rather friends sharing some time together. Thus, should use the term **we** as much as possible, like **we have just seen**, **we now understand that…**. However **you** can be use for demonstrating things in the user’s context, like: **edit your `file`**, **your `directory` should look like this:**, **your system** or **you will note**. Prefer the **we** as much as possible though.
+In short, this isn’t a teacher/student paradigm, but rather friends sharing some time together. Thus, the term **we** should be used as much as possible, like **we have just seen**, **we now understand that…**. However **you** can be use for demonstrating things in the user’s context, like: **edit your `file`**, **your `directory` should look like this:**, **your system** or **you will note**.
 
 And now, let's see the first required step!
+
+## Metadata
+Duration: 2:00
+
+Each tutorial source file starts with a set of metadata that will be consumed by tutorials.ubuntu.com for presentation purposes.
+
+For example, at the top of the source file of this tutorial:
+
+```
+---
+id: tutorial-guidelines
+summary: A summary tutorial description. Remember the content of it (as the title) is searchable. It should be around 26 words.
+categories: snapcraft
+tags: tutorial,guidelines,snap
+difficulty: 2
+status: Published
+author: Javier Lopez <javier.lopez@example.com>
+published: 2017-01-13
+
+---
+```
+
+ * **id** is used as tutorial url
+ * **categories** correspond to one or multiple areas of the developer site
+ * Remember that **tags** are searchable
+
+
+ * **difficulty** spans from 1 to 5. Beginners without previous knowledge of the given topic should be able to follow and understand tutorials from level 1 without any other prerequisite knowledge. As a guide:
+
+     1. Complete beginner with Ubuntu - just about knows how to open a terminal
+     * Ubuntu novice - can be trusted to enter commands but experience limited to simple file operations.
+     * Experienced user - doesn't need explanations about common topics (networking, sudo, services)
+     * Advanced user - has experience running Ubuntu for many years, but may be unfamiliar with some sysadmin/programming topics.
+     * Ubuntu sysadmin/developer- very familiar with system and can be expected to know details about
+
+ * **published** is a date in YYYY-MM-DD format. Update  this after any major updates to the tutorial. As the website sorts by date, your tutorial will appear as one of the first tutorials in the list until new tutorials are added or updated..
+
+### Title
+
+The title should be set as the first heading of your file.
+
+```markdown
+# Ubuntu tutorial guidelines
+```
+
+Tutorial title should be kept short (5 words as a guide) so as not to break design. Do make the titles concise, but specific where possible - e.g. "Create a bootable USB stick on Windows 10"
+
+### Steps
+
+Each step is delimited by a second level title, for example:
+
+```markdown
+## Step title
+```
+
+It should have a step duration, following immediately the step. The total tutorial time will then be computed automatically. A third level heading or empty line will break into the step content.
+
+```markdown
+## Step title
+Duration: 2:00
+
+Step content starts here.
+```
+
+Let's have a look at the content of your first step.
 
 ## Overview
 Duration: 2:00
 
-This is the **Overview** step. It should be the first step of every tutorials. This first paragraph is a general summary of the tutorial goal, stating what users will learn by taking this course, and what outcome they will gather from it. An image can be included, as well as [external links](https://tutorial.ubuntu.com).
+This is the **Overview** step. It should be the first step of every tutorial. This first paragraph is a summary of the tutorial's objectives, stating what the reader will learn by completing it. An image can be included, as well as [external links](https://tutorial.ubuntu.com).
 ![Ubuntu logo](./ubuntu-logo.svg)
 
 ### What you'll learn
 
-- This section layouts in a few bullet points what each step will teach to the attendee.
-- It is important to state clearly what we think people can expect from a tutorial to ensure it matches their intents.
-- As you can see, this is presented as task list bullets.
+- This section includes a list of steps that will be needed to achieve the objective.
+- State things clearly so that the reader's intents and the tutorial objectives correspond.
+- As you can see, this is presented as a bullet list.
 
 ### What you'll need
 
@@ -73,10 +125,23 @@ Survey
 : How will you use this tutorial?
  - Only read through it
  - Read it and complete the exercises
-: What is your current level of experience working with your domain?
+: What is your current level of experience?
  - Novice
  - Intermediate
  - Proficient
+
+To create a survey, you need to use the following syntax:
+
+```markdown
+Survey
+: How will you use this tutorial?
+ - Only read through it
+ - Read it and complete the exercises
+: What is your current level of experience?
+ - Novice
+ - Intermediate
+ - Proficient
+```
 
 This will give great insights on our audience. Remember that the survey is optional to take (and tracked through Google Analytics).
 
@@ -91,16 +156,16 @@ From the tutorial directory, you can iterate manually on a markdown file using: 
 
 ### Advice and general rules
 
-In addition to the previous points on what a tutorial should be and what is mandatory, you should take special attention to some points:
+In addition to the previous points on what a tutorial should be and what is mandatory, you should  pay special attention to some points:
 
 #### Each step should be concise, but not too short
 
-Pay special attention to the step size. They shouldn’t take more than 7 minutes each. Don’t make them too short either (like a few lines to read). Of course, some steps will be shorter than others like first and last ones.
+Be wary of a step's length. Each one shouldn’t take longer than 7 minutes to complete. Don’t make them too short either. Naturally, some steps will be shorter than others (like first and last one).
 
 #### If too long, prefer dividing the tutorial
 
-Tutorials are self-sufficient, but they can build upon each other. One tutorial could require another tutorial to be completed first. If you are reusing the same code, ensure you provide a repository as a starting point.
-If a tutorial is too long, prefer thus dividing it. However, ensure each tutorials present a different facet of expertise.
+Tutorials are self-sufficient, but they can nonetheless build upon each other (You can link from the requirements section of the first step, for example). One tutorial could require another tutorial to be completed first. If you are reusing the same code, ensure you provide a repository as a starting point.
+If a tutorial is too long, consider breaking it up. However, ensure each tutorial presents a distinct objective.
 
 #### Don’t have too many steps
 
@@ -155,19 +220,29 @@ In particular, to avoid a teacher/student relationship, do not separate question
 
 #### Do not repeat the setup/install phase for each tutorial
 
-Avoid repetitive setups or installation phases, in particular if the tutorial isn’t a beginner one. Beginner tutorials should contain a setup phase, other more advanced tutorials should reference as prerequisites other beginner tutorials directly.
+Avoid repetitive setups or installation phases, particularly if the tutorial isn’t a beginner one. Beginner tutorials should contain a setup phase, other more advanced tutorials should reference as prerequisites other beginner tutorials directly.
 
 #### Command lines
 
-We never show the PS1 content for inline commands: `foo/something --bar`.
+Inline commands are styled simply by backticks :`foo/something --bar`.
 
-For multiple lines, we always starts with *$*, without directory location:
 
+For actual example code we expect people to type in, we do not use the command prompt, and we separate the command from the output. This makes it clearer and unambiguous and also easier to copy and paste. For example:
+
+Run the following...
+```bash
+cat my_file
 ```
-$ cat my_file
+… to see the contents of the file:
+
+```bash
 Awesome my_file content
 on multiple lines
-$ rm my_file
+```
+...before removing it with the command:
+
+```bash
+rm my_file
 ```
 
 Finally, the code blocks (commands and code to write) of the tutorial should be self-sufficient. It means that we don't expect people to have to do actions outside of the code blocks, and only typing and executing their content should lead them to the desired state.
@@ -179,7 +254,7 @@ Syntax is regular [markdown syntax](https://guides.github.com/features/mastering
 
 ### Text
 
-For coherence in text inside code snippets, notes and survey with paragraphs, each end of line is reflected. A single end of line create a line return (*br*), while an end of line followed by an empty line will delimit pagraphs.
+For coherence in text inside code snippets, notes and survey with paragraphs, each end of line is reflected. A single end of line create a line return (*br*), while an end of line followed by an empty line will delimit paragraphs.
 
 Blocks are delimited as well by an empty line.
 
