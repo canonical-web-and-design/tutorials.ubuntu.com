@@ -32,7 +32,7 @@ The tone of your tutorial should be friendly. Try to make the reader feel that t
 
 All tutorials should have the same tone, regardless of the topic. This is why you should complete one or two of the existing tutorials before writing your first one.
 
-In short, this isn’t a teacher/student paradigm, but rather friends sharing some time together. Thus, the term **we** should be used as much as possible, like **we have just seen**, **we now understand that…**. However **you** can be use for demonstrating things in the user’s context, like: **edit your `file`**, **your `directory` should look like this:**, **your system** or **you will note**.
+In short, this isn’t a teacher/student paradigm, but rather friends sharing some time together. Thus, the term **we** should be used as much as possible, like **we have just seen**, **we now understand that…**. However **you** can be used for demonstrating things in the user’s context, like: **edit your `file`**, **your `directory` should look like this:**, **your system** or **you will note**.
 
 And now, let's see the first required step!
 
@@ -46,7 +46,7 @@ For example, at the top of the source file of this tutorial:
 ```
 ---
 id: tutorial-guidelines
-summary: A summary tutorial description. Remember the content of it (as the title) is searchable. It should be around 26 words.
+summary: A summary tutorial description. Remember the content of it (and the title) is searchable. It should be around 26 words.
 categories: snapcraft
 tags: tutorial,guidelines,snap
 difficulty: 2
@@ -65,10 +65,10 @@ published: 2017-01-13
  * **difficulty** spans from 1 to 5. Beginners without previous knowledge of the given topic should be able to follow and understand tutorials from level 1 without any other prerequisite knowledge. As a guide:
 
      1. Complete beginner with Ubuntu - just about knows how to open a terminal
-     * Ubuntu novice - can be trusted to enter commands but experience limited to simple file operations.
+     * Ubuntu novice - can be trusted to enter commands but experience limited to simple file operations
      * Experienced user - doesn't need explanations about common topics (networking, sudo, services)
      * Advanced user - has experience running Ubuntu for many years, but may be unfamiliar with some sysadmin/programming topics.
-     * Ubuntu sysadmin/developer- very familiar with system and can be expected to know details about
+     * Ubuntu sysadmin/developer- very familiar with most aspects of the operating system and can be expected to know details about
 
  * **published** is a date in YYYY-MM-DD format. Update  this after any major updates to the tutorial. As the website sorts by date, your tutorial will appear as one of the first tutorials in the list until new tutorials are added or updated..
 
@@ -80,7 +80,7 @@ The title should be set as the first heading of your file.
 # Ubuntu tutorial guidelines
 ```
 
-Tutorial title should be kept short (5 words as a guide) so as not to break design. Do make the titles concise, but specific where possible - e.g. "Create a bootable USB stick on Windows 10"
+Tutorial title should be kept short (5 words as a guide) to not break the design. Try to make the titles concise but also specific where possible, e.g. "Create a bootable USB stick on Windows 10"
 
 ### Steps
 
@@ -90,7 +90,7 @@ Each step is delimited by a second level title, for example:
 ## Step title
 ```
 
-It should have a step duration, following immediately the step. The total tutorial time will then be computed automatically. A third level heading or empty line will break into the step content.
+A step **Duration** in the `MM:SS` format should immediately follow the title. The total tutorial time will then be computed automatically. A third level heading or empty line will break into the step content.
 
 ```markdown
 ## Step title
@@ -110,7 +110,7 @@ This is the **Overview** step. It should be the first step of every tutorial. Th
 ### What you'll learn
 
 - This section includes a list of steps that will be needed to achieve the objective.
-- State things clearly so that the reader's intents and the tutorial objectives correspond.
+- State things clearly so that the reader's expectations and the tutorial objectives correspond.
 - As you can see, this is presented as a bullet list.
 
 ### What you'll need
@@ -254,7 +254,7 @@ Syntax is regular [markdown syntax](https://guides.github.com/features/mastering
 
 ### Text
 
-For coherence in text inside code snippets, notes and survey with paragraphs, each end of line is reflected. A single end of line create a line return (*br*), while an end of line followed by an empty line will delimit paragraphs.
+To ensure the coherence of text inside code snippets, notes and a survey with paragraphs, how you end a line within these sections will affect the output. A single end of line will create a line return (br), while an end of line followed by an empty line will delimit paragraphs.
 
 Blocks are delimited as well by an empty line.
 
