@@ -160,7 +160,7 @@ In addition to the previous points on what a tutorial should be and what is mand
 
 #### Each step should be concise, but not too short
 
-Be wary of a step's length. Each one shouldn’t take longer than 7 minutes to complete. Don’t make them too short either. Naturally, some steps will be shorter than others (like first and last one).
+Be wary of a step's length. Each one shouldn’t take longer than 7 minutes to complete. Don’t make them too short either. Naturally, some steps will be shorter than others (such as the first and last steps).
 
 #### If too long, prefer dividing the tutorial
 
