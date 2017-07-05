@@ -59,10 +59,8 @@ Congratulations! You now have a Hadoop Spark cluster up and running.
 
 
 
-## Getting Started
+## Install the Juju client
 Duration: 5:00
-
-### Install the Juju client
 
 **You will need to have Juju installed locally to operate your cluster. Skip this step if you already have it.**
 
