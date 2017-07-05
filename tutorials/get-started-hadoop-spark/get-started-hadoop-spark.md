@@ -152,7 +152,7 @@ Back in the Juju GUI, in your web browser, click on individual charms and expose
 2. Select *Expose* in the inspector on the left hand side and set the toggle *ON*,  so you can connect to this unit. If the deployment isn’t yet completed, no public address will be available.
 ![Namenode exposed](./images/namenode-exposed.png)
 
-3. Click *Commit changes* and *Deploy*.
+3. Click *Commit changes*.
 ![Commit changes](./images/commit-changes.png)
 
 4. Once deployment is complete, you can visit an **overview of the Hadoop cluster** with your web browser. Click the link public IP number and port (e.g. *xxx.xxx.xxx.xxx:50070*). It will open in a new browser tab.
@@ -168,11 +168,13 @@ Back in the Juju GUI, in your web browser, click on individual charms and expose
 2. Select *Expose* in the inspector on the left hand side and set the toggle *ON*,  so you can connect to this unit.
 ![Spark exposed](./images/spark-exposed.png)
 
-3. Click *Commit changes* and *Deploy*.
+3. Click *Commit changes*
 ![Commit changes](./images/commit-changes.png)
 
-4. Once deployment is complete, you can open the *link xxx.xxx.xxx.xxx:18080* for *spark/0* to view the Spark Job History interface, showing details of you completed jobs -- including the Pi calculation you ran earlier. Learn more about [monitoring Spark.](https://spark.apache.org/docs/latest/monitoring.html)
+4. Once deployment is complete, you can open the *link xxx.xxx.xxx.xxx:18080* for *spark/0* to view the Spark Job History interface, showing details of you completed jobs -- including the Pi calculation you ran earlier.
 ![Spark server](./images/spark-server.png)
+
+Learn more about [monitoring Spark.](https://spark.apache.org/docs/latest/monitoring.html)
 
 
 ### Resource manager
@@ -183,16 +185,13 @@ Back in the Juju GUI, in your web browser, click on individual charms and expose
 2. *Expose* the charm.
 ![Resource Manager exposed](./images/resource-manager-exposed.png)
 
-3. Click *Commit changes* and *Deploy*.
+3. Click *Commit changes*
 ![Commit changes](./images/commit-changes.png)
 
 4. Once it’s ready, click the *first link* (e.g. *xxx.xxx.xxx.xxx:8088*) to open the **YARN cluster dashboard**, which includes information about the Hadoop compute nodes in your cluster.
 ![Cluster dashboard](./images/cluster-dashboard.png)
 The *second link* (e.g. *xxx.xxx.xxx.xxx:19888*) opens the **YARN History Server**, which includes information about Hadoop or Spark jobs submitted to your cluster.
 ![History server](./images/history-server.png)
-
-
-
 
 
 ### Ganglia
@@ -203,13 +202,15 @@ The *second link* (e.g. *xxx.xxx.xxx.xxx:19888*) opens the **YARN History Server
 2. *Expose* the charm.
 ![Ganglia exposed](./images/ganglia-exposed.png)
 
-3. Click *Commit changes* and *Deploy*.
+3. Click *Commit changes*
 ![Commit changes](./images/commit-changes.png)
 
 4. Visit *xxx.xxx.xxx.xxx:80/ganglia* to open the **Ganglia web interface**, a visual dashboard of load and performance charts for your cluster.
 
+
 **Note**:  *You will need to append “/ganglia” to the URL to reach the Ganglia interface.*
 ![Ganglia interface](./images/ganglia-interface.png)
+
 
 
 
