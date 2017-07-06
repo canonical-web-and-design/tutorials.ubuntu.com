@@ -37,8 +37,8 @@ Hadoop is designed to scale to thousands of servers, each offering local computa
 
 ### You will need...
 
-* An [Ubuntu One account](https://login.ubuntu.com/).
-* An SSH key in your JAAS account. If you haven’t done this already, [learn how to add your SSH key](https://jujucharms.com/docs/2.1/users-auth#credentials-and-ssh-keys).
+* An [Ubuntu One account](https://login.ubuntu.com/) (you can set it up in the deployment process)
+* A public SSH key.
 * Credentials for AWS, GCE or Azure
 
 
@@ -77,7 +77,7 @@ If you are running **Ubuntu**, you can install Juju through the following steps:
 3. Verify you can run Juju. You will see a summary and a list of common commands.
 `$ juju`
 
-You’re done! Learn more about [getting started with Juju](https://jujucharms.com/docs/stable/getting-started).
+You’re all set!
 
 
 
