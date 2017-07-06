@@ -171,8 +171,8 @@ confinement: devmode
 ```
 
 
-```bash
-A quick note on the **version** bit: it’s put into quotation marks ('`2.10`') here, because the version is a string, not a number. You could theoretically use a version string without any numbers (like '`myfirstversion`') and that would be fine too. This version is only for user consumption and doesn’t require anything like ascii ordering (e.g ver1 > ver2 and the like) for an update to reach the user.
+positive
+: A quick note on the **version** bit: it’s put into quotation marks ('`2.10`') here, because the version is a string, not a number. You could theoretically use a version string without any numbers (like '`myfirstversion`') and that would be fine too. This version is only for user consumption and doesn’t require anything like ascii ordering (e.g ver1 > ver2 and the like) for an update to reach the user.
 ```
 
 Simple, isn’t it?
@@ -484,7 +484,7 @@ Check or download [here][here2] to see what your current directory should look l
 One last thing you might want to do before the snap is ready for wider consumption is to remove the `devmode` status.
 
 
-positive
+negative
 : Users of snaps using `devmode`, will need to pass `--devmode` during the installation, so they explicitly agree to trust you and your snap. Another benefit of removing devmode is that you will be able to ship your snap on the **stable** or **candidate** channels (you can only publish to the other channels, like **beta** or **edge** as your snap is less trusted) and users will be able to search for it using `snap find`.
 
 
