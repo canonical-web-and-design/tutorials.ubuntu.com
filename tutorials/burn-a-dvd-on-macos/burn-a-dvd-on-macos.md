@@ -11,26 +11,36 @@ published: 2017-05-31
 
 # How to burn a DVD on macOS
 
-## Getting started
+## Overview
 
-Before you begin, you need to [download](https://www.ubuntu.com/download) Ubuntu and, if you want, [verify the download](/tutorial/tutorial-how-to-verify-ubuntu) .
+To create an Ubuntu installation DVD on macOS, you will need the following:
 
-The easiest way to burn an ISO, the file you need to install Ubuntu from a DVD, is by right clicking on the file in the Finder. If you are using an older version of macOS, you might need to use the Disk Utility, or on even older versions of macOS, you might need to use use Disk Copy.
+* An Ubuntu ISO you can [download here](https://www.ubuntu.com/download)
+* A blank DVD
+
+positive
+: **Ensuring the authenticity of an Ubuntu ISO**
+If you want, when the download is finished, you can [verify it](/tutorial/tutorial-how-to-verify-ubuntu) to ensure the data integrity and authenticity of the file.
 
 ## Select the Ubuntu ISO
+Duration: 1:00
 
-Right click on the Ubuntu .iso file
-Select 'Burn Disk Image' option
+The easiest way to burn an Ubuntu ISO -- the file you just downloaded -- on a DVD, is by right clicking on the file in the Finder. If you are using an older version of macOS, you might need to use the Disk Utility, or on even older versions of macOS, you might need to use use Disk Copy.
+
+* Right click on the Ubuntu `.iso` file
+* Select the '**Burn Disk Image**' option
 
 ![screenshot](https://assets.ubuntu.com/v1/9bde8b42-burn-dvd-osx-step-2.jpg?w=444)
 
 ## Insert a blank DVD
+Duration: 1:00
 
 Click the '**Burn**' button on the dialog menu
 
 ![screenshot](https://assets.ubuntu.com/v1/364d2cef-burn-dvd-osx-step-3.jpg?w=444)
 
 ## Burn and verify the DVD
+Duration: 10:00
 
 The data will be burned and verified.
 
@@ -38,7 +48,7 @@ The data will be burned and verified.
 
 ## Next steps and finding help
 
-If you want to install Ubuntu, try the [Install Ubuntu desktop tutorial](/tutorial/tutorial-install-ubuntu-desktop)
+Next, to install Ubuntu, try the [Install Ubuntu desktop tutorial](/tutorial/tutorial-install-ubuntu-desktop)
 
 If you get stuck, help is always at hand.
 
