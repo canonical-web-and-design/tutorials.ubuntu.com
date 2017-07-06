@@ -16,12 +16,12 @@ author: Canonical Web Team <webteam@canonical.com>
 
 To create an Ubuntu installation DVD on Windows, you will need the following:
 
-* An Ubuntu ISO you can [download here](https://www.ubuntu.com/download)
+* An Ubuntu ISO file. Download the Ubuntu of your choice [from here](https://www.ubuntu.com/download)
 * A blank DVD
 
 positive
 : **Ensuring the authenticity of an Ubuntu ISO**
-If you want, when the download is finished, you can [verify it](/tutorial/tutorial-how-to-verify-ubuntu) to ensure the data integrity and authenticity of the file.
+The download can be [verified](/tutorial/tutorial-how-to-verify-ubuntu) to ensure the data integrity and authenticity of the file.
 
 ## Windows 7 / 8 / 10 instructions
 Duration: 0:10
@@ -30,7 +30,7 @@ Duration: 0:10
 
 ![screenshot](https://assets.ubuntu.com/v1/64efd281-windows-10-burn-1.jpg)
 
-* Select a disc burner (drive) and choose 'Burn'. If you check '**Verify disc after burning**', it will confirm that the ISO image has been burned correctly.
+* Select a Disc burner (drive) and choose '**Burn**'. If you check '**Verify disc after burning**', it will confirm that the ISO image has been burned correctly.
 
 ![screenshot](https://assets.ubuntu.com/v1/c2ce3ee7-windows-10-burn-2.jpg)
 
@@ -43,7 +43,7 @@ Duration: 0:10
 
 ![screenshot](https://assets.ubuntu.com/v1/cfb3e0b1-cd_windows_01_medium.jpg)
 
-- Select the Ubuntu DVD image file you want to use, then click '**Open**'.
+- Select the Ubuntu ISO image file you want to burn, then click '**Open**'.
 - In the dialog box, click '**OK**'.
 
 ## Next steps and finding help
