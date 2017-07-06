@@ -6,6 +6,7 @@ tags: tutorial,installation,burn,dvd,macOS,ubuntu,desktop
 difficulty: 2
 status: Published
 published: 2017-05-31
+author: Canonical Web Team <webteam@canonical.com>
 
 ---
 
