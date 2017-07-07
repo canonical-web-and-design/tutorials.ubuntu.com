@@ -49,7 +49,9 @@ Duration: 05:00
 
 To kick off, [open Hadoop Spark](https://jujucharms.com/new/?deploy-target=cs:bundle/hadoop-spark) and click the blue Deploy changes (56) button in the bottom right. Then, follow the steps to deploy your bundle.
 
-**Note:** *Even though the step is marked as optional, we suggest adding your public SSH key at this stage to allow you access to the machines provisioned for this model.*
+
+positive
+: Note: We recommend you add your public SSH key (optional). This allows direct access to the machines – which you’ll need to operate your cluster.
 
 Deployment can take up to 30-45 minutes, as Juju creates new instances in the cloud and sets up the Hadoop Spark cluster components. Pending units are outlined in *orange*. Up and running are outlined in *black*.
 ![Status GUI](./images/status-gui.png)
