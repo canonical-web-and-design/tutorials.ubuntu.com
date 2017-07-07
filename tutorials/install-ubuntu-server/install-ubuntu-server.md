@@ -14,11 +14,11 @@ published: 2017-07-07
 ## Overview
 Duration: 0:01
 
-Ubuntu server is Ubuntu tailored for networks and services, and it's just as capable sharing files on your home network as it is running a 50,000 render farm.
+Ubuntu Server is Ubuntu tailored for networks and services, and it's just as capable sharing files on your home network as it is running within a Hadoop cluster.
 
-Unlike the desktop version of Ubuntu, Ubuntu Server does not include a graphical installation program. Instead, it uses a console menu-based process. If you'd rather install the desktop version, take a look at our [Install Ubuntu desktop](https://tutorials.ubuntu.com/tutorial/tutorial-install-ubuntu-deskto) tutorial.
+Unlike the installation of Ubuntu Desktop, Ubuntu Server does not include a graphical installation program. Instead, it uses a console menu-based process. If you'd rather install the desktop version, take a look at our [Install Ubuntu desktop](https://tutorials.ubuntu.com/tutorial/tutorial-install-ubuntu-desktop) tutorial.
 
-This guide will be a brief overview of the installation from either a DVD or a USB flash drive, suitable for anyone with an interest in running their own server. For a more detailed guide on Ubuntu Server's capabilities and its configuration, take a look at our [Ubuntu Server help documentation](https://help.ubuntu.com/lts/serverguide/installation.html
+This guide will provide an overview of the installation from either a DVD or a USB flash drive, suitable for anyone with an interest in running their own server. For a more detailed guide on Ubuntu Server's capabilities and its configuration, take a look at our [Ubuntu Server help documentation](https://help.ubuntu.com/lts/serverguide/installation.html
 ).
 
 ![screenshot](https://assets.ubuntu.com/v1/fcc62c28-server-welcome.png)
@@ -31,8 +31,7 @@ You'll need to consider the following before starting the installation:
 * Ensure you have at least 2GB of free storage space. 
 * Have access to either a DVD or a USB flash drive containing the version of Ubuntu Server you want
   to install.
-* Make sure you have a recent backup of your data. While it's unlikely that
-  anything will go wrong, you can never be too prepared.
+* If you're going to install Ubuntu Server alongside data you wish to keep, ensure you have a recent backup.
 
 See [Installation/System Requirements](https://help.ubuntu.com/community/Installation/SystemRequirements#Ubuntu_Server_.28CLI.29_Installation) for more specific details on hardware requirements. We also have [several tutorials](/) that explain how to create an Ubuntu DVD or USB flash drive.
 
@@ -42,7 +41,7 @@ Duration: 0:02
 
 To trigger the installation process, perform the following:
 
-1. Put the Ubuntu DVD into your optical/DVD drive.
+1. Put the Ubuntu DVD into your DVD drive.
 1. Restart your computer.
 
 A few moments later, a large 'Language' menu will appear and selecting your language will take you to the boot menu.
@@ -70,9 +69,6 @@ There are two options for installation, and you should select 'Install Ubuntu Se
 
 ![screenshot](https://assets.ubuntu.com/v1/c08110df-server-boot-menu.png)
 
-positive
-: The second boot option, 'Install Ubuntu Server with the HWE kernel', replaces the kernel at the core of the operating system with a kernel that gets more frequent updates. This can be useful if you are running cutting edge or new hardware, at the expense of potential stability.
-
 ## Network configuration
 Duration: 0:03
 
@@ -89,8 +85,6 @@ positive
 Duration: 0:03
 
 After networking, you'll be asked to enter your full name, username and password. As you're configuring a server that's likely to be accessible from the internet (if you choose), make sure your password is strong and difficult to guess.
-
-Similarly, you get the option to encrypt your home directory and we'd recommend saying yes to this. However, this will mean your personal data will be irretrievable if you lose or forget your password.
 
 ![screenshot](https://assets.ubuntu.com/v1/cfd45d64-server-password.png)
 
@@ -111,7 +105,7 @@ positive
 ## Package retrieval
 Duration: 0:02
 
-After accepting the changes that are going to be made to your storage, Ubuntu Server will be assemble the packages to be installed. This will take a few moments.
+After accepting the changes that are going to be made to your storage, the installer will determine the packages to be installed. This will take a few moments.
 
 You will then be asked to enter an HTTP proxy address. This can be ignored if you don't know whether you need one to access the internet from your server. You'll also be asked whether you require automatic updates. Selecting 'Install security updates automatically' is the safest default option. 
 
