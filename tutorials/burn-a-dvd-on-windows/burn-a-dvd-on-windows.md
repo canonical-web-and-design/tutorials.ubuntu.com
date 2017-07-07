@@ -6,26 +6,31 @@ tags: tutorial,installation,burn,dvd,windows,ubuntu,desktop
 difficulty: 2
 status: Published
 published: 2017-05-31
+author: Canonical Web Team <webteam@canonical.com>
 
 ---
 
 # How to burn a DVD on Windows
 
-## Getting started
-Duration: 0:05
+## Overview
 
-To install Ubuntu on a computer that currently runs Windows you need to [download](https://www.ubuntu.com/download) the installation file, if you want to [verify the download](/tutorial/tutorial-how-to-verify-ubuntu) and then burn it onto the DVD, which you can then use to install Ubuntu.
+To create an Ubuntu installation DVD on Windows, you will need the following:
 
-Once you’ve downloaded the file, follow the instructions below to burn your DVD, depending on which version of Windows you are currently using.
+* An Ubuntu ISO file. Download the Ubuntu of your choice [from here](https://www.ubuntu.com/download)
+* A blank DVD
+
+positive
+: **Ensuring the authenticity of an Ubuntu ISO**
+The download can be [verified](/tutorial/tutorial-how-to-verify-ubuntu) to ensure the data integrity and authenticity of the file.
 
 ## Windows 7 / 8 / 10 instructions
 Duration: 0:10
 
-* Right-click on an ISO image and choose '**Burn disc image**'.
+* Right-click on the ISO file you just downloaded and choose '**Burn disc image**'.
 
 ![screenshot](https://assets.ubuntu.com/v1/64efd281-windows-10-burn-1.jpg)
 
-* Select a disc burner (drive) and choose 'Burn'. If you check '**Verify disc after burning**', it will confirm that the ISO image has been burned correctly.
+* Select a Disc burner (drive) and choose '**Burn**'. If you check '**Verify disc after burning**', it will confirm that the ISO image has been burned correctly.
 
 ![screenshot](https://assets.ubuntu.com/v1/c2ce3ee7-windows-10-burn-2.jpg)
 
@@ -38,12 +43,12 @@ Duration: 0:10
 
 ![screenshot](https://assets.ubuntu.com/v1/cfb3e0b1-cd_windows_01_medium.jpg)
 
-- Select the Ubuntu DVD image file you want to use, then click '**Open**'.
+- Select the Ubuntu ISO image file you want to burn, then click '**Open**'.
 - In the dialog box, click '**OK**'.
 
 ## Next steps and finding help
 
-If you want to install Ubuntu, try the [Install Ubuntu desktop tutorial](/tutorial/tutorial-install-ubuntu-desktop)
+Next, to install Ubuntu, try the [Install Ubuntu desktop tutorial](/tutorial/tutorial-install-ubuntu-desktop)
 
 If you get stuck, help is always at hand.
 
