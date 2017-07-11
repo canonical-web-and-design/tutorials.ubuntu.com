@@ -24,7 +24,7 @@ With a bootable Ubuntu USB stick, you can:
 
 Creating a bootable Ubuntu USB stick is very simple, especially from Ubuntu itself, and we're going to cover the process in the next few steps.
 
-Alternatively, we also have tutorials to help you create a bootable USB stick from both [Microsoft Windows](https://tutorials.ubuntu.com/tutorial/tutorial-create-a-usb-stick-on-windows) and [Apple macOS](https://tutorials.ubuntu.com/tutorial/tutorial-create-a-usb-stick-on-macos).
+Alternatively, we also have tutorials to help you create a bootable USB stick from both [Microsoft Windows][usbwindows] and [Apple macOS][usbmacos].
 
 ![image](https://assets.ubuntu.com/v1/0e7183ed-laptop-ubuntu.png)
 
@@ -33,9 +33,9 @@ Duration: 0:01
 
 You will need:
 
-1. A 2GB or larger USB stick/flash drive
-1. Ubuntu Desktop 14.04 or later installed
-1. An Ubuntu ISO file. See [Get Ubuntu](https://www.ubuntu.com/download) for download links
+- A 2GB or larger USB stick/flash drive
+- Ubuntu Desktop 14.04 or later installed
+- An Ubuntu ISO file. See [Get Ubuntu][getubuntu] for download links
 
 ![screenshot](https://assets.ubuntu.com/v1/bfb2d510-ubuntu-iso-download.png)
 
@@ -52,9 +52,9 @@ We're going to use an application called 'Startup Disk Creator' to write the ISO
 ## ISO and USB selection
 Duration: 0:02
 
-When launched, Startup Disk Creator will automatically find your ISO files, as well as any attached USB storage it can write to.
+When launched, Startup Disk Creator will ISO files in your *Downloads* folder, as well as any attached USB storage it can write to.
 
-It's likely that both your Ubuntu ISO and the correct USB device will have been detected and set as 'Source disc image' and 'Disk to use' in the application window. If not, use the 'Other' button to locate your ISO file and select the exact USB device you want to use if from the list of devices.
+It's likely that both your Ubuntu ISO and the correct USB device will have been detected and set as 'Source disc image' and 'Disk to use' in the application window. If not, use the 'Other' button to locate your ISO file and select the exact USB device you want to use from the list of devices.
 
 Click **Make Startup Disk** to start the process.
 
@@ -74,7 +74,7 @@ Duration: 0:01
 
 That's it! You now have Ubuntu on a USB stick, bootable and ready to go.
 
-If you want to install Ubuntu, take a look at our [install Ubuntu desktop tutorial](/tutorial/tutorial-install-ubuntu-desktop)
+If you want to install Ubuntu, take a look at our [install Ubuntu desktop tutorial][ubuntudesktop].
 
 ![screenshot](https://assets.ubuntu.com/v1/e4bfc861-ubuntu-usb-installation-complete.png)
 
@@ -82,6 +82,17 @@ If you want to install Ubuntu, take a look at our [install Ubuntu desktop tutori
 
 If you get stuck, help is always at hand:
 
-* [Ask Ubuntu](https://askubuntu.com/)
-* [Ubuntu Forums](https://ubuntuforums.org/)
-* [IRC-based support](https://wiki.ubuntu.com/IRC/ChannelList)
+* [Ask Ubuntu][askubuntu]
+* [Ubuntu Forums][ubuntuforums]
+* [IRC-based support][ircsupport]
+
+<!-- LINKS -->
+[usbwindows]: https://tutorials.ubuntu.com/tutorial/tutorial-create-a-usb-stick-on-windows
+[usbmacos]: https://tutorials.ubuntu.com/tutorial/tutorial-create-a-usb-stick-on-macos
+[getubuntu]: https://www.ubuntu.com/download
+[ubuntudesktop]: https://tutorials.ubuntu.com/tutorial/tutorial-install-ubuntu-desktop
+[askubuntu]: https://askubuntu.com/
+[ubuntuforums]: https://ubuntuforums.org/
+[ircsupport]: https://wiki.ubuntu.com/IRC/ChannelList
+
+
