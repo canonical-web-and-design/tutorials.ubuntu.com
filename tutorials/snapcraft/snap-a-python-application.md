@@ -37,7 +37,7 @@ A system administrator would want to reduce those times as much as possible. For
 
   - How to package a Python project with snapcraft
   - How to pull source code from a specific git tag
-  - How to make its strictly confined
+  - How to make a snap that is strictly confined 
 
 ### What you’ll need
 
@@ -93,7 +93,7 @@ For now, the two interesting files in that directory are:
   - `httpstat.py` corresponding to the main (and only!) source file, containing the code. You can execute it directly once it’s made executable.
   - `setup.py`, which is a standard Python installation script file. Running setup will build and install the project on the target host. The good news is that snapcraft has full support for projects following this best practice for Python.
 
-You will note that this project has no `requirements.txt`, meaning that there is no non-standard library module used and that needs to be pulled in at build time. If that were the case, snapcraft would have handle this for you, pulling the correct dependencies via pip, itself.
+You will note that this project has no `requirements.txt` file, meaning that there are no non-standard library modules used which would need to be pulled in at build time. If that were the case, snapcraft would have handled this for you, pulling the correct dependencies via pip, itself.
 
 Do not hesitate to open the files to get familiar with them. Once you are done, you can remove that `httpstat` directory.
 
@@ -105,7 +105,7 @@ Now that we are familiar with the code we are going to snap, we can start doing 
 
 ### Make a scaffold
 
-We are going to create a dirctory for the snapcraft project. We will pull the main source code directly from github each time we build the snap.
+We are going to create a directory for the snapcraft project. We will pull the main source code directly from github each time we build the snap.
 Let’s use `snapcraft` to scaffold an initial configuration file and then build on that to create the snap for `httpstat`.
 
 Create the directory:
@@ -182,7 +182,7 @@ And that’s it! The `parts` section provides instructions as to how to process 
 ![IMAGE](https://assets.ubuntu.com/v1/716ad769-codelabs-httpstat-git-url.png)
 
 
-We first specify the git URL for the source (note that it ends with .git) and then the tag version we want. The git URL is the same as the one that appear when if you click on the `Clone or download` green button on the GitHub. More information on the source is available via the `snapcraft source` command.
+We first specify the git URL for the source (note that it ends with .git) and then the tag version we want. The git URL is the same one that appears if you click on the `Clone or download` green button on the GitHub. More information on the source is available via the `snapcraft source` command.
 
 We then specify that we want to use the `plugin: python`, which is a plugin that performs `python setup.py build` and `python setup.py install`.  The default behavior is to build a Python 3.x  program. The `python-version:` element can be specified to set the python version to 2. As we discussed previously, this project doesn’t have a requirements.txt file, so no dependencies will be pulled in by snapcraft. Otherwise, this would have been done conveniently for you, in a relocatable fashion! Note that `snapcraft help python` will give you way more information about the Python plugin:
 
@@ -320,10 +320,10 @@ We specify that the users will be running an executable named `httpstat` via the
 That’s it? Yes it is!
 
 positive
-: If your application excposes more than one command, you just need to add more `command: <name>`
+: If your application exposes more than one command, you just need to add more `command: <name>`
 lines to this part of the snapcraft.yaml file and they will also be exposed.
 
-Now lets build a workinging snap. Once again we run:
+Now lets build a working snap. Once again we run:
 
 ```bash
 snapcraft prime
@@ -525,7 +525,7 @@ curl -w <output-format> -D <tempfile> -o <tempfile> -s -S https://www.ubuntu.com
 curl error: curl: (6) Could not resolve host: www.ubuntu.com
 ```
 
-We are almost there, but as you saw, this didn’t work! Indeed, the snap does not have access to the Internet anymore because of the strict confinement. We need to declare that type of access we need, and only that (for example, the `httpstat` would still not have any access to the files in our home directory).
+We are almost there, but as you saw, this didn’t work! Indeed, the snap does not have access to the Internet anymore because of the strict confinement. We need to declare the type of access we need (and no more than that - for example, the `httpstat` should still not have any access to the files in our home directory).
 
 
 negative
@@ -566,7 +566,7 @@ Snapped httpstat_1.1.3_amd64.snap
 
 
 negative
-: **Note:** plugs are not required or supported outside of strict confinement - a `classic` snap which declares plugs will fail automatic checks if it is submitted to the store. 
+: Note: plugs are not required or supported outside of strict confinement - a `classic` snap which declares plugs will fail automatic checks if it is submitted to the store. 
 
 
 ### Final testing
@@ -623,7 +623,7 @@ You now know how to snap a simple Python application, the available options and 
 
 ### Next steps
 
-  - Now that you have packaged an application, you can learn how to snap a service, discover a more iterative process on debugging confinement issues and more, on our unique build a nodejs service tutorial. Chuck Norris also stars, how can you resist? :)
+  - Now that you have packaged an application, you can learn how to snap a service, discover a more iterative process on debugging confinement issues and more, on our unique [build a nodejs service] tutorial. Chuck Norris also stars, how can you resist? :)
   - Learn advanced techniques on how to use your snap system by following our other tutorials!
   - Join the snapcraft.io community on the [snapcraft forum].
 
@@ -652,6 +652,6 @@ You now know how to snap a simple Python application, the available options and 
 [debugging a snap]: http://snapcraft.io/docs/build-snaps/debugging
 [Snapcraft syntax reference]: http://snapcraft.io/docs/build-snaps/syntax
 [contact us and the broader community]: http://snapcraft.io/community/
-
+[build a nodejs service]: https://tutorials.ubuntu.com/tutorial/build-a-nodejs-service#0
 
 
