@@ -17,10 +17,10 @@ Duration: 0:01
 
 With a bootable Ubuntu USB stick, you can:
 
-- Install or upgrade Ubuntu.
-- Test out the Ubuntu desktop experience without touching your PC configuration.
-- Boot into Ubuntu on a borrowed machine or from an internet cafe.
-- Use tools installed by default on the USB stick to repair or fix a broken configuration.
+- Install or upgrade Ubuntu
+- Test out the Ubuntu desktop experience without touching your PC configuration
+- Boot into Ubuntu on a borrowed machine or from an internet cafe
+- Use tools installed by default on the USB stick to repair or fix a broken configuration
 
 Creating a bootable Ubuntu USB stick is very simple, especially from Ubuntu itself, and we're going to cover the process in the next few steps.
 
@@ -33,9 +33,9 @@ Duration: 0:01
 
 You will need:
 
-1. A 2GB or larger USB stick/flash drive. 
-1. Ubuntu Desktop 14.04 or later installed.
-1. An Ubuntu ISO file. See [Get Ubuntu](https://www.ubuntu.com/download) for download links.
+1. A 2GB or larger USB stick/flash drive
+1. Ubuntu Desktop 14.04 or later installed
+1. An Ubuntu ISO file. See [Get Ubuntu](https://www.ubuntu.com/download) for download links
 
 ![screenshot](https://assets.ubuntu.com/v1/bfb2d510-ubuntu-iso-download.png)
 
@@ -43,9 +43,9 @@ You will need:
 
 We're going to use an application called 'Startup Disk Creator' to write the ISO image to your USB stick. This is installed by default on Ubuntu, and can be launched as follows:
 
-1. Insert your USB stick (select 'Do nothing' if prompted by Ubuntu).
-1. Use the top left icon to open the dash and search for *Startup Disk Creator*.
-1. Select **Startup Disk Creator** from the results to launch the application.
+1. Insert your USB stick (select 'Do nothing' if prompted by Ubuntu)
+1. Use the top left icon to open the dash and search for *Startup Disk Creator*
+1. Select **Startup Disk Creator** from the results to launch the application
 
 ![screenshot](https://assets.ubuntu.com/v1/e069dea2-ubuntu-startup-launch.png)
 
