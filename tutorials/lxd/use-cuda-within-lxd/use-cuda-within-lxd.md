@@ -162,9 +162,6 @@ If this is the first time you've used LXD, see our [setting up tutorial][getstar
 
 In particular, you will need to have a network and a storage pool defined. The `lxd init` command will step you through the process if you've not done this already.
 
-
-If this is the first time you've used LXD, you will need to have a network and a storage pool defined. The `lxd init` command will step you through the process if you've not done this already.
-
 You can then launch a fresh deployment of Ubuntu 16.04 with the following command:
 
 ```bash
