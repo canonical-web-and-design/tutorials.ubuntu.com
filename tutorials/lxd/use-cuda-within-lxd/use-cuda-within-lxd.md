@@ -5,7 +5,7 @@ categories: lxd
 tags: lxd, cuda, nvidia, gpu, big data
 difficulty: 4
 published: 2017-07-12
-author: Canonical Web Team <webteam@canonical.com>
+author: Graham Morrison <graham.morrison@canonical.com>
 
 ---
 
@@ -16,7 +16,7 @@ Duration: 3:00
 
 Hugely parallelised GPU data processing, using either [CUDA][nvidiacuda] or [OpenCL][opencl], is changing the shape of data science. It even has its own snappy acronym - GPGPU - General-purpose computing on graphics processing units.  It's no surprise, then, that flexible, scalable access to these GPU resources is becoming a key requirement in many cloud deployments (see the Canonical Distribution of [Kubernetes][kubernetes] for a good example). But it's not always easy, nor cheap, to get started. Unless you use [LXD][lxd].
 
-Thanks to LXD's unrivalled density in real-world cloud deployments, and its ability to run locally, LXD provides one of the best ways of experimenting with cloud-like GPU data processing. It enables you to create local scalable deployments using nothing more than a PC with a GPU or two. As we'll now demonstrate.
+LXD's unrivalled density in real-world cloud deployments, and its ability to run locally, make it a game-game changing tool for experimenting with cloud-like GPU data processing. It enables you to create local scalable deployments using nothing more than a PC with a GPU or two. As we'll now demonstrate.
 
 ## Requirements
 Duration: 2:00
@@ -57,7 +57,7 @@ It's safer to reboot your machine at this point, although this isn't strictly ne
 ### Remove Nouveau drivers
 Duration: 3:00
 
-The *nouveau* driver, installed by default when you elect not to add Nvidia's proprietary drivers, may refuse to remove themselves. You can check with the following command: 
+The *nouveau* driver, installed by default when you elect not to add Nvidia's proprietary drivers, may refuse to remove itself. You can check with the following command: 
 
 ```bash
 lsmod | grep nouveau
@@ -77,7 +77,7 @@ blacklist rivatv
 ## Install proprietary Nvidia drivers
 Duration: 5:00
 
-With LXD, the host machine handles the drivers and passes the resultant device nodes to the container. But CUDA still expects a local driver installation, and this means we need to install identical versions of both the drivers and CUDA on both the host and any LXD containers we deploy.
+With LXD, the host machine handles the drivers and passes the resultant device nodes to the container. But CUDA still expects a local driver installation, and this means we need to install identical versions of both the drivers and CUDA on the host and any LXD containers we deploy.
 
 For this reason, we've opted to use a PPA ([https://launchpad.net/~graphics-drivers/+archive/ubuntu/ppa][ppa]) for the drivers. This simplifies installation across both the host and any container instances you deploy. The alternative is to manually build the drivers directly from Nvidia's website, but this takes more effort and is harder to maintain across multiple deployments.
 
@@ -96,7 +96,7 @@ apt install nvidia-381
 positive
 : Take a look at the PPA, or use `apt search nvidia`, to find the version number of the latest drivers.
 
-You'll need to reboot your machine after the installing the Nvidia drivers, after which you can use the `nvidia-smi` command to check that the driver is installed and operating correctly. The output will include details similar to the following:
+You'll need to reboot your machine after installing the Nvidia drivers, after which you can use the `nvidia-smi` command to check that the driver is installed and operating correctly. The output will include details similar to the following:
 
 ```no-highlight
 Thu May 25 13:32:33 2017
@@ -138,9 +138,9 @@ export PATH=/usr/local/cuda-8.0/bin:$PATH
 export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64:$LD_LIBRARY_PATH
 ```
 
-Alternatively, add `/usr/local/cuda-8.0/lib64` to `/etc/ld.so.conf` and run 'ldconfig' as root.
+Alternatively, add `/usr/local/cuda-8.0/lib64` to `/etc/ld.so.conf` and run 'sudo ldconfig'.
 
-You can check CUDA is installed correctly by running `nvcc -V', which produces output similar to the following:
+You can check CUDA is installed correctly by running `nvcc -V`, which produces output similar to the following:
 
 ```no-highlight
 nvcc: NVIDIA (R) Cuda compiler driver
@@ -157,6 +157,11 @@ If everything is working correctly, you should see `Result = PASS` at the end of
 Duration: 5:00
 
 With the host now correctly configured and ready to go, it's time to launch LXD.
+
+If this is the first time you've used LXD, see our [setting up tutorial][getstarted] for a few pointers.
+
+In particular, you will need to have a network and a storage pool defined. The `lxd init` command will step you through the process if you've not done this already.
+
 
 If this is the first time you've used LXD, you will need to have a network and a storage pool defined. The `lxd init` command will step you through the process if you've not done this already.
 
@@ -241,7 +246,7 @@ Don't forget to make sure the CUDA libraries and binaries are in your path.
 ## Test CUDA within LXD
 Duration: 3:00
 
-With everything install and configured, it's now time to test CUDA from within LXD.
+With everything installed and configured, it's now time to test CUDA from within LXD.
 
 Running `bandwidthTest`, for example should produce output like this:
 
@@ -298,6 +303,6 @@ Finally, if you get stuck, the Ubuntu community is always willing to help, even 
 [opencl]: https://www.khronos.org/opencl/
 [kubernetes]: https://insights.ubuntu.com/2017/04/12/general-availability-of-kubernetes-1-6-on-ubuntu/
 [ppa]: https://launchpad.net/~graphics-drivers/+archive/ubuntu/ppa
-[getstarted]: https://linuxcontainers.org/lxd/getting-started-cli/
+[getstarted]: https://tutorials.ubuntu.com/tutorial/tutorial-setting-up-lxd-1604#0
 [cudadocs]: http://docs.nvidia.com/cuda/
 [cudakuber]: https://insights.ubuntu.com/2017/02/15/gpus-kubernetes-for-deep-learning%E2%80%8A-%E2%80%8Apart-13/
