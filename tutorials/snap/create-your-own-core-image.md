@@ -18,7 +18,9 @@ published: 2016-09-13
 Duration: 1:00
 
 We are going to build an image for the [Intel Joule] device. Including extra snaps compared to the default provided Intel Joule Ubuntu Core image. The same techniques can be replicated on any other devices.
-We are going to create your own authority keys, making the snap store aware of them, create and sign your model assertion before building your image.
+
+We are going to create your own **authority keys**, making the snap store aware of them, create and sign your **model assertion** before building your image.
+
 This document will walk you through all the steps to build an image for a device family. You will learn how to:
 
 ### What you’ll learn
