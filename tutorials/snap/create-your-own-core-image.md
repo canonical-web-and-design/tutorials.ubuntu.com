@@ -374,9 +374,9 @@ Let’s add one more key (the order doesn’t really matter, but I suggest addin
 This will specify to install both “**hello**” and “**hello-world**” snaps during image creation.
 
 
-```bash
+
 Despite the “required” name, a known bug make it possible to remove those snaps after booting on the final image. This is known with current version of snapd (2.16) and will get fixed in the future.
-```
+
 
 ### Sign the model assertion
 As we already discussed, we need now to sign with our previously created key this model definition in json to create a model assertion, consumable by ubuntu-image. This is as simple as:
