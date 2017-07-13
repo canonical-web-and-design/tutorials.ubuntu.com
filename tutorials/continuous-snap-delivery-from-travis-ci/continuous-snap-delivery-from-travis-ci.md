@@ -15,7 +15,7 @@ author: Lea Arias <leo.arias@canonical.com>
 ## Overview
 Duration: 1:00
 
-Travis CI is a continuous integration service that can be used to build, test and deliver software. Travis is free for Free Software projects, while [Travis Pro] is available for private GitHub repositories. We will use Travis CI to build your snap and push it automatically to the `edge` channel of the store every time you make a change to your branch in GitHub.
+Travis CI is a continuous integration service that can be used to build, test and deliver software. Travis is free for Free Software projects, while [Travis Pro] is available for private GitHub repositories. We will use Travis CI to build your snap and push it automatically to the `edge` channel of the [snap store](https://dashboard.snapcraft.io) every time you make a change to your branch in GitHub.
 
 ![](images/1.png)
 
@@ -107,7 +107,7 @@ git commit -m "add the hello snap"
 git push
 ```
 
-We now have a GitHub project containing packaging details for a snap, it’s time to look at Travis CI...
+We now have a GitHub project containing packaging details for a snap and it’s time to look at Travis CI...
 
 ## Setting up Travis CI
 Duration: 2:00
@@ -118,7 +118,7 @@ Now, enable the GitHub repository of your snap by flipping the switch next to it
 
 ![](images/3.png)
 
-Now, we need a `.travis.yml` file for your project. Travis CI will run the steps specified in this file on every pull request and every time a change is pushed to the master branch. These steps are going to be a few bash commands and scripts.
+We need a `.travis.yml` file for your project. Travis CI will run the steps specified in this file on every pull request and every time a change is pushed to the master branch. These steps are going to be a few bash commands and scripts.
 
 First, create a file named `.travis.yml` in your project folder, with the following content:
 
@@ -133,17 +133,17 @@ In the next step we’ll make sure that your snap can be built successfully in T
 ## Building the snap in a clean environment
 Duration: 5:00
 
-Travis CI executors are using Ubuntu 14.04, but are missing some kernel changes to be able to run snapcraft as a snap itself. Since they support Docker, we will use a snapcraft Docker container to build the snap.
+Travis CI uses a build environment based on Ubuntu 14.04, which is missing some requirements for running snapcraft. However, it does have support for Docker, so we will use a Docker container to build the snap.
 
 Before we build our snap in Travis CI’s executors, we need to make sure the snap builds correctly in a Docker container.
 
 Positive
 : **The need for a clean environment**
 When you build a snap on your machine, it could be using some dependencies that are already installed but you forgot to declare as `build-packages` in the snapcraft.yaml.
-This means that when somebody will try to build the same snap on a different machine, those undeclared packages could be missing and the build would fail.
+This means that when somebody tries to build the same snap on a different machine, those undeclared packages could be missing and the build would fail.
 A clean environment, such as a default Ubuntu 14.04 or 16.04 in a container, ensures reproducible builds.
 
-Let’s install docker, to get the same environment that Travis CI will use to build the snap:
+Let’s install Docker, to get the same environment that Travis CI will use to build the snap:
 
 
 ```bash
@@ -178,7 +178,7 @@ Duration: 6:00
 
 The final step to enable continuous delivery from Travis CI to all your early adopters is to add some commands to the `.travis.yml` file we created before. But we don’t really have to do much, snapcraft will take care of it for us.
 
-We need install the travis command-line utility, which will be used by snapcraft in a moment. Travis is a ruby gem, but is not available in the Ubuntu repositories, so installing it requires a few commands:
+We need to install the travis command-line utility, which will be used by snapcraft in a moment. Travis is a ruby gem, but is not available in the Ubuntu repositories, so installing it requires a few commands:
 
 ``` bash
 sudo apt install ruby-dev
