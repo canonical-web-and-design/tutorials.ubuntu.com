@@ -50,12 +50,11 @@ Duration: 1:00
 If you are on Ubuntu 16.04 LTS or Ubuntu 16.10, getting all the required tools is very easy. 
 
 
-```bash
-Note: other GNU/Linux distributions are currently in the process of building images.
-```
+positive
+: Note: other GNU/Linux distributions are currently in the process of building images.
+
 
 Now simply run:
-
 
 ```bash
 $ sudo apt install ubuntu-image snapd snapcraft
@@ -155,12 +154,14 @@ joule-linux  4.4.0-1000-0+joule08-1  1    canonical  -
 ```
 
 You will always have at least 3 snaps installed on your Ubuntu device:
+
   - A Core snap
   - A Kernel snap
   - A Gadget snap
 
 Optionally, you will have default application snaps installed on your image. We are going to add one to our custom device image.
-Core snap
+
+#### Core snap
 
 
 ```bash
@@ -186,7 +187,7 @@ You can basically see this core snap as the “/” of your system.
 
 You will not normally need to ship your own Core snap and rely on the maintained Ubuntu one.
 
-Kernel snap
+#### Kernel snap
 
 
 ```bash
@@ -212,7 +213,7 @@ You can build your own kernel snap via **snapcraft** if desired, but most of the
 
 We are going to reuse the one that is already provided in the store for our device.
 
-Gadget snap
+#### Gadget snap
 
 
 ```bash
@@ -243,12 +244,13 @@ An assertion is a digitally signed document that expresses a fact or policy by a
 We are thus going to create a model json file, and then sign it with our authority account to create a model assertion that will be accepted by **ubuntu-image**.
 
 Let’s create those keys for signing before diving into the model itself!
-## 
-## 
+
+
 ## Create your signature keys
 Duration: 5:00
 
-Before starting with building the image, you need to create a key to sign your future store uploads. You will only to do this one for your signature authority
+Before starting with building the image, you need to create a key to sign your future store uploads. You will only to do this one for your signature authority.
+
 ### Create a key
 
 As a first step, you have to generate a key that will be linked to your Ubuntu Store account. To do so, run:
@@ -265,9 +267,9 @@ This command will ask you for a password to protect the key. Note it down!
 It will take some time, as it's creating a 4096 bit long key and needs some entropy to complete. To speed up the process, you can install the **rng-tools** package beforehand.
 
 
-```bash
-Note that my-key-name is optional, but it enables you to have multiple keys and select each time which key you want to sign with (can be useful if you have personal keys for testing, company keys for production).
-```
+positive
+: Note that my-key-name is optional, but it enables you to have multiple keys and select each time which key you want to sign with (can be useful if you have personal keys for testing, company keys for production).
+
 
 Once the key is generated, you can list your keys with:
 
@@ -304,7 +306,6 @@ You need a passphrase to unlock the secret key for user: “ my-key-name “
 
 Done. The key "my-key-name" (zSC0HgMmN76pF7Y-ZbeCkmDkRB7nGDARS6CPlyOlPcJ5jgdsIanVnN3NIrV3lItg) may be used to sign your assertions.
 
-
 ```
 
 During this step, you will be asked to select an existing key, then login with your store account credentials and test your passphrase to unlock your key locally.
@@ -336,6 +337,7 @@ The model definition is a json simple file. In a directory create `joule-model.j
 ```
 
 Here are the keys we are defining:
+
   - **type**: the assertion type you are creating (here a model assertion)
   - **series**: the Ubuntu Core series you are targeting. We are targeting here Core 16.
   - **model**: a free form lower-case name for your target device.
@@ -353,13 +355,13 @@ $ date -Iseconds --utc
 ```
 
 
-```bash
-Note that this timestamp should be posterior to the signing key creation.
-```
+positive
+: Note that this timestamp should be posterior to the signing key creation.
 
-Adding additional default snaps
 
-Let’s add one more key (the order doesn’t really matter, but I suggest adding it after the kernel snap definition for coherence) in joule-model.json:
+### Adding additional default snaps
+
+Let’s add one more key (the order doesn’t really matter, but I suggest adding it after the kernel snap definition for coherence) in `joule-model.json`:
 
 
 ```bash
@@ -424,8 +426,8 @@ LmMuuAPwoeDkimRr9M6WY6XAso9Qku25kIH2IyDFMQ==
 
 ```
 
-You will find back the information you gave in a yaml format, followed by a signature authenticating this document.
-Every time you change your model definition in the json format, you will thus need to generate this corresponding model assertion.
+You will find back the information you gave in a YAML format, followed by a signature authenticating this document.
+Every time you change your model definition in the JSON format, you will thus need to generate this corresponding model assertion.
 
 The last step will be the easiest: actually building the image!
 
@@ -458,9 +460,9 @@ $ ls -lh joule.img
 
 
 
-```bash
-Note that the device image default size (that can be changed via the **--image-size** option) will only match the needed space for all those snaps. First Ubuntu Core image boot will take longer than usual as it match the image size with the space available on disk.
-```
+positive
+: Note that the device image default size (that can be changed via the **--image-size** option) will only match the needed space for all those snaps. First Ubuntu Core image boot will take longer than usual as it match the image size with the space available on disk.
+
 
 And here is your device image file, which contains your extra snaps! This one can be copied to any removable device like
 
@@ -468,8 +470,7 @@ And here is your device image file, which contains your extra snaps! This one ca
 ```bash
 $ sudo dd if joule.img of=/dev/sdXX bs=32M; sync;
 ```
-## 
-## 
+
 ## That’s all folks!
 Duration: 1:00
 
@@ -477,6 +478,7 @@ Congratulations! You now have your own device image file for your specific devic
 
 You should by now be familiar with the various snaps composing an Ubuntu image: Core snap, kernel, gadget. You know that snapd is using a model assertion to define all pieces composing an image and this is what is used to build the image via the ubuntu-image tool.
 Finally, you know also that you can change those default snaps, and add more applications snaps as you require them. If you produce your own gadget or kernel snap, you can swap as well default ones and enable a new board that way.
+
 ### Next steps
   - You should flash your new image to your device to test how this one behaves, checking that those 
   - Learn some more advanced techniques on how to use your snap system looking for our others codelabs!
@@ -492,10 +494,10 @@ Finally, you know also that you can change those default snaps, and add more app
 
 
 
-[Intel Joule]]: https://software.intel.com/en-us/iot/hardware/joule/dev-kit
-[snapcraft forum]]: https://forum.snapcraft.io/
-[board enablement documentation]]: https://docs.ubuntu.com/core/en/guides/build-device/board-enablement#the-model-assertion
-[more definition]]: https://docs.ubuntu.com/core/en/guides/build-device/gadget
-[an assertion]]: https://docs.ubuntu.com/core/en/guides/build-device/assertions
-[contact us and the broader community]]: http://snapcraft.io/community/
+[Intel Joule]: https://software.intel.com/en-us/iot/hardware/joule/dev-kit
+[snapcraft forum]: https://forum.snapcraft.io/
+[board enablement documentation]: https://docs.ubuntu.com/core/en/guides/build-device/board-enablement#the-model-assertion
+[more definition]: https://docs.ubuntu.com/core/en/guides/build-device/gadget
+[an assertion]: https://docs.ubuntu.com/core/en/guides/build-device/assertions
+[contact us and the broader community]: http://snapcraft.io/community/
 
