@@ -1,20 +1,26 @@
+---
+id: create-your-own-core-image
+summary: Create your own Ubuntu Core image for a particular model, by assembling snaps available in the store. Make your own device image with some snap preinstalled or additional functionalities!
+categories: snap
+status: Published
+feedbacklink: https://github.com/ubuntu/codelabs/issues
+tags: snap, ubuntu-image, image, device, assertion, model
+difficulty: 3
+published: 2016-09-13
 
-Create your own Core image
-
-[["Summary","Create your own Ubuntu Core image for a particular model, by assembling snaps available in the store. Make your own device image with some snap preinstalled or additional functionalities!"],["URL","create-your-own-core-image"],["Category","snap"],["Status","Published"],["Feedback Link","https://github.com/ubuntu/codelabs/issues"],["Tags","snap, ubuntu-image, image, device, assertion, model"],["Difficulty","3"],["Published","2016-09-13"]]
+---
 
 
+# Create your own Core image
 
-
-## 
-## 
-## 
+ 
 ## Overview
 Duration: 1:00
 
 We are going to build an image for the [Intel Joule] device. Including extra snaps compared to the default provided Intel Joule Ubuntu Core image. The same techniques can be replicated on any other devices.
 We are going to create your own authority keys, making the snap store aware of them, create and sign your model assertion before building your image.
 This document will walk you through all the steps to build an image for a device family. You will learn how to:
+
 ### What you’ll learn
   - Different fundamental snap notions on the board, like gadget, kernel and core snap.
   - Assembling a kernel and gadget snaps.
@@ -23,22 +29,21 @@ This document will walk you through all the steps to build an image for a device
   - Compose and build a custom image using the ubuntu-image command.
 
 ### What you’ll need
+
   - Ubuntu 16.04 LTS desktop. You can’t do this on an Ubuntu Core device directly as creating your image can take quite some disk spaces. A VM can work as well.
   - Some very basic knowledge of command line use, know how to edit files.
 
 
+Survey
+: How will you use this tutorial?
+ - Only read through it
+ - Read it and complete the exercises
+: What is your current level of experience?
+ - Novice
+ - Intermediate
+ - Proficient
 
-```bash
-How will you use this tutorial?
-Only read through it
-Read it and complete the exercises
-What is your current level of experience working with snap?
-Novice
-Intermediate
-Proficient
-
-```
-## 
+ 
 ## Getting started
 Duration: 1:00
 
