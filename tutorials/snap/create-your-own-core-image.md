@@ -137,9 +137,7 @@ Duration: 4:00
 
 ### What your image is made of
 
-![IMAGE][] 
-
-
+![IMAGE](https://assets.ubuntu.com/v1/e997c521-snap-content.png)
 
 
 If you simply run `snap list` on your Ubuntu Core image, you will see that your image is already composed of many snap. For instance, on our Intel Joule:
