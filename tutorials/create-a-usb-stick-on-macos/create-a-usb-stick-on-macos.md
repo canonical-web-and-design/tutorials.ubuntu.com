@@ -5,73 +5,123 @@ categories: desktop
 tags: tutorial,installation,usb,macOS,ubuntu,desktop
 difficulty: 2
 status: Published
-published: 2017-05-31
+published: 2017-07-13
+author: Canonical Web Team <webteam@canonical.com>
 
 ---
 
 # Create a bootable USB stick on macOS
 
-## Getting started
-Duration: 0:05
+## Overview
+Duration: 1:00
 
-Before you begin, you need to [download Ubuntu](https://www.ubuntu.com/download) and, if you want, [verify the download](/tutorial/tutorial-how-to-verify-ubuntu).
+With a bootable Ubuntu USB stick, you can:
 
-To run or install Ubuntu on a Mac from a USB stick, the first thing you need to do is insert a USB stick with at least 2GB of free space into your PC.
+- Install or upgrade Ubuntu, even on a Mac
+- Test out the Ubuntu desktop experience without touching your PC configuration
+- Boot into Ubuntu on a borrowed machine or from an internet cafe
+- Use tools installed by default on the USB stick to repair or fix a broken configuration
 
-The easiest way to put Ubuntu onto your stick is to use the UNetbootin USB installer. You’ll need to download and install and follow the instructions.
+Creating a bootable USB stick is very simple, especially if you're going to use the USB stick with a generic Windows or Linux PC. We're going to cover the process in the next few steps.
 
-[Download the UNetbootin USB installer&nbsp;&rsaquo;](http://unetbootin.github.io/)
+### Apple hardware considerations
 
+There are a few additional considerations when booting the USB stick on Apple hardware. This is because Apple's 'Startup Manager', summoned by holding the Option/alt (⌥) key when booting, won't detect the USB stick without a specific partition table and layout. We'll cover this in a later step. 
 
-## Start UNetbootin
-Duration: 0:02
+## Requirements
+Duration: 1:00
 
-Launch UNetbootin and allow the osascript to make changes
+You will need:
 
-![Type your password](https://assets.ubuntu.com/v1/081c9922-osascript-auth.png?w=494)
+- A 2GB or larger USB stick/flash drive
+- An Apple computer or laptop running macOS
+- An Ubuntu ISO file. See [Get Ubuntu][getubuntu] for download links
 
-## Select the disk image option
-Duration: 0:01
+## Prepare the USB stick
+Duration: 5:00
 
-Select the '**Diskimage**’ radio button and then click the '**...**' button
+To ensure maximum compatibility with Apple hardware, we're going to first blank and reformat the USB stick using Apple's 'Disk Utility'. But this step can be skipped if you intend to use the USB stick with only generic PC hardware.
 
-![unetbootin](https://assets.ubuntu.com/v1/c9cf468c-unetbootin.png)
+- Launch *Disk Utility* from Applications>Utilities or Spotlight search
+- Insert your USB stick and observe the new device added to Disk Utility
+- Select the USB stick device and select `Erase` from the tool bar (or right-click menu)
+- Set the format to `MS-DOS (FAT)` and the scheme to `GUID Partition Map`
+- Check you've chosen the correct device and click `Erase`
 
-## Select the Ubuntu ISO image
-Duration: 0:01
+![screenshot](https://assets.ubuntu.com/v1/b50caa3d-macos-usb-format.png)
 
-Select the Ubuntu ISO file you downloaded and click '**Open**'.
+negative
+: **Warning:** Disk Utility needs to be used with caution as selecting the wrong device or partition can result in data loss.
 
-![Select disk image](https://assets.ubuntu.com/v1/7cd52408-open-iso.png?_ga=2.128598476.1345611690.1496322916-1155966827.1485186360)
+## Install and run UNetbootin
+Duration: 2:00
 
-## Select your flash drive
-Duration: 0:05
+To write the ISO file to the USB stick, we're going to use a free and open source application called [UNetbootin][unetbootin]. After downloading this and clicking to mount the package, UNetbootin can either be run in-place or dragged into your Applications folder. 
 
-Then select your flash drive in the bottom row and click '**OK**'.
+By default, recent versions of macOS block the running of applications from unidentified developers. To side-step this issue, enable 'App Store and identified developers' in the 'Security & Privacy' pane of System Preferences. If you are still warned against running the application, click 'Open Anyway' in the same pane. 
+
+![screenshot](https://assets.ubuntu.com/v1/4db3ce4f-macos-usb-run.png)
+
+## UNetbootin configuration
+Duration: 2:00
+
+As with Disk Utility, UNetbootin needs low-level access to your storage hardware and will ask for your password.
+
+The main window will then appear, containing the following three sections:
+
+- **Distribution** can be ignored as it allows you to download an ISO from within UNetbootin itself
+
+- **Diskimage**  needs to point at the ISO file downloaded previously. Use the `...` button to open a file requester. A peculiarity of UNetbootin is that it opens the root home folder, rather than your own home folder. This means you need to navigate through *Users>username>Downloads* to get to your ISO file
+
+- **Type** contains the USB stick location. If this is incorrect, use the *Drive* drop-down menu to select your device 
+
+![screenshot](https://assets.ubuntu.com/v1/c0670761-macos-usb-unetbootin.png)
 
 positive
-: Tip - If you are unsure which one is your flash drive, in a terminal you can type `diskutil list` with the drive not inserted and then inserted to see which one it is.
+: If UNetbootin fails to detect your USB stick, try using Disk Utility again to re-format your USB device.
 
-![unetbootin select drive](https://assets.ubuntu.com/v1/888e8078-unetbootin-after.png)
+## Confirm and create device
+Duration: 4:00
 
-## Restart your Mac
-Duration: 0:03
+After one final check over your chosen ISO and USB device, click `OK` to start the write process.
 
-After UNetbootin finishes, click '**Exit**' and restart your Mac.
+UNetbootin will switch to a status view that steps through download, file extraction, installation and completion. This should take just a few minutes to complete.
 
-![unetbootin complete](https://assets.ubuntu.com/v1/888e8078-unetbootin-after.png?w=494)
+When everything has finished, UNetbootin will declare the process a success.
 
-Press `alt/option` key while the Mac is restarting to choose the USB stick to try or install Ubuntu.
+Congratulations! You now have Ubuntu on a USB stick, bootable and ready to go. 
 
-positive
-: Need more help? Please look on the [community help wiki](https://help.ubuntu.com/community/How%20to%20install%20Ubuntu%20on%20MacBook%20using%20USB%20Stick)
+![screenshot](https://assets.ubuntu.com/v1/db3abc95-macos-usb-write.png)
 
-## Next steps and finding help
+## Boot your Mac
+Duration: 3:00
 
-If you want to install Ubuntu, try the [Install Ubuntu desktop tutorial](/tutorial/tutorial-install-ubuntu-desktop)
+If you want to use your USB stick with an Apple Mac, you will need to restart or power-on the Mac with the USB stick inserted **while** the `Option/alt` *(⌥)* key is pressed.
 
-If you get stuck, help is always at hand.
+This will launch Apple's 'Startup Manager' which shows bootable devices connected to the machine. Your USB stick should appear as gold/yellow and labelled 'EFI Boot'. Selecting this will lead you to the standard Ubuntu boot menu.
 
-* [Ask Ubuntu](https://askubuntu.com/)
-* [Ubuntu Forums](https://ubuntuforums.org/)
-* [IRC-based support](https://wiki.ubuntu.com/IRC/ChannelList)
+![unetbootin complete](https://assets.ubuntu.com/v1/ee39c875-macos-usb-efi-boot.png)
+
+### Finding help
+
+If your Mac still refuses to boot off your USB stick you may find it easier to boot and install off an Ubuntu DVD instead. See our [How to burn a DVD on macOS][macdvd] for further details.
+
+Alternatively, if you feel confident using the macOS command line, see the community documentation on [How to install Ubuntu on MacBook using USB Stick][macusb] for a more manual approach.
+
+If you want to install Ubuntu, follow our [install Ubuntu desktop tutorial][installubuntu].
+
+Finally, if you get stuck, help is always at hand:
+
+* [Ask Ubuntu][askubuntu]
+* [Ubuntu Forums][ubuntuforums]
+* [IRC-based support][ircsupport]
+
+<!-- LINKS -->
+[unetbootin]: https://unetbootin.github.io
+[getubuntu]: https://www.ubuntu.com/download
+[macusb]: https://help.ubuntu.com/community/How%20to%20install%20Ubuntu%20on%20MacBook%20using%20USB%20Stick 
+[installubuntu]: https://tutorials.ubuntu.com/tutorial/tutorial-install-ubuntu-desktop#0
+[macdvd]: https://tutorials.ubuntu.com/tutorial/tutorial-burn-a-dvd-on-macos#0
+[askubuntu]: https://askubuntu.com/
+[ubuntuforums]: https://ubuntuforums.org/
+[ircsupport]: https://wiki.ubuntu.com/IRC/ChannelList
