@@ -1,7 +1,7 @@
 ---
 id: build-a-nodejs-service
 summary: We are going to use the nodejs snapcraft plugin to build a simple service. We’ll guide you through the good practice for debugging and iterating over your web server, and basic confinement notions.
-categoryies: snapcraft
+categories: snapcraft
 status: published
 feedback: https://github.com/ubuntu/codelabs/issues
 tags: snapcraft, nodejs, service, beginner, plug, interface, webserver
