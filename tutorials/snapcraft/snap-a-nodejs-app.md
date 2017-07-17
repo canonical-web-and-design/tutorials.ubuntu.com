@@ -229,10 +229,10 @@ $ sudo chuck-norris-webserver.node-service
 Server listening on: http://localhost:80
 ```
 
-You can now point your browser to [http://localhost] and enjoy some Chuck Norris quotes! All debug outputs will be visible on the command line prompt. Press Ctrl+C to exit it.
+You can now point your browser to http://localhost and enjoy some Chuck Norris quotes! All debug outputs will be visible on the command line prompt. Press Ctrl+C to exit it.
 Having a command while you are working on your snap helps you greatly in inspecting what’s going on in your snap. This is why we strongly recommend that approach.
 
-Also, that means to listen to that port 80, we’ll need the service to run as a privileged user. The good news is that in the snap world, thanks to confinement, all services are running as root while being safe!
+Also, that means to listen to that port **80**, we’ll need the service to run as a privileged user. The good news is that in the snap world, thanks to confinement, all services are running as root while being safe!
 It’s something to keep in mind while you iterate on a command which is going to be turned into a service later on: run them as root to reproduce the exact running context!
 
 It’s now high time to get rid of this devmode thing and add some confinement to your snap, let’s do this right away!
@@ -242,10 +242,10 @@ It’s now high time to get rid of this devmode thing and add some confinement t
 Duration: 5:00
 
 
-```bash
-Lost or starting from here?
-Check or download [here-3] to see what your current directory should look like.
-```
+positive
+: Lost or starting from here?
+Check or download [here][here-3] to see what your current directory should look like.
+
 
 ### Enabling confinement
 
@@ -279,7 +279,7 @@ Thanks to keeping the service as a simple command, we see easily that, even if r
 
 ### What do we need to do?
 
-The snap not being in devmode anymore, it needs to get additional permissions. Those are given through an interface. We thus have to find which interface our snap will need, and declare a plug to that interface. The snap plug will connect to the core slot which declares this interface. For an easy analogy, thinks of a plug like an electrical plug, slot is what you put the plug into, and the interface is the kind of data (permissions here) which will be send over via that interface.
+The snap not being in devmode anymore, it needs to get additional permissions. Those are given through an **interface**. We thus have to find which **interface** our snap will need, and declare a **plug** to that interface. The snap **plug** will connect to the core **slot** which declares this **interface**. For an easy analogy, thinks of a plug like an electrical plug, slot is what you put the plug into, and the interface is the kind of data (permissions here) which will be send over via that interface.
 
 Enough theory! How to easily debug and fix this?
 
