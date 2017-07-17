@@ -611,10 +611,8 @@ nov. 15 15:17:53 tidus snap[15622]: Quoted http://api.chucknorris.io/jokes/elgv2
 You can omit -f to not following the logs live (meaning, new inputs are printed as they come): it will only prints the messages that were logged when running the command.
 
 
-```bash
-Small tip: sometimes, multiple services coordinates to provide a functionality, or a service impacts some system services like network-manager. To get all logs and follow them live, just don’t provide the -u option with the service name. For instance, journalctl -f will provide you all logs, lively printed, from your system, including your services.
-```
-
+positive
+: Small tip: sometimes, multiple services coordinates to provide a functionality, or a service impacts some system services like network-manager. To get all logs and follow them live, just don’t provide the -u option with the service name. For instance, journalctl -f will provide you all logs, lively printed, from your system, including your services.
 
 ## That’s all folks!
 Duration: 1:00
@@ -623,14 +621,15 @@ Duration: 1:00
 
 Congratulations! As Chuck, you made it!
 
-
 positive
 : Final code 
 Your final code directory should now look like [this]. Do not hesitate to download and build your snap from it if you only read it through!
 
 
 You should by now have a ready-to-go nodejs service, being a web server giving external quotes from Chuck Norris. Wasn’t that easy to build?
+
 You now know how to snap a nodejs application, basics on confinements, connects and debugging interfaces connections, what’s the process to daemonize a process (always starts with a command, enable confinement, ensure everything works, and then build it as a service!) as well as different options given to you.
+
 As a bonus, you have as well some basic training on systemd common commands to start, stop, check status and look at service logs.
 
 ### Next steps
@@ -644,9 +643,6 @@ As a bonus, you have as well some basic training on systemd common commands to s
   - [Snapcraft syntax reference], covering various available options like the daemon ones.
   - Some information on [systemd].
   - Check how you can [contact us and the broader community].
-
-
-
 
 
 [chucknorris.io]: https://chucknorris.io
