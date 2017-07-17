@@ -7,7 +7,7 @@ feedback: https://github.com/ubuntu/codelabs/issues
 tags: snapcraft, nodejs, service, beginner, plug, interface, webserver
 difficulty: 2
 published: 2016-10-14
-Author: 
+Author: Didier Roche <didier.roche@canonical.com>
 
 ---
 
@@ -113,8 +113,8 @@ The nodejs plugin snapcraft will download and embed a local nodejs version, as w
 
 
 positive
-: What if I don’t have any package.json file?
-snapcraft help nodejs shows you specific plugin options that you can use in your snapcraft.yaml. One of them is named node-packages which is a list of npm packages you may want to download in your snap.
+: **What if I don’t have any package.json file?**
+`snapcraft help nodejs` shows you specific plugin options that you can use in your `snapcraft.yaml`. One of them is named `node-packages` which is a list of npm packages you may want to download in your snap.
 Note that there are other options, like choosing what specific version of nodejs you want to download, the npm-run command and so on…
 
 
