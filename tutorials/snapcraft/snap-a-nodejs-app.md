@@ -285,7 +285,7 @@ Enough theory! How to easily debug and fix this?
 
 ### Debugging denials tools
 
-It seems we were denied on listening to an interface, but how to confirm this? There is a tool as part of the snappy-debug package especially suited for it.
+It seems we were denied on listening to an interface, but how to confirm this? There is a tool as part of the `snappy-debug` package especially suited for it.
 Let’s install and get it listening to our snap:
 
 
@@ -301,9 +301,9 @@ kernel.printk_ratelimit = 0
 
 
 
-```bash
-Note that we need to run the tool as a privileged user. The kernel indeed is doing some rate limiting operations which may skip some debug logs for us. Running it as root alleviate this limitation for this command for us.
-```
+positive
+: Note that we need to run the tool as a privileged user. The kernel indeed is doing some rate limiting operations which may skip some debug logs for us. Running it as root alleviate this limitation for this command for us.
+
 
 Then, the command will block and filter any output related to our snap with some advice.
 For example, if you run in another terminal:
@@ -421,12 +421,13 @@ $ sudo chuck-norris-webserver.node-service
 Server listening on: http://localhost:80
 ```
 
-Hurrah! We also notice no new output in snappy-debug.security output! Pointing again your browser to [http://localhost] works as expected.
+Hurrah! We also notice no new output in snappy-debug.security output! Pointing again your browser to http://localhost works as expected.
 
 ### Two final notes on interfaces and confinement
 
 Here, you should wonder about 2 things:
-Why didn’t I have to connect (like for snappy-debug) this slot to the core snap to enable it?
+
+#### Why didn’t I have to connect (like for snappy-debug) this slot to the core snap to enable it?
 I’m glad you are asking this!
 The answer is that some interfaces are considered safer than others, and so, they are auto-connected on snap installation. Others are seen as being more dangerous, and thus, needs an explicit acknowledgment from the user. The interface list documentation (link provided at the end of tutorial) will give you a definitive list of those different modes.
 We can confirm that it was connected via snap interfaces:
@@ -438,7 +439,7 @@ Slot           Plug
 ```
 
 
-We are initiating outgoing request to chucknorris.io to fetch a quote from the network. However, we didn’t use the network interface which seems suited for this. How come? 
+#### We are initiating outgoing request to chucknorris.io to fetch a quote from the network. However, we didn’t use the network interface which seems suited for this. How come? 
 
 Actually, `network-bind` implies the `network` interface as we will do outgoing requests. You could define it if you want to be complete, but this is totally up to you.
 
@@ -447,11 +448,9 @@ Phew, we are nearly there! We have a working snap, exposing a command which is n
 ## Exposing it as a service
 Duration: 4:00
 
-
 positive
 : Lost or starting from here?
-Check or download [here-4] to see what your current directory should look like.
-
+Check or download [here][here-4] to see what your current directory should look like.
 
 What is a service? A service is simply a long running command, which will ideally always be on or for a definite period of time to answer some requests.
 
@@ -510,7 +509,7 @@ $ snap try prime/
 chuck-norris-webserver 1.0.0 mounted from […]/prime
 ```
 
-Head over to [http://localhost] and you should have your successful snap running your application as a service! Installing the snap started thus the service.
+Head over to http://localhost and you should have your successful snap running your application as a service! Installing the snap started thus the service.
 
 ### Where did the logs go?
 
@@ -524,7 +523,7 @@ Nov 15 14:47:35 tidus snap[14410]: Quoted http://api.chucknorris.io/jokes/ijpnw0
 
 However, this can be hard to decipher: nothing tells that the log coming from this particular service, you only know it’s coming from this snap because you wrote this app! You will see as well a lot of other logs on the system. We need to know how to filter this a little bit.
 
-The service name (where you can find the service file generated in `/etc/systemd/system`) is named the following: “**snap.<snap_name>.<app_name>.service**”
+The service name (where you can find the service file generated in `/etc/systemd/system`) is named the following: `snap.<snap_name>.<app_name>.service`
 
 So, in our case: **snap.chuck-norris-webserver.node-service.service**.
 We can thus use traditional systemd tool, optionally omitting the final .service name, as for:
