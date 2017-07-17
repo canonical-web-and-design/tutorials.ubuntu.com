@@ -469,13 +469,14 @@ apps:
 
 With that simple additional line, your service will start on device boot up (once the network and all other services are started) and will close on machine shutdown.
 
-
 positive
 : It’s just a matter of preference where you want to define this `daemon` entry. We personally advise to let it under the command entry and before **plugs** to let the snap author remember that this entry is a service.
 
 
 The `simple` attribute means that it’s a classical application. The process keeps running as long as the service itself runs.
+
 There are variations to this, like `forking`, which is the traditional double fork way for a service to be orphaned, and thus attached to PID 1. This isn’t the recommended behavior on a modern Linux system. Nowadays, **systemd** (which is what is used by snap technology) knows how to track them efficiently, you just need to specify that you have this type of daemons.
+
 `oneshot`, finally, expects that the command configured will exit once it's done (won't be a long-lasting process). The service is still considered as running though.
 For those used to systemd service units, indeed, there is an one to one mapping here, handy! :)
 
@@ -527,8 +528,8 @@ The service name (where you can find the service file generated in `/etc/systemd
 
 So, in our case: **snap.chuck-norris-webserver.node-service.service**.
 We can thus use traditional systemd tool, optionally omitting the final .service name, as for:
-Checking service status and last logs:
 
+#### Checking service status and last logs:
 
 ```bash
 $ systemctl status -l snap.chuck-norris-webserver.node-service
@@ -547,7 +548,8 @@ nov. 15 14:40:11 tidus snap[14410]: Server listening on: http://localhost:80
 nov. 15 14:47:35 tidus snap[14410]: Quoted http://api.chucknorris.io/jokes/ijpnw0birv-ogszti_wuag
 ```
 From the output, you can see the service is **active** since 17 minutes ago, you can track its process information as well as last logs.
-Stopping and starting a service:
+
+#### Stopping and starting a service:
 
 
 ```bash
@@ -591,8 +593,8 @@ nov. 15 15:12:42 tidus systemd[1]: Started Service for snap application chuck-no
 nov. 15 15:12:43 tidus snap[15622]: Server listening on: http://localhost:80
 ```
 Of course, there is a `systemctl restart` command as well!
-Live log following:
 
+#### Live log following:
 
 ```bash
 $ sudo journalctl -fu snap.chuck-norris-webserver.node-service
