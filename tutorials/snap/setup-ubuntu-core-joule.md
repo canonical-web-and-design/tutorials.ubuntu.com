@@ -143,7 +143,7 @@ Duration: 5:00
 
 ### Boot Intel Joule with Ubuntu Core 16
 
-![IMAGE][] 
+![IMAGE](https://assets.ubuntu.com/v1/ab27547b-joule-board.png) 
 
 Power on the Joule board for booting on your new image:
   - Insert your SD card into your Intel Joule board
@@ -153,37 +153,37 @@ Power on the Joule board for booting on your new image:
   - Follow the instructions on the screen to  configure your device
   - Press enter then select “**Start**” to begin configuring your network and an administrator account
 
-![IMAGE]()
+![IMAGE](https://assets.ubuntu.com/v1/3d89c983-core-1.png)
 
-![IMAGE][] 
+![IMAGE](https://assets.ubuntu.com/v1/cec51425-core-2.png)
 
   - Configure network setting. Move cursor and select the wireless LAN interface (wlan0). And press enter.
 
-![IMAGE][] 
+![IMAGE](https://assets.ubuntu.com/v1/2adb5bfd-core-3.png) 
 
 Select ‘Configure WIFI settings’ and press enter to get to screen that allows for choosing a visible network, scan for networks or manually enter SSID and Password.
 
-![IMAGE][] 
+![IMAGE](https://assets.ubuntu.com/v1/237fb42e-core-4.png) 
 
 Input your network SSID and password and select ‘**Done**’. Or use ‘**Choose a visible network**’ to pick a name from the network list. ‘**Scan for networks**’ is used to trigger a new WiFi scan.
 
-![IMAGE][] 
+![IMAGE](https://assets.ubuntu.com/v1/09f77bbf-core-5.png) 
 
 Edit IPv4 and IPv6 configurations if necessary and select ‘**Done**’.
 
-![IMAGE][] 
+![IMAGE](https://assets.ubuntu.com/v1/fb486e61-core-6.png) 
 
 The network settings will be applied.
 
-![IMAGE][] 
+![IMAGE](https://assets.ubuntu.com/v1/8c7289c3-core-7.png) 
 
   - Enter user’s account on [Ubuntu One]. Select “Done” to complete.
 
-![IMAGE][] 
+![IMAGE](https://assets.ubuntu.com/v1/49190c72-core-8.png) 
 
   - The configuration is completed. On the screen, the Ubuntu SSO username and the device IP address will be shown. The SSH keys linked to the user will be shown as well.
 
-![IMAGE][] 
+![IMAGE](https://assets.ubuntu.com/v1/26329c2b-core-9.png) 
 
   - The user can now login to the system with username and ssh key registered on Ubuntu One. Use ssh client to login the system from another machine which has the same network as your Intel Joule board.
 
