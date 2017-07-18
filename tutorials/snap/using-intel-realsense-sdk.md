@@ -15,7 +15,8 @@ Published: 2017-01-20
 ## Overview
 Duration: 1:00
 
-We are going to illustrate how to build some [Intel RealSense] SDK samples on an Ubuntu Core image using the classic snap. You will be able to hook up on you[r Intel Jou]le and build the samples, explore some of the code and try them!
+We are going to illustrate how to build some [Intel RealSense] SDK samples on an Ubuntu Core image using the classic snap. You will be able to hook up on your [Intel Joule] and build the samples, explore some of the code and try them!
+
 ### What you’ll learn
   - What compose the Intel RealSense SDK.
   - How to use the classic snap as a traditional ubuntu environment for developing.
@@ -41,9 +42,8 @@ Duration: 2:00
 If you are on Ubuntu 16.04 LTS or Ubuntu 16.10, getting all the required tools is very easy. 
 
 
-```bash
-Note: other GNU/Linux distributions are currently in the process of building packages for snapcraft.
-```
+positive
+: Note: other GNU/Linux distributions are currently in the process of building packages for snapcraft.
 
 ### Downloading the SDK
 
@@ -60,13 +60,10 @@ $ curl -o realsense_sdk_beta3.tar.bz2 <download_link>
 
 This will download the SDK and you will get a progress bar confirming it so. Once done, let’s extract its content:
 
-
 ```bash
 $ tar xf realsense_sdk_beta3.tar.bz2
 ```
-
 Now that we have the SDK extracted, let’s look in detail to its content and build it!
-
 
 ## Building the SDK
 Duration: 30:00
@@ -75,7 +72,6 @@ Duration: 30:00
 
 As building the whole SDK and dependencies is quite a long process, let’s start building it right away before looking at its content.
 
-
 ```bash
 $ cd realsense_sdk_beta3
 $ sudo ./install_script.sh
@@ -83,16 +79,14 @@ $ sudo ./install_script.sh
 
 This process will take a very long time, let’s use that opportunity to open a second ssh connection to the board, and ensure that you will get your Intel RealSense camera recognized:
 
+positive
+: Note: this is the only change that needs to be done outside the classic snap, as we need system services like udev to know about it.
 
-```bash
-Note: this is the only change that needs to be done outside the classic snap, as we need system services like udev to know about it.
-```
 
 You can now unplug and plug back your Intel RealSense camera. It will be detected by the system.
 ### RealSense SDK Content
 
 While the build is proceeding, let’s look at the files extracted from the bz2 archive:
-
 
 ```bash
 ~/realsense_sdk_beta3$ ls
@@ -112,6 +106,7 @@ zr300_firmware_update_prq_2.zip
 ```
 
 In addition to the README.md, install script, release note, ZR300 firmware and build directory, you see various projects embedded. Let’s detail them in build dependency order:
+
 #### beignet1.2.1-source.tar.gz
 
 Beignet is an open source implementation of the OpenCL specification - a generic compute oriented API. This code base contains the code to run OpenCL programs on Intel GPUs which basically defines and implements the OpenCL host functions required to initialize the device, create the command queues, the kernels and the programs and run them on the GPU. The code base also contains the compiler part of the stack which is included in backend/.
@@ -125,6 +120,7 @@ OpenCV (Open Source Computer Vision) is a library of programming functions mainl
 This project is a cross-platform library (Linux, Windows, Mac) for capturing data from the Intel® RealSense™ F200, SR300, R200, LR200 and the ZR300 cameras. This effort was initiated to better support researchers, creative coders, and app developers in domains such as robotics, virtual reality, and the internet of things. Several often-requested features of RealSense™ devices are implemented in this project, including multi-camera capture.
 
 The following features are available in this release:
+
   - **Native streams**: depth, color, infrared and fisheye.
   - **Synthetic streams**: rectified images, depth aligned to color and vice versa, etc.
   - **Intrinsic/extrinsic calibration**information.
@@ -140,6 +136,7 @@ Intel® RealSense™ Person Library provides the ability to sense and recognize 
 
 
 The following features are available in this release:
+
   -  **Person Detection**:  Detects people in a scene. Provides their location through a bounding rectangle. 
   - **Person Tracking**: Follows people within a space. Provides the person's Center of Mass (COM) and handles occlusions and cases in which the person exits the field of view (FOV).
   - **Person Recognition**: Identifies a person by ID. Supports databases of up to 30 registered users.
@@ -154,6 +151,7 @@ Body tracking is supported up to a distance of 2.8m from the camera.
 Intel® RealSense™ Object Library enables machines to understand what they are viewing and provides meaning to computer vision made possible by Intel RealSense cameras. This ability facilitates more dynamic human machine interaction. Intel® RealSense™ Object Library uses a CNN-based architecture that utilizes depth to efficiently and accurately classify and localize objects. This middleware includes features for recognizing, localizing, and tracking objects from a pre-defined library. 
 
 The following features are available in this release:
+
   - **Object Recognition (OR)**: Identifies a single object in the scene based on pre-trained classifiers in a pre-defined ROI.
   - **Object Localization (OD)**: Identifies and locates multiple objects in a scene.
   - **3D Object Position**: Provides the x,y,z world coordinates of the center of the object. The more exact the bounding box, the more exact this value will be. This is only available in instances where depth is available and will not be provided as a direct output of localization.
@@ -165,6 +163,7 @@ Intel® RealSense™ SLAM Library provides Simultaneous Localization and Mapping
 
 
 The following features are available in this release: 
+
   - **Real-time 6 degrees of freedom** (6DoF) camera tracking.
   - Learning an area by associating its appearance with 6DoF coordinates, so enabling re-localization.
   - **Real-time construction of a 2D occupancy map** of a captured environment.
@@ -186,10 +185,10 @@ The SDK includes libraries which support the camera stream projection of streams
 It features:
 
   - **Record and Play**:
-  - **Record**: The record module provides a utility to create a file, which can be used by the playback module to create a video source.
+     - **Record**: The record module provides a utility to create a file, which can be used by the playback module to create a video source.
     The record module provides the same camera API as defined by the SDK (**librealsense**) and the record API to configure recording parameters such as output file and state (pause and resume).
     The record module loads librealsense to access the camera device and execute the set requests and reads, while writing the configuration and changes to the file.
-  - **Playback**: The playback module provides a utility to create a video source from a file. 
+     - **Playback**: The playback module provides a utility to create a video source from a file. 
     The playback module provides the same camera API as defined by the SDK (**librealsense**), and the playback API to configure recording parameters such as input file, playback mode, seek, and playback state (pause and resume).
     The playback module supports files that were recorded using the Linux SDK recorder and the Windows RSSDK recorder (up to version 2016 R2).
   - **Frame data container**:
@@ -197,27 +196,29 @@ It features:
     The image container includes image metadata, which may be used by any pipeline component to attach additional data or computer vision (CV) module processing output to be used by other pipeline components. The SDK uses a correlated samples container to provide access to camera images and motion sensor samples from the relevant streams, which are time-synchronized. The correlated samples container includes all relevant raw buffers, metadata, and information required to access the attached images. 
   - **Spatial correlation and projection**:
     The Spatial Correlation and Projection library provides utilities for spatial mapping:
-  - Map between color or depth image pixel coordinates and real world coordinates
-  - Correlate depth and color images and align them in space
+     - Map between color or depth image pixel coordinates and real world coordinates
+     - Correlate depth and color images and align them in space
   - **Pipeline**:
     The pipeline is a class, which abstracts the details of how the cognitive data is produced by the computer vision modules.
     The application can focus on consuming the computer vision output, leaving the camera configuration and streaming details for the pipeline to handle.
   - **Samples**:
-  - **Projection**: The sample demonstrates how to use the different spatial correlation and projection functions, from live camera and recorded file
-  - **Record and Playback**: The sample demonstrates how to record and play back a file while the application is streaming, with and without an active CV module,      with minimal changes to the application, compared to live streaming.
-  - **Video module, asynchronized**: The sample demonstrates an application usage of a Computer Vision module, which implements asynchronous sample processing. 
-  - **Video module, synchronized**: The sample demonstrates an application usage of a Computer Vision module, which implements synchronous samples processing.
-  - **Fatal error recovery**: The sample demonstrates how the application can recover from a fatal error in one of the SDK components (CV module or core module), without having to terminate.
+     - **Projection**: The sample demonstrates how to use the different spatial correlation and projection functions, from live camera and recorded file
+     - **Record and Playback**: The sample demonstrates how to record and play back a file while the application is streaming, with and without an active CV module,      with minimal changes to the application, compared to live streaming.
+     - **Video module, asynchronized**: The sample demonstrates an application usage of a Computer Vision module, which implements asynchronous sample processing. 
+     - **Video module, synchronized**: The sample demonstrates an application usage of a Computer Vision module, which implements synchronous samples processing.
+     - **Fatal error recovery**: The sample demonstrates how the application can recover from a fatal error in one of the SDK components (CV module or core module), without having to terminate.
+
   - **Tools**:
-  - **Capture tool**: Provides a GUI to view camera streams, create a new file from a live camera, and play a file in the supported formats. The tool provides options to render the camera or file images.
-  - **Projection tool**: Provides simple visualization of the projection functions output, to allow human eye detection of major offsets in the projection computation.
-  - **System Info tool**: Presents system data such as Linux name, Linux kernel version, CPU information, and more.
+     - **Capture tool**: Provides a GUI to view camera streams, create a new file from a live camera, and play a file in the supported formats. The tool provides options to render the camera or file images.
+     - **Projection tool**: Provides simple visualization of the projection functions output, to allow human eye detection of major offsets in the projection computation.
+     - **System Info tool**: Presents system data such as Linux name, Linux kernel version, CPU information, and more.
+
   - **Utilities**:
-  - **Log**: The SDK provides a logging library, which can be used by the SDK components and the application to log meaningful events. 
-  - **Time Sync utility**: Provides methods to synchronize multiple streams of images and motion samples based on the samples time-stamp or sample number. 
-  - **SDK Data Path utility**: The SDK provides a utility to locate SDK files in the system.
+     - **Log**: The SDK provides a logging library, which can be used by the SDK components and the application to log meaningful events. 
+     - **Time Sync utility**: Provides methods to synchronize multiple streams of images and motion samples based on the samples time-stamp or sample number. 
+     - **SDK Data Path utility**: The SDK provides a utility to locate SDK files in the system.
      The utility is used by Computer Vision modules, which need to locate data files in the system that are constant for all applications (not application- or algorithm-instance specific).
-  - **FPS counter**:  Measures the actual FPS in a specific period. You can use this utility to check the actual FPS in all software stack layers in your applications, to analyze FPS latency in those layers.
+     - **FPS counter**:  Measures the actual FPS in a specific period. You can use this utility to check the actual FPS in all software stack layers in your applications, to analyze FPS latency in those layers.
 
 
 #### realsense_samples-v0.6.2.tar.gz
@@ -260,9 +261,7 @@ Best host: 192.168.0.29 of ifa type: wlan0
 Then, point your browser to [http://localhost:8000/view.html] (or a remote IP if you are trying to browser from a different machine) and you will get something like:
 
 
-![IMAGE][] 
-
-
+![IMAGE](https://assets.ubuntu.com/v1/1f62caa2-realsense.png)
 
 
 The corresponding code is in `~/realsense_sdk_beta3/build/realsense_samples-0.6.2/samples/pt_tutorial_1_web/cpp/main.cpp`
@@ -298,19 +297,21 @@ Each object identified is printed on the command line along with the confidence 
   - **rs_slam_tutorial_1_web**: This GUI app builds on the rs_slam_tutorial_1 app and displays live fisheye preview, occupancy map, input and tracking fps for fisheye, depth, gyro and accelerometer frames, within a browser.
 
 
-## 
-## 
+
 ## That’s all folks!
 Duration: 1:00
 
 Congratulations! You have played with the Intel RealSense SDK, installed and enabled it on your Ubuntu Core image in the Joule. You now have as well some samples and looked at some code on using the SDK.
 
 You should by now be familiar with the various parts composing the SDK, what each of them is responsible for and some basic ideas on how to use them. You also know what  features the Intel RealSense supports and have some samples on how to utilize them.
+
 ### Next steps
+
   - Learn some more advanced techniques on how to use your snap system looking for our others tutorials!
   - Join the snapcraft.io community on the [snapcraft forum].
 
 ### Further readings
+
   - The [Intel RealSense] website is a good one to learn more about this technology.
   - Check how you can [contact us and the broader community].
 
@@ -318,10 +319,10 @@ You should by now be familiar with the various parts composing the SDK, what eac
 
 
 
-[Intel RealSense]]: http://www.intel.eu/content/www/eu/en/architecture-and-technology/realsense-overview.html
-[r Intel Jou]]: https://software.intel.com/en-us/iot/hardware/joule/dev-kit
-[http://localhost:8000/view.html]]: http://localhost:8000/view.html
-[snapcraft forum]]: https://forum.snapcraft.io/
-[Intel RealSense]]: http://www.intel.fr/content/www/fr/fr/architecture-and-technology/realsense-overview.html
-[contact us and the broader community]]: http://snapcraft.io/community/
+[Intel RealSense]: http://www.intel.eu/content/www/eu/en/architecture-and-technology/realsense-overview.html
+[Intel Joule]: https://software.intel.com/en-us/iot/hardware/joule/dev-kit
+[http://localhost:8000/view.html]: http://localhost:8000/view.html
+[snapcraft forum]: https://forum.snapcraft.io/
+[Intel RealSense]: http://www.intel.fr/content/www/fr/fr/architecture-and-technology/realsense-overview.html
+[contact us and the broader community]: http://snapcraft.io/community/
 
