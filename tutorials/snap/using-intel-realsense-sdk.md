@@ -1,14 +1,17 @@
+---
+id: using-intel-realsense-sdk
+summary: We are going to illustrate how to build some Intel RealSense SDK samples on an ubuntu desktop. You will be able to hook up on your Intel Joule and build the samples, explore some of the code and try them!"],
+categories: snap
+status: Published
+feedback-link: https://github.com/ubuntu/codelabs/issues
+tags: snap, classic, realsense, joule
+difficulty: 2
+Published: 2017-01-20
 
-Using Intel RealSense SDK on the desktop
+---
 
-[["Summary","We are going to illustrate how to build some Intel RealSense SDK samples on an ubuntu desktop. You will be able to hook up on your Intel Joule and build the samples, explore some of the code and try them!"],["URL","using-intel-realsense-sdk"],["Category","snap"],["Status","Published"],["Feedback Link","https://github.com/ubuntu/codelabs/issues"],["Tags","snap, classic, realsense, joule"],["Difficulty","2"],["Published","2017-01-20"]]
+# Using Intel RealSense SDK on the desktop
 
-
-
-
-## 
-## 
-## 
 ## Overview
 Duration: 1:00
 
@@ -23,19 +26,15 @@ We are going to illustrate how to build some [Intel RealSense] SDK samples on an
   - A realsense camera (ZR300 was tested).
   - Some very basic knowledge of command line use.
 
+Survey
+: How will you use this tutorial?
+ - Only read through it
+ - Read it and complete the exercises
+: What is your current level of experience?
+ - Novice
+ - Intermediate
+ - Proficient
 
-
-```bash
-How will you use this tutorial?
-Only read through it
-Read it and complete the exercises
-What is your current level of experience working with snap?
-Novice
-Intermediate
-Proficient
-
-```
-## 
 ## Getting started
 Duration: 2:00
 
