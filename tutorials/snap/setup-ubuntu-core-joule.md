@@ -219,9 +219,9 @@ By now you should have successfully flashed and configured your Intel Joule boar
   - Check how you can [contact us and the broader community].
 
 
-[https://support.rackspace.com/how-to/generating-rsa-keys-with-ssh-puttygen]]: https://support.rackspace.com/how-to/generating-rsa-keys-with-ssh-puttygen
-[Ubuntu One]]: https://login.ubuntu.com
-[snapcraft forum]]: https://forum.snapcraft.io/
-[Snapcraft.io documentation]]: http://snapcraft.io/docs/
-[contact us and the broader community]]: http://snapcraft.io/community/
+[https://support.rackspace.com/how-to/generating-rsa-keys-with-ssh-puttygen]: https://support.rackspace.com/how-to/generating-rsa-keys-with-ssh-puttygen
+[Ubuntu One]: https://login.ubuntu.com
+[snapcraft forum]: https://forum.snapcraft.io/
+[Snapcraft.io documentation]: http://snapcraft.io/docs/
+[contact us and the broader community]: http://snapcraft.io/community/
 
