@@ -18,7 +18,7 @@ Duration: 15:00
 
 Welcome to the world of Ubuntu Core! In this codelab, we are going to introduce you how to flash your eMMC for your Intel Joule board, and finally turn your Intel Joule into a Ubuntu Core 16 system.
 
-![IMAGE][] 
+![IMAGE](https://assets.ubuntu.com/v1/3647779b-joule-product.png)
 
 
 ### What you’ll learn
@@ -55,13 +55,15 @@ If you have already had an SSO account, you can skip this step and move to the n
   - Ubuntu SSO account is required to setup user profile. A user needs to create a ubuntu SSO account before using Ubuntu Core 16
   - To create Ubuntu SSO account, go to https://login.ubuntu.com
 
-![IMAGE][] 
+![IMAGE](https://assets.ubuntu.com/v1/af05aa4e-sso-1.png)
 
   - Complete account verification
 
-![IMAGE][] 
+![IMAGE](https://assets.ubuntu.com/v1/11e60c02-sso-2.png) 
 
-![IMAGE][] 
+![IMAGE](https://assets.ubuntu.com/v1/fcaa5d3d-sso-3.png) 
+
+![IMAGE](https://assets.ubuntu.com/v1/bec1518f-sso4.png) 
 
   - Create a SSH Key
 	This step is only necessary if you don’t have a SSH key on your system.
@@ -94,6 +96,7 @@ Your public key is now available as `.ssh/id_rsa.pub` in your home folder.
 
 Clicking “**SSH keys**" on the left side shows the following screen. You can now just copy and paste the content of  `id_rsa.pub` file into the field. Confirm your ssh key by clicking on “**Import SSH key**”.
 
+![IMAGE](https://assets.ubuntu.com/v1/ff6ea30a-sso-ssh.png)
 	
 ## Create a bootable Ubuntu Core 16 SD card
 Duration: 7:00
