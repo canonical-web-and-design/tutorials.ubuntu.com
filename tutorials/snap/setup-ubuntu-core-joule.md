@@ -160,24 +160,18 @@ Power on the Joule board for booting on your new image:
      ![IMAGE](https://assets.ubuntu.com/v1/237fb42e-core-4.png) 
      Input your network SSID and password and select ‘**Done**’. Or use ‘**Choose a visible network**’ to pick a name from the network list. ‘**Scan for networks**’ is used to trigger a new WiFi scan.
      ![IMAGE](https://assets.ubuntu.com/v1/09f77bbf-core-5.png) 
+     Edit IPv4 and IPv6 configurations if necessary and select ‘**Done**’.
+     ![IMAGE](https://assets.ubuntu.com/v1/fb486e61-core-6.png) 
+     The network settings will be applied.
+     ![IMAGE](https://assets.ubuntu.com/v1/8c7289c3-core-7.png) 
 
-Edit IPv4 and IPv6 configurations if necessary and select ‘**Done**’.
+  1. Enter user’s account on [Ubuntu One]. Select “Done” to complete.
+     ![IMAGE](https://assets.ubuntu.com/v1/49190c72-core-8.png) 
 
-![IMAGE](https://assets.ubuntu.com/v1/fb486e61-core-6.png) 
+  1. The configuration is completed. On the screen, the Ubuntu SSO username and the device IP address will be shown. The SSH keys linked to the user will be shown as well.
+     ![IMAGE](https://assets.ubuntu.com/v1/26329c2b-core-9.png) 
 
-The network settings will be applied.
-
-![IMAGE](https://assets.ubuntu.com/v1/8c7289c3-core-7.png) 
-
-  - Enter user’s account on [Ubuntu One]. Select “Done” to complete.
-
-![IMAGE](https://assets.ubuntu.com/v1/49190c72-core-8.png) 
-
-  - The configuration is completed. On the screen, the Ubuntu SSO username and the device IP address will be shown. The SSH keys linked to the user will be shown as well.
-
-![IMAGE](https://assets.ubuntu.com/v1/26329c2b-core-9.png) 
-
-  - The user can now login to the system with username and ssh key registered on Ubuntu One. Use ssh client to login the system from another machine which has the same network as your Intel Joule board.
+  1. The user can now login to the system with username and ssh key registered on Ubuntu One. Use ssh client to login the system from another machine which has the same network as your Intel Joule board.
 
 **NOTE**: only remote access via ssh is enabled until a password is set via instructions in the next step.
 Use the command to login Joule via ssh: 
