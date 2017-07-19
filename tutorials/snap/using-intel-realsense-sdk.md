@@ -258,7 +258,7 @@ Best host: 192.168.0.29 of ifa type: wlan0
  >>> point your browser to: http://192.168.0.29:8000/view.html
 ```
 
-Then, point your browser to [http://localhost:8000/view.html] (or a remote IP if you are trying to browser from a different machine) and you will get something like:
+Then, point your browser to http://localhost:8000/view.html (or a remote IP if you are trying to browser from a different machine) and you will get something like:
 
 
 ![IMAGE](https://assets.ubuntu.com/v1/1f62caa2-realsense.png)
