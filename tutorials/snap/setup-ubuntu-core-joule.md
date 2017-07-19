@@ -26,6 +26,7 @@ Welcome to the world of Ubuntu Core! In this codelab, we are going to introduce 
   - How to setup your hardware environment
   - How to flash Ubuntu Core 16 for your Intel Joule board
   - How to do console-conf for your Ubuntu Core 16 system
+
 ### What you’ll need
   - 1 Intel Joule Dev Kit
   - 1 HDMI monitor
@@ -48,16 +49,15 @@ Survey
 ## Getting set up
 Duration: 7:00
 
-### Register a Ubuntu SSO account
+### Register an Ubuntu SSO account
 
 If you have already had an SSO account, you can skip this step and move to the next. The account is used for console-conf in the following steps.
 
-  - Ubuntu SSO account is required to setup user profile. A user needs to create a ubuntu SSO account before using Ubuntu Core 16
-  - To create Ubuntu SSO account, go to https://login.ubuntu.com
+  1. Ubuntu SSO account is required to setup user profile. A user needs to create a ubuntu SSO account before using Ubuntu Core 16. To create an Ubuntu SSO account, go to https://login.ubuntu.com
 
 ![IMAGE](https://assets.ubuntu.com/v1/af05aa4e-sso-1.png)
 
-  - Complete account verification
+  1. Complete account verification
 
 ![IMAGE](https://assets.ubuntu.com/v1/11e60c02-sso-2.png) 
 
@@ -65,9 +65,9 @@ If you have already had an SSO account, you can skip this step and move to the n
 
 ![IMAGE](https://assets.ubuntu.com/v1/bec1518f-sso4.png) 
 
-  - Create a SSH Key
-	This step is only necessary if you don’t have a SSH key on your system.
-  - On your Ubuntu desktop, here is how you would create it:
+  1. Create a SSH Key
+	This step is only necessary if you don’t have an SSH key on your system.
+    - On your Ubuntu desktop, here is how you would create it:
 
 
 ```bash
@@ -90,9 +90,9 @@ Your public key has been saved in /home/b/.ssh/id_rsa.pub.
 
 Your public key is now available as `.ssh/id_rsa.pub` in your home folder.
 
-  - For Window users, please refer to the following link about how to generate SSH key: [https://support.rackspace.com/how-to/generating-rsa-keys-with-ssh-puttygen].
+    - For Window users, please refer to the following link about how to generate SSH key: [https://support.rackspace.com/how-to/generating-rsa-keys-with-ssh-puttygen].
 
-  - Import SSH Key
+  1. Import SSH Key
 
 Clicking “**SSH keys**" on the left side shows the following screen. You can now just copy and paste the content of  `id_rsa.pub` file into the field. Confirm your ssh key by clicking on “**Import SSH key**”.
 
