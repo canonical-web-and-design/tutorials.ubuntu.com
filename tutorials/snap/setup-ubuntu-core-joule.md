@@ -53,11 +53,11 @@ Duration: 7:00
 
 If you have already had an SSO account, you can skip this step and move to the next. The account is used for console-conf in the following steps.
 
-  1. Ubuntu SSO account is required to setup user profile. A user needs to create a ubuntu SSO account before using Ubuntu Core 16. To create an Ubuntu SSO account, go to https://login.ubuntu.com
+  1. Ubuntu SSO account is required to setup user profile. A user needs to create a ubuntu SSO account before using Ubuntu Core 16. To create an Ubuntu SSO account, go to [https://login.ubuntu.com]
 
 ![IMAGE](https://assets.ubuntu.com/v1/af05aa4e-sso-1.png)
 
-  1. Complete account verification
+  2. Complete account verification
 
 ![IMAGE](https://assets.ubuntu.com/v1/11e60c02-sso-2.png) 
 
@@ -65,7 +65,7 @@ If you have already had an SSO account, you can skip this step and move to the n
 
 ![IMAGE](https://assets.ubuntu.com/v1/bec1518f-sso4.png) 
 
-  1. Create a SSH Key
+  3. Create a SSH Key
 	This step is only necessary if you don’t have an SSH key on your system.
     - On your Ubuntu desktop, here is how you would create it:
 
@@ -92,7 +92,7 @@ Your public key is now available as `.ssh/id_rsa.pub` in your home folder.
 
     - For Window users, please refer to the following link about how to generate SSH key: [https://support.rackspace.com/how-to/generating-rsa-keys-with-ssh-puttygen].
 
-  1. Import SSH Key
+  4. Import SSH Key
 
 Clicking “**SSH keys**" on the left side shows the following screen. You can now just copy and paste the content of  `id_rsa.pub` file into the field. Confirm your ssh key by clicking on “**Import SSH key**”.
 
@@ -146,28 +146,20 @@ Duration: 5:00
 ![IMAGE](https://assets.ubuntu.com/v1/ab27547b-joule-board.png) 
 
 Power on the Joule board for booting on your new image:
-  - Insert your SD card into your Intel Joule board
-  - Configure your Joule’s BIOS so that SD card has higher boot priority over eMMC (you may enter BIOS by pressing **F2** hotkey during the boot)
-  - The system will boot two times then become ready to configure
-  - The device will display  the prompt “**Press enter to configure**”
-  - Follow the instructions on the screen to  configure your device
-  - Press enter then select “**Start**” to begin configuring your network and an administrator account
-
-![IMAGE](https://assets.ubuntu.com/v1/3d89c983-core-1.png)
-
-![IMAGE](https://assets.ubuntu.com/v1/cec51425-core-2.png)
-
-  - Configure network setting. Move cursor and select the wireless LAN interface (wlan0). And press enter.
-
-![IMAGE](https://assets.ubuntu.com/v1/2adb5bfd-core-3.png) 
-
-Select ‘Configure WIFI settings’ and press enter to get to screen that allows for choosing a visible network, scan for networks or manually enter SSID and Password.
-
-![IMAGE](https://assets.ubuntu.com/v1/237fb42e-core-4.png) 
-
-Input your network SSID and password and select ‘**Done**’. Or use ‘**Choose a visible network**’ to pick a name from the network list. ‘**Scan for networks**’ is used to trigger a new WiFi scan.
-
-![IMAGE](https://assets.ubuntu.com/v1/09f77bbf-core-5.png) 
+  1. Insert your SD card into your Intel Joule board
+  1. Configure your Joule’s BIOS so that SD card has higher boot priority over eMMC (you may enter BIOS by pressing **F2** hotkey during the boot)
+  1. The system will boot two times then become ready to configure
+  1. The device will display  the prompt “**Press enter to configure**”
+  1. Follow the instructions on the screen to  configure your device
+  1. Press enter then select “**Start**” to begin configuring your network and an administrator account
+     ![IMAGE](https://assets.ubuntu.com/v1/3d89c983-core-1.png)
+     ![IMAGE](https://assets.ubuntu.com/v1/cec51425-core-2.png)
+  1. Configure network setting. Move cursor and select the wireless LAN interface (wlan0). And press enter.
+     ![IMAGE](https://assets.ubuntu.com/v1/2adb5bfd-core-3.png) 
+     Select ‘Configure WIFI settings’ and press enter to get to screen that allows for choosing a visible network, scan for      networks or manually enter SSID and Password.
+     ![IMAGE](https://assets.ubuntu.com/v1/237fb42e-core-4.png) 
+     Input your network SSID and password and select ‘**Done**’. Or use ‘**Choose a visible network**’ to pick a name from the network list. ‘**Scan for networks**’ is used to trigger a new WiFi scan.
+     ![IMAGE](https://assets.ubuntu.com/v1/09f77bbf-core-5.png) 
 
 Edit IPv4 and IPv6 configurations if necessary and select ‘**Done**’.
 
