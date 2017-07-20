@@ -1,5 +1,4 @@
-
-
+---
 id: advanced-snap-usage
 summary: Learn advanced techniques and features of snapd. What happens when installing a snap, how to access service logs and configure snaps, connect interfaces and change confinement modes? We’ll detail it all and even more here for you!
 categories: snap
@@ -9,6 +8,8 @@ tags: snap, usage, classic, devmode, classic, confinement, service, log, interfa
 difficulty: 3
 published: 2017-04-07
 Author: Didier Roche <didier.roche@canonical.com>
+
+---
 
 # Advanced snap usage
 
@@ -232,6 +233,7 @@ positive
 : We are using the nethack snap, which is a command line game. We don’t use the `chuck-norris-webserver` or any snap that you may have installed to show you the assertion system.
 
 ### Downloading a snap
+
 It sounds trivial. However, it’s important to understand exactly what is happening there. Indeed, what if your snapd platform doesn’t have access to the network, and such, to the store? Don’t sweat it! You can download the snap alongside its snap assertion (basically its signature) from the store on a connected machine with:
 
 ```bash
@@ -694,7 +696,6 @@ Free the snap, Let / be / I hear! And that’s exactly why **classic** snaps exi
 
 positive
 : Classic snaps can only be installed on a traditional desktop system, not on a headless distribution like Ubuntu Core. Those need to state clearly that they are classic snaps, and they can’t be installed in devmode or confined. Indeed, some intricacies makes the two modes (relocatable vs non relocatable) incompatible with each others.
-```
 
 Let’s install and run the same snap than before, but a version declaring `confinement: classic`.
 
@@ -1000,10 +1001,8 @@ error: snap "chuck-norris-webserver" has no "unexisting" configuration option
 ```
 
 negative
-
-```bash
 : There is currently no way to list all possible accepted configuration options for a given snap.
-```
+
 #### Resetting configuration values
 
 Resetting a set of configuration values to remove it from the snapd database isn’t currently available. By convention, snaps will accept a blank or no value, resetting it to its defaults.
@@ -1054,7 +1053,6 @@ touch: cannot touch 'foo': Permission denied
 
 positive
 : Of course “didrocks” is currently my user name. We keep the prompt in the subshell to highlight we are typing command there.
-```
 
 Ok, let’s look at what we can thus access.
 
