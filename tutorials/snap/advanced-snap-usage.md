@@ -759,7 +759,7 @@ You can enable or disable snaps on the system. This means that a disabled snap w
 
 The chuck norris web server is running on port 80, so heading to http://localhost will lead you to:
 
-![IMAGE]()
+![IMAGE](https://assets.ubuntu.com/v1/3db2fc34-chuck-norris-1.png)
 
 All of this is great! So, let’s disable it:
 
@@ -932,7 +932,7 @@ Let’s go back again to our famous **chuck-norris-webserver** snap! This one ha
 
 Let’s load it again first, head over to http://localhost:
 
-![IMAGE]() 
+![IMAGE](https://assets.ubuntu.com/v1/3db2fc34-chuck-norris-1.png) 
 
 
 
