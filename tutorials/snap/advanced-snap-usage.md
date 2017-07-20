@@ -1,13 +1,17 @@
 
-Advanced snap usage
 
-[["Summary","Learn advanced techniques and features of snapd. What happens when installing a snap, how to access service logs and configure snaps, connect interfaces and change confinement modes? We’ll detail it all and even more here for you!"],["URL","advanced-snap-usage"],["Category","snap"],["Status","Published"],["Feedback Link","https://github.com/ubuntu/codelabs/issues"],["Tags","snap, usage, classic, devmode, classic, confinement, service, log, interface, configuration, hook, file system"],["Difficulty","3"],["Published","2017-04-07"]]
+id: advanced-snap-usage
+summary: Learn advanced techniques and features of snapd. What happens when installing a snap, how to access service logs and configure snaps, connect interfaces and change confinement modes? We’ll detail it all and even more here for you!
+categories: snap
+status: Published
+feedback-link: https://github.com/ubuntu/codelabs/issues
+tags: snap, usage, classic, devmode, classic, confinement, service, log, interface, configuration, hook, file system
+difficulty: 3
+published: 2017-04-07
 
 
+# Advanced snap usage
 
-
-## 
-## 
 ## Introduction
 Duration: 1:00
 
@@ -23,6 +27,7 @@ Now that you understand how to deal with the basics of snaps, its philosophy, co
   - Finally some more small tips and snapd tricks for you!
 
 If this looks like a long list to you, you will find that you are going to get through it in a breeze. All of the above is very easy to do thanks to the simplicity of the snap command line interface.
+
 ### What you’ll need
   - Any supported GNU/Linux distribution with snap installed.
   - Some very basic knowledge of command line usage.
