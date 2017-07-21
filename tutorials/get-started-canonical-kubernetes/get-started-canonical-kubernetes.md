@@ -149,12 +149,12 @@ By now you should have your Kubernetes cluster up and running.
 Now that you have your production cluster, you can put it to work:
 
 * [The easy way to commoditise GPUs for Kubernetes][kubegpu]
-* [Build a transcoding platform in minutes][https://github.com/deis/workflow]
-* [Transform your solution into a private PaaS][kubepass]
+* [Build a transcoding platform in minutes][kubetransform]
+* [Transform your solution into a private PaaS][kubepaas]
 
 ### Further reading
 
-* Learn more about the [Canonical Distribution of Kubernetes][charmskube] bundle
+* Learn more about the [Canonical Distribution of Kubernetes][canonicalkubernetes] bundle
 * Discover [Kubernetes][cankube]
 * Get involved and connect with the [Kubernetes community][kubecommunity]
 
