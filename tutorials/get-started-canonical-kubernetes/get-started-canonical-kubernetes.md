@@ -78,8 +78,9 @@ If you are running **macOS**:
 `brew install kubectl`
 For **Windows** users, use [Chocolatey][chocolatey]:
 `choco install kubectl`
-For **CentOS and other Linuxes**:
+For distros with [snap][snapcraft] support (including **Debian, Fedora and OpenSUSE**):
 `sudo snap install kubectl --classic`
+For **CentOS and other Linuxes**, see [installing kubectl via curl][kubecurl].
 1. Verify you can run kubectl. You will see a list of commands to control your cluster.
 `kubectl`
 
@@ -179,3 +180,5 @@ Now that you have your production cluster, you can put it to work:
 [kubepaas]: https://insights.ubuntu.com/2017/03/27/job-concurrency-in-kubernetes-lxd-cpu-pinning-to-the-rescue/
 [cankube]: https://jujucharms.com/kubernetes  
 [kubecommunity]: https://kubernetes.io/community/
+[snapcraft]: https://snapcraft.io/
+[kubecurl]: https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-binary-via-curl
