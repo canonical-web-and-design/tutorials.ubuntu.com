@@ -154,7 +154,9 @@ Hold    2017-02-27T13:39:58Z  2017-02-27T13:40:04Z  Run configure hook of "chuck
 We are getting the detail of every single step that would have proceeded, with their time and status. We note here that the first step, `Download snap "chuck-norris-webserver" (10) from channel "stable"` has errored out, and this is what cancelled this whole transaction, putting all other steps on hold.
 
 We’ll detail every steps in details just a few sections later, but first, let’s use at our advantage this transaction ID!
-Modifying a running transaction
+
+#### Modifying a running transaction
+
 For very long transactions (mostly due to a long download time), we have other options than just sitting on our main terminal running the command. For this, we’ll leverage our transaction ID again.
 
 It’s easy to check the progress of a running transaction from another terminal with `snap watch` (let’s assume transaction #240 is still running on our system):
@@ -230,7 +232,7 @@ Once we have found a snap that is of our interest, we will most of the time just
 
 
 positive
-: We are using the nethack snap, which is a command line game. We don’t use the `chuck-norris-webserver` or any snap that you may have installed to show you the assertion system.
+: We are using the **nethack** snap, which is a command line game. We don’t use the `chuck-norris-webserver` or any snap that you may have installed to show you the assertion system.
 
 ### Downloading a snap
 
@@ -396,8 +398,7 @@ Duration: 15:00
 
 positive
 : **Lost or starting from here?**
-You just need to type in a terminal “snap install chuck-norris-webserver” as this is the snap we will need.
-
+You just need to type in a terminal “`snap install chuck-norris-webserver`” as this is the snap we will need.
 
 All snaps downloaded in the stable channel are **confined**. There is a mode, called **“devmode”** which sets the snap basically unconfined, meaning having all access to our system. Those should only be installed when you fully trust the developers, and throw away a great part of snaps security model (trustability in applications, which can’t touch or destroy parts they don’t have access to), but it can be convenient, at least for developers.
 
@@ -518,7 +519,7 @@ That matches our expectations!
 
 
 positive
-: Note: the core snap can be abbreviated (also visible in the `snap interfaces` command) with directly using “**:<slot-name>**” instead of “**core:<slot-name>**”.
+: Note: the core snap can be abbreviated (also visible in the `snap interfaces` command) with directly using “`:<slot-name>`” instead of “`core:`<slot-name>`”.
 
 
 #### Remove permissions from a snap
@@ -644,7 +645,7 @@ Slot                      Plug
 -                         chuck-norris-webserver:camera
 ```
 
-	However, they don’t matter anymore, as every access is now granted to the system:
+However, they don’t matter anymore, as every access is now granted to the system:
 
 
 ```bash
@@ -661,7 +662,7 @@ This is great, but that’s not all! We need to talk about files!
 
 ### File system structures
 
-Snaps are, at the core, relocatable: meaning they embed all needed libraries and files. Both fully confined and devmode confinement modes are not seeing the exact file system. It means that the root “/” file system they are seeing isn’t the one you have on your host. This “/” and everything under it is coming from the core snap we mentioned in previous tutorials. It means that if you have for instance firefox installed on your machine, the snap application will never see the firefox binaries, icons, its libraries and such. It’s like if it was running on a small virtual machine!
+Snaps are, at the core, relocatable: meaning they embed all needed libraries and files. Both fully confined and devmode confinement modes are not seeing the exact file system. It means that the root “**/**” file system they are seeing isn’t the one you have on your host. This “/” and everything under it is coming from the core snap we mentioned in previous tutorials. It means that if you have for instance firefox installed on your machine, the snap application will never see the firefox binaries, icons, its libraries and such. It’s like if it was running on a small virtual machine!
 
 You probably noticed that on both confined and devmode snaps, `chuck-norris-webserver.cli` was printing “`FILE SYSTEM: I see from /etc/os-release that I'm running on Ubuntu Core 16.`”. This is the case even if you are running that on any laptop! Indeed, the `/etc/os-release` file is the one coming from the core snap.
 
@@ -691,7 +692,7 @@ And here enters the classic snap!
 
 What if your snap can’t live in a lying world? What if it needs system on libraries that can’t be relocated? Or also, what if the developer wanted to use a transition period to move to awesome snaps as quickly as possible?
 
-Free the snap, Let / be / I hear! And that’s exactly why **classic** snaps exist! A classic snap sees the real host machine world, with its system libraries, installed (or absent) packages. There is a risk of course: as with just uncompressing an archive and running its program, some dependencies may be missing and such. Also, confinement is turned off. You can really see **classic** being “non relocated devmode snaps”. Classics snap can be published in the **stable** channel, though.
+Free the snap, **Let / be /** I hear! And that’s exactly why **classic** snaps exist! A classic snap sees the real host machine world, with its system libraries, installed (or absent) packages. There is a risk of course: as with just uncompressing an archive and running its program, some dependencies may be missing and such. Also, confinement is turned off. You can really see **classic** being “non relocated devmode snaps”. Classics snap can be published in the **stable** channel, though.
 
 
 positive
@@ -714,9 +715,9 @@ This snap confirms that it can see the original (host) file system via `FILE SYS
 ### The developer corner
 
 What does it mean for developers? If you want to snap a complex application and you don’t want to dive right away into making your application relocatable, you:
-  - can start with a classic snap, which should be easy to craft.
-  - then make your snap relocatable, and include all its dependencies. You can now turn on devmode! Remember, though, that you can’t publish it to the stable channel.
-  - finally, confine your application, turn it to strict mode and publish to the stable channel!
+  1. can start with a classic snap, which should be easy to craft.
+  1. then make your snap relocatable, and include all its dependencies. You can now turn on devmode! Remember, though, that you can’t publish it to the stable channel.
+  1. finally, confine your application, turn it to strict mode and publish to the stable channel!
 
 This gives you a nice and progressive workflow.
 
@@ -756,9 +757,9 @@ Once a snap is installed, this means:
 
 Not having a command running is easy: just don’t run it or stop it if it’s already started! But what about services?
 
-You can enable or disable snaps on the system. This means that a disabled snap won’t have any command accessible to any users on the system, nor services started at system startup. From a user perspective, it’s like the snap simply doesn’t exist. However, it’s still installed: binary files, assets and associated data are still present, and the snap is kept up to date. Making it available again is just a question of running the enable command. No extra download, nothing required!
+You can enable or disable snaps on the system. This means that a disabled snap won’t have any command accessible to any users on the system, nor services started at system startup. From a user perspective, it’s like the snap simply doesn’t exist. However, it’s still installed: binary files, assets and associated data are still present, and the snap is kept up to date. Making it available again is just a question of running the `enable` command. No extra download, nothing required!
 
-The chuck norris web server is running on port 80, so heading to http://localhost will lead you to:
+The chuck norris web server is running on port 80, so heading to [http://localhost] will lead you to:
 
 ![IMAGE](https://assets.ubuntu.com/v1/3db2fc34-chuck-norris-1.png)
 
@@ -769,7 +770,7 @@ $ snap disable chuck-norris-webserver
 chuck-norris-webserver disabled
 ```
 
-Heading to http://localhost will now error out as no webserver is listening on port 80 anymore. Also, the command is now unavailable:
+Heading to [http://localhost] will now error out as no webserver is listening on port 80 anymore. Also, the command is now unavailable:
 
 ```bash
 $ chuck-norris-webserver.cli
@@ -784,7 +785,7 @@ $ snap enable chuck-norris-webserver
 chuck-norris-webserver enabled
 ```
 
-If you head over back to http://localhost, you can confirm that the service is now running again. Similarly, the `chuck-norris-webserver.cli` command is also available.
+If you head over back to [http://localhost], you can confirm that the service is now running again. Similarly, the `chuck-norris-webserver.cli` command is also available.
 
 This is handy, but this is all or nothing. Sometimes, we want to stop a service temporarily, without disabling entirely a snap, or restarting it and so on. We also want access to its logs. Let’s look at some service-related commands!
 
@@ -792,8 +793,8 @@ This is handy, but this is all or nothing. Sometimes, we want to stop a service 
 
 #### How a service file is generated
 
-First, we need to understand that snapd is using systemd service management under the hood. The generated service filename that you can find in `/etc/systemd/system` is using the following convention:
-“snap.<snap_name>.<app_name>.service”
+First, we need to understand that snapd is using **systemd** service management under the hood. The generated service filename that you can find in `/etc/systemd/system` is using the following convention:
+“**snap.\<snap_name\>.\<app_name\>.service**”
 
 Knowing that the service file definition in our chuck-norris-webserver snap is:
 
@@ -806,8 +807,9 @@ Knowing that the service file definition in our chuck-norris-webserver snap is:
     plugs: [network-bind]
 ```
 
-it will be named in our present case: snap.chuck-norris-webserver.node-service.service.
-We can thus use traditional systemd tools, optionally omitting the final .service name, for managing it.
+it will be named in our present case: **snap.chuck-norris-webserver.node-service.service**.
+
+We can thus use traditional **systemd** tools, optionally omitting the final .service name, for managing it.
 
 #### Checking service status and last logs:
 
@@ -855,7 +857,7 @@ The service is enabled (it will start at next reboot), but it’s stopped (**ina
 
 
 positive
-: Small tip: systemd default behavior will try 3 times to launch a crashing service at startup (in the very few seconds after it starts) and will give up afterwards to not overload your CPU.
+: **Small tip:** systemd default behavior will try 3 times to launch a crashing service at startup (in the very few seconds after it starts) and will give up afterwards to not overload your CPU.
 
 
 Similarly to `stop`, we can use the `start` command for `systemctl` to restart it:
@@ -901,7 +903,7 @@ You can omit `-f` to not follow the live log (meaning, new inputs are printed as
 
 
 positive
-: Small tip: sometimes, multiple services coordinate to provide a functionality, or a service impacts some system services like network-manager. To get all logs and follow them live, just don’t provide the` -u` option with the service name. For instance,` journalctl -f `will provide you all logs, lively printed, from your system, including your services.
+: **Small tip:** sometimes, multiple services coordinate to provide a functionality, or a service impacts some system services like network-manager. To get all logs and follow them live, just don’t provide the` -u` option with the service name. For instance,` journalctl -f `will provide you all logs, lively printed, from your system, including your services.
 
 
 You will note that we mostly focused on services here. As you probably know,  traditional commands only prints to stdin, stdout and stderr their own output! However, they might store their logs in writeable paths as well. We will mention them in a later step. Before going there, let’s talk about snap configuration!
@@ -910,7 +912,7 @@ You will note that we mostly focused on services here. As you probably know,  tr
 Duration: 5:00
 
 positive
-: Lost or starting from here?
+: **Lost or starting from here?**
 You just need to type in a terminal “`snap install chuck-norris-webserver`” as this is the snap we will need.
 
 Snaps can store and manage configurations that they can use and reapply after each update.
@@ -931,7 +933,7 @@ Configure hooks are one of the hook types supported by snapd. The `configure` ho
 
 Let’s go back again to our famous **chuck-norris-webserver** snap! This one has a configure hook and server-side code detecting when some values are changed.
 
-Let’s load it again first, head over to http://localhost:
+Let’s load it again first, head over to [http://localhost]:
 
 ![IMAGE](https://assets.ubuntu.com/v1/3db2fc34-chuck-norris-1.png) 
 
@@ -956,7 +958,7 @@ Another configuration option that is available in that snap is changing the netw
 $ snap set chuck-norris-webserver port=81
 ```
 
-Refreshing the page will give a connection refused error, and you need to head over to http://localhost:81 now! Notice that the modified title is still present. It means that snapd is storing any modified configuration values for us. Sweet :)
+Refreshing the page will give a connection refused error, and you need to head over to [http://localhost:81] now! Notice that the modified title is still present. It means that snapd is storing any modified configuration values for us. Sweet :)
 Note that you can change multiple configurations at the same time:
 
 ```bash
@@ -970,9 +972,8 @@ To summarize, the general syntax is:
 snap set <snap-name> key1=value1 [key2=value2…]
 ```
 
-
 positive
-: Note: it’s up to the application/service to pick up new values dynamically and handling them. Our examples snap does that, but a lot of applications are only reading values on startup and you will need to restart the service so that they are taking effect.
+: **Note:** it’s up to the application/service to pick up new values dynamically and handling them. Our examples snap does that, but a lot of applications are only reading values on startup and you will need to restart the service so that they are taking effect.
 For instance, chuck-norris-webserver is using the inotify kernel feature to detect and pick up any modified values.
 
 
@@ -1013,7 +1014,7 @@ For instance:
 $ snap set chuck-norris-webserver port="" title=""
 ```
 
-This will remove all configuration values, and the chuck-norris-webserver snap thus reverts to its defaults, serving on http://localhost (port 80) and with a default title being “My local chuck nodejs web server”. But again, that’s up to the snap application itself!
+This will remove all configuration values, and the chuck-norris-webserver snap thus reverts to its defaults, serving on [http://localhost] (port 80) and with a default title being “My local chuck nodejs web server”. But again, that’s up to the snap application itself!
 
 This sounds a little bit like magic and could trigger questions like “What are those hooks doing? Where do they store their information for the service to pick them up?”. And by that, we realize that there are still some unknown notions we didn’t cover yet, like, “Where do snaps can store their data?”, “How can I know where a snap is published?”, “What is its version in various channels?”. We are going to try answering this in the next step!
 
@@ -1048,8 +1049,6 @@ ls: cannot open directory '/': Permission denied
 didrocks@tidus:/home/didrocks$ touch foo
 touch: cannot touch 'foo': Permission denied
 ```
-
-
 
 positive
 : Of course “didrocks” is currently my user name. We keep the prompt in the subshell to highlight we are typing command there.
@@ -1306,10 +1305,8 @@ ubuntu-webapp                   1.0      x2               try
 
 We can see there the snap name, version, revision, publisher as well as the mode (devmode, classic, try…).
 
-
 positive
 : You will note that the ubuntu-webapp snap has a special revision (x2) and mode (try) without any publisher name. This is due to the fact it’s a locally developed snap for a local revision of a snap not published to the store yet. You will thus mainly see those combinations on snap developer machines.
-
 
 However, this is a partial view of what’s really installed on your system. Remember that multiple revisions of a snap can be installed in parallel (and only one is enabled). You can have the list of all snaps and revisions installed on the system via the `--all` switch:
 
@@ -1426,7 +1423,7 @@ Finally, you are now familiar with some of the secrets features of snapd making 
 
 [basic snap usage]: https://tutorials.ubuntu.com/tutorial/basic-snap-usage
 [https://login.ubuntu.com/]: https://login.ubuntu.com/
-[Creating your first snap]: https://tutorials.ubuntu.com/tutorial/create-first-snap
+[Creating your first snap]: https://tutorials.ubuntu.com/tutorial/create-your-first-snap
 [dedicated tutorial]: https://tutorials.ubuntu.com/tutorial/create-your-own-core-image
 [snapcraft forum]: https://forum.snapcraft.io/
 [an assertion]: https://docs.ubuntu.com/core/en/guides/build-device/assertions
