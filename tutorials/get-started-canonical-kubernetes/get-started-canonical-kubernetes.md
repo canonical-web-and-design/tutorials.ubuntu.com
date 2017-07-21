@@ -5,7 +5,7 @@ categories: jaas
 tags: jaas, juju, kubernetes, beginner, container, docker, cloud
 difficulty: 3
 status: Published
-Published: 2017-06-01
+Published: 2017-07-21
 author: Canonical Web Team <webteam@canonical.com>
 
 ---
