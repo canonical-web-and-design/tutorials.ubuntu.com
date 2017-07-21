@@ -742,7 +742,7 @@ Duration: 6:00
 
 
 positive
-: Lost or starting from here?
+: **Lost or starting from here?**
 You just need to type in a terminal “`snap install chuck-norris-webserver`” as this is the he snap we will need.
 
 
