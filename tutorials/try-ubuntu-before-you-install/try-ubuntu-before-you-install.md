@@ -81,7 +81,7 @@ You can still choose to install Ubuntu after passing the Welcome pane by clickin
 
 ### Finding help
 
-Finally, if you get stuck, help is always at hand.
+Finally, if you get stuck, help is always at hand:
 
 * [Ask Ubuntu][askubuntu]
 * [Ubuntu Forums][ubuntuforums]
