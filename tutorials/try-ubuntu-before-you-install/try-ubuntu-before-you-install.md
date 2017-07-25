@@ -18,7 +18,7 @@ Duration: 0:01
 
 Running Ubuntu directly from either a USB stick or a DVD is a quick and easy way to experience how Ubuntu works for you, and how it works with your hardware. Most importantly, it doesn't alter your computer's configuration in any way, and a simple restart without the USB stick or DVD is all that's needed to restore your machine to its previous state. 
 
-With a *live* Ubuntu, you can do almost anything you can from an installed operating system:
+With a *live* Ubuntu, you can do almost anything you can from an *installed* Ubuntu:
 
 - Safely browse the internet without storing any history or cookie data
 - Access files and edit files stored on your computer or USB stick
@@ -73,7 +73,7 @@ After the desktop has loaded, you'll see the welcome window. From here, you can 
 ## Enjoy Ubuntu
 Duration: 0:01
 
-Your live desktop should appear. Have a look around, check out the [new features][ubuntufeatures] and enjoy the simplicity of Ubuntu's intuitive interface.
+Your *live* desktop will appear. Have a look around, check out the [new features][ubuntufeatures], and enjoy the simplicity of Ubuntu's intuitive interface.
 
 You can still choose to install Ubuntu after passing the Welcome pane by clicking on the **Install Ubuntu** icon on the desktop background.
 
