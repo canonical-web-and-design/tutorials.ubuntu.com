@@ -1,11 +1,13 @@
 ---
 id: try-ubuntu-before-you-install
-summary: You can try Ubuntu without actually installing it on your computer's hard drive.
+summary: Test out and use the wonderful Ubuntu desktop without installing
+anything on your hardware.
 categories: desktop
 tags: tutorial,installation,live usb,ubuntu,desktop
 difficulty: 2
 status: Published
-published: 2017-05-31
+published: 2017-07-24
+author: Canonical Web Team <webteam@canonical.com>
 
 ---
 
@@ -14,47 +16,86 @@ published: 2017-05-31
 ## Getting started
 Duration: 0:01
 
-You can try Ubuntu without actually installing it on your computer’s hard drive. You can do this by starting up your computer with either an Ubuntu DVD in the drive or a USB stick with Ubuntu on it in a USB port.
+Running Ubuntu directly from either a USB stick or a DVD is a quick and easy way to experience how Ubuntu works for you, and how it works with your hardware. Most importantly, it doesn't alter your computer's configuration in any way, and a simple restart without the USB stick or DVD is all that's needed to restore your machine to its previous state. 
+
+With a *live* Ubuntu, you can do almost anything you can from an *installed* Ubuntu:
+
+- Safely browse the internet without storing any history or cookie data
+- Access files and edit files stored on your computer or USB stick
+- Create new office suite documents and save them remotely
+- Fix broken configurations to get a computer running again
+
+### Requirements
+
+All you need is either a USB stick or DVD with Ubuntu pre-installed. For instructions on how to create these, take a look at one of the following tutorials:
+
+- Create a bootable USB stick on [Windows][usbwindows], [Ubuntu][usbubuntu] or [macOS][usbmacos]
+- Burn a DVD on [Windows][dvdwindows], [Ubuntu][dvdubuntu] or [macOS][dvdmacos]
 
 ![screenshot](https://assets.ubuntu.com/v1/0e7183ed-desktop-overview-complete.jpg)
 
-## Using a DVD?
+## Boot from DVD
 Duration: 0:01
 
-Put the Ubuntu DVD into the DVD-drive and restart the computer. You should see a welcome screen prompting you to choose your language and giving you the option to install Ubuntu or try it from the DVD. If you don’t get this menu, please read the booting from the [DVD guide for more information](https://help.ubuntu.com/community/BootFromCD).
+It's easy to boot Ubuntu from a DVD. Here’s what you need to do:
 
-## Using a USB drive?
-Duration: 0:01
+1. Put the Ubuntu DVD into your optical/DVD drive.
+1. Restart your computer.
 
-Most newer computers can start up from a USB stick. You should see a welcome screen prompting you to choose your language and giving you the option to either install Ubuntu or try it from the USB.
+A few moments later you'll see the language selection menu followed by Ubuntu's boot options. Select the top entry, **Try Ubuntu without installing**, and press return.
 
-If your computer does not automatically do this, you might need to change the device from which the computer starts up to the USB. You can usually do this by watching for a message appearing before Windows starts. You should be invited to change the boot device. Once you’ve selected that option, follow the instructions on screen.
+If you don’t get this menu, take a look at the [community DVD guide][dvdguide] for help.
+
+![screenshot](https://assets.ubuntu.com/v1/12c3e81a-ubuntu-try.png)
+
+## Boot from USB flash drive
+Duration: 0:02
+
+Most computers will boot from USB automatically:
+
+1. Insert the USB flash drive
+1. Restart your computer
+
+You should see the same language selection menu and boot options we saw in the previous 'Boot from DVD' step. Select the top entry, **Try Ubuntu without installing**, and press return.
+
+If your computer doesn't automatically boot from USB, try holding `F12` when your computer first starts. With most machines, this will allow you to select the USB device from a system-specific boot menu.
 
 positive
-:Tip - You might be able to press ‘F12’ or ‘Escape’ while your computer is starting up to change your boot device order.
-
-Depending on your computer and how your USB key was formatted, you should see an entry for ‘removable drive’ or ‘USB media’. Move this to the top of the list to force the computer to start from USB rather than the hard disk. Save your changes and continue.
+: F12 is the most common key for bringing up your system's boot menu, but both Escape and F2 are typical alternatives. If you're unsure, look for a brief message when your system starts - this will often inform you of which key to press to bring up the boot menu.
 
 ## Choose your preferred language
-Duration: 0:05
+Duration: 0:03
 
-Then click on '**Try Ubuntu**'.
+After the desktop has loaded, you'll see the welcome window. From here, you can select your language from a list on the left and choose between either installing Ubuntu directly, or trying the desktop first. Select **Try Ubuntu** to launch into the full desktop experience. 
 
 ![screenshot](https://assets.ubuntu.com/v1/49a92ce6-install_1.jpg)
 
 ## Enjoy Ubuntu
 Duration: 0:01
 
-Your live desktop should appear. Have a look around!
+Your *live* desktop will appear. Have a look around, check out the [new features][ubuntufeatures], and enjoy the simplicity of Ubuntu's intuitive interface.
+
+You can still choose to install Ubuntu after passing the Welcome pane by clicking on the **Install Ubuntu** icon on the desktop background.
 
 ![screenshot](https://assets.ubuntu.com/v1/4688006c-try-ubuntu-16-04.jpg)
 
-When you’re ready to install Ubuntu, double-click on the icon on your desktop: ’**Install Ubuntu 16.04 LTS**’.
+### Finding help
 
-## Finding help
+Finally, if you get stuck, help is always at hand:
 
-If you get stuck, help is always at hand.
+* [Ask Ubuntu][askubuntu]
+* [Ubuntu Forums][ubuntuforums]
+* [IRC-based support][ircsupport]
 
-* [Ask Ubuntu](https://askubuntu.com/)
-* [Ubuntu Forums](https://ubuntuforums.org/)
-* [IRC-based support](https://wiki.ubuntu.com/IRC/ChannelList)
+<!-- LINKS -->
+[usbmacos]: https://tutorials.ubuntu.com/tutorial/tutorial-create-a-usb-stick-on-macos
+[usbwindows]: https://tutorials.ubuntu.com/tutorial/tutorial-create-a-usb-stick-on-windows
+[usbubuntu]: https://tutorials.ubuntu.com/tutorial/tutorial-create-a-usb-stick-on-ubuntu
+[dvdmacos]: https://tutorials.ubuntu.com/tutorial/tutorial-burn-a-dvd-on-macos
+[dvdwindows]: https://tutorials.ubuntu.com/tutorial/tutorial-burn-a-dvd-on-windows 
+[dvdubuntu]: https://tutorials.ubuntu.com/tutorial/tutorial-burn-a-dvd-on-ubuntu 
+[dvdguide]: https://help.ubuntu.com/community/BootFromCD
+[askubuntu]: https://askubuntu.com/
+[ubuntuforums]: https://ubuntuforums.org/
+[ircsupport]: https://wiki.ubuntu.com/IRC/ChannelList
+[ubuntufeatures]: https://www.ubuntu.com/desktop/features
