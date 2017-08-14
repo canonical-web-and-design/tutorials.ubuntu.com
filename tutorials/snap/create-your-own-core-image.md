@@ -346,7 +346,7 @@ Here are the keys we are defining:
   - **gadget**: name of the gadget snap as published on the store. Note that this snap can be a file on disk.
   - **kernel**: name of the gadget snap as published on the store. Similarly to the gadget snap, it can be a file on disk.
 
-Let’s now precise **authority-id** and **brand-id**. Those refer to the store account. We will set the same value for both (but you can have a different brand and authority in theory) using the account ID that you will find it on [your account page] (in the "Snap account-id" field). Note that the signing keys will be validated against this account id.
+Let’s now precise **authority-id** and **brand-id**. Those refer to the store account. We will set the same value for both (but you can have a different brand and authority in theory) using the account ID that you will find it on [your account page] in the "Snap account-id" field. Note that the signing keys will be validated against this account id.
 Finally, timestamp is a valid timestamp you need to generate using:
 
 
