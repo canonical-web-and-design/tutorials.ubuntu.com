@@ -33,6 +33,7 @@ This document will walk you through all the steps to build an image for a device
 ### What you’ll need
 
   - Ubuntu 16.04 LTS desktop. You can’t do this on an Ubuntu Core device directly as creating your image can take quite some disk spaces. A VM can work as well.
+  - A [snap store] account to register your authority keys
   - Some very basic knowledge of command line use, know how to edit files.
 
 
@@ -345,7 +346,7 @@ Here are the keys we are defining:
   - **gadget**: name of the gadget snap as published on the store. Note that this snap can be a file on disk.
   - **kernel**: name of the gadget snap as published on the store. Similarly to the gadget snap, it can be a file on disk.
 
-Let’s now precise **authority-id** and **brand-id**. Those refers to the store account. We will set the same value for both (but you can have a different brand and authority in theory) using the account ID that you will find it on your account page (in the Account ID field). Note that the signing keys will be validated against this account id.
+Let’s now precise **authority-id** and **brand-id**. Those refer to the store account. We will set the same value for both (but you can have a different brand and authority in theory) using the account ID that you will find it on [your account page] (in the "Snap account-id" field). Note that the signing keys will be validated against this account id.
 Finally, timestamp is a valid timestamp you need to generate using:
 
 
@@ -468,7 +469,7 @@ And here is your device image file, which contains your extra snaps! This one ca
 
 
 ```bash
-$ sudo dd if joule.img of=/dev/sdXX bs=32M; sync;
+$ sudo dd if=joule.img of=/dev/sdXX bs=32M; sync;
 ```
 
 ## That’s all folks!
@@ -500,4 +501,5 @@ Finally, you know also that you can change those default snaps, and add more app
 [more definition]: https://docs.ubuntu.com/core/en/guides/build-device/gadget
 [an assertion]: https://docs.ubuntu.com/core/en/guides/build-device/assertions
 [contact us and the broader community]: http://snapcraft.io/community/
-
+[snap store]: https://dashboard.snapcraft.io
+[your account page]: https://dashboard.snapcraft.io/dev/account/
