@@ -5,7 +5,7 @@ categories: desktop
 tags: tutorial,installation,usb,macOS,ubuntu,desktop
 difficulty: 2
 status: Published
-published: 2017-07-13
+published: 2017-08-18
 author: Canonical Web Team <webteam@canonical.com>
 
 ---
@@ -53,45 +53,43 @@ To ensure maximum compatibility with Apple hardware, we're going to first blank 
 negative
 : **Warning:** Disk Utility needs to be used with caution as selecting the wrong device or partition can result in data loss.
 
-## Install and run UNetbootin
+## Install and run Etcher
 Duration: 2:00
 
-To write the ISO file to the USB stick, we're going to use a free and open source application called [UNetbootin][unetbootin]. After downloading this and clicking to mount the package, UNetbootin can either be run in-place or dragged into your Applications folder. 
+To write the ISO file to the USB stick, we're going to use a free and open source application called [Etcher][etcher]. After downloading this and clicking to mount the package, Etcher can either be run in-place or dragged into your Applications folder. 
 
 By default, recent versions of macOS block the running of applications from unidentified developers. To side-step this issue, enable 'App Store and identified developers' in the 'Security & Privacy' pane of System Preferences. If you are still warned against running the application, click 'Open Anyway' in the same pane. 
 
-![screenshot](https://assets.ubuntu.com/v1/4db3ce4f-macos-usb-run.png)
+![screenshot](https://assets.ubuntu.com/v1/d8a3ee9d-macos-usb-etcher-run.png)
 
-## UNetbootin configuration
+## Etcher configuration
 Duration: 2:00
 
-As with Disk Utility, UNetbootin needs low-level access to your storage hardware and will ask for your password.
+Etcher will configure and write to your USB devices in three stages, each of which needs to be selected in turn:
 
-The main window will then appear, containing the following three sections:
+- **Select image** will open a file requester from which should navigate to and select the ISO file downloaded previously. By default, the ISO file will be in your *Downloads* folder.  
 
-- **Distribution** can be ignored as it allows you to download an ISO from within UNetbootin itself
+- **Select drive**, replaced by the name of your USB device if one is already attached, lets you select your target device. You will be warned if the storage space is too small for your selected ISO.
 
-- **Diskimage**  needs to point at the ISO file downloaded previously. Use the `...` button to open a file requester. A peculiarity of UNetbootin is that it opens the root home folder, rather than your own home folder. This means you need to navigate through *Users>username>Downloads* to get to your ISO file
+- **Flash!** will activate when both the image and the drive have been selected. As with Disk Utility, Etcher needs low-level access to your storage hardware and will ask for your password after selection.
 
-- **Type** contains the USB stick location. If this is incorrect, use the *Drive* drop-down menu to select your device 
+![screenshot](https://assets.ubuntu.com/v1/48b60ed0-macos-usb-etcher-config.png)
 
-![screenshot](https://assets.ubuntu.com/v1/c0670761-macos-usb-unetbootin.png)
+## Write to device
+Duration: 3:00
 
-positive
-: If UNetbootin fails to detect your USB stick, try using Disk Utility again to re-format your USB device.
+After entering your password, Etcher will start writing the ISO file to your USB device.
 
-## Confirm and create device
-Duration: 4:00
+The *Flash* stage of the process will show progress, writing speed and an estimated duration until completion. This will be followed by a validation stage that will ensure the contents of the USB device are identical to the source image.
 
-After one final check over your chosen ISO and USB device, click `OK` to start the write process.
-
-UNetbootin will switch to a status view that steps through download, file extraction, installation and completion. This should take just a few minutes to complete.
-
-When everything has finished, UNetbootin will declare the process a success.
+When everything has finished, Etcher will declare the process a success.
 
 Congratulations! You now have Ubuntu on a USB stick, bootable and ready to go. 
 
-![screenshot](https://assets.ubuntu.com/v1/db3abc95-macos-usb-write.png)
+![screenshot](https://assets.ubuntu.com/v1/9e8704ce-macos-usb-etcher-success.png)
+
+negative
+: **Warning:** After the write process has completed, macOS may inform you that 'The disk you inserted was not readable by this computer'. Don't select *Initialise*. Instead, select ***Eject*** and remove the USB device.
 
 ## Boot your Mac
 Duration: 3:00
@@ -117,7 +115,6 @@ Finally, if you get stuck, help is always at hand:
 * [IRC-based support][ircsupport]
 
 <!-- LINKS -->
-[unetbootin]: https://unetbootin.github.io
 [getubuntu]: https://www.ubuntu.com/download
 [macusb]: https://help.ubuntu.com/community/How%20to%20install%20Ubuntu%20on%20MacBook%20using%20USB%20Stick 
 [installubuntu]: https://tutorials.ubuntu.com/tutorial/tutorial-install-ubuntu-desktop#0
@@ -125,3 +122,4 @@ Finally, if you get stuck, help is always at hand:
 [askubuntu]: https://askubuntu.com/
 [ubuntuforums]: https://ubuntuforums.org/
 [ircsupport]: https://wiki.ubuntu.com/IRC/ChannelList
+[etcher]: https://etcher.io/
