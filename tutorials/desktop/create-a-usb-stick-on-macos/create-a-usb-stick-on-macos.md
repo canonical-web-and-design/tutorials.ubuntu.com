@@ -98,7 +98,7 @@ If you want to use your USB stick with an Apple Mac, you will need to restart or
 
 This will launch Apple's 'Startup Manager' which shows bootable devices connected to the machine. Your USB stick should appear as gold/yellow and labelled 'EFI Boot'. Selecting this will lead you to the standard Ubuntu boot menu.
 
-![unetbootin complete](https://assets.ubuntu.com/v1/ee39c875-macos-usb-efi-boot.png)
+![screenshot](https://assets.ubuntu.com/v1/ee39c875-macos-usb-efi-boot.png)
 
 ### Finding help
 
