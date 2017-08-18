@@ -65,7 +65,7 @@ By default, recent versions of macOS block the running of applications from unid
 ## Etcher configuration
 Duration: 2:00
 
-Etcher will configure and write to your USB devices in three stages, each of which needs to be selected in turn:
+Etcher will configure and write to your USB device in three stages, each of which needs to be selected in turn:
 
 - **Select image** will open a file requester from which should navigate to and select the ISO file downloaded previously. By default, the ISO file will be in your *Downloads* folder.  
 
