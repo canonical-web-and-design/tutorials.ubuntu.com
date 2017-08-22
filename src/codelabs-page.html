@@ -87,11 +87,13 @@
       properties: {
         url: {
           type: String,
-          computed: '_codelaburl(routeData.codelab)'
+          computed: '_codelaburl(routeData.codelab)',
         },
         route: {
           type: String,
         },
+        routeData: Object,
+        routeTail: String,
         loading: {
           type: Boolean,
           notify: true,
@@ -125,8 +127,8 @@
         if (!this.codelabs) {
           return;
         }
-        var currentUrl = this.routeData.codelab;
-        var metadata = this.codelabs.filter(function(metadata) {
+        let currentUrl = this.routeData.codelab;
+        let metadata = this.codelabs.filter(function(metadata) {
           return metadata.url === currentUrl;
         })[0];
         if (metadata !== undefined) {
@@ -138,15 +140,15 @@
       },
 
       _codelabsInfoHandler: function(event) {
-        this.categoriesmap = event.detail.response["categories"];
-        this.eventsmap = event.detail.response["events"];
-        event.detail.response["codelabs"].forEach(function(codelab) {
-          this.push("codelabs", codelab);
+        this.categoriesmap = event.detail.response['categories'];
+        this.eventsmap = event.detail.response['events'];
+        event.detail.response['codelabs'].forEach(function(codelab) {
+          this.push('codelabs', codelab);
         }, this);
 
         // Force a binding update. Officially recommended, really!
         // https://www.polymer-project.org/1.0/docs/devguide/model-data#override-dirty-check
-        var codelabs = this.codelabs;
+        let codelabs = this.codelabs;
         this.codelabs = [];
         this.codelabs = codelabs;
         this._updateMetadata();
@@ -155,7 +157,8 @@
       _loadTutorial: function(e, url) {
         this._updateMetadata();
         const resp = e.detail.response;
-        Polymer.dom(this.$.contentContainer).innerHTML = resp.replace(/CODELABURL/g, this.url);
+        let newHTML = resp.replace(/CODELABURL/g, this.url);
+        Polymer.dom(this.$.contentContainer).innerHTML = newHTML;
       },
 
       _codelaburl: function(codelabpath) {

@@ -153,16 +153,16 @@
       },
 
       _extractFirstCategory: function(category) {
-        var firstcategory = category[0];
+        let firstcategory = category[0];
         return firstcategory;
       },
 
-      _generateBackParameter: function (currenturl) {
+      _generateBackParameter: function(currenturl) {
         if (currenturl) {
-            return "?backURL=" + encodeURIComponent(currenturl);
+          return '?backURL=' + encodeURIComponent(currenturl);
         }
-        return "";
-      }
+        return '';
+      },
 
     });
 

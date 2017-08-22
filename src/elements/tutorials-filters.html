@@ -140,7 +140,7 @@
       is: 'tutorials-filters',
 
       properties: {
-        categoryOptions:  {
+        categoryOptions: {
           type: Object,
           value: {
             '': 'All topics',
@@ -183,6 +183,8 @@
           type: String,
           notify: true,
         },
+        showClear: Boolean,
+        showUsers: Boolean,
         isClearDisabled: {
           type: Boolean,
           computed: '_isClearDisabled(selectedCategory, selectedUser)',
@@ -190,16 +192,16 @@
       },
 
       _isClearDisabled: function(selectedCategory, selectedUser) {
-          return (selectedCategory.length === 0 && selectedUser.length === 0);
+        return (selectedCategory.length === 0 && selectedUser.length === 0);
       },
 
       _toArray: function(obj) {
-          return Object.keys(obj).map(function(key) {
-              return {
-                  name: obj[key],
-                  value: key,
-              };
-          });
+        return Object.keys(obj).map(function(key) {
+          return {
+            name: obj[key],
+            value: key,
+          };
+        });
       },
 
       _resetFilters: function() {

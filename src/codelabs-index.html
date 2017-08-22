@@ -175,7 +175,7 @@
     </style>
 
     <app-route
-      route="{{eventRoute}}"
+      route="{{route}}"
       pattern="/:event"
       data="{{routeData}}"></app-route>
 
@@ -224,8 +224,8 @@
             <template is="dom-repeat" items="[[filteredTutorials]]" sort="[[_getSortFunction(filterSort)]]">
               <codelabs-card heading="[[item.title]]" summary="[[item.summary]]" category="[[item.category]]"
                             difficulty="[[item.difficulty]]" duration="[[item.duration}}" tags="[[item.tags]]"
-                            published="[[item.published]]" url="[[item.url]]" currenturl="[[eventRoute.prefix]][[eventRoute.path]]"
-                            categoriesmap="[[categoriesmap]]"></codelabs-card>
+                            published="[[item.published]]" url="[[item.url]]" currenturl="[[route.prefix]][[route.path]]"
+                            ></codelabs-card>
             </template>
           </template>
           <template is="dom-if" if="[[isEmpty]]">
@@ -264,9 +264,9 @@
         },
         categories: {
           type: Array,
-          computed: "_buildcategories(categoriesmap)",
+          computed: '_buildcategories(categoriesmap)',
         },
-        eventRoute: String,
+        route: String,
         filterCategory: {
           type: String,
           value: '',
@@ -276,7 +276,7 @@
           type: Object,
           value: {},
           notify: true,
-          computed: "_eventChanged(routeData.event, eventsmap)"
+          computed: '_eventChanged(routeData.event, eventsmap)',
         },
         filterSort: {
           type: String,
@@ -302,6 +302,7 @@
           computed: '_isEmpty(filteredTutorials)',
         },
         isLoading: Boolean,
+        routeData: Object,
         searchResultCount: {
           type: Number,
           value: 0,
@@ -310,7 +311,7 @@
       },
 
       observers: [
-        '_getFilteredTutorials(codelabs, searchKeywords, filterEvent, filterCategory, filterUser)',
+        '_getFilteredTutorials(codelabs, searchKeywords, filterEvent, filterCategory, filterUser)', // eslint-disable-line
       ],
 
       attached: function() {
@@ -349,12 +350,16 @@
         };
       },
 
-      _getFilteredTutorials: function(tutorials, searchKeywords, currentEvent, currentCategory, currentUser) {
+      _getFilteredTutorials: function(
+        tutorials, searchKeywords, currentEvent, currentCategory, currentUser
+      ) {
         if (tutorials === null) {
           return [];
         }
         if (searchKeywords.length > 0) {
-          tutorials = tutorials.filter(this._getSearchFilterFunction(searchKeywords));
+          tutorials = tutorials.filter(
+            this._getSearchFilterFunction(searchKeywords)
+          );
         }
         this.searchResultCount = tutorials.length;
         if (
@@ -362,7 +367,9 @@
           currentCategory !== '' ||
           currentUser !== ''
         ) {
-          tutorials = tutorials.filter(this._getFilterFunction(currentEvent, currentCategory, currentUser));
+          tutorials = tutorials.filter(this._getFilterFunction(
+            currentEvent, currentCategory, currentUser
+          ));
         }
         this.filteredTutorials = tutorials;
         return tutorials;
@@ -370,44 +377,44 @@
 
       _getSearchFilterFunction: function(searchKeywords) {
         return function(item) {
-          var title = item.title.toLowerCase();
-          var summary = item.summary.toLowerCase();
-          var category = item.category[0].toLowerCase();
-          var tags = item.tags;
+          let title = item.title.toLowerCase();
+          let summary = item.summary.toLowerCase();
+          let category = item.category[0].toLowerCase();
+          let tags = item.tags;
 
-          var should_show = true;
+          let shouldShow = true;
           searchKeywords.forEach(function(searchterm) {
             if (searchterm === '') {
               return;
             }
             searchterm = searchterm.toLowerCase();
-            var searchterm_found = false;
+            let searchtermFound = false;
 
             if (
               title.indexOf(searchterm) > -1 ||
               summary.indexOf(searchterm) > -1 ||
               category.indexOf(searchterm) > -1
             ) {
-              searchterm_found = true;
+              searchtermFound = true;
               return;
             }
 
             tags.forEach(function(tag) {
               if (tag.toLowerCase().indexOf(searchterm) > -1) {
-                searchterm_found = true;
+                searchtermFound = true;
                 return;
               }
             }, this);
-            should_show = should_show && searchterm_found;
+            shouldShow = shouldShow && searchtermFound;
           }, this);
-          return should_show;
+          return shouldShow;
         };
       },
 
       _getFilterFunction: function(currentEvent, currentCategory, currentUser) {
         return function(item) {
-          var category = item.category[0].toLowerCase();
-          var tags = item.tags;
+          let category = item.category[0].toLowerCase();
+          let tags = item.tags;
 
           // filter by event matching
           if (currentEvent.id && tags.indexOf(currentEvent.id) < 0) {
@@ -432,17 +439,18 @@
       _eventChanged: function(eventID, eventsmap) {
         // FIXME (if upstream solution)
         // as we data-bind "subroute", even when not active, the view in map
-        // /codelabs/codelab_id -> codelab_id matches :events and return invalid content
+        // /codelabs/codelab_id -> codelab_id matches :events and
+        // return invalid content
         // escape if we are not current view
-        if (!this.classList.contains("iron-selected")) {
+        if (!this.classList.contains('iron-selected')) {
           return;
         }
-        if (eventID == "web") {
-          return {}
+        if (eventID == 'web') {
+          return {};
         }
-        var currentEvent = {
-          "id": eventID,
-        }
+        let currentEvent = {
+          'id': eventID,
+        };
         currentEvent.name = eventsmap[eventID].name;
         currentEvent.logo = eventsmap[eventID].logo;
         currentEvent.description = eventsmap[eventID].description;
@@ -451,15 +459,15 @@
 
       _searchKeywords: function(searchString) {
         if (searchString.length > 0) {
-          return searchString.split(" ");
+          return searchString.split(' ');
         }
         return [];
       },
 
       _buildcategories: function(categoriesmap) {
-        var newcategories = Object.keys(categoriesmap).sort();
-        newcategories.unshift("All");
-        var indexunknown = newcategories.indexOf("unknown");
+        let newcategories = Object.keys(categoriesmap).sort();
+        newcategories.unshift('All');
+        let indexunknown = newcategories.indexOf('unknown');
         if (indexunknown > -1) {
           newcategories.splice(indexunknown, 1);
         }
