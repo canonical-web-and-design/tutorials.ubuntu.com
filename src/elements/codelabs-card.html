@@ -23,7 +23,7 @@
         position: relative;
 
         --paper-card-content: {
-          padding: 0 16px 16px 16px;
+          padding: 0;
         };
       }
       paper-card a {
@@ -37,6 +37,9 @@
         min-height: 120px;
         color: #fff;
         border-radius: 2px 2px 0 0;
+      }
+      .body {
+        margin: 0 16px 16px 16px;
       }
       .heading {
         margin: 10px 0 0;
@@ -70,6 +73,7 @@
       }
       .summary {
         height: 170px;
+        margin: 0;
       }
       .meta {
         color: var(--secondary-text-color);
@@ -93,27 +97,29 @@
       }
     </style>
 
-    <paper-card class="horizontal layout">
-      <a href="/tutorial/[[url]][[generateBackParameter]]" title="[[heading]]">
-        <div class="header horizontal">
-          <div class="horizontal end-justified layout">
-            <div class="light card-category">[[firstcategory]]</div>
-          </div>
-          <h2 class="heading">[[heading]]</h2>
-        </div>
-        <div class="card-content">
-          <p class="meta"><time-pretty datetime="[[published]]">[[published]]</time-pretty></p>
-          <p class="summary">[[summary]]</p>
-          <div class="horizontal start-justified layout meta">
-            <div class="difficulty">
-              Difficulty: <difficulty-indicator difficulty="[[difficulty]]"></difficulty-indicator>
+    <paper-card>
+      <div class="card-content">
+        <a href="/tutorial/[[url]][[generateBackParameter]]" title="[[heading]]">
+          <div class="header vertical layout">
+            <div class="horizontal end-justified layout">
+              <div class="light card-category">[[firstcategory]]</div>
             </div>
-            <div class="duration">
-              Duration: <span class="duration__value">[[duration]] min</span>
+            <h2 class="heading">[[heading]]</h2>
+          </div>
+          <div class="body vertical layout">
+            <p class="meta"><time-pretty datetime="[[published]]">[[published]]</time-pretty></p>
+            <p class="summary">[[summary]]</p>
+            <div class="horizontal start-justified layout meta">
+              <div class="difficulty">
+                Difficulty: <difficulty-indicator difficulty="[[difficulty]]"></difficulty-indicator>
+              </div>
+              <div class="duration">
+                Duration: <span class="duration__value">[[duration]] min</span>
+              </div>
             </div>
           </div>
-        </div>
-      </a>
+        </a>
+      </div>
     </paper-card>
 
   </template>
