@@ -16,7 +16,7 @@
     "build-tutorials": "./bin/generate",
     "clean": "rm -rf bower_components node_modules build",
     "lint-js": "eslint 'src/**/*.html'",
-    "lint-polymer": "polymer lint",
+    "lint-polymer": "polymer lint -i src/*.html -i src/elements/*",
     "lint-style": "npm-run-all lint-style-*",
     "lint-style-html": "stylelint 'src/**/*.html' --extract",
     "polymer": "./bin/polymer",
