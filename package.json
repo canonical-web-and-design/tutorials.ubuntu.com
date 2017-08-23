@@ -34,8 +34,8 @@
     "eslint-plugin-html": "^2.0.0",
     "npm-run-all": "^4.0.2",
     "polymer-cli": "^0.18.2",
-    "stylelint": "^7.7.1",
-    "stylelint-config-polymer": "0.0.1",
+    "stylelint": "7.13.0",
+    "stylelint-config-polymer": "^0.0.1",
     "stylelint-processor-html": "^1.0.0"
   }
 }
