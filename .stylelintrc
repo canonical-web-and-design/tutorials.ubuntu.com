@@ -1,0 +1,11 @@
+extends:
+  - 'stylelint-config-polymer'
+processors:
+  - 'stylelint-processor-html'
+rules:
+  'block-closing-brace-newline-after': null
+  'block-closing-brace-newline-before': null
+  'function-url-quotes': always
+  'function-whitespace-after': null
+  'no-empty-source': null
+  'string-quotes': single

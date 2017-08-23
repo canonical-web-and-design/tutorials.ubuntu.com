@@ -9,6 +9,8 @@
 <link rel="import" href="elements/websocket-reloader.html">
 
 <dom-module id="ubuntu-tutorials-app">
+  <link rel="lazy-import" group="codelabs-index" href="codelabs-index.html">
+  <link rel="lazy-import" group="codelabs-page" href="codelabs-page.html">
 
   <template>
     <style>
@@ -25,9 +27,11 @@
         --color-mid-light: #cdcdcd;
         --color-dark: #333;
       }
+
       :host {
         display: block;
         line-height: 1.5;
+
         --category-color: white;
       }
     </style>
@@ -54,7 +58,7 @@
 
     <iron-pages role="main" selected="[[page]]" attr-for-selected="name">
       <section name="index">
-        <codelabs-index id="page-index" route="[[subroute]]" current-search=[[currentsearch]] codelabs="{{codelabs}}"></codelabs-index>
+        <codelabs-index id="page-index" route="[[subroute]]" codelabs="{{codelabs}}"></codelabs-index>
       </section>
       <section name="tutorial">
         <codelabs-page id="page-tutorial" route="[[subroute]]" codelabs="{{codelabs}}"></codelabs-page>
@@ -73,10 +77,13 @@
           type: Array,
           notify: true,
         },
+        isLoading: Boolean,
         page: {
           type: String,
           reflectToAttribute: true,
         },
+        routeData: Object,
+        subroute: String,
       },
 
       observers: [
@@ -90,7 +97,7 @@
       _loadPage: function _loadPage(page) {
         // load page import on demand.
         page = page || 'index';
-        var pageToLoad = page;
+        let pageToLoad = page;
         if (page == 'index' || page == 'events') {
           page = 'index';
           pageToLoad = 'codelabs-index';
@@ -104,25 +111,27 @@
           return;
         }
 
-        var hrefToImport = this.resolveUrl(pageToLoad + '.html');
+        let hrefToImport = this.resolveUrl(pageToLoad + '.html');
         this.importHref(
           hrefToImport,
-          function loadPage() {this.page = page;}
+          function loadPage() {
+            this.page = page;
+          }
         );
       },
 
       _isMainHeaderHidden: function(page) {
-        return page === "tutorial";
+        return page === 'tutorial';
       },
 
       _codelabsInfoHandler: function(event) {
-        var codelabs = [];
+        let codelabs = [];
         if (this.codelabs !== undefined) {
           codelabs = this.codelabs;
         }
-        this.categoriesmap = event.detail.response["categories"];
-        this.eventsmap = event.detail.response["events"];
-        event.detail.response["codelabs"].forEach(function(codelab) {
+        this.categoriesmap = event.detail.response['categories'];
+        this.eventsmap = event.detail.response['events'];
+        event.detail.response['codelabs'].forEach(function(codelab) {
           // filter hidden items
           if (codelab.tags.indexOf('hidden') !== -1) {
             return;

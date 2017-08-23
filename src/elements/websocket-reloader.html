@@ -13,33 +13,33 @@
       },
 
       ready: function() {
-        this._reconnect()
+        this._reconnect();
       },
 
       // connect websocket and different handlers
       _reconnect: function() {
-        var websocket = new WebSocket('ws://' + window.location.hostname + ':' + window.location.port + '/reload');
+        let websocket = new WebSocket('ws://' + window.location.hostname + ':' + window.location.port + '/reload');
         websocket.onopen = this._connected.bind(this);
         websocket.onclose = this._disconnected.bind(this);
         websocket.onmessage = this._onmessage.bind(this);
       },
 
-      _onmessage: function (e) {
-        if (location.pathname.endsWith("/" + e.data)) {
+      _onmessage: function(e) {
+        if (location.pathname.endsWith('/' + e.data)) {
           location.reload();
         }
       },
 
-      _connected: function (e) {
+      _connected: function(e) {
         this.connectedOnce = true;
       },
 
       _disconnected: function(e) {
         if (!this.connectedOnce) {
-          return
+          return;
         }
         // The reload endpoint has been disconnected, we are retrying in 2 seconds.
-        console.log("Refresh socket disconnected");
+        console.log('Refresh socket disconnected');
         setTimeout(() => this._reconnect(), 2000);
       },
     });

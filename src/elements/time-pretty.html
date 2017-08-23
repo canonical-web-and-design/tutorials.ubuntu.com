@@ -16,7 +16,7 @@
       properties: {
         datetime: {
           type: String,
-          value: '0000-00-00T00:00:00.000Z'
+          value: '0000-00-00T00:00:00.000Z',
         },
         datetimePretty: {
           type: String,
@@ -24,12 +24,12 @@
         },
       },
 
-      _prettifyDatetime: function (datetime) {
+      _prettifyDatetime: function(datetime) {
         if (!window.dateFns) {
           return;
         }
-        var date = new Date(datetime);
-        var pretty = window.dateFns.format(date, 'DD MMMM YYYY');
+        let date = new Date(datetime);
+        let pretty = window.dateFns.format(date, 'DD MMMM YYYY');
         return pretty;
       },
 

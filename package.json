@@ -15,16 +15,27 @@
     "build-site": "npm-run-all polymer-build",
     "build-tutorials": "./bin/generate",
     "clean": "rm -rf bower_components node_modules build",
+    "lint-js": "eslint 'src/**/*.html'",
+    "lint-polymer": "polymer lint -i src/*.html -i src/elements/*",
+    "lint-style": "npm-run-all lint-style-*",
+    "lint-style-html": "stylelint 'src/**/*.html' --extract",
     "polymer": "./bin/polymer",
     "polymer-build": "npm-run-all 'polymer build {@}' --",
     "polymer-lint": "npm-run-all 'polymer lint {@}' --",
     "polymer-serve": "npm-run-all 'polymer serve {@}' --",
     "serve": "npm-run-all 'serve-examples {@}' --",
     "serve-examples": "./bin/serve $(if [ -z \"$*\" ]; then echo \"examples\"; fi)",
-    "serve-live": "./bin/serve"
+    "serve-live": "./bin/serve",
+    "test": "npm-run-all lint-js lint-polymer lint-style"
   },
   "devDependencies": {
+    "eslint": "^3.14.1",
+    "eslint-config-google": "^0.7.1",
+    "eslint-plugin-html": "^2.0.0",
     "npm-run-all": "^4.0.2",
-    "polymer-cli": "^0.18.2"
+    "polymer-cli": "^0.18.2",
+    "stylelint": "7.13.0",
+    "stylelint-config-polymer": "^0.0.1",
+    "stylelint-processor-html": "^1.0.0"
   }
 }
