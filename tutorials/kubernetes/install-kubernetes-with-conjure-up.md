@@ -1,6 +1,6 @@
 ---
 id: install-kubernetes-with-conjure-up
-summary: test
+summary: This tutorial will guide you through the installation of the Canonical Distribution of Kubernetes with a few simple commands using conjure-up.
 categories: kubernetes
 status: Published
 feedbacklink: https://github.com/ubuntu/codelabs/issues
@@ -17,7 +17,7 @@ published: 2017-08-21
 ## Overview
 Duration: 1
 
-This tutorial will guide you through the installation of the Canonical Distribution of Kubernetes with a few simple commads using conjure-up.
+This tutorial will guide you through the installation of the Canonical Distribution of Kubernetes with a few simple commands using conjure-up.
 
 ### The Canonical Distribution of Kubernetes
 
@@ -46,7 +46,7 @@ conjure-up lets you summon up a big-software stack as a “spell” — a model 
 
 #### For local deployment
 
-Although this tutorial will assume a plublic cloud installation, if you wish to install locally the following minimum specifications are recommended:
+Although this tutorial will assume a public cloud installation, if you wish to install locally the following minimum specifications are recommended:
  - 2 cores
  - 16G RAM
  - 32G Swap
@@ -57,7 +57,7 @@ Duration: 5
 
 If you have not done so on your local machine, install conjure-up.
 
-On a linux system with snapd simply type the following:
+On a Linux system with snapd simply type the following:
 
 ```bash
 sudo snap install conjure-up --classic
@@ -84,7 +84,7 @@ conjure-up will then ask where you would like to deploy your applications.
 
 For this tutorial we're going to demonstrate installation on a public cloud using Amazon AWS.
 
-There will be minor differences between the steps for the various cloud providers but generally consists of steps such as chosing a region and entering te credentials for the cloud provider.
+There will be minor differences between the steps for the various cloud providers but generally consists of steps such as choosing a region and entering the credentials for the cloud provider.
 
 ![IMAGE](https://assets.ubuntu.com/v1/43eb777a-Screenshot+from+2017-08-18+11-57-29.png)
 
@@ -98,7 +98,7 @@ For the purposes of this tutorial we'll start from scratch and select "Deploy Ne
 
 ![IMAGE](https://assets.ubuntu.com/v1/ed7970a6-new-controller.png)
 
-You will be presented with a list of the applications required for a Kubernetes installation. You are presented with an option to individually configure the options but we can simply select "Deploy all remaining applicaions" and use the suggested default configuration.
+You will be presented with a list of the applications required for a Kubernetes installation. You are presented with an option to individually configure the options but we can simply select "Deploy all remaining applictaions" and use the suggested default configuration.
 
 ![IMAGE](https://assets.ubuntu.com/v1/73946c3f-deploy-all.png)
 
@@ -119,7 +119,7 @@ If you wish to do this then check the box and enter your sudo password when prom
 
 ## That’s all folks!
 
-Congratualtions, you have installed and configured a cluster running the Canonical Distribution of Kubernetes.
+Congratulations, you have installed and configured a cluster running the Canonical Distribution of Kubernetes.
 
 ### Next steps
 
