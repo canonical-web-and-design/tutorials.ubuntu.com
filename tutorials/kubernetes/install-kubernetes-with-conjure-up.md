@@ -61,7 +61,6 @@ On a Linux system with snapd simply type the following:
 
 ```bash
 sudo snap install conjure-up --classic
-conjure-up
 ```
 
 positive
@@ -113,7 +112,7 @@ Duration: 3
 
 You will be asked if you want to download and install [kubectl](https://kubernetes.io/docs/user-guide/kubectl-overview/) and [kubefed](https://kubernetes.io/docs/admin/kubefed/) on your local machine. These are command line utilities for interacting with your new Kubernetes cluster.
 
-If you wish to do this then check the box and enter your sudo password when prompted.
+Check the box to install the applications and enter your sudo password when prompted.
 
 ![image](https://assets.ubuntu.com/v1/430ae051-sudo-install.png)
 
