@@ -11,31 +11,37 @@
         --paper-blue-500: var(--secondary-color);
         --google-codelab-fab-background: var(--secondary-color);
       }
+
       :host {
         display: block;
         min-height: 100vh;
       }
+
       google-codelab-step {
         --google-codelab-step-code: {
-          font-family: 'Ubuntu Mono',Helvetica,Arial;
+          font-family: 'Ubuntu Mono', Helvetica, Arial;
         };
+
         --google-codelab-step-warn: {
-          border: 1px solid #ED3146;
+          border: 1px solid #ed3146;
           background: rgba(237, 49, 70, 0.1);
           color: #333;
         };
+
         --google-codelab-step-tip: {
-          border: 1px solid #ECA918;
+          border: 1px solid #eca918;
           background: rgba(236, 169, 24, 0.1);
           color: #333;
         };
       }
+
       #contentContainer google-codelab pre {
         background-color: var(--color-light);
         border-radius: 2px;
         border: 1px solid var(--color-mid-light);
         color: var(--color-dark);
       }
+
       #contentContainer google-codelab pre .str,
       #contentContainer google-codelab pre .kwd,
       #contentContainer google-codelab pre .com,
@@ -49,17 +55,21 @@
       #contentContainer google-codelab pre .dec {
         color: #333;
       }
+
       #contentContainer google-codelab-step::shadow .instructions {
         /* TODO: Move arrows down on smaller viewports */
-        /*margin-bottom: 96px;*/
+
+        /* margin-bottom: 96px; */
       }
+
       #contentContainer google-codelab-survey {
-        border: 1px solid #19B6EE;
+        border: 1px solid #19b6ee;
         background: rgba(25, 182, 238, 0.1);
         border-radius: 2px;
       }
+
       #contentContainer google-codelab p img {
-        /* Override images being forced at 100% width */
+        /*  Override images being forced at 100% width  */
         width: auto;
       }
     </style>

@@ -15,10 +15,12 @@
     <style include="iron-flex iron-flex-alignment">
       :host {
         display: inline-block;
+
         --category-secondary: #310824;
       }
+
       paper-card {
-        font-family: 'Ubuntu',Helvetica,Arial;
+        font-family: 'Ubuntu', Helvetica, Arial;
         height: 100%;
         position: relative;
 
@@ -26,10 +28,12 @@
           padding: 0;
         };
       }
+
       paper-card a {
         color: var(--primary-text-color);
         overflow: hidden;
       }
+
       .header {
         background: url('https://assets.ubuntu.com/v1/a88aa78c-card_background.png') no-repeat right bottom;
         background-size: cover;
@@ -38,18 +42,22 @@
         color: #fff;
         border-radius: 2px 2px 0 0;
       }
+
       .body {
-        margin: 0 16px 16px 16px;
+        margin: 0 16px 16px;
       }
+
       .heading {
         margin: 10px 0 0;
-        font-family: 'Ubuntu',Helvetica,Arial;
+        font-family: 'Ubuntu', Helvetica, Arial;
         font-size: 28px;
         font-weight: 300;
       }
+
       .light {
         color: white;
       }
+
       .card-category {
         text-align: left;
         text-transform: uppercase;
@@ -58,40 +66,49 @@
         left: 0;
         width: 100%;
       }
+
       .duration {
         text-align: right;
         width: 100%;
       }
+
       .card-actions {
         box-sizing: border-box;
         font-size: 1em;
         width: 100%;
         line-height: 2;
       }
+
       a {
         text-decoration: none;
       }
+
       .summary {
         height: 170px;
         margin: 0;
       }
+
       .meta {
         color: var(--secondary-text-color);
-        font-size: .875em;
+        font-size: 0.875em;
         white-space: nowrap;
       }
+
       .meta--tags {
         bottom: 0;
         padding-right: 10px;
         position: absolute;
       }
-      .meta--tags .meta__tag:after {
+
+      .meta--tags .meta__tag::after {
         content: ' ,';
         display: inline-block;
       }
-      .meta--tags .meta__tag:last-of-type:after {
+
+      .meta--tags .meta__tag:last-of-type::after {
         content: '';
       }
+
       .duration__value {
         color: var(--primary-text-color);
       }
