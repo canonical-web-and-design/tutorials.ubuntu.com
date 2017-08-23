@@ -5,6 +5,7 @@ categories: snapcraft
 tags: tutorial,guidelines,snap
 difficulty: 2
 status: Published
+feedback-link: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 author: Javier Lopez <javier.lopez@example.com>
 published: 2017-01-13
 
@@ -51,6 +52,7 @@ categories: snapcraft
 tags: tutorial,guidelines,snap
 difficulty: 2
 status: Published
+feedback-link: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 author: Javier Lopez <javier.lopez@example.com>
 published: 2017-01-13
 
