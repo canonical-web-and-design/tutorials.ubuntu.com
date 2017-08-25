@@ -3,10 +3,11 @@ id: install-kubernetes-with-conjure-up
 summary: This tutorial will guide you through the installation of the Canonical Distribution of Kubernetes with a few simple commands using conjure-up.
 categories: kubernetes
 status: Published
-feedbacklink: https://github.com/ubuntu/codelabs/issues
+feedback-link: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 tags: kubernetes, conjure-up
-difficulty: 3
+difficulty: 2
 published: 2017-08-21
+author: Karl Williams <karl.williams@canonical.com>
 
 ---
 
@@ -34,15 +35,16 @@ conjure-up lets you summon up a big-software stack as a “spell” — a model 
   - The simplest way to install The Canonical Distribution of Kubernetes
 
 ### What you’ll need
-  - A Linux system with [snapd installed](https://snapcraft.io/docs/core/install)
+
+A Linux system with [snapd installed](https://snapcraft.io/docs/core/install)
 
 #### For cloud deployment
-  - Account credentials for one of the following public cloud providers:
-    - AWS
-    - Azure
-    - CloudSigma
-    - Google
-    - Joyent
+Account credentials for one of the following public cloud providers:
+  - AWS
+  - Azure
+  - CloudSigma
+  - Google
+  - Joyent
 
 #### For local deployment
 
@@ -69,7 +71,7 @@ positive
 Once you have completed the conjure-up installation, run the software:
 
 ```bash
-$ conjure-up
+conjure-up
 ```
 
 You will be presented with a list of recommended spells. From this list, select "The Canonical Distribution of Kubernetes" and press enter.
@@ -97,7 +99,7 @@ For the purposes of this tutorial we'll start from scratch and select "Deploy Ne
 
 ![IMAGE](https://assets.ubuntu.com/v1/ed7970a6-new-controller.png)
 
-You will be presented with a list of the applications required for a Kubernetes installation. You are presented with an option to individually configure the options but we can simply select "Deploy all remaining applictaions" and use the suggested default configuration.
+You will be presented with a list of the applications required for a Kubernetes installation. Each of them can be configured individually, but for now, select "Deploy all remaining applications" to use the suggested default configuration.
 
 ![IMAGE](https://assets.ubuntu.com/v1/73946c3f-deploy-all.png)
 
@@ -133,27 +135,3 @@ Now that you have your cluster, you can put it to work:
 * Learn more about the [Canonical Distribution of Kubernetes][canonicalkubernetes] bundle
 * Discover [Kubernetes][cankube]
 * Get involved and connect with the [Kubernetes community][kubecommunity]
-
-<!-- LINKS -->
-[sshkey]: https://jujucharms.com/docs/2.1/users-auth#credentials-and-ssh-keys
-[ubuntuone]: https://login.ubuntu.com/
-[canonicalkubernetes]: https://jujucharms.com/canonical-kubernetes
-[kubernetes]: https://kubernetes.io/
-[aws]: https://aws.amazon.com/
-[gce]: https://cloud.google.com/compute/
-[azure]: https://azure.microsoft.com
-[charmstorek8s]: https://jujucharms.com/new/?deploy-target=cs:bundle/canonical-kubernetes
-[jaas]: https://jujucharms.com/jaas
-[jaascreds]: https://jujucharms.com/docs/stable/getting-started#prepare-your-cloud-credentials
-[jujuinstall]: https://jujucharms.com/docs/stable/reference-install#getting-the-latest-juju
-[jujustarted]: https://jujucharms.com/docs/stable/getting-started
-[kubectl]: https://kubernetes.io/docs/user-guide/kubectl/
-[kubectlinstall]: https://kubernetes.io/docs/tasks/tools/install-kubectl/
-[chocolatey]: https://chocolatey.org/install
-[kubegpu]: https://medium.com/intuitionmachine/how-we-commoditized-gpus-for-kubernetes-7131f3e9231f
-[kubetransform]: https://github.com/deis/workflow
-[kubepaas]: https://insights.ubuntu.com/2017/03/27/job-concurrency-in-kubernetes-lxd-cpu-pinning-to-the-rescue/
-[cankube]: https://jujucharms.com/kubernetes  
-[kubecommunity]: https://kubernetes.io/community/
-[snapcraft]: https://snapcraft.io/
-[kubecurl]: https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-binary-via-curl
