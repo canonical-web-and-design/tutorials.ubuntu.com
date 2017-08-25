@@ -91,7 +91,7 @@ There will be minor differences between the steps for the various cloud provider
 
 
 ## Deploy the controller and applications
-Duration: 18
+Duration: 13
 
 Once you have configured the cloud provider that you are using you will then be presented with a screen titled "CHOOSE A CONTROLLER OR CREATE NEW".
 
