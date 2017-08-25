@@ -135,3 +135,10 @@ Now that you have your cluster, you can put it to work:
 * Learn more about the [Canonical Distribution of Kubernetes][canonicalkubernetes] bundle
 * Discover [Kubernetes][cankube]
 * Get involved and connect with the [Kubernetes community][kubecommunity]
+
+[kubegpu]: https://medium.com/intuitionmachine/how-we-commoditized-gpus-for-kubernetes-7131f3e9231f
+[kubetransform]: https://insights.ubuntu.com/2017/03/27/job-concurrency-in-kubernetes-lxd-cpu-pinning-to-the-rescue/
+[kubepaas]: https://github.com/deis/workflow
+[canonicalkubernetes]: https://jujucharms.com/canonical-kubernetes
+[cankube]: https://jujucharms.com/kubernetes  
+[kubecommunity]: https://kubernetes.io/community/
