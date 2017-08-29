@@ -27,7 +27,7 @@ The Ubuntu terminal for Windows has many of the same features you'll find using 
 - A huge community of friendly, approachable users
 
 positive
-: Currently, packages that require a graphical interface will not work from the Ubuntu terminal.
+: Currently, applications that require a graphical interface will not work from the Ubuntu terminal.
 
 ![screenshot](https://assets.ubuntu.com/v1/86b2a146-win10-ubuntu-startmenu.png)
 
