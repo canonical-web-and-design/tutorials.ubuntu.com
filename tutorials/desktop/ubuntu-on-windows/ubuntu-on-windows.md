@@ -10,7 +10,7 @@ author: Graham Morrison <graham.morrison@canonical.com>
 
 ---
 
-# Install Ubuntu in Windows 10
+# Install Ubuntu on Windows 10
 Duration: 1:00
 
 ## Overview
