@@ -28,7 +28,7 @@ The Canonical Distribution of Kubernetes works across all major public clouds an
 
 ### conjure-up
 
-conjure-up lets you summon up a big-software stack as a “spell” — a model of the stack, combined with extra know-how to get you from an installed stack to a fully usable one.
+conjure-up lets you easily deploy and configure complex big-software solutions on public clouds, private clouds and developer laptops.
 
 ### What you’ll learn
   - How to install software using a conjure-up spell
@@ -54,12 +54,15 @@ Although this tutorial will assume a public cloud installation, if you wish to i
  - 32G Swap
  - 250G SSD with a separate block device for ZFS. Our recommendation for that device is 100G.
 
+positive
+: Note: ZFS is recommended, but not required.
+
 ## Getting started
 Duration: 5
 
 If you have not done so on your local machine, install conjure-up.
 
-On a Linux system with snapd simply type the following:
+On a Linux system with snapd, we simply type the following:
 
 ```bash
 sudo snap install conjure-up --classic
@@ -68,24 +71,24 @@ sudo snap install conjure-up --classic
 positive
 : Note: If you need to install snapd on your Linux system, detailed instructions can be found in the [snapcraft.io documentation](https://snapcraft.io/docs/core/install).
 
-Once you have completed the conjure-up installation, run the software:
+Now that we've installed conjure-up, let's run it:
 
 ```bash
 conjure-up
 ```
 
-You will be presented with a list of recommended spells. From this list, select "The Canonical Distribution of Kubernetes" and press enter.
+Next we see a list of recommended spells. From this list, select "The Canonical Distribution of Kubernetes" and press enter.
 
 ![IMAGE](https://assets.ubuntu.com/v1/042c1dd7-select-canonical-distribution-of-kubernetes.png)
 
 ## Select your cloud
 Duration: 3
 
-conjure-up will then ask where you would like to deploy your applications.
+conjure-up will then ask where we would like to deploy the applications.
 
 For this tutorial we're going to demonstrate installation on a public cloud using Amazon AWS.
 
-There will be minor differences between the steps for the various cloud providers but generally consists of steps such as choosing a region and entering the credentials for the cloud provider.
+Although each cloud provider will differ slightly, the required configuration steps will generally include choosing a region and providing credentials.
 
 ![IMAGE](https://assets.ubuntu.com/v1/43eb777a-Screenshot+from+2017-08-18+11-57-29.png)
 
@@ -93,19 +96,17 @@ There will be minor differences between the steps for the various cloud provider
 ## Deploy the controller and applications
 Duration: 13
 
-Once you have configured the cloud provider that you are using you will then be presented with a screen titled "CHOOSE A CONTROLLER OR CREATE NEW".
+Now that we have configured our cloud provider, we're presented with a screen titled "CHOOSE A CONTROLLER OR CREATE NEW".
 
 For the purposes of this tutorial we'll start from scratch and select "Deploy New Self-Hosted Controller".
 
 ![IMAGE](https://assets.ubuntu.com/v1/ed7970a6-new-controller.png)
 
-You will be presented with a list of the applications required for a Kubernetes installation. Each of them can be configured individually, but for now, select "Deploy all remaining applications" to use the suggested default configuration.
+We will now see a list of the applications required for a Kubernetes installation. Each application can be configured individually, but for now, let's select "Deploy all remaining applications" to use the suggested default configuration.
 
 ![IMAGE](https://assets.ubuntu.com/v1/73946c3f-deploy-all.png)
 
-You will see verbose output of the machines being automatically provisioned and the Juju controller will install the requisite charm bundle.
-
-Once the machines are provisioned, you will see a table of their current statuses as the software is automatically configured.
+You'll see verbose output as machines are automatically provisioned and the Kubernetes cluster components are installed and configured.
 
 ![IMAGE](https://assets.ubuntu.com/v1/1e9223dc-machine-status.png)
 
