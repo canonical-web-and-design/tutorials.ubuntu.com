@@ -5,7 +5,7 @@ categories: desktop
 tags: tutorial,installation,windows,ubuntu,terminal
 difficulty: 2
 status: Published
-published: 2017-08-25
+published: 2017-08-29
 author: Graham Morrison <graham.morrison@canonical.com>
 
 ---
