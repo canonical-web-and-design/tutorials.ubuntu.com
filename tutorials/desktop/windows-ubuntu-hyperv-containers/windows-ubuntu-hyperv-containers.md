@@ -155,7 +155,7 @@ Congratulations! You have successfully set up your system to use containers with
 ## Getting help
 Duration: 1:00
 
-If you need some guidance getting started with the Ubuntu container images for Windows Hyper-V, or if you get stuck, help is always at hand:
+If you need some guidance getting started with the Ubuntu container images for Hyper-V, or if you get stuck, help is always at hand:
 
 * [Ask Ubuntu][askubuntu]
 * [Ubuntu Forums][forums]
