@@ -135,8 +135,7 @@ Now, copy the Ubuntu container image *.vhdx* file that was decompressed at the p
 ## More Docker preparation
 Duration: 2:00
 
-Docker for Windows requires some pre-release features in order to work with Hyper-V isolation. While these features are not yet available in the
-Docker CE installation that was done previously; the necessary files can be downloaded from [master-docker](master.dockerproject.org).
+Docker for Windows requires some pre-release features in order to work with Hyper-V isolation. While these features are not yet available in the Docker CE installation that was done previously; the necessary files can be downloaded from [master-docker](master.dockerproject.org).
 
 ![screenshot](docker-master.png)
 
