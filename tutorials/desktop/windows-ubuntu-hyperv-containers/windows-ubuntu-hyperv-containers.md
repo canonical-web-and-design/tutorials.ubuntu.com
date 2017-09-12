@@ -47,7 +47,7 @@ If you're already a member of the Windows Insider Program, skip to the next step
 
 [https://insider.windows.com/en-us/getting-started/](https://insider.windows.com/en-us/getting-started/)
 
-To enrol, sign in using the same Microsoft personal account you use for Windows 10 and follow the *Register your personal account* link from the Insider Program getting started page. Accept the terms and conditions to complete the registration.
+To enroll, sign in using the same Microsoft personal account you use for Windows 10 and follow the *Register your personal account* link from the Insider Program getting started page. Accept the terms and conditions to complete the registration.
 
 You now need to open Windows 10 *Settings* from the Start menu, select 'Updates & Security' followed by 'Windows Insider Program' from the menu on the left.
 
