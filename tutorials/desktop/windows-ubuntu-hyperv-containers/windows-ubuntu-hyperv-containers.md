@@ -20,7 +20,7 @@ It is now possible to run Docker containers on Windows 10 and Windows Server, le
 Imagine running your own Linux applications on Windows, using a Linux
 distribution you are comfortable with: Ubuntu!
 
-It is now possible to do so using the power of Docker and Hyper-V virtualization on Windows.
+It is now possible to do so using the power of Docker technology and Hyper-V virtualization on Windows.
 
 ![screenshot](https://assets.ubuntu.com/v1/86b2a146-win10-ubuntu-startmenu.png)
 
