@@ -150,6 +150,11 @@ Duration: 3:00
 ![screenshot](docker-pull-ubuntu-progress2.png)
 ![screenshot](docker-run-it-ubuntu.png)
 
+```bash
+C:\Users\mathi\> .\ docker.exe pull ubuntu
+C:\Users\mathi\> .\ docker.exe run -it ubuntu
+```
+
 Congratulations! You have successfully set up your system to use containers with Hyper-V isolation on Windows and run your very own Ubuntu container.
 
 ## Getting help
