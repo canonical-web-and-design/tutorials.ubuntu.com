@@ -60,7 +60,7 @@ Duration: 1:00
 
 From the Windows Insider Program pane, select 'Get Started'. If your Microsoft account isn't linked to your Windows 10 installation, sign in when prompted and select the account you want to link to your installation.
 
-You will now be able to select what kind of content you'd like to receive from the Windows Insider Program. To make sure of the Hyper-V isolation features that Docker requires, select *Fast*. Select *Confirm* (twice) and allow Windows to restart your machine. After booting, it's likely you'll need to wait for your machine to install a variety of updates before you can move on to the next step.
+You will now be able to select what kind of content you'd like to receive from the Windows Insider Program. To ensure availability of the Hyper-V isolation features that Docker requires, select *Fast*. Select *Confirm* (twice), then allow Windows to restart your machine. After booting, it's likely you'll need to wait for your machine to install a variety of updates before you can move on to the next step.
  
 ![screenshot](https://assets.ubuntu.com/v1/35588b47-win10-ubuntu-content.png) 
 ![screenshot](desktop-insider.png)
@@ -68,22 +68,23 @@ You will now be able to select what kind of content you'd like to receive from t
 ## Install Docker for Windows
 Duration: 2:00
 
-Download Docker for Windows from [https://store.docker.com/editions/community/docker-ce-desktop-windows](Docker Store).
+Download Docker for Windows from [Docker Store](https://store.docker.com/editions/community/docker-ce-desktop-windows).
+].
 
 ![screenshot](install-docker.png)
 
-Once downloaded, proceed with the installation steps; and reboot your system once requested.
+Once downloaded, proceed with the installation steps, and reboot your system when indicated.
 
 ![screenshot](installing-docker.png)
 
-After reboot, Docker will be started. Docker requires that the Hyper-V feature is enabled, and will ask you to enable it and restart. Click *OK* and Docker will enable Hyper-V and restart your system.
+After reboot, Docker will be started. Docker requires that the Hyper-V feature is enabled, so if necessary will ask you to enable it and restart. Click *OK* for Docker to enable Hyper-V and restart your system.
 
 ![screenshot](enabling-hyperv.png)
 
 ## Download the Ubuntu container image
 Duration: 4:00
 
-Download the latest Ubuntu container image for Windows from [https://partner-images.canonical.com/hyper-v/linux-containers/xenial/current/](Canonical Partner Images of Ubuntu for Linux containers on Microsoft Hyper-V)
+Download the latest Ubuntu container image for Windows from the [Canonical Partner Images website](https://partner-images.canonical.com/hyper-v/linux-containers/xenial/current/)
 
 Once downloaded, extract the image using XZ Utils:
 ```bash
@@ -102,10 +103,9 @@ Create *C:\lcow*, which will be used as scratch space for Docker while preparing
 
 ![screenshot](create-lcow-folder.png)
 
-Also create *C:\Program Files\Linux Containers*. This is where the Ubuntu container image will live. This folder will be given extra permissions to allow Docker to use the images from it.
+Also create *C:\Program Files\Linux Containers*. This is where the Ubuntu container image will live.
 
-
-Then, run the following Powershell script in an administrator Powershell window:
+You will need to give this folder extra permissions to allow Docker to use the images from it.  Run the following Powershell script in an administrator Powershell window:
 
 ```powershell
 param(
@@ -129,17 +129,17 @@ C:\Users\mathi\> .\ set_perms.ps1 "C:\Program Files\Linux Containers"
 C:\Users\mathi\>
 ```
 
-Now, copy the Ubuntu container image *.vhdx* file that was decompressed at the previous step as *uvm.vhdx* under *C:\Program Files\Linux Containers*.
+Now, copy the Ubuntu container image *.vhdx* file that was decompressed at the previous step to *uvm.vhdx* under *C:\Program Files\Linux Containers*.
 
 
 ## More Docker preparation
 Duration: 2:00
 
-Docker for Windows requires some pre-release features in order to work with Hyper-V isolation. While these features are not yet available in the Docker CE installation that was done previously; the necessary files can be downloaded from [master-docker](master.dockerproject.org).
+Docker for Windows requires some pre-release features in order to work with Hyper-V isolation. While these features are not yet available in the Docker CE installation that was done previously, the necessary files can be downloaded from [master-docker](https://master.dockerproject.org).
 
 ![screenshot](docker-master.png)
 
-Retrieve *dockerd.exe* and *docker.exe* from [master-docker](master.dockerproject.org), and put the two programs somewhere safe, such as in your own folder. They will be used to start the Ubuntu container in the next step.
+Retrieve *dockerd.exe* and *docker.exe* from [master-docker](https://master.dockerproject.org), and put the two programs somewhere safe, such as in your own folder. They will be used to start the Ubuntu container in the next step.
 
 
 ## Run an Ubuntu container on Hyper-V
@@ -155,7 +155,7 @@ C:\Users\mathi\> .\ docker.exe pull ubuntu
 C:\Users\mathi\> .\ docker.exe run -it ubuntu
 ```
 
-Congratulations! You have successfully set up your system to use containers with Hyper-V isolation on Windows and run your very own Ubuntu container.
+Congratulations! You have successfully set up your system to use containers with Hyper-V isolation on Windows, and have run your very own Ubuntu container.
 
 ## Getting help
 Duration: 1:00
