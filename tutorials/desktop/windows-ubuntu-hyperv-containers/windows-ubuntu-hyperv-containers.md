@@ -28,7 +28,7 @@ It is now possible to do so using the power of Docker technology and Hyper-V vir
 ## Requirements
 Duration: 5:00
 
-You will need an x86 PC running Windows 10 or Windows Server.
+You will need a 64-bit x86 PC with 8GiB of RAM running Windows 10 or Windows Server.
 
 Running Linux containers with Hyper-V is only available when signed up with the [Windows Insider Program][windowsinsider]. This program lets you test pre-release software and upcoming versions of Windows.
 
