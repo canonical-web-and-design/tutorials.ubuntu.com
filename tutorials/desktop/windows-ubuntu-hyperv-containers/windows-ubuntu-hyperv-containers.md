@@ -38,7 +38,7 @@ If stability and privacy are essential for your installation (Windows Insider al
 
 You will also need a recent installation of Docker, which can be downloaded from [http://dockerproject.org](http://dockerproject.org).
 
-Finally, you will need to make sure you have installed [https://tulaani.org/xz/](XZ Utils), required for decompressing the Ubuntu host container image.
+Finally, you will need to make sure you have installed [https://tukaani.org/xz/](XZ Utils), required for decompressing the Ubuntu host container image.
 
 ## Join Windows Insider
 Duration: 3:00
