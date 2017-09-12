@@ -15,12 +15,12 @@ Duration: 1:00
 
 ## Overview
 
-It is now possible to run Docker containers on Windows 10 and Windows Server, leveraging Ubuntu as a host container.
+It is now possible to run Docker containers on Windows 10 and Windows Server, leveraging Ubuntu as a hosting base.
 
-What could be more perfect than being able to run even your own Linux applications on Windows, using a Linux
+What could be more perfect than running even your own Linux applications on Windows, using a Linux
 distribution you are comfortable with: Ubuntu!
 
-It is now possible to do so by using the power of Docker and Hyper-V virtualization on Windows.
+It is now possible to do so using the power of Docker and Hyper-V virtualization on Windows.
 
 ![screenshot](https://assets.ubuntu.com/v1/86b2a146-win10-ubuntu-startmenu.png)
 
@@ -28,17 +28,17 @@ It is now possible to do so by using the power of Docker and Hyper-V virtualizat
 ## Requirements
 Duration: 5:00
 
-You will need a x86 PC running Windows 10 or Windows Server.
+You will need an x86 PC running Windows 10 or Windows Server.
 
-More importantly, Docker using Hyper-V is only available when signed up with the [Windows Insider Program][windowsinsider]. This lets you test pre-release software and upcoming versions of Windows while potentially allowing Microsoft to collect usage information.
+Docker using Hyper-V is only available when signed up with the [Windows Insider Program][windowsinsider]. This program lets you test pre-release software and upcoming versions of Windows.
 
-If stability and privacy are essential for your installation, consider waiting for the [Windows 10 Fall Creator update][win10fall], due October 2017. With this release, running Docker with Hyper-V won't require Windows Insider membership.
+If stability and privacy are essential for your installation (Windows Insider allows Microsoft to collect usage information), consider waiting for the [Windows 10 Fall Creator update][win10fall], due October 2017. With this release, running Docker with Hyper-V won't require Windows Insider membership.
 
 ![screenshot](https://assets.ubuntu.com/v1/da4c0355-win10-ubuntu-insider.png)
 
-You will also require a recent installation of Docker; which can be downloaded from [http://dockerproject.org](http://dockerproject.org).
+You will also need a recent installation of Docker, which can be downloaded from [http://dockerproject.org](http://dockerproject.org).
 
-Furthermore, make sure you have installed [https://tulaani.org/xz/](XZ Utils), which will be required to decompress the Ubuntu host container image.
+Finally, you will need to make sure you have installed [https://tulaani.org/xz/](XZ Utils), required for decompressing the Ubuntu host container image.
 
 ## Join Windows Insider
 Duration: 3:00
