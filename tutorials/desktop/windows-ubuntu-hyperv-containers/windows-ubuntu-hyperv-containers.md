@@ -30,7 +30,7 @@ Duration: 5:00
 
 You will need an x86 PC running Windows 10 or Windows Server.
 
-Docker using Hyper-V is only available when signed up with the [Windows Insider Program][windowsinsider]. This program lets you test pre-release software and upcoming versions of Windows.
+Running Linux containers with Hyper-V is only available when signed up with the [Windows Insider Program][windowsinsider]. This program lets you test pre-release software and upcoming versions of Windows.
 
 If stability and privacy are essential for your installation (Windows Insider allows Microsoft to collect usage information), consider waiting for the [Windows 10 Fall Creator update][win10fall], due October 2017. With this release, running Docker with Hyper-V won't require Windows Insider membership.
 
