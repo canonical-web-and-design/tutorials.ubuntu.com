@@ -10,7 +10,7 @@ author: Mathieu Trudel-Lapierre <mathieu.trudel-lapierre@canonical.com>
 
 ---
 
-# Running Ubuntu Containers with Hyper-V Isolation on Windows 10 and Windows Server
+# Running Ubuntu Containers on Windows
 Duration: 1:00
 
 ## Overview
