@@ -118,8 +118,8 @@ Set-Acl -AclObject $acl -Path $Root
 
 Save this file as *set_perms.ps1* and run it:
 
-positive **TIP**
-: You may need to run 'Set-ExecutionPolicy unrestricted' to be allowed to run unsigned Powershell scripts.
+positive
+: **TIP** You may need to run 'Set-ExecutionPolicy unrestricted' to be allowed to run unsigned Powershell scripts.
 
 ![screenshot](ps-executionpolicy.png)
 
