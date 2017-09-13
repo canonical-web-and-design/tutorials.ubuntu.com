@@ -69,7 +69,6 @@ You will now be able to select what kind of content you'd like to receive from t
 Duration: 2:00
 
 Download Docker for Windows from [Docker Store](https://store.docker.com/editions/community/docker-ce-desktop-windows).
-].
 
 ![screenshot](install-docker.png)
 
