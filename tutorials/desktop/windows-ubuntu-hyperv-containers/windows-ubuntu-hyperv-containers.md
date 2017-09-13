@@ -22,7 +22,7 @@ distribution you are comfortable with: Ubuntu!
 
 It is now possible to do so using the power of Docker technology and Hyper-V virtualization on Windows.
 
-![screenshot](https://assets.ubuntu.com/v1/86b2a146-win10-ubuntu-startmenu.png)
+![screenshot](docker-run-it-ubuntu.png)
 
 
 ## Requirements
@@ -32,7 +32,7 @@ You will need a 64-bit x86 PC with 8GiB of RAM running Windows 10 or Windows Ser
 
 Running Linux containers with Hyper-V is only available when signed up with the [Windows Insider Program][windowsinsider]. This program lets you test pre-release software and upcoming versions of Windows.
 
-If stability and privacy are essential for your installation (Windows Insider allows Microsoft to collect usage information), consider waiting for the [Windows 10 Fall Creator update][win10fall], due October 2017. With this release, running Docker with Hyper-V won't require Windows Insider membership.
+If stability and privacy are essential for your installation (Windows Insider allows Microsoft to collect usage information), consider waiting for the [Windows 10 Fall Creator update][win10fall], due October 2017. With this release, running Docker technology with Hyper-V won't require Windows Insider membership.
 
 ![screenshot](https://assets.ubuntu.com/v1/da4c0355-win10-ubuntu-insider.png)
 
@@ -60,9 +60,9 @@ Duration: 1:00
 
 From the Windows Insider Program pane, select 'Get Started'. If your Microsoft account isn't linked to your Windows 10 installation, sign in when prompted and select the account you want to link to your installation.
 
-You will now be able to select what kind of content you'd like to receive from the Windows Insider Program. To ensure availability of the Hyper-V isolation features that Docker requires, select *Fast*. Select *Confirm* (twice), then allow Windows to restart your machine. After booting, it's likely you'll need to wait for your machine to install a variety of updates before you can move on to the next step.
+You will now be able to select what kind of content you'd like to receive from the Windows Insider Program. To ensure availability of the Hyper-V isolation features that Docker technology requires, select *Fast*. Select *Confirm* (twice), then allow Windows to restart your machine. After booting, it's likely you'll need to wait for your machine to install a variety of updates before you can move on to the next step.
  
-![screenshot](https://assets.ubuntu.com/v1/35588b47-win10-ubuntu-content.png) 
+![screenshot](windows-insider-program.png)
 
 ## Install Docker for Windows
 Duration: 2:00
@@ -119,7 +119,7 @@ Set-Acl -AclObject $acl -Path $Root
 Save this file as *set_perms.ps1* and run it:
 
 positive
-: **TIP** You may need to run 'Set-ExecutionPolicy unrestricted' to be allowed to run unsigned Powershell scripts.
+: **TIP** You may need to run 'Set-ExecutionPolicy -Scope process unrestricted' to be allowed to run unsigned Powershell scripts.
 
 ![screenshot](ps-executionpolicy.png)
 
@@ -134,11 +134,11 @@ Now, copy the Ubuntu container image *.vhdx* file that was decompressed at the p
 ## More Docker preparation
 Duration: 2:00
 
-Docker for Windows requires some pre-release features in order to work with Hyper-V isolation. While these features are not yet available in the Docker CE installation that was done previously, the necessary files can be downloaded from [master-docker](https://master.dockerproject.org).
+Docker for Windows requires some pre-release features in order to work with Hyper-V isolation. While these features are not yet available in the Docker CE installation that was done previously, the necessary files can be downloaded from [master.dockerproject.org](https://master.dockerproject.org).
 
 ![screenshot](docker-master.png)
 
-Retrieve *dockerd.exe* and *docker.exe* from [master-docker](https://master.dockerproject.org), and put the two programs somewhere safe, such as in your own folder. They will be used to start the Ubuntu container in the next step.
+Retrieve *dockerd.exe* and *docker.exe* from [master.dockerproject.org](https://master.dockerproject.org), and put the two programs somewhere safe, such as in your own folder. They will be used to start the Ubuntu container in the next step.
 
 
 ## Run an Ubuntu container on Hyper-V
@@ -171,7 +171,6 @@ If you need some guidance getting started with the Ubuntu container images for H
 [windowsinsider]: https://insider.windows.com/en-us/
 [storelink]: ms-windows-store://pdp/?productid=9NBLGGH4MSV6&referrer=unistoreweb&scenario=click&webig=11a9a85f-44f0-4cf5-ac1f-d9e148f2c23b&muid=01A3F9D8DEC2605B1426F331DF03617B
 [win10fall]: https://www.microsoft.com/en-us/windows/upcoming-features
-[commdocs]: https://help.ubuntu.com/community/UsingTheTerminal
 [askubuntu]: https://askubuntu.com/
 [forums]: https://ubuntuforums.org/
 [ubuntuirc]: https://wiki.ubuntu.com/IRC/ChannelList
