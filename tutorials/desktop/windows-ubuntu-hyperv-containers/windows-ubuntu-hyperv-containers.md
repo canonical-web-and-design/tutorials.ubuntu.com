@@ -1,11 +1,11 @@
 ---
 id: tutorial-windows-ubuntu-hyperv-containers
-summary: CHANGE ME
+summary: Run Ubuntu containers with Hyper-V isolation on Windows 10 and Windows Server
 categories: desktop
 tags: tutorial,installation,windows,ubuntu,terminal,docker,containers,hyper-v
 difficulty: 5
-status: 
-published: 
+status: Published
+published: 2017-09-13
 author: Mathieu Trudel-Lapierre <mathieu.trudel-lapierre@canonical.com>
 
 ---
