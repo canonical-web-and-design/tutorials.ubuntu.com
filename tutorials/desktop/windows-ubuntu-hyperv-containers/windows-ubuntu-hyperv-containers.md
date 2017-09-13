@@ -63,7 +63,6 @@ From the Windows Insider Program pane, select 'Get Started'. If your Microsoft a
 You will now be able to select what kind of content you'd like to receive from the Windows Insider Program. To ensure availability of the Hyper-V isolation features that Docker requires, select *Fast*. Select *Confirm* (twice), then allow Windows to restart your machine. After booting, it's likely you'll need to wait for your machine to install a variety of updates before you can move on to the next step.
  
 ![screenshot](https://assets.ubuntu.com/v1/35588b47-win10-ubuntu-content.png) 
-![screenshot](desktop-insider.png)
 
 ## Install Docker for Windows
 Duration: 2:00
