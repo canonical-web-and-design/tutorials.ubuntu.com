@@ -144,15 +144,30 @@ Retrieve *dockerd.exe* and *docker.exe* from [master.dockerproject.org](https://
 ## Run an Ubuntu container on Hyper-V
 Duration: 3:00
 
-![screenshot](docker-pull-ubuntu.png)
-![screenshot](docker-pull-ubuntu-progress.png)
-![screenshot](docker-pull-ubuntu-progress2.png)
-![screenshot](docker-run-it-ubuntu.png)
+You're now ready to start your container. First, open a Command-line prompt (*cmd.exe*) as Administrator, and start *dockerd.exe* with the right environment:
+
+```bash
+C:\Users\mathi\> set LCOW_SUPPORTED=1
+C:\Users\mathi\> .\dockerd.exe -D --data-root C:\lcow
+```
+
+Then, start a Powershell window as Administrator; and run *docker.exe*, instructing it to pull the image for your container:
 
 ```bash
 C:\Users\mathi\> .\docker.exe pull ubuntu
+```
+
+![screenshot](docker-pull-ubuntu.png)
+![screenshot](docker-pull-ubuntu-progress.png)
+![screenshot](docker-pull-ubuntu-progress2.png)
+
+We can now finally start the container. Run *docker.exe* again, and tell it to run the new image:
+
+```bash
 C:\Users\mathi\> .\docker.exe run -it ubuntu
 ```
+
+![screenshot](docker-run-it-ubuntu.png)
 
 Congratulations! You have successfully set up your system to use containers with Hyper-V isolation on Windows, and have run your very own Ubuntu container.
 
