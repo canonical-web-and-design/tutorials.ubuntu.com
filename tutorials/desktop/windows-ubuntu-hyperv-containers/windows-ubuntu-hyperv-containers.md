@@ -124,7 +124,7 @@ Save this file as *set_perms.ps1* and run it:
 ![screenshot](ps-executionpolicy.png)
 
 ```bash
-C:\Users\mathi\> .\ set_perms.ps1 "C:\Program Files\Linux Containers"
+C:\Users\mathi\> .\set_perms.ps1 "C:\Program Files\Linux Containers"
 C:\Users\mathi\>
 ```
 
@@ -150,8 +150,8 @@ Duration: 3:00
 ![screenshot](docker-run-it-ubuntu.png)
 
 ```bash
-C:\Users\mathi\> .\ docker.exe pull ubuntu
-C:\Users\mathi\> .\ docker.exe run -it ubuntu
+C:\Users\mathi\> .\docker.exe pull ubuntu
+C:\Users\mathi\> .\docker.exe run -it ubuntu
 ```
 
 Congratulations! You have successfully set up your system to use containers with Hyper-V isolation on Windows, and have run your very own Ubuntu container.
