@@ -37,7 +37,7 @@ If stability and privacy are essential for your installation (Windows Insider al
 
 You will also need a recent installation of Docker, which can be downloaded from [http://dockerproject.org](http://dockerproject.org).
 
-Finally, you will need to make sure you have installed [XZ Utils](https://tukaani.org/xz/), required for decompressing the Ubuntu host container image.
+Finally, you will need to make sure you have installed a program for decompressing the Ubuntu host container image, e.g. [7-Zip](http://7-zip.org/) or [XZ Utils](https://tukaani.org/xz/)
 
 ## Join Windows Insider
 Duration: 3:00
@@ -83,10 +83,9 @@ Duration: 4:00
 
 Download the latest Ubuntu container image for Windows from the [Canonical Partner Images website](https://partner-images.canonical.com/hyper-v/linux-containers/xenial/current/)
 
-Once downloaded, extract the image using XZ Utils:
+Once downloaded, extract the image, using e.g. 7-Zip, or XZ Utils:
 ```bash
 C:\Users\mathi\> .\xz.exe -d xenial-container-hyper-v.vhdx.xz
-C:\Users\mathi\>
 ```
 
 ## Prepare the container environment
