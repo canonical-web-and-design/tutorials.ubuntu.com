@@ -1,7 +1,7 @@
 ---
 id: get-started-canonical-kubernetes
 summary: Learn how to operate a production-ready Kubernetes cluster. Kubernetes is a great open-source orchestration system for cloud native infrastructure.
-categories: jaas
+categories: containers
 tags: jaas, juju, kubernetes, beginner, container, docker, cloud
 difficulty: 3
 status: Published
@@ -162,7 +162,7 @@ Now that you have your production cluster, you can put it to work:
 <!-- LINKS -->
 [sshkey]: https://jujucharms.com/docs/2.1/users-auth#credentials-and-ssh-keys
 [ubuntuone]: https://login.ubuntu.com/
-[canonicalkubernetes]: https://jujucharms.com/canonical-kubernetes 
+[canonicalkubernetes]: https://jujucharms.com/canonical-kubernetes
 [kubernetes]: https://kubernetes.io/
 [aws]: https://aws.amazon.com/
 [gce]: https://cloud.google.com/compute/

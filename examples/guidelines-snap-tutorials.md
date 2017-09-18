@@ -1,7 +1,7 @@
 ---
 id: tutorial-guidelines
 summary: A summary tutorial description. Remember the content of it (as the title) is searchable. It should be around 26 words.
-categories: snapcraft
+categories: community
 tags: tutorial,guidelines,snap
 difficulty: 2
 status: Published

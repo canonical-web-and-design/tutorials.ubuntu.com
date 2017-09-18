@@ -1,7 +1,7 @@
 ---
 id: build-a-nodejs-service
 summary: We are going to use the nodejs snapcraft plugin to build a simple service. We’ll guide you through the good practice for debugging and iterating over your web server, and basic confinement notions.
-categories: snapcraft
+categories: packaging
 status: published
 feedback: https://github.com/ubuntu/codelabs/issues
 tags: snapcraft, nodejs, service, beginner, plug, interface, webserver
@@ -125,18 +125,18 @@ Time to build your project (only priming it, no need for a snap for fast iterati
 
 ```bash
 $ snapcraft prime
-Preparing to pull webserver 
-Pulling webserver 
+Preparing to pull webserver
+Pulling webserver
 Downloading 'node-v4.4.4-linux-x64.tar.gz'[===============================] 100%
-Preparing to build webserver 
-Building webserver 
+Preparing to build webserver
+Building webserver
 npm --cache-min=Infinity install
 chucknorris-io@1.0.4 node_modules/chucknorris-io
 npm --cache-min=Infinity install --global
 […]/parts/webserver/install/bin/chuck-norris-app -> […]/parts/webserver/install/lib/node_modules/chuck-norris-app/main.js
 chuck-norris-app@1.0.0 […]/parts/webserver/install/lib/node_modules/chuck-norris-app
 └── chucknorris-io@1.0.4
-Staging webserver 
+Staging webserver
 Priming webserver
 ```
 
@@ -225,7 +225,7 @@ Ah, a failure! We are getting a javascript stacktrace. Looking a little bit more
 
 
 ```bash
-$ sudo chuck-norris-webserver.node-service 
+$ sudo chuck-norris-webserver.node-service
 Server listening on: http://localhost:80
 ```
 
@@ -237,7 +237,7 @@ It’s something to keep in mind while you iterate on a command which is going t
 
 It’s now high time to get rid of this devmode thing and add some confinement to your snap, let’s do this right away!
 
- 
+
 ## Turning on confinement!
 Duration: 5:00
 
@@ -256,7 +256,7 @@ You don’t forcefully need to change your `snapcraft.yaml` and rebuild (we’ll
 ```bash
 $ snap try prime/ --jailmode
 chuck-norris-webserver 1.0.0 mounted from […]/prime
-$ sudo chuck-norris-webserver.node-service 
+$ sudo chuck-norris-webserver.node-service
 events.js:141
       throw er; // Unhandled 'error' event
       ^
@@ -310,7 +310,7 @@ For example, if you run in another terminal:
 
 
 ```bash
-$ sudo chuck-norris-webserver.node-service 
+$ sudo chuck-norris-webserver.node-service
 
  [ same stacktrace ]
 ```
@@ -417,7 +417,7 @@ Let’s rebuild, install and run it:
 ```bash
 $ snapcraft prime
 $ snap try prime/
-$ sudo chuck-norris-webserver.node-service 
+$ sudo chuck-norris-webserver.node-service
 Server listening on: http://localhost:80
 ```
 
@@ -439,12 +439,12 @@ Slot           Plug
 ```
 
 
-#### We are initiating outgoing request to chucknorris.io to fetch a quote from the network. However, we didn’t use the network interface which seems suited for this. How come? 
+#### We are initiating outgoing request to chucknorris.io to fetch a quote from the network. However, we didn’t use the network interface which seems suited for this. How come?
 
 Actually, `network-bind` implies the `network` interface as we will do outgoing requests. You could define it if you want to be complete, but this is totally up to you.
 
 Phew, we are nearly there! We have a working snap, exposing a command which is now confined. It was easier to iterate thanks to the fact we kept the application as a command and not a service. However, now that everything is ready, let’s move on our final step: exposing this application as a service!
- 
+
 ## Exposing it as a service
 Duration: 4:00
 
@@ -624,7 +624,7 @@ Duration: 1:00
 Congratulations! As Chuck, you made it!
 
 positive
-: Final code 
+: Final code
 Your final code directory should now look like [this]. Do not hesitate to download and build your snap from it if you only read it through!
 
 
@@ -660,4 +660,3 @@ As a bonus, you have as well some basic training on systemd common commands to s
 [Snapcraft syntax reference]: http://snapcraft.io/docs/build-snaps/syntax
 [systemd]: https://www.linux.com/learn/here-we-go-again-another-linux-init-intro-systemd
 [contact us and the broader community]: http://snapcraft.io/community/
-

@@ -1,7 +1,7 @@
 ---
 id: create-your-own-core-image
 summary: Create your own Ubuntu Core image for a particular model, by assembling snaps available in the store. Make your own device image with some snap preinstalled or additional functionalities!
-categories: snap
+categories: iot
 status: Published
 feedbacklink: https://github.com/ubuntu/codelabs/issues
 tags: snap, ubuntu-image, image, device, assertion, model
@@ -11,9 +11,9 @@ published: 2016-09-13
 ---
 
 
-# Create your own Core image
+# Create your own Ubuntu Core image
 
- 
+
 ## Overview
 Duration: 1:00
 
@@ -46,11 +46,11 @@ Survey
  - Intermediate
  - Proficient
 
- 
+
 ## Getting started
 Duration: 1:00
 
-If you are on Ubuntu 16.04 LTS or Ubuntu 16.10, getting all the required tools is very easy. 
+If you are on Ubuntu 16.04 LTS or Ubuntu 16.10, getting all the required tools is very easy.
 
 
 positive
@@ -224,7 +224,7 @@ summary:   "Joule system package"
 publisher: canonical
 description: |
   system configuration of Intel Joule platform
-  
+
 type:      gadget
 tracking:  
 installed: 16.04-0.8+1 (1) 1MB -
@@ -296,7 +296,7 @@ Select a key:
 Key number: 2
 Enter your Ubuntu One SSO credentials.
 Email: my-email@ubuntu.com
-Password: 
+Password:
 Second-factor auth:
 
 Login successful.
@@ -443,7 +443,7 @@ Now that we have a signed model assertions, defining all bits we need to create 
 
 
 ```bash
-$ sudo ubuntu-image -o joule.img -c beta joule.model 
+$ sudo ubuntu-image -o joule.img -c beta joule.model
 Fetching core
 Fetching joule-linux
 Fetching joule
@@ -455,7 +455,7 @@ You can see that the core, gadget, kernel, hello and hello-world snaps are downl
 
 
 ```bash
-$ ls -lh joule.img 
+$ ls -lh joule.img
 -rw-rw-r-- 1 didrocks didrocks 695M Jan  6 17:20 joule.img
 ```
 
@@ -481,7 +481,7 @@ You should by now be familiar with the various snaps composing an Ubuntu image: 
 Finally, you know also that you can change those default snaps, and add more applications snaps as you require them. If you produce your own gadget or kernel snap, you can swap as well default ones and enable a new board that way.
 
 ### Next steps
-  - You should flash your new image to your device to test how this one behaves, checking that those 
+  - You should flash your new image to your device to test how this one behaves, checking that those
   - Learn some more advanced techniques on how to use your snap system looking for our others codelabs!
   - Join the snapcraft.io community on the [snapcraft forum].
 

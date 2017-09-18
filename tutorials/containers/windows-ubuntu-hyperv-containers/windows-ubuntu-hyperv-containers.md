@@ -1,7 +1,7 @@
 ---
 id: tutorial-windows-ubuntu-hyperv-containers
 summary: Run Ubuntu containers with Hyper-V isolation on Windows 10 and Windows Server.
-categories: desktop
+categories: containers
 tags: tutorial,installation,windows,ubuntu,terminal,docker,containers,hyper-v
 difficulty: 5
 status: Published
@@ -60,7 +60,7 @@ Duration: 1:00
 From the Windows Insider Program pane, select 'Get Started'. If your Microsoft account isn't linked to your Windows 10 installation, sign in when prompted and select the account you want to link to your installation.
 
 You will now be able to select what kind of content you'd like to receive from the Windows Insider Program. To ensure availability of the Hyper-V isolation features that Docker technology requires, select *Fast*. Select *Confirm* (twice), then allow Windows to restart your machine. After booting, it's likely you'll need to wait for your machine to install a variety of updates before you can move on to the next step.
- 
+
 ![screenshot](windows-insider-program.png)
 
 ## Install Docker for Windows

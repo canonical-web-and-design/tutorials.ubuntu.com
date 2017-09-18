@@ -1,7 +1,7 @@
 ---
 id: basic-snap-usage
 summary: In this tutorial, we are going to cover the very basic on how to use snaps on your distributions, and the main benefits from them.
-categories: snap
+categories: packaging
 status: Published
 feedback link: https://github.com/ubuntu/codelabs/issues
 tags: snap, usage, beginner, idf-2016
@@ -240,7 +240,7 @@ hello-world removed
 
 Nice and clean, nothing is left-over! Application code, its run time dependencies and associated user data are all cleaned up. If your snap declared a service, they will as well be shut down and removed.
 
-  
+
 ## Using versions and channels
 Duration: 2:00
 
@@ -323,4 +323,3 @@ By now you should have found snaps in the store, installed and updated them, cha
 [snapcraft forum]: https://forum.snapcraft.io/
 [Snapcraft.io documentation]: http://snapcraft.io/docs/
 [contact us and the broader community]: http://snapcraft.io/community/
-

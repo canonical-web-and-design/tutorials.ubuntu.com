@@ -1,7 +1,7 @@
 ---
 id: continuous-snap-delivery-from-travis-ci
 summary: Learn how to use Travis CI to deliver a new snap version to your early adopters every time you make a change in your master branch.
-categories: snapcraft
+categories: packaging
 tags: snapcraft,travis,ci,cd
 difficulty: 3
 status: Published

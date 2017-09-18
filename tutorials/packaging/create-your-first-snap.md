@@ -1,7 +1,7 @@
 ---
 id: create-your-first-snap
 summary: We are going to use snapcraft to walk you through the creation of your first snap and main snapcraft concepts.
-categories: snapcraft
+categories: packaging
 status: Published
 feedback link: https://github.com/ubuntu/codelabs/issues
 tags: snapcraft, usage, build, beginner, idf-2016
@@ -11,7 +11,7 @@ published: 2016-08-31
 ---
 
 # Create your first snap
- 
+
 ## Overview
 Duration: 1:00
 
@@ -52,7 +52,7 @@ Survey
 ## Getting started
 Duration: 1:00
 
-If you are on Ubuntu 16.04 LTS or Ubuntu 16.10, getting all the required tools is very easy. 
+If you are on Ubuntu 16.04 LTS or Ubuntu 16.10, getting all the required tools is very easy.
 
 
 positive
@@ -219,7 +219,7 @@ Snapping 'hello' |
 Snapped hello_2.10_amd64.snap
 ```
 
-If your system does not have installed some dependencies such as "autopoint" and "libtool" needed for this example, snapcraft will prompt for the system password to install them. 
+If your system does not have installed some dependencies such as "autopoint" and "libtool" needed for this example, snapcraft will prompt for the system password to install them.
 
 You just built your first snap! Congratulations! Let’s install it now.
 
@@ -253,7 +253,7 @@ Or you might get another error if you installed the hello snap before:
 ```bash
 ~/hello$ hello
 bash: /snap/bin/hello No such file
-... 
+...
 ```
 
 
@@ -325,7 +325,7 @@ Skipping prime gnu-hello (already ran)
 hello 2.10 mounted from ~/hello/prime
 ```
 
-In the steps above we first tell snapcraft to run the build up until the “prime” step. This is where all parts are built and put together for snap creation. Think of it as the extracted contents of the snap package. These we can easily give to `snap try` which installs an unpacked snap into the system for testing purposes. The unpacked snap content continues to be used even after installation, so non-metadata changes (e.g. snap name, etc.) there go live instantly. This makes things a lot quicker and easier to test. 
+In the steps above we first tell snapcraft to run the build up until the “prime” step. This is where all parts are built and put together for snap creation. Think of it as the extracted contents of the snap package. These we can easily give to `snap try` which installs an unpacked snap into the system for testing purposes. The unpacked snap content continues to be used even after installation, so non-metadata changes (e.g. snap name, etc.) there go live instantly. This makes things a lot quicker and easier to test.
 
 
 
@@ -508,7 +508,7 @@ Skipping stage gnu-bash (already ran)
 Skipping stage gnu-hello (already ran)
 Skipping prime gnu-bash (already ran)
 Skipping prime gnu-hello (already ran)
-Snapping 'hello' - 
+Snapping 'hello' -
 Snapped hello_2.10_amd64.snap
 ```
 
@@ -570,7 +570,7 @@ Open My Apps in your browser and follow the instructions to register an account:
 
 Select "I am a new Ubuntu One user” and complete the needed data.
 
-![IMAGE](https://assets.ubuntu.com/v1/32614c93-screen2.png) 
+![IMAGE](https://assets.ubuntu.com/v1/32614c93-screen2.png)
 
 Enter your email address, name and password, accept the terms of service and create the account. Remember as well to choose a namespace on myapps before registering your snap.
 
@@ -583,7 +583,7 @@ If it is your first time you will get a message to enable multifactor authentica
 ~/hello$ snapcraft login
 Enter your Ubuntu One SSO credentials.
 Email: myemail@provider.com
-Password: 
+Password:
 One-time password (just press enter if you don't use two-factor authentication):
 Authenticating against Ubuntu One SSO.
 Login successful.
@@ -607,7 +607,7 @@ Congratulations! You're now the publisher for 'hello-<yourname>'.
 
 If the name is already reserved, you can either dispute that name or just pick a new one.
 
-If you changed your snap name while registering, you need to rebuild this snap with that new name: 
+If you changed your snap name while registering, you need to rebuild this snap with that new name:
 
   - change your snap name in `snapcraft.yaml`:
 
@@ -723,4 +723,3 @@ By now you should successfully have built your first snap, fixed build issues, e
 [interfaces]: https://snapcraft.io/docs/core/interfaces
 [Snapcraft syntax reference]: http://snapcraft.io/docs/build-snaps/syntax
 [contact us and the broader community]: http://snapcraft.io/community/
-

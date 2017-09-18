@@ -1,8 +1,8 @@
 ---
 id: tutorial-setting-up-lxd-1604
 summary: Deploying fast, lightweight containers on Ubuntu is easy with LXD. We'll show you how to set up your LXD and deploy your first container in just a few minutes.
-categories: lxd
-tags: tutorial,installation,ubuntu,desktop,server,lxd
+categories: containers
+tags: tutorial,installation,ubuntu,desktop,server,lxd,lxc
 difficulty: 2
 status: Published
 author: Alberto Donato
@@ -26,7 +26,7 @@ This tutorial will show how to install and setup LXD on Ubuntu 16.04 (Xenial Xer
 ### Requirements
 
 The tutorial requires an Ubuntu 16.04 installation (Desktop or Server), with internet access. This can be either a physical or virtual machine.
- 
+
 
 ## Install LXD
 Duration: 0:04

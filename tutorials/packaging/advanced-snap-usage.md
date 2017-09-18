@@ -1,7 +1,7 @@
 ---
 id: advanced-snap-usage
 summary: Learn advanced techniques and features of snapd. What happens when installing a snap, how to access service logs and configure snaps, connect interfaces and change confinement modes? We’ll detail it all and even more here for you!
-categories: snap
+categories: packaging
 status: Published
 feedback-link: https://github.com/ubuntu/codelabs/issues
 tags: snap, usage, classic, devmode, classic, confinement, service, log, interface, configuration, hook, file system
@@ -16,7 +16,7 @@ Author: Didier Roche <didier.roche@canonical.com>
 ## Introduction
 Duration: 1:00
 
-Now that you understand how to deal with the basics of snaps, its philosophy, core purposes and features, it’s time to dig a little bit further! 
+Now that you understand how to deal with the basics of snaps, its philosophy, core purposes and features, it’s time to dig a little bit further!
 
 ### What you’ll learn
   - What are snap installation transactions, how to track them, abort…
@@ -66,7 +66,7 @@ Ok, done? Now let’s log in via this account:
 ```bash
 $ sudo snap login
 Email address: your@email.com
-Password of "your@email.com": 
+Password of "your@email.com":
 Login successful
 ```
 
@@ -253,7 +253,7 @@ You have here the snap itself (**.snap file**) and its assertion companion (**.a
 If you just try to install this local snap (note that we point it to the filename path), you will be welcomed with a scary message:
 
 ```bash
-$ snap install nethack_2.snap 
+$ snap install nethack_2.snap
 error: cannot find signatures with metadata for snap "nethack_2.snap"
 ```
 
@@ -291,7 +291,7 @@ Note that we only needed the snap name for that removal operation.
 Mimicking traditional install from the store, we can manually import the downloaded assertion and then safely install the snap. This is a 2 steps process:
 
 ```bash
-$ snap ack nethack_2.assert 
+$ snap ack nethack_2.assert
 $ snap install nethack_2.snap
 nethack 3.4.2-2 from 'ogra' installed
 ```
@@ -392,7 +392,7 @@ AcLBUgQAAQoABgUCV828bgAApasQAIdAOFB2OqlNKERYoYLGkHV9wHwuALdOpG7BIa2S5lVnSpvd
 
 It sounds natural that this download and validation step is one of the first ones when we are installing a snap. But that’s clearly not the end of the story. The permission model and interfaces are a core concept of snaps, and that’s what we are going to look at right now!
 
- 
+
 ## Handling interfaces and permissions in your snaps
 Duration: 15:00
 
@@ -473,7 +473,7 @@ Running the command line tool after installing the snap gives us:
 
 
 ```bash
-$ chuck-norris-webserver.cli 
+$ chuck-norris-webserver.cli
 FILE SYSTEM: I see from /etc/os-release that I'm running on Ubuntu Core 16.
 CAMERA [FAIL]: Urgh, even Chuck doesn't have access to the camera
 HOME ACCESS [FAIL]: What's happening? I can't even read your home directory.
@@ -489,7 +489,7 @@ Let’s connect our **camera plug** to the **ubuntu core slot** before rerunning
 
 ```bash
 $ snap connect chuck-norris-webserver:camera :camera
-$ chuck-norris-webserver.cli 
+$ chuck-norris-webserver.cli
 FILE SYSTEM: I see from /etc/os-release that I'm running on Ubuntu Core 16.
 HOME ACCESS [FAIL]: What's happening? I can't even read your home directory.
 CAMERA [OK]: I can see you, you should smile more!
@@ -529,7 +529,7 @@ Disconnecting the network plug for this snap will simply be done via:
 
 ```bash
 $ snap disconnect chuck-norris-webserver:network
-$ chuck-norris-webserver.cli 
+$ chuck-norris-webserver.cli
 FILE SYSTEM: I see from /etc/os-release that I'm running on Ubuntu Core 16.
 NETWORK [FAIL]: I can't connect to chucknorris.io. Offering you a network-related joke then: Chuck Norris's OSI network model has only one layer - Physical.
 HOME ACCESS [FAIL]: What's happening? I can't even read your home directory.
@@ -649,7 +649,7 @@ However, they don’t matter anymore, as every access is now granted to the syst
 
 
 ```bash
-$ chuck-norris-webserver.cli 
+$ chuck-norris-webserver.cli
 FILE SYSTEM: I see from /etc/os-release that I'm running on Ubuntu Core 16.
 HOME ACCESS [OK]: My power enables me to see that you have .hidden in your home directory. I'm unstoppable!
 CAMERA [OK]: I can see you, you should smile more!
@@ -703,7 +703,7 @@ Let’s install and run the same snap than before, but a version declaring `conf
 
 ```bash
 $ snap install --classic chuck-norris-webserver-classic
-$ chuck-norris-webserver-classic.cli 
+$ chuck-norris-webserver-classic.cli
 FILE SYSTEM: I see from /etc/os-release that I'm running on Ubuntu 16.04.2 LTS.
 HOME ACCESS [OK]: My power enables me to see that you have .hidden in your home directory. I'm unstoppable!
 CAMERA [OK]: I can see you, you should smile more!
@@ -935,7 +935,7 @@ Let’s go back again to our famous **chuck-norris-webserver** snap! This one ha
 
 Let’s load it again first, head over to [http://localhost]:
 
-![IMAGE](https://assets.ubuntu.com/v1/3db2fc34-chuck-norris-1.png) 
+![IMAGE](https://assets.ubuntu.com/v1/3db2fc34-chuck-norris-1.png)
 
 
 
@@ -1185,13 +1185,13 @@ The `info` command shows detailed information about a snap.
 $ snap info chuck-norris-webserver
 name:      chuck-norris-webserver
 summary:   "Chuck Norris quotation nodejs server and cli"
-publisher: 
+publisher:
 description: |
   This example shows how to build a nodejs web server and cli. This enables us
   to demonstrate how service works, basic confinement rules to access and listen
   on the network, as well as the nodejs snapcraft plugin.
   The command line demonstrate various file-based access permissions.
-  
+
 commands:
   - chuck-norris-webserver.cli
 tracking:    stable
@@ -1431,4 +1431,3 @@ Finally, you are now familiar with some of the secrets features of snapd making 
 [interface reference]: http://snapcraft.io/docs/reference/interfaces
 [systemd]: https://www.linux.com/learn/here-we-go-again-another-linux-init-intro-systemd
 [contact us and the broader community]: http://snapcraft.io/community/
-

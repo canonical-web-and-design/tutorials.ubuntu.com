@@ -1,7 +1,7 @@
 ---
 id: setup-ubuntu-core-intel-joule
 summary: In this codelab, we are going to setup Ubuntu Core on your Intel Joule. We’ll flash the sd card with an Ubuntu Core image and then configure it.
-categories: snap
+categories: iot
 status: Published
 feedback-link https://github.com/ubuntu/codelabs/issues
 tags: snap, usage, beginner, joule, console-conf
@@ -59,11 +59,11 @@ If you have already had an SSO account, you can skip this step and move to the n
 
   2. Complete account verification
 
-![IMAGE](https://assets.ubuntu.com/v1/11e60c02-sso-2.png) 
+![IMAGE](https://assets.ubuntu.com/v1/11e60c02-sso-2.png)
 
-![IMAGE](https://assets.ubuntu.com/v1/fcaa5d3d-sso-3.png) 
+![IMAGE](https://assets.ubuntu.com/v1/fcaa5d3d-sso-3.png)
 
-![IMAGE](https://assets.ubuntu.com/v1/bec1518f-sso4.png) 
+![IMAGE](https://assets.ubuntu.com/v1/bec1518f-sso4.png)
 
   3. Create a SSH Key
 	This step is only necessary if you don’t have an SSH key on your system.
@@ -97,15 +97,15 @@ Your public key is now available as `.ssh/id_rsa.pub` in your home folder.
 Clicking “**SSH keys**" on the left side shows the following screen. You can now just copy and paste the content of  `id_rsa.pub` file into the field. Confirm your ssh key by clicking on “**Import SSH key**”.
 
 ![IMAGE](https://assets.ubuntu.com/v1/ff6ea30a-sso-ssh.png)
-	
+
 ## Create a bootable Ubuntu Core 16 SD card
 Duration: 7:00
 
-In this step,  you are going to flash a bootable image into a Ubuntu Core 16 SD card. 
+In this step,  you are going to flash a bootable image into a Ubuntu Core 16 SD card.
 
   - Firstly, build your own Ubuntu Core image
   - Insert your SD card or USB flash drive (you need an SD card adapter)
-  - Identify its address by opening the "Disks" application and look for the "Device" line. If the line is in the `/dev/mmcblk0p1` format, then your drive address is: `/dev/mmcblk0`. If it is in the `/dev/sdb1` format, then the address is `/dev/sdb`. 
+  - Identify its address by opening the "Disks" application and look for the "Device" line. If the line is in the `/dev/mmcblk0p1` format, then your drive address is: `/dev/mmcblk0`. If it is in the `/dev/sdb1` format, then the address is `/dev/sdb`.
 	You may also use the following command to find out your device’s name:
 
 
@@ -143,7 +143,7 @@ Duration: 5:00
 
 ### Boot Intel Joule with Ubuntu Core 16
 
-![IMAGE](https://assets.ubuntu.com/v1/ab27547b-joule-board.png) 
+![IMAGE](https://assets.ubuntu.com/v1/ab27547b-joule-board.png)
 
 Power on the Joule board for booting on your new image:
   1. Insert your SD card into your Intel Joule board
@@ -155,26 +155,26 @@ Power on the Joule board for booting on your new image:
      ![IMAGE](https://assets.ubuntu.com/v1/3d89c983-core-1.png)
      ![IMAGE](https://assets.ubuntu.com/v1/cec51425-core-2.png)
   1. Configure network setting. Move cursor and select the wireless LAN interface (wlan0). And press enter.
-     ![IMAGE](https://assets.ubuntu.com/v1/2adb5bfd-core-3.png) 
+     ![IMAGE](https://assets.ubuntu.com/v1/2adb5bfd-core-3.png)
      Select ‘Configure WIFI settings’ and press enter to get to screen that allows for choosing a visible network, scan for      networks or manually enter SSID and Password.
-     ![IMAGE](https://assets.ubuntu.com/v1/237fb42e-core-4.png) 
+     ![IMAGE](https://assets.ubuntu.com/v1/237fb42e-core-4.png)
      Input your network SSID and password and select ‘**Done**’. Or use ‘**Choose a visible network**’ to pick a name from the network list. ‘**Scan for networks**’ is used to trigger a new WiFi scan.
-     ![IMAGE](https://assets.ubuntu.com/v1/09f77bbf-core-5.png) 
+     ![IMAGE](https://assets.ubuntu.com/v1/09f77bbf-core-5.png)
      Edit IPv4 and IPv6 configurations if necessary and select ‘**Done**’.
-     ![IMAGE](https://assets.ubuntu.com/v1/fb486e61-core-6.png) 
+     ![IMAGE](https://assets.ubuntu.com/v1/fb486e61-core-6.png)
      The network settings will be applied.
-     ![IMAGE](https://assets.ubuntu.com/v1/8c7289c3-core-7.png) 
+     ![IMAGE](https://assets.ubuntu.com/v1/8c7289c3-core-7.png)
 
   1. Enter user’s account on [Ubuntu One]. Select “Done” to complete.
-     ![IMAGE](https://assets.ubuntu.com/v1/49190c72-core-8.png) 
+     ![IMAGE](https://assets.ubuntu.com/v1/49190c72-core-8.png)
 
   1. The configuration is completed. On the screen, the Ubuntu SSO username and the device IP address will be shown. The SSH keys linked to the user will be shown as well.
-     ![IMAGE](https://assets.ubuntu.com/v1/26329c2b-core-9.png) 
+     ![IMAGE](https://assets.ubuntu.com/v1/26329c2b-core-9.png)
 
   1. The user can now login to the system with username and ssh key registered on Ubuntu One. Use ssh client to login the system from another machine which has the same network as your Intel Joule board.
 
 **NOTE**: only remote access via ssh is enabled until a password is set via instructions in the next step.
-Use the command to login Joule via ssh: 
+Use the command to login Joule via ssh:
 
 ```bash
 $ ssh <username of Ubuntu One>@10.101.46.211
@@ -210,4 +210,3 @@ By now you should have successfully flashed and configured your Intel Joule boar
 [snapcraft forum]: https://forum.snapcraft.io/
 [Snapcraft.io documentation]: http://snapcraft.io/docs/
 [contact us and the broader community]: http://snapcraft.io/community/
-

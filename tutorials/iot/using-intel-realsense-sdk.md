@@ -1,7 +1,7 @@
 ---
 id: using-intel-realsense-sdk
 summary: We are going to illustrate how to build some Intel RealSense SDK samples on an ubuntu desktop. You will be able to hook up on your Intel Joule and build the samples, explore some of the code and try them!
-categories: snap
+categories: iot
 status: Published
 feedback-link: https://github.com/ubuntu/codelabs/issues
 tags: snap, classic, realsense, joule
@@ -39,7 +39,7 @@ Survey
 ## Getting started
 Duration: 2:00
 
-If you are on Ubuntu 16.04 LTS or Ubuntu 16.10, getting all the required tools is very easy. 
+If you are on Ubuntu 16.04 LTS or Ubuntu 16.10, getting all the required tools is very easy.
 
 
 positive
@@ -132,12 +132,12 @@ This project contains a certain number of samples, where you can get raw data fr
 
 #### librealsense_persontracking_20161220.tar.gz
 
-Intel® RealSense™ Person Library provides the ability to sense and recognize people, understand what they do, and interact with them. 
+Intel® RealSense™ Person Library provides the ability to sense and recognize people, understand what they do, and interact with them.
 
 
 The following features are available in this release:
 
-  -  **Person Detection**:  Detects people in a scene. Provides their location through a bounding rectangle. 
+  -  **Person Detection**:  Detects people in a scene. Provides their location through a bounding rectangle.
   - **Person Tracking**: Follows people within a space. Provides the person's Center of Mass (COM) and handles occlusions and cases in which the person exits the field of view (FOV).
   - **Person Recognition**: Identifies a person by ID. Supports databases of up to 30 registered users.
   - **Body Tracking**: Tracks body part movements. Provides six points of interest on the body (head, chest, shoulders, and extremities of the hands).
@@ -148,21 +148,21 @@ Body tracking is supported up to a distance of 2.8m from the camera.
 
 #### realsense_object_recognition20161208.tar.bz2
 
-Intel® RealSense™ Object Library enables machines to understand what they are viewing and provides meaning to computer vision made possible by Intel RealSense cameras. This ability facilitates more dynamic human machine interaction. Intel® RealSense™ Object Library uses a CNN-based architecture that utilizes depth to efficiently and accurately classify and localize objects. This middleware includes features for recognizing, localizing, and tracking objects from a pre-defined library. 
+Intel® RealSense™ Object Library enables machines to understand what they are viewing and provides meaning to computer vision made possible by Intel RealSense cameras. This ability facilitates more dynamic human machine interaction. Intel® RealSense™ Object Library uses a CNN-based architecture that utilizes depth to efficiently and accurately classify and localize objects. This middleware includes features for recognizing, localizing, and tracking objects from a pre-defined library.
 
 The following features are available in this release:
 
   - **Object Recognition (OR)**: Identifies a single object in the scene based on pre-trained classifiers in a pre-defined ROI.
   - **Object Localization (OD)**: Identifies and locates multiple objects in a scene.
   - **3D Object Position**: Provides the x,y,z world coordinates of the center of the object. The more exact the bounding box, the more exact this value will be. This is only available in instances where depth is available and will not be provided as a direct output of localization.
-  - **Object Tracking**: Enables the camera to keep track of objects that have been previously localized. 
+  - **Object Tracking**: Enables the camera to keep track of objects that have been previously localized.
 
 #### librealsense_slam_20161221.tar.bz2
 
-Intel® RealSense™ SLAM Library provides Simultaneous Localization and Mapping capabilities. 
+Intel® RealSense™ SLAM Library provides Simultaneous Localization and Mapping capabilities.
 
 
-The following features are available in this release: 
+The following features are available in this release:
 
   - **Real-time 6 degrees of freedom** (6DoF) camera tracking.
   - Learning an area by associating its appearance with 6DoF coordinates, so enabling re-localization.
@@ -176,9 +176,9 @@ SLAM uses the visual-inertial sensor of the RealSense camera to estimate odometr
 
 #### realsense_sdk_07_12_2016WW50.tar.gz
 
-The Intel® RealSense™ SDK for Linux provides libraries, tools, and samples to develop applications using Intel® RealSense™ cameras, over the Intel librealsense API. 
+The Intel® RealSense™ SDK for Linux provides libraries, tools, and samples to develop applications using Intel® RealSense™ cameras, over the Intel librealsense API.
 
-The SDK provides functionality of record and playback of camera streams for test and validation. 
+The SDK provides functionality of record and playback of camera streams for test and validation.
 
 The SDK includes libraries which support the camera stream projection of streams into a common world-space viewpoint, and libraries which enable the use of multiple middleware modules simultaneously for common multi-modal scenarios.  
 
@@ -188,12 +188,12 @@ It features:
      - **Record**: The record module provides a utility to create a file, which can be used by the playback module to create a video source.
     The record module provides the same camera API as defined by the SDK (**librealsense**) and the record API to configure recording parameters such as output file and state (pause and resume).
     The record module loads librealsense to access the camera device and execute the set requests and reads, while writing the configuration and changes to the file.
-     - **Playback**: The playback module provides a utility to create a video source from a file. 
+     - **Playback**: The playback module provides a utility to create a video source from a file.
     The playback module provides the same camera API as defined by the SDK (**librealsense**), and the playback API to configure recording parameters such as input file, playback mode, seek, and playback state (pause and resume).
     The playback module supports files that were recorded using the Linux SDK recorder and the Windows RSSDK recorder (up to version 2016 R2).
   - **Frame data container**:
     The SDK provides an image container for raw image access and basic image processing services, such as format conversion, mirror, rotation, and more. It caches the processing output to optimize multiple requests of the same operation.
-    The image container includes image metadata, which may be used by any pipeline component to attach additional data or computer vision (CV) module processing output to be used by other pipeline components. The SDK uses a correlated samples container to provide access to camera images and motion sensor samples from the relevant streams, which are time-synchronized. The correlated samples container includes all relevant raw buffers, metadata, and information required to access the attached images. 
+    The image container includes image metadata, which may be used by any pipeline component to attach additional data or computer vision (CV) module processing output to be used by other pipeline components. The SDK uses a correlated samples container to provide access to camera images and motion sensor samples from the relevant streams, which are time-synchronized. The correlated samples container includes all relevant raw buffers, metadata, and information required to access the attached images.
   - **Spatial correlation and projection**:
     The Spatial Correlation and Projection library provides utilities for spatial mapping:
      - Map between color or depth image pixel coordinates and real world coordinates
@@ -204,7 +204,7 @@ It features:
   - **Samples**:
      - **Projection**: The sample demonstrates how to use the different spatial correlation and projection functions, from live camera and recorded file
      - **Record and Playback**: The sample demonstrates how to record and play back a file while the application is streaming, with and without an active CV module,      with minimal changes to the application, compared to live streaming.
-     - **Video module, asynchronized**: The sample demonstrates an application usage of a Computer Vision module, which implements asynchronous sample processing. 
+     - **Video module, asynchronized**: The sample demonstrates an application usage of a Computer Vision module, which implements asynchronous sample processing.
      - **Video module, synchronized**: The sample demonstrates an application usage of a Computer Vision module, which implements synchronous samples processing.
      - **Fatal error recovery**: The sample demonstrates how the application can recover from a fatal error in one of the SDK components (CV module or core module), without having to terminate.
 
@@ -214,8 +214,8 @@ It features:
      - **System Info tool**: Presents system data such as Linux name, Linux kernel version, CPU information, and more.
 
   - **Utilities**:
-     - **Log**: The SDK provides a logging library, which can be used by the SDK components and the application to log meaningful events. 
-     - **Time Sync utility**: Provides methods to synchronize multiple streams of images and motion samples based on the samples time-stamp or sample number. 
+     - **Log**: The SDK provides a logging library, which can be used by the SDK components and the application to log meaningful events.
+     - **Time Sync utility**: Provides methods to synchronize multiple streams of images and motion samples based on the samples time-stamp or sample number.
      - **SDK Data Path utility**: The SDK provides a utility to locate SDK files in the system.
      The utility is used by Computer Vision modules, which need to locate data files in the system that are constant for all applications (not application- or algorithm-instance specific).
      - **FPS counter**:  Measures the actual FPS in a specific period. You can use this utility to check the actual FPS in all software stack layers in your applications, to analyze FPS latency in those layers.
@@ -241,7 +241,7 @@ Here is an example with **rs_pt_tutorial_1_web**:
 
 
 ```bash
-$ rs_pt_tutorial_1_web 
+$ rs_pt_tutorial_1_web
 
 enabling: stream:DEPTH, 320x240x30, format:Z16
 
@@ -272,7 +272,7 @@ All corresponding commands will be prepended with **rs_**. librealsense samples 
 ### RealSense sample description
 
 To guide you through the samples, here is some description of the existing SDK samples:
-  - **rs_or_tutorial_1**: This console app demonstrates the use of librealsense, Object Library, and the Linux SDK Framework, along with the RealSense camera's depth and color sensors to identify objects in the scene. 
+  - **rs_or_tutorial_1**: This console app demonstrates the use of librealsense, Object Library, and the Linux SDK Framework, along with the RealSense camera's depth and color sensors to identify objects in the scene.
 Each object identified is printed on the command line along with the confidence value for the object. Objects must take up ~50% of the screen to be recognized.
   - **rs_or_tutorial_2**: This console app builds on the rs_or_tutorial_1 app and demonstrates how to utilize the object localization and 3D localization functionality of the Object Library module. All items with >= 90% confidence will be identified, along with their bounding rectangle coordinates in the console..
   - **rs_or_tutorial_3**: This console app builds on the rs_or_tutorial_2 app and demonstrates how to add the Object Tracking functionality of the Object Library module, with localization and 3D localization. Objects for tracking can be as small as 1% of the screen.
@@ -325,4 +325,3 @@ You should by now be familiar with the various parts composing the SDK, what eac
 [snapcraft forum]: https://forum.snapcraft.io/
 [Intel RealSense]: http://www.intel.fr/content/www/fr/fr/architecture-and-technology/realsense-overview.html
 [contact us and the broader community]: http://snapcraft.io/community/
-

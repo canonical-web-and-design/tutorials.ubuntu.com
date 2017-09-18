@@ -1,7 +1,7 @@
 ---
 id: tutorial-ubuntu-on-windows
 summary: Get access to the unrivalled power of the Ubuntu terminal, including tools such as SSH, apt and vim, directly on your Windows 10 computer.
-categories: desktop
+categories: server
 tags: tutorial,installation,windows,ubuntu,terminal
 difficulty: 2
 status: Published
@@ -63,8 +63,8 @@ Duration: 1:00
 From the Windows Insider Program pane, select 'Get Started'. If your Microsoft account isn't linked to your Windows 10 installation, sign in when prompted and select the account you want to link to your installation.
 
 You will now be able to select what kind of content you'd like to receive from the Windows Insider Program. The least disruptive is the default option, *Just fixes, apps and drivers*. Select *Confirm* (twice) and allow Windows to restart your machine. After booting, it's likely you'll need to wait for your machine to install a variety of updates before you can move on to the next step.
- 
-![screenshot](https://assets.ubuntu.com/v1/35588b47-win10-ubuntu-content.png) 
+
+![screenshot](https://assets.ubuntu.com/v1/35588b47-win10-ubuntu-content.png)
 
 ## Activate the Windows Subsystem for Linux
 Duration: 2:00
@@ -75,7 +75,7 @@ While Ubuntu does appear when searched for within the Windows Store, it currentl
 1. Scroll through the *Windows Features* pane and enable **Windows Subsystem for Linux (Beta)**
 1. Press OK to activate the changed configuration
 
-When prompted, restart your machine. 
+When prompted, restart your machine.
 
 ![screenshot](https://assets.ubuntu.com/v1/c18526f7-win10-ubuntu-features.png)
 
@@ -95,9 +95,9 @@ Duration: 2:00
 
 Open the Windows Command Prompt. The easiest way to do this is to type **cmd** into the Start menu and run the default result.
 
-When the command prompt appears, type **bash**. The output from this command will announce that Ubuntu for Windows is about to be installed. Type **y** to continue. The package will now be downloaded and installed - you may also be asked whether to install packages for your specific locality/region. 
+When the command prompt appears, type **bash**. The output from this command will announce that Ubuntu for Windows is about to be installed. Type **y** to continue. The package will now be downloaded and installed - you may also be asked whether to install packages for your specific locality/region.
 
-Finally, you'll be asked for a username and password specific to your Ubuntu installation. These don't need to be the same as your Windows 10 credentials. With this step complete, you'll find yourself at the Ubuntu bash command line. 
+Finally, you'll be asked for a username and password specific to your Ubuntu installation. These don't need to be the same as your Windows 10 credentials. With this step complete, you'll find yourself at the Ubuntu bash command line.
 
 ![screenshot](https://assets.ubuntu.com/v1/05a35ed8-win10-ubuntu-bash-complete.png)
 

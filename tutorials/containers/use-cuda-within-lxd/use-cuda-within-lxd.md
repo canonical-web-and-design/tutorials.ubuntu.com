@@ -1,8 +1,8 @@
 ---
 id: gpu-data-processing-inside-lxd
-summary: Accelerate data processing within LXD containers by enabling direct access to your Nvidia GPU's CUDA engine. 
-categories: lxd
-tags: lxd, cuda, nvidia, gpu, big data
+summary: Accelerate data processing within LXD containers by enabling direct access to your Nvidia GPU's CUDA engine.
+categories: containers
+tags: lxd, cuda, nvidia, gpu, big data, lxc
 difficulty: 4
 published: 2017-07-12
 author: Graham Morrison <graham.morrison@canonical.com>
@@ -29,7 +29,7 @@ Our configuration is going to be based on the following:
 positive
 : LXD versioning is incremental, which means version 2.13 is more recent than version 2.5.
 
-We'll be using Nvidia hardware alongside Nvidia's proprietary CUDA, as these currently constitute the most widely used GPGPU platform. 
+We'll be using Nvidia hardware alongside Nvidia's proprietary CUDA, as these currently constitute the most widely used GPGPU platform.
 
 However, LXD's hardware passthrough enables any GPU to appear natively to any deployment, which means that using different GPUs or drivers with OpenCL should be possible.
 
@@ -57,7 +57,7 @@ It's safer to reboot your machine at this point, although this isn't strictly ne
 ### Remove Nouveau drivers
 Duration: 3:00
 
-The *nouveau* driver, installed by default when you elect not to add Nvidia's proprietary drivers, may refuse to remove itself. You can check with the following command: 
+The *nouveau* driver, installed by default when you elect not to add Nvidia's proprietary drivers, may refuse to remove itself. You can check with the following command:
 
 ```bash
 lsmod | grep nouveau
@@ -129,7 +129,7 @@ sudo ./cuda_8.0.61_375.26_linux.run
 
 The installer will ask a few questions.
 
-Accept the licence but answer `n` when asked whether you want to install the Nvidia accelerated driver. This is because the installer typically bundles an older version of the driver, such as 375.26 with our example, and you don't want this installed on-top of the driver we already have. All further questions can be answered `y` to accept their default values. 
+Accept the licence but answer `n` when asked whether you want to install the Nvidia accelerated driver. This is because the installer typically bundles an older version of the driver, such as 375.26 with our example, and you don't want this installed on-top of the driver we already have. All further questions can be answered `y` to accept their default values.
 
 To add CUDA to your path, add the following to your bash configuration file, eg. `~/.bashrc`, and either re-source the file or log out and back in again:
 
@@ -151,7 +151,7 @@ Cuda compilation tools, release 8.0, V8.0.61
 
 Being correctly installed doesn't necessarily mean CUDA is correctly linked to the Nvidia driver. To make sure this is working, use the `bandwidthTest` utility from CUDA's demo_suite folder, usually found in '/usr/local/cuda-8.0/extras/demo_suite/'.
 
-If everything is working correctly, you should see `Result = PASS` at the end of the output. 
+If everything is working correctly, you should see `Result = PASS` at the end of the output.
 
 ## Launch LXD
 Duration: 5:00
@@ -168,7 +168,7 @@ You can then launch a fresh deployment of Ubuntu 16.04 with the following comman
 lxc launch ubuntu:16.04 cuda
 ```
 
-We've given this new instance the name of 'cuda'. If this is the first time you've deployed an LXD instance with 'ubuntu:16.04', its image will be retrieved as part of the creation process. 
+We've given this new instance the name of 'cuda'. If this is the first time you've deployed an LXD instance with 'ubuntu:16.04', its image will be retrieved as part of the creation process.
 
 ```
 Creating cuda
@@ -189,9 +189,9 @@ There are two ways of easily executing commands on the instance. The first is to
 lxc exec cuda -- /bin/bash
 ```
 
-The second is to run each command using the `lxc exec cuda -- new-command` syntax. We're going to opt for the former. 
+The second is to run each command using the `lxc exec cuda -- new-command` syntax. We're going to opt for the former.
 
-We now need to go through the same series of steps to install the drivers and CUDA in LXD as we did for the host machine. This is because CUDA needs the drivers and the drivers within LXD need to correlate with those of the host. 
+We now need to go through the same series of steps to install the drivers and CUDA in LXD as we did for the host machine. This is because CUDA needs the drivers and the drivers within LXD need to correlate with those of the host.
 
 Let's start with the Nvidia driver:
 
@@ -225,7 +225,7 @@ Duration: 5:00
 
 With the proprietary Nvidia drivers installed on both the host and LXD, and with LXD seeing the Nvidia hardware, we now need to step through the same CUDA install process we did for the host machine:
 
-You can avoid the download step by using SFTP to copy the CUDA installer to the LXD instance: 
+You can avoid the download step by using SFTP to copy the CUDA installer to the LXD instance:
 
 ```bash
 sftp username@192.168.1.124:/path/to/cuda_8.0.61_375.26_linux.run .
@@ -238,7 +238,7 @@ chmod +x cuda_8.0.61_375.26_linux.run
 sudo ./cuda_8.0.61_375.26_linux.run
 ```
 
-Don't forget to make sure the CUDA libraries and binaries are in your path. 
+Don't forget to make sure the CUDA libraries and binaries are in your path.
 
 ## Test CUDA within LXD
 Duration: 3:00

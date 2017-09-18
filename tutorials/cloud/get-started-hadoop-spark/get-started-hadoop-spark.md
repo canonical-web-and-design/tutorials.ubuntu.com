@@ -2,8 +2,8 @@
 
 id: get-started-hadoop-spark
 summary: Learn how to operate a big data cluster, to analyse batch data with MapReduce or streaming data with Spark.
-categories: jaas
-tags: hadoop, spark, juju, jaas, big data, cloud
+categories: cloud
+tags: hadoop, spark, juju, jaas, big data
 difficulty: 2
 status: Published
 Published: 2017-07-07
