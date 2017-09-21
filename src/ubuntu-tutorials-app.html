@@ -8,6 +8,8 @@
 <link rel="import" href="elements/tutorials-app-header.html">
 <link rel="import" href="elements/websocket-reloader.html">
 
+<link rel="import" href="error-404.html">
+
 <dom-module id="ubuntu-tutorials-app">
   <link rel="lazy-import" group="codelabs-index" href="codelabs-index.html">
   <link rel="lazy-import" group="codelabs-page" href="codelabs-page.html">
@@ -63,6 +65,9 @@
       <section name="tutorial">
         <codelabs-page id="page-tutorial" route="[[subroute]]" codelabs="{{codelabs}}"></codelabs-page>
       </section>
+      <section name="404">
+        <error-404 requested-page="[[page]]"></error-404>
+      </section>
     </iron-pages>
 
   </template>
@@ -80,6 +85,7 @@
         isLoading: Boolean,
         page: {
           type: String,
+          value: 'index',
           reflectToAttribute: true,
         },
         routeData: Object,
@@ -92,6 +98,13 @@
 
       attached: function() {
         Polymer.AppMetadata.requestAvailability();
+      },
+
+      ready: function() {
+        let el = document.querySelector('ubuntu-tutorials-app');
+        el.addEventListener('iron-ajax-error', function(error) {
+          this._loadErrorPage();
+        });
       },
 
       _loadPage: function _loadPage(page) {
@@ -116,8 +129,15 @@
           hrefToImport,
           function loadPage() {
             this.page = page;
+          },
+          function onImportError(event) {
+            this._loadErrorPage();
           }
         );
+      },
+
+      _loadErrorPage: function _loadErrorPage() {
+        this.page = '404';
       },
 
       _isMainHeaderHidden: function(page) {

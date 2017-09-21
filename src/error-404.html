@@ -1,0 +1,62 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+
+<dom-module id="error-404">
+  <template>
+    <style include="iron-flex iron-flex-alignment">
+      .content {
+        max-width: 1030px;
+        padding: 6.25rem 0;
+        width: 100%;
+      }
+
+      .description {
+        min-width: 375px;
+      }
+
+      h1 {
+        font-size: 2.8125em;
+        font-weight: 300;
+      }
+
+      p {
+        margin-top: 0;
+        font-size: 1.4375em;
+        font-weight: 300;
+      }
+    </style>
+
+    <div class="wrapper horizontal layout center-justified">
+      <div class="content horizontal layout wrap center-justified">
+        <div class="pictogram horizontal layout center-justified flex">
+          <img src="https://assets.ubuntu.com/v1/bcdcf2c8-image-404.svg?w=365" alt="Error owl" width="365">
+        </div>
+        <div class="description horizontal layout center-justified flex">
+          <div class="description vertical layout center-justified">
+            <h1>404: Page not found</h1>
+            <p>Sorry, we couldn’t find that page.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'error-404',
+
+      properties: {
+        requestedPage: {
+          type: String,
+        },
+      },
+
+      attached: function() {
+        this.fire('app-metadata', {
+          title: '404: Page not found | Ubuntu tutorials',
+          description: 'Sorry, we couldn\'t find that page.',
+        });
+      },
+    });
+  </script>
+</dom-module>

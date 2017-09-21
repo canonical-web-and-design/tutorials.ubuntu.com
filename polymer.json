@@ -3,7 +3,8 @@
   "shell": "src/ubuntu-tutorials-app.html",
   "fragments": [
     "src/codelabs-index.html",
-    "src/codelabs-page.html"
+    "src/codelabs-page.html",
+    "src/error-404.html"
   ],
   "sources": [
     "api/**/*",
