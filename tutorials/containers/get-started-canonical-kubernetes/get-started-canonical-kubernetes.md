@@ -42,9 +42,11 @@ To substantiate these claims, we're going to build a highly available (HA) produ
 ## Deploying with JAAS
 Duration: 8:00
 
-To kick off, **[open a Canonical distribution of Kubernetes][charmstorek8s]** and click the blue _Deploy changes (49)_ button in the bottom right.
+To kick off, **[open a Canonical distribution of Kubernetes][charmstorek8s]**. 
 
-Deployment is via [JAAS][jaas], and you will need to [add your credentials][jaascreds] if you've not done so before. Deployment will then take several minutes as Juju creates new instances in the cloud and sets up the Kubernetes cluster components. Pending units are outlined in *orange*. Up and running ones are outlined in *black*.
+![Kubernetes Direct Deploy](./images/k8-directdeploy.png)
+
+Deployment is via [JAAS][jaas], and you will need to login or create your JAAS account. [Add your credentials][jaascreds] if you've not done so before. Deployment will then take several minutes as Juju creates new instances in the cloud and sets up the Kubernetes cluster components. Pending units are outlined in *orange*. Up and running ones are outlined in *black*.
 
 ![Status GUI](./images/status-gui.png)
 
@@ -122,7 +124,7 @@ Duration: 10:00
 Spin up a simple static website in your Kubernetes cluster.
 
 1. You can run a Juju action to create an example microbot web application, deploying 5 replicas inside the Kubernetes cluster:
-`juju run-action kubernetes-worker/0 microbot replicas=5`  
+`juju run-action kubernetes-worker/0 microbot replicas=5`
 1. This action creates a deployment titled *microbots* comprised of 5 replicas defined during the run of the action. It also creates a service named *microbots* which binds an *endpoint*, using all 5 of the microbots pods. Finally, it will create an ingress resource, which points at a **xip.io** domain to simulate a proper DNS service
 1. To see the result of this action, run:
  `juju show-action-output [id above]`
@@ -167,7 +169,7 @@ Now that you have your production cluster, you can put it to work:
 [aws]: https://aws.amazon.com/
 [gce]: https://cloud.google.com/compute/
 [azure]: https://azure.microsoft.com
-[charmstorek8s]: https://jujucharms.com/new/?deploy-target=cs:bundle/canonical-kubernetes
+[charmstorek8s]: https://jujucharms.com/new/?dd=cs:bundle/canonical-kubernetes
 [jaas]: https://jujucharms.com/jaas
 [jaascreds]: https://jujucharms.com/docs/stable/getting-started#prepare-your-cloud-credentials
 [jujuinstall]: https://jujucharms.com/docs/stable/reference-install#getting-the-latest-juju
@@ -178,7 +180,7 @@ Now that you have your production cluster, you can put it to work:
 [kubegpu]: https://medium.com/intuitionmachine/how-we-commoditized-gpus-for-kubernetes-7131f3e9231f
 [kubetransform]: https://github.com/deis/workflow
 [kubepaas]: https://insights.ubuntu.com/2017/03/27/job-concurrency-in-kubernetes-lxd-cpu-pinning-to-the-rescue/
-[cankube]: https://jujucharms.com/kubernetes  
+[cankube]: https://jujucharms.com/kubernetes
 [kubecommunity]: https://kubernetes.io/community/
 [snapcraft]: https://snapcraft.io/
 [kubecurl]: https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-binary-via-curl
