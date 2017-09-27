@@ -63,7 +63,14 @@ This project is a **Python** application. It has a very simple project layout wi
 
 To be able to create the snap, we should also be a little familiar with the code, how it gets built and how it is run.
 
-First, we should fetch the source from its repository:
+We are going to use `git` to fetch the source code. Install it with:
+
+```bash
+sudo apt update
+sudo apt install git
+```
+
+Then, let's fetch the source from its repository:
 
 ```bash
 git clone https://github.com/reorx/httpstat
