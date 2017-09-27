@@ -359,7 +359,7 @@ You will notice in the generated `command-httpstat.wrapper` file in the `prime/`
 Ok, let’s see what this gets us when we try the snap on our system. First of all we need to activate the snap - we will use the temporary 'try' mode rather than a full install
 
 ```bash
-snap try --devmode prime/
+sudo snap try --devmode prime/
 ```
 
 Now we can try to run the command we exposed. Let's check the help!
@@ -454,7 +454,7 @@ snapcraft prime
 ...and activate it...
 
 ```bash
-snap try --devmode prime/
+sudo snap try --devmode prime/
 ```
 
 ...and cross our fingers and run the command...
@@ -512,7 +512,7 @@ How to do this? Quite easily:
 
 
 ```bash
-$ snap try --jailmode prime/
+$ sudo snap try --jailmode prime/
 httpstat 1.1.3 mounted from <…>/prime
 ```
 
