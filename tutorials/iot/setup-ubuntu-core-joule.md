@@ -29,6 +29,7 @@ Welcome to the world of Ubuntu Core! In this codelab, we are going to introduce 
 
 ### What you’ll need
   - 1 Intel Joule Dev Kit
+  - 1 power supply for the Joule (12VDC 3A)
   - 1 HDMI monitor
   - 1 USB keyboard
   - 1 USB mouse
