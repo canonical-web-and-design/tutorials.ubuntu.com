@@ -5,7 +5,7 @@ categories: server
 tags: tutorial,ssh,installation,windows,ubuntu,terminal
 difficulty: 2
 status: Published
-published: 2017-08-29
+published: 2017-10-02
 author: Graham Morrison <graham.morrison@canonical.com>
 
 ---
@@ -15,7 +15,7 @@ Duration: 1:00
 
 ## Overview
 
-SSH, the secure shell, is often used to access remote Linux systems. But its authentication mechanism, where a *private local key* is paired with a *public remote key*, is used to secure all kinds of online services, from [GitHub][github] and [Launchpad][launchpad] to Linux VMs running on [Microsoft's Azure][azure] cloud.
+SSH, the secure shell, is often used to access remote Linux systems. But its authentication mechanism, where a *private local key* is paired with a *public remote key*, is used to secure all kinds of online services, from [GitHub][github] and [Launchpad][launchpad] to Linux running on [Microsoft's Azure][azure] cloud.
 
 Generating these keys from Linux is easy, and thanks to [Ubuntu on Windows][ubuntuonwin], you can follow the same process from Windows 10. But even without Ubuntu, SSH keys can also be generated with the free and open source Windows application, [PuTTy][putty]
 
@@ -23,12 +23,12 @@ Over the following few steps, we'll guide you through the process of generating 
 
 ### Requirements
 
-All you will need is a PC running Windows 10 and either of the following installed:
+All you need is a PC running Windows 10 and either of the following installed:
 
 - [Ubuntu on Windows][ubuntuonwin]
 - The `puttygen.exe` executable from [PuTTY][putty]
 
-If you don't already have Ubuntu on Windows, take a look at our tutorial, [Install Ubuntu on Windows 10][ubuntuonwintut].
+If you don't already have Ubuntu on Windows, take a look at our [Install Ubuntu on Windows 10][ubuntuonwintut] tutorial.
 
 ![screenshot](https://assets.ubuntu.com/v1/5995b99e-windows_github.png)
 
@@ -40,7 +40,7 @@ When creating the SSH key pair, as shown in the following steps, you can choose 
 
 Adding a passphrase requires the same passphrase to be entered whenever the key pair is used. Not adding a passphrase removes this requirement. For this reason, creating a key pair without a passphrase is more convenient and potentially essential for certain scripts and automation tasks. But it's also less secure.
 
-If a third party gains access to the private key without a passphrase, through theft or loss for example, they will be able to access all connections and services using the public key.
+If a third party gains access to a private key without a passphrase they will be able to access all connections and services using the public key.
 
 A good compromise between convenience and security is to generate a separate key pair for each service or connection you want to use, adding a passphrase only for critical services. If you suspect a key has been compromised, simply generate a new pair for that service and remove the less secure key.
 
@@ -90,7 +90,7 @@ Finally, you will need to export both the private and public keys separately:
 - to export the *private key*, select **Export OpenSSH key** from the **Conversions** menu
 - to export the *public key*, click **Save public key** from the main window
 
-Public keys typically use the `.pub` suffix. By convention, the private key is usually called `id_rsa` and the public key `id_rsa.pub`, but this isn't a requirement and it's common to have many keys with more descriptive filenames.
+Public keys typically use the `.pub` suffix. By convention, the private key is usually called `id_rsa` and the public key `id_rsa.pub`, but this isn't a requirement. It's common to have many keys with more descriptive filenames, for instance.
 
 ![screenshot](https://assets.ubuntu.com/v1/399589eb-windows_keygen_putty_export.png)
 
