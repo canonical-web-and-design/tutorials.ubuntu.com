@@ -358,27 +358,27 @@
         switch(sortOption) {
           case 'published-asc':
             return function(a, b) {
-              return a.published > b.published;
+              return (a.published > b.published ? 1 : -1);
             };
           case 'published-desc':
             return function(a, b) {
-              return a.published < b.published;
+              return (a.published < b.published ? 1 : -1);
             };
           case 'duration-asc':
             return function(a, b) {
-              return a.duration > b.duration;
+              return (a.duration > b.duration ? 1 : -1);
             };
           case 'duration-desc':
             return function(a, b) {
-              return a.duration < b.duration;
+              return (a.duration < b.duration ? 1 : -1);
             };
           case 'difficulty-desc':
             return function(a, b) {
-              return a.difficulty < b.difficulty;
+              return (a.difficulty < b.difficulty ? 1 : -1);
             };
           case 'difficulty-asc':
             return function(a, b) {
-              return a.difficulty > b.difficulty;
+              return (a.difficulty > b.difficulty ? 1 : -1);
             };
         };
       },
