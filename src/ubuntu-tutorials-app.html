@@ -55,9 +55,6 @@
 
     <websocket-reloader></websocket-reloader>
 
-    <tutorials-app-header hidden="[[_isMainHeaderHidden(page)]]">
-    </tutorials-app-header>
-
     <iron-pages role="main" selected="[[page]]" attr-for-selected="name">
       <section name="index">
         <codelabs-index id="page-index" route="[[subroute]]" codelabs="{{codelabs}}"></codelabs-index>
@@ -69,6 +66,9 @@
         <error-404 requested-page="[[page]]"></error-404>
       </section>
     </iron-pages>
+
+    <tutorials-app-header hidden="[[_isMainHeaderHidden(page)]]">
+    </tutorials-app-header>
 
   </template>
 
