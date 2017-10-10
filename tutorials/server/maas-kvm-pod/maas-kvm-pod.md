@@ -1,5 +1,5 @@
 ---
-id: tutorial-guidelines
+id: create-kvm-pods-with-maas
 summary: Learn how to create KVM pods with MAAS. MAAS is an enterprise-grade infrastructure management tool.
 categories: server
 tags: maas, virtualization, pod, kvm, cloud, beginner
@@ -7,9 +7,10 @@ difficulty: 2
 status: Published
 Published: 2017-10-08
 author: Canonical Web Team <webteam@canonical.com>
+
 ---
 
-# MAAS Pods
+# Create KVM pods with MAAS
 
 ## Overview
 Duration: 0:02
@@ -18,8 +19,7 @@ Duration: 0:02
 
 Currently MAAS supports two types of pods, (1) Physical systems with [Intel RSD](https://docs.ubuntu.com/maas/2.2/en/nodes-power-types#bmc-driver-support) and (2) Virtual Machines with KVM (using the virsh interface). Since we want to explore how to better utilize existing hardware, let’s build a test environment with KVM pods.
 
-## Requirements
-Duration: 0:02
+### Requirements
 
 A testbed environment would require a server with at least 4 CPU cores, 16GB RAM,100GB free disk space, preferably SSD and two NICs. One NIC would be connected to an external network (possibly a DMZ) and the second NIC will be the internal network. MAAS will act as an HTTP proxy and IP gateway between the two networks. MAAS will also provide DNS for all the VMs and servers/pods it will be managing, as well as DHCP. MAAS needs to be installed on only one server/pod and it will be managing all the other pods remotely. MAAS is very versatile. We are focusing here only on one out of many potential KVM pod scenarios.
 
