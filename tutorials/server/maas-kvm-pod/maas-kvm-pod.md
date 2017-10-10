@@ -15,18 +15,23 @@ author: Canonical Web Team <webteam@canonical.com>
 ## Overview
 Duration: 0:02
 
-[MAAS](https://maas.io/) enables you to treat physical servers like an elastic cloud-like resource. The latest release of MAAS 2.2 introduces “pods” as an operational concept. A MAAS pod effectively describes the availability of resources and enables the creation (or composition) of a machine with a set of those resources. Each pod represents a pool of various available hardware resources, such as CPU, RAM, and (local or remote) storage capacity. A user can allocate the needed resources manually (using the MAAS UI or CLI) or dynamically (using Juju or the MAAS API). That is, machines can be allocated "just in time", based on CPU, RAM, and storage constraints of a specific workload. 
+[MAAS](https://maas.io/) enables you to treat physical servers like an elastic cloud-like resource. MAAS version 2.2 introduces “pods” as an operational concept. A MAAS pod describes the availability of resources and enables the creation (or composition) of a machine with a set of those resources. Each pod represents a pool of various available hardware resources, such as CPU, RAM, and (local or remote) storage capacity. A user can allocate the needed resources manually (using the MAAS UI or CLI) or dynamically (using Juju or the MAAS API). That is, machines can be allocated "just in time", based on CPU, RAM, and storage constraints of a specific workload. 
 
-Currently MAAS supports two types of pods, (1) Physical systems with [Intel RSD](https://docs.ubuntu.com/maas/2.2/en/nodes-power-types#bmc-driver-support) and (2) Virtual Machines with KVM (using the virsh interface). Since we want to explore how to better utilize existing hardware, let’s build a test environment with KVM pods.
+MAAS 2.2 supports two types of pods, (1) Physical systems with [Intel RSD](https://docs.ubuntu.com/maas/2.2/en/nodes-power-types#bmc-driver-support) and (2) Virtual Machines with KVM (using the virsh interface). Since we want to explore how to better utilize existing hardware, let’s build a test environment with KVM pods.
 
 ### Requirements
 
-A testbed environment would require a server with at least 4 CPU cores, 16GB RAM,100GB free disk space, preferably SSD and two NICs. One NIC would be connected to an external network (possibly a DMZ) and the second NIC will be the internal network. MAAS will act as an HTTP proxy and IP gateway between the two networks. MAAS will also provide DNS for all the VMs and servers/pods it will be managing, as well as DHCP. MAAS needs to be installed on only one server/pod and it will be managing all the other pods remotely. MAAS is very versatile. We are focusing here only on one out of many potential KVM pod scenarios.
+A testbed environment would require a server with at least:
+- 4 CPU cores
+- 16GB RAM
+- 100GB free disk space, preferably SSD
+- 2 NICs, one connected to an external network (possibly a DMZ) and the second NIC will be the internal network. 
+MAAS will act as an HTTP proxy and IP gateway between the two networks. MAAS will also provide DNS for all the VMs and servers/pods it will be managing, as well as DHCP. MAAS needs to be installed on only one server/pod and it will be managing all the other pods remotely. MAAS is very versatile. We are focusing here only on one out of many potential KVM pod scenarios.
 
 ## Getting started
 Duration: 0:10
 
-Start by [installing](https://tutorials.ubuntu.com/tutorial/tutorial-install-ubuntu-server#0) the latest LTS version for Ubuntu Server 16.04.3, selecting only “OpenSSH server” from the “Software selection” menu. With the Ubuntu installation completed, SSH into it and let’s ensure the latest stable MAAS version is available, update the system and install the needed virtualization tools:
+Start by [installing](https://tutorials.ubuntu.com/tutorial/tutorial-install-ubuntu-server#0) the latest LTS version for Ubuntu Server 16.04.3, selecting only `OpenSSH server` from the `Software selection` menu. With the Ubuntu installation completed, SSH into it. We will ensure the latest stable MAAS version is available, update the system and install the needed virtualization tools:
 
 ```
 $ sudo add-apt-repository ppa:maas/stable -y  
@@ -38,7 +43,7 @@ $ sudo apt-get install bridge-utils qemu-kvm libvirt-bin
 ## Networking configuration
 Duration: 0:03
 
-It’s now time to update the networking configuration: we will add a new [bridge](https://help.ubuntu.com/community/NetworkConnectionBridge) and we will connect the second NIC (eth1) to it. Here is how `/etc/network/interfaces` would look like:
+It’s now time to update the networking configuration: we will add a new [bridge](https://help.ubuntu.com/community/NetworkConnectionBridge) and we will connect the second NIC (eth1) to it. Here is an example of how `/etc/network/interfaces` would look like:
 
 ```
 $ cat /etc/network/interfaces
@@ -86,7 +91,7 @@ $ sudo virsh net-destroy default
 $ sudo virsh net-undefine default
 ```
 
-And we will be using bridged networking with our existing bridge br1, along with the necessary minimal configuration as follows:
+And we will be using bridged networking with our existing bridge `br1`, along with the necessary minimal configuration as follows:
 
 ```
 $ cat net-default.xml  
@@ -145,7 +150,7 @@ Email: admin@localhost.local
 Import SSH keys [] (lp:user-id or gh:user-id):
 ```
 
-You can now use the credentials and access the MAAS UI at [http://172.27.28.172/MAAS/](http://172.27.28.172/MAAS/) where you will be prompted with some basic setup questions.
+You can now use the credentials and access the MAAS UI at http://172.27.28.172/MAAS/ where you will be prompted with some basic setup questions.
 
 ## MAAS configuration
 Duration: 0:05
@@ -155,9 +160,9 @@ Next, import the SSH keys for admin -- very important step, since the machines w
 
 If you visit the "Nodes" tab, you should see the warning: "DHCP is not enabled on any VLAN. This will prevent machines from being able to PXE boot, unless an external DHCP server is being used." [Let's fix that](https://docs.ubuntu.com/maas/2.2/en/installconfig-network-dhcp):  
   
-On the "Subnets" tab, select "192.168.30.0/24", and at the "Reserved" section create a dynamic range starting at "192.168.30.33" and ending at "192.168.30.127".  
+On the "Subnets" tab, select `192.168.30.0/24`, and at the "Reserved" section create a dynamic range starting at `192.168.30.33` and ending at `192.168.30.127`.  
   
-Return to the "Subnets" tab, select the "untagged" VLAN next to the "192.168.30.0/24" subnet and from the "Take action" drop down menu on the top right, choose "Provide DHCP". Confirm that the autodetected info is correct ("Rack controller" name, "Gateway IP" and "Subnet") and accept the configuration.  
+Return to the "Subnets" tab, select the "untagged" VLAN next to the `192.168.30.0/24` subnet and from the "Take action" drop down menu on the top right, choose "Provide DHCP". Confirm that the autodetected info is correct ("Rack controller" name, "Gateway IP" and "Subnet") and accept the configuration.  
   
 If we visit again the "Nodes" tab, the warning must have vanished.
 
