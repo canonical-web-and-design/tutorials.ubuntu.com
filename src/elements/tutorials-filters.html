@@ -19,11 +19,21 @@
         width: auto;
       }
 
+      .filters-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-bottom: 1em;
+      }
+
+      @media only screen and (min-width: 769px) {
+        .filters-wrapper {
+          flex-direction: row;
+        }
+      }
+
       paper-dropdown-menu {
         font-family: 'Ubuntu', Helvetica, Arial;
-        float: left;
-        margin-right: 20px;
-        margin-bottom: 1em;
         width: 100%;
 
         --paper-input-container-focus-color: white;
@@ -53,7 +63,7 @@
         };
       }
 
-      @media only screen and (min-width: 768px) {
+      @media only screen and (min-width: 769px) {
         paper-dropdown-menu {
           width: 228px;
         }
@@ -69,10 +79,36 @@
         width: 100%;
       }
 
+      .filter {
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto;
+        margin: 1em 0;
+        width: 100%;
+      }
+
+      @media only screen and (min-width: 769px) {
+        .filter {
+          margin: 1em 1em 1em 0;
+        }
+      }
+
+      .filter paper-dropdown-menu {
+        margin-right: 2px;
+      }
+
       .sort {
-        float: right;
-        margin-top: 40px;
-        position: relative;
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto;
+        margin: 1em 0;
+        width: 100%;
+      }
+
+      @media only screen and (min-width: 769px) {
+        .sort {
+          margin: 1em 0 1em 1em;
+        }
       }
 
       .sort paper-dropdown-menu {
@@ -110,14 +146,29 @@
     </style>
 
     <div class="horizontal clearfix end">
-      <p class="filter-label">Filter results by:</p>
-      <paper-dropdown-menu label="<topic>" no-label-float noink no-animations>
-        <paper-listbox id="categorySelect" class="dropdown-content" attr-for-selected="data-sort" selected="{{selectedCategory}}">
-          <template is="dom-repeat" items="[[_toArray(categoryOptions)]]">
-            <paper-item data-sort$="[[item.value]]">[[item.name]]</paper-item>
-          </template>
-        </paper-listbox>
-      </paper-dropdown-menu>
+      <div class="filters-wrapper">
+        <div class="filter">
+          <p class="filter-label">Filter results by:</p>
+          <paper-dropdown-menu label="<topic>" no-label-float noink no-animations>
+            <paper-listbox id="categorySelect" class="dropdown-content" attr-for-selected="data-sort" selected="{{selectedCategory}}">
+              <template is="dom-repeat" items="[[_toArray(categoryOptions)]]">
+                <paper-item data-sort$="[[item.value]]">[[item.name]]</paper-item>
+              </template>
+            </paper-listbox>
+          </paper-dropdown-menu>
+        </div>
+
+        <div class="sort">
+          <p class="filter-label">Sort results by:</p>
+          <paper-dropdown-menu no-label no-label-float noink no-animations>
+            <paper-listbox id="sortSelect" class="dropdown-content" attr-for-selected="data-sort" selected="{{selectedSort}}">
+              <template is="dom-repeat" items="[[_toArray(sortOptions)]]">
+                <paper-item data-sort$="[[item.value]]">[[item.name]]</paper-item>
+              </template>
+            </paper-listbox>
+          </paper-dropdown-menu>
+        </div>
+      </div>
 
       <template is="dom-if" if="[[showUsers]]">
         <paper-dropdown-menu label="<user>" disabled="true" no-label-float noink no-animations>
@@ -133,16 +184,7 @@
         <paper-button noink class="button--primary white" on-tap="_resetFilters" disabled="{{isClearDisabled}}">Clear filters</paper-button>
       </template>
 
-      <div class="sort">
-        <p class="filter-label">Sort results by:</p>
-        <paper-dropdown-menu no-label no-label-float noink no-animations>
-          <paper-listbox id="sortSelect" class="dropdown-content" attr-for-selected="data-sort" selected="{{selectedSort}}">
-            <template is="dom-repeat" items="[[_toArray(sortOptions)]]">
-              <paper-item data-sort$="[[item.value]]">[[item.name]]</paper-item>
-            </template>
-          </paper-listbox>
-        </paper-dropdown-menu>
-      </div>
+
 
     </div>
   </template>

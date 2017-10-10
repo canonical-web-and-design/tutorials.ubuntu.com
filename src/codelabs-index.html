@@ -32,15 +32,22 @@
         font-family: 'Ubuntu', Helvetica, Arial;
         font-size: 1em;
         font-weight: 300;
+        height: 40px;
         line-height: 24px;
-        margin-bottom: 2.5em;
-        margin-right: -38px;
-        margin-top: 1em;
-        max-width: 480px;
+        margin-bottom: 1em;
+        margin-right: -46px;
+        margin-top: 1.5em;
+        max-width: 958px;
         outline-offset: -2px;
-        padding: 6px 38px 6px 10px;
-        width: 98%;
+        padding: 6px 46px 6px 10px;
+        width: 100%;
         -webkit-appearance: none;
+      }
+
+      @media only screen and (min-width: 769px) {
+        input[type='search'] {
+          width: calc(50% - 18px);
+        }
       }
 
       input[type='search']:focus {
@@ -141,7 +148,7 @@
         margin-bottom: 1em;
       }
 
-      @media only screen and (min-width: 768px) {
+      @media only screen and (min-width: 769px) {
         .heading-results {
           margin-bottom: 1.75em;
         }
@@ -165,13 +172,13 @@
         margin: 10px;
       }
 
-      @media only screen and (max-width: 768px) {
+      @media only screen and (max-width: 769px) {
         codelabs-card {
           width: 100%;
         }
       }
 
-      @media only screen and (min-width: 768px) {
+      @media only screen and (min-width: 769px) {
         codelabs-card {
           width: 306px;
         }
@@ -229,24 +236,24 @@
 
           <p>For now, the tutorials focus mainly on building and using snaps and Ubuntu Core.<br /><a href="https://github.com/ubuntudesign/tutorials.ubuntu.com/issues/new" class="external">If you'd like to see tutorials cover more topics, let us know</a></p>
 
-        <div>
-          <label class="accessibility-aid" for="edit-keys" hidden="hidden">Search</label>
-          <input id="edit-keys" type="search" placeholder="Search tutorials" is="iron-input" bind-value="{{filterSearch}}" />
-          <paper-icon-button class="search" icon="search"></paper-icon-button>
-          <template is="dom-if" if="[[filterSearch]]">
-            <h2 class="heading-results">
-              <span class="heading-results__highlight">[[searchResultCount]]</span> search results for <span class="heading-results__highlight">[[filterSearch]]</span>
-            </h2>
-          </template>
-        </div>
-        <div>
-          <tutorials-filters
-            selected-category="{{filterCategory}}"
-            selected-sort="{{filterSort}}"
-            selected-user="{{filterUser}}"
-            >
-          </tutorials-filters>
-        </div>
+          <div>
+            <label class="accessibility-aid" for="edit-keys" hidden="hidden">Search</label>
+            <input id="edit-keys" type="search" placeholder="Search tutorials" is="iron-input" bind-value="{{filterSearch}}" />
+            <paper-icon-button class="search" icon="search"></paper-icon-button>
+            <template is="dom-if" if="[[filterSearch]]">
+              <h2 class="heading-results">
+                <span class="heading-results__highlight">[[searchResultCount]]</span> search results for <span class="heading-results__highlight">[[filterSearch]]</span>
+              </h2>
+            </template>
+          </div>
+          <div>
+            <tutorials-filters
+              selected-category="{{filterCategory}}"
+              selected-sort="{{filterSort}}"
+              selected-user="{{filterUser}}"
+              >
+            </tutorials-filters>
+          </div>
         </div>
 
         <div class="horizontal layout end">
