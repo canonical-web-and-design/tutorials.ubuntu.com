@@ -1,0 +1,91 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../bower_components/iron-form/iron-form.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<link rel="import" href="difficulty-indicator.html">
+<link rel="import" href="time-pretty.html">
+
+<dom-module id="tutorial-feedback">
+
+  <template>
+
+    <style include="iron-flex iron-flex-alignment">
+      :root {
+        background-color: pink;
+        width 100%;
+      }
+    </style>
+
+    <div class="layout vertical">
+      <div id="feedbackIntro" class="layout">
+        Was this tutorial useful?
+      </div>
+      <div id="feedbackButtons" class="layout horizontal">
+        <iron-icon icon="icons:thumb-up" on-click="submitPositive"></iron-icon>
+        <iron-icon icon="icons:thumbs-up-down" on-click="submitNeutral"></iron-icon>
+        <iron-icon icon="icons:thumb-down" on-click="submitNegative"></iron-icon>
+      </div>
+      <div id="newsletter" class="layout">
+        <div id="newsletter-intro">
+          Sign up to find out about new tutorials
+        </div>
+        <div id="newsletterFormWrapper" class="layout">
+          <iron-form id="newsletterForm">
+            <form method="get" action="/">
+              <input type="text" name="email" value="">
+              <paper-button raised on-click="submitNewsletterForm">Subscribe</paper-button>
+            </form>
+          </iron-form>
+        </div>
+      </div>
+    </div>
+
+  </template>
+
+  <script>
+
+    Polymer({
+
+      is: 'tutorial-feedback',
+
+      properties: {
+        title: String,
+      },
+
+      ready: function() {
+        // let formWrapper = Polymer.dom(this.$.newsletterFormWrapper);
+        let wrapper = this.$.newsletter;
+        // let formWrapper = document.querySelector('newsletter-form-wrapper');
+        wrapper.addEventListener('iron-form-submit', function(event) {
+          // formWrapper.innerHTML = 'Thank you for subscribing.';
+          console.log('Thank you for subscribing.');
+        });
+      },
+
+      submitNewsletterForm: function() {
+        // document.getElementById('newsletterForm').submit();
+        Polymer.dom(this.$.newsletterForm).submit();
+      },
+
+      submitPositive: function() {
+        console.log(':D');
+        Polymer.dom(this.$.feedbackIntro).innerHTML = 'Thank you for your feedback.';
+        Polymer.dom(this.$.feedbackButtons).innerHTML = '';
+      },
+
+      submitNeutral: function() {
+        console.log('Meh');
+      },
+
+      submitNegative: function() {
+        console.log(':(');
+      },
+
+    });
+
+  </script>
+
+</dom-module>
