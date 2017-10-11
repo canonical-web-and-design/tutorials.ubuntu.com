@@ -15,9 +15,9 @@ author: Canonical Web Team <webteam@canonical.com>
 ## Overview
 Duration: 0:02
 
-[MAAS](https://maas.io/) enables you to treat physical servers like an elastic cloud-like resource. MAAS version 2.2 introduces “pods” as an operational concept. A MAAS pod describes the availability of resources and enables the creation (or composition) of a machine with a set of those resources. Each pod represents a pool of various available hardware resources, such as CPU, RAM, and (local or remote) storage capacity. A user can allocate the needed resources manually (using the MAAS UI or CLI) or dynamically (using Juju or the MAAS API). That is, machines can be allocated "just in time", based on CPU, RAM, and storage constraints of a specific workload. 
+MAAS enables you to treat physical servers like an elastic cloud-like resource. MAAS version 2.2 introduces “pods” as an operational concept. A MAAS pod describes the availability of resources and enables the creation (or composition) of a machine with a set of those resources. Each pod represents a pool of various available hardware resources, such as CPU, RAM, and (local or remote) storage capacity. A user can allocate the needed resources manually (using the MAAS UI or CLI) or dynamically (using Juju or the MAAS API). That is, machines can be allocated "just in time", based on CPU, RAM, and storage constraints of a specific workload. 
 
-MAAS 2.2 supports two types of pods, (1) Physical systems with [Intel RSD](https://docs.ubuntu.com/maas/2.2/en/nodes-power-types#bmc-driver-support) and (2) Virtual Machines with KVM (using the virsh interface). Since we want to explore how to better utilize existing hardware, let’s build a test environment with KVM pods.
+MAAS 2.2 supports two types of pods, (1) Physical systems with Intel RSD and (2) Virtual Machines with KVM (using the virsh interface). Since we want to explore how to better utilize existing hardware, let’s build a test environment with KVM pods.
 
 ### Requirements
 
@@ -31,7 +31,7 @@ MAAS will act as an HTTP proxy and IP gateway between the two networks. MAAS wil
 ## Getting started
 Duration: 0:10
 
-Start by [installing](https://tutorials.ubuntu.com/tutorial/tutorial-install-ubuntu-server#0) the latest LTS version for Ubuntu Server 16.04.3, selecting only `OpenSSH server` from the `Software selection` menu. With the Ubuntu installation completed, SSH into it. We will ensure the latest stable MAAS version is available, update the system and install the needed virtualization tools:
+Start by installing the latest LTS version for Ubuntu Server 16.04.3, selecting only `OpenSSH server` from the `Software selection` menu. With the Ubuntu installation completed, SSH into it. We will ensure the latest stable MAAS version is available, update the system and install the needed virtualization tools:
 
 ```
 $ sudo add-apt-repository ppa:maas/stable -y  
@@ -43,7 +43,7 @@ $ sudo apt-get install bridge-utils qemu-kvm libvirt-bin
 ## Networking configuration
 Duration: 0:03
 
-It’s now time to update the networking configuration: we will add a new [bridge](https://help.ubuntu.com/community/NetworkConnectionBridge) and we will connect the second NIC (eth1) to it. Here is an example of how `/etc/network/interfaces` would look like:
+It’s now time to update the networking configuration: we will add a new bridge and we will connect the second NIC (eth1) to it. Here is an example of how `/etc/network/interfaces` would look like:
 
 ```
 $ cat /etc/network/interfaces
@@ -74,7 +74,7 @@ iface br1 inet static
 	bridge_maxwait 0
 ```
 
-Bring up the newly created bridge, before we move on to configure [virsh](https://help.ubuntu.com/lts/serverguide/libvirt.html).
+Bring up the newly created bridge, before we move on to configure virsh.
 
 ## Virsh configuration
 Duration: 0:02
@@ -128,12 +128,12 @@ $ echo 'net.ipv4.ip_forward=1' | sudo tee -a /etc/sysctl.conf
 $ sudo sysctl -p
 ```
 
-The iptables rules here are not persistent, consider using [ufw](https://help.ubuntu.com/lts/serverguide/firewall.html#ip-masquerading) but for now, let’s move on and install MAAS.
+The iptables rules here are not persistent, consider using ufw but for now, let’s move on and install MAAS.
 
 ## MAAS installation
 Duration: 0:07
 
-The pods environment we are targeting here (<10 pods) can be accommodated with colocated region and [rack controller](https://docs.ubuntu.com/maas/2.2/en/installconfig-rack) for MAAS, so the installation process is very simple:
+The pods environment we are targeting here (<10 pods) can be accommodated with colocated region and rack controller for MAAS, so the installation process is very simple:
 
 ```
 $ sudo apt-get install maas -y
@@ -158,7 +158,7 @@ Duration: 0:05
 Follow the configuration steps and provide the "Region name", "Connectivity" details (setting MAAS as the Default Gateway) and select the OS sources for MAAS to import (the default Ubuntu LTS for amd64 is sufficient for the vast majority of cases).  
 Next, import the SSH keys for admin -- very important step, since the machines we will be deploying have public key authentication by default.
 
-If you visit the "Nodes" tab, you should see the warning: "DHCP is not enabled on any VLAN. This will prevent machines from being able to PXE boot, unless an external DHCP server is being used." [Let's fix that](https://docs.ubuntu.com/maas/2.2/en/installconfig-network-dhcp):  
+If you visit the "Nodes" tab, you should see the warning: "DHCP is not enabled on any VLAN. This will prevent machines from being able to PXE boot, unless an external DHCP server is being used." Let's fix that:  
   
 On the "Subnets" tab, select `192.168.30.0/24`, and at the "Reserved" section create a dynamic range starting at `192.168.30.33` and ending at `192.168.30.127`.  
   
@@ -196,7 +196,7 @@ In a few moments “MAAS Pod” will show up in the pods list, along with inform
 ## Compose a VM
 Duration: 0:01
 
-Let’s compose a VM, by clicking on the “MAAS Pod” and select “Compose” from the “Take action” drop down menu on the top right. You will be prompted to provide a Hostname, CPU cores, speed, RAM as well as storage capacity and devices. Even if you don’t provide any of the information, by default a VM with 1 core, 1GB RAM, and 8GB of storage will be created and a random name will be assigned to it as soon as you hit the “Compose machine” button. Moreover, MAAS will automatically commission and then you can [deploy](https://docs.ubuntu.com/maas/2.2/en/nodes-deploy) Ubuntu (or any other OS) on the new VM. You can ssh into your freshly installed Ubuntu using the public key we generated during the maas installation process and username “ubuntu” and start testing your applications!
+Let’s compose a VM, by clicking on the “MAAS Pod” and select “Compose” from the “Take action” drop down menu on the top right. You will be prompted to provide a Hostname, CPU cores, speed, RAM as well as storage capacity and devices. Even if you don’t provide any of the information, by default a VM with 1 core, 1GB RAM, and 8GB of storage will be created and a random name will be assigned to it as soon as you hit the “Compose machine” button. Moreover, MAAS will automatically commission and then you can deploy Ubuntu (or any other OS) on the new VM. You can ssh into your freshly installed Ubuntu using the public key we generated during the maas installation process and username “ubuntu” and start testing your applications!
 
 ## Next steps and finding help
 Duration: 0:01
@@ -207,3 +207,11 @@ MAAS has been designed to be a modern, agile machine provisioning solution, enab
 -   [Ubuntu Forums](https://ubuntuforums.org/)
 -   [IRC-based support](https://wiki.ubuntu.com/IRC/ChannelList)
 
+List of reference literature:
+
+- [MAAS](https://maas.io/)
+- [Intel RSD](https://docs.ubuntu.com/maas/2.2/en/nodes-power-types#bmc-driver-support)
+- [Tutorial: Install Ubuntu Server](https://tutorials.ubuntu.com/tutorial/tutorial-install-ubuntu-server#0)
+- [How to configure network bridges](https://help.ubuntu.com/community/NetworkConnectionBridge)
+- [How to configure virsh](https://help.ubuntu.com/lts/serverguide/libvirt.html)
+- [NAT configuration with ufw](https://help.ubuntu.com/lts/serverguide/firewall.html#ip-masquerading)
