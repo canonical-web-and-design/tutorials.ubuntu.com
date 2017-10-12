@@ -126,10 +126,14 @@
       ],
 
       ready: function() {
+        // If client linked here AND referral wasn't within host, change backURL
         if (document.referrer &&
             document.referrer.indexOf(window.location.hostname) === -1) {
           this.backURL = document.referrer;
         }
+
+        // Change component's original goToHome function to custom one
+        // Async function allows querying of dynamic DOM content
         this.async(function() {
           this.$$('#codelabobj')._goToHome = this._goToHome.bind(this);
         }.bind(this), 50);
