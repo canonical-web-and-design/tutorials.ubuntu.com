@@ -126,7 +126,8 @@
       ],
 
       ready: function() {
-        if (document.referrer && document.referrer.indexOf(window.location.hostname) === -1) {
+        if (document.referrer &&
+            document.referrer.indexOf(window.location.hostname) === -1) {
           this.backURL = document.referrer;
         }
         this.async(function() {
