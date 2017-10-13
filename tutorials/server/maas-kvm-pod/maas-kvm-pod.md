@@ -2,7 +2,7 @@
 id: create-kvm-pods-with-maas
 summary: Learn how to create KVM pods with MAAS. MAAS is an enterprise-grade infrastructure management tool.
 categories: server
-tags: maas, virtualization, pod, kvm, cloud, beginner
+tags: maas, virtualization, pod, kvm, cloud
 difficulty: 4
 status: Published
 Published: 2017-10-08
