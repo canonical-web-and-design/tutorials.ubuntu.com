@@ -3,7 +3,7 @@ id: create-kvm-pods-with-maas
 summary: Learn how to create KVM pods with MAAS. MAAS is an enterprise-grade infrastructure management tool.
 categories: server
 tags: maas, virtualization, pod, kvm, cloud, beginner
-difficulty: 2
+difficulty: 4
 status: Published
 Published: 2017-10-08
 author: Canonical Web Team <webteam@canonical.com>
@@ -23,7 +23,7 @@ MAAS version 2.2 introduces “pods” as an operational concept. A MAAS pod des
 
 A user can allocate the needed resources manually (using the MAAS UI or CLI) or dynamically (using Juju or the MAAS API). That is, machines can be allocated "just in time", based on CPU, RAM, and storage constraints of a specific workload.
 
-MAAS 2.2 supports two types of pods, (1) Physical systems with Intel RSD and (2) Virtual Machines with KVM (using the virsh interface). Since we want to explore how to better utilize existing hardware, let’s build a test environment with KVM pods.
+MAAS 2.2 supports two types of pods, (1) Physical systems with Intel RSD and (2) Virtual Machines with KVM (using the virsh interface). Since we want to explore how to better utilise existing hardware, let’s build a test environment with KVM pods.
 
 ### Requirements
 
@@ -41,7 +41,7 @@ Start by installing the latest LTS version of Ubuntu Server (16.04.3), selecting
 
 Now, ensure the latest stable MAAS version is available, update the system and install the needed virtualization tools:
 
-```
+```bash
 sudo add-apt-repository ppa:maas/stable -y  
 sudo apt update
 sudo apt upgrade -y
@@ -55,7 +55,7 @@ It’s now time to update the networking configuration: we need to add a new bri
 
 Edit `/etc/network/interfaces` to look like this:
 
-```
+```no-highlight
 auto lo  
 iface lo inet loopback  
 	dns-nameservers 172.27.28.1  
@@ -87,10 +87,9 @@ Bring up the newly created bridge, before we move on to configure virsh.
 ## Virsh configuration
 Duration: 0:02
 
-Libvirt creates a `default` DHCP enabled network for guests upon installation:
+Libvirt creates a `default` DHCP enabled network for guests upon installation with you can see by running `sudo virsh net-list`:
 
-```
-$ sudo virsh net-list
+```bash
 Name	State	Autostart	Persistent  
 ----------------------------------------------------------  
 default	active	yes	yes  
@@ -107,7 +106,7 @@ Instead, we will be using bridged networking with our existing bridge (`br1`) cr
 
 To do so, create a `net-default.xml` file with the following content:
 
-```
+```no-highlight
 <network>  
 	<name>default</name>  
 	<forward mode="bridge" />  
@@ -117,15 +116,15 @@ To do so, create a `net-default.xml` file with the following content:
 
 Then, add it to virsh:
 
-```
+```bash
 virsh net-define net-default.xml
 virsh net-autostart default  
 virsh net-start default
 ```
 
-Next, create a storage pool for the VMs. By default, none is defined, so let’s confirm and configure a directory-based pool:
+Next, create a storage pool for the VMs. By default, none are defined, so let’s confirm and configure a directory-based pool:
 
-```
+```bash
 virsh pool-define-as default dir - - - - "/var/lib/libvirt/images"  
 virsh pool-autostart default  
 virsh pool-start default
@@ -136,7 +135,7 @@ Duration: 0:02
 
 We will enable NATing and routing on our MAAS pod only, and all the other pods will be using MAAS as a gateway.
 
-```
+```bash
 sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE  
 sudo iptables -A FORWARD -i eth0 -o br1 -m state \
     --state RELATED,ESTABLISHED -j ACCEPT  
@@ -150,9 +149,9 @@ The iptables rules here are not persistent, consider using UFW (Uncomplicated Fi
 ## MAAS installation
 Duration: 0:07
 
-The pods environment we are targeting here (<10 pods) can be accommodated with co-located region and rack controller for MAAS, so the installation process is very simple:
+The pods environment we are targeting here (<10 pods) can be accommodated with a co-located region and rack controller for MAAS, so the installation process is very simple:
 
-```
+```bash
 sudo apt install maas -y
 ```
 
@@ -174,6 +173,9 @@ Import SSH keys [] (lp:user-id or gh:user-id):
 
 You can now use these credentials to access the MAAS UI at http://172.27.28.172/MAAS/ where you will be prompted with some basic setup questions.
 
+![screenshot](https://assets.ubuntu.com/v1/a15faa51-maas23-login.png)
+
+
 ## MAAS configuration
 Duration: 0:05
 
@@ -182,7 +184,7 @@ Follow the configuration steps and provide the "Region name", "Connectivity" det
 Next, import the SSH keys for "admin".
 
 Positive
-: The SSH keys import for your user is a very important step, since the machines we will be deploying have public key authentication by default.
+: Importing the SSH keys for your user is a very important step as the machines we will be deploying use public key authentication by default.
 
 If you visit the "Nodes" tab, you should see the warning: "DHCP is not enabled on any VLAN. This will prevent machines from being able to PXE boot, unless an external DHCP server is being used." Let's fix that:  
 
@@ -224,6 +226,8 @@ Select the “Pod” tab, and click “Add Pod” on the top right corner. Provi
 - Virsh address: **qemu+ssh://ubuntu@192.168.30.1/system**
 
 In a few moments “MAAS Pod” will show up in the pods list, along with information on the available local storage capacity, iSCSI storage, CPU cores, RAM and Composed machines, which should be 0.
+
+![screenshot](https://assets.ubuntu.com/v1/26ceb595-maas-22-pod.png)
 
 ## Compose a VM
 Duration: 0:01
