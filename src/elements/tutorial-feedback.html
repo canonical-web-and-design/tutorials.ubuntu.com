@@ -1,0 +1,123 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../bower_components/iron-form/iron-form.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<link rel="import" href="difficulty-indicator.html">
+<link rel="import" href="time-pretty.html">
+
+<dom-module id="tutorial-feedback">
+
+  <template>
+
+    <style include="iron-flex iron-flex-alignment">
+      :root {
+        background-color: pink;
+        width 100%;
+      }
+    </style>
+
+    <div class="layout vertical">
+      <div id="feedbackIntro" class="layout">
+        Was this tutorial useful?
+      </div>
+      <div id="feedbackButtons" class="layout horizontal">
+        <iron-icon icon="icons:thumb-up" on-click="submitPositive"></iron-icon>
+        <iron-icon icon="icons:thumbs-up-down" on-click="submitNeutral"></iron-icon>
+        <iron-icon icon="icons:thumb-down" on-click="submitNegative"></iron-icon>
+      </div>
+      <div id="newsletter" class="layout">
+        <div id="newsletter-intro">
+          Sign up to find out about new tutorials
+        </div>
+        <div id="newsletterFormWrapper" class="layout">
+          <iron-form id="newsletterForm">
+            <form method="get" action="/">
+              <input type="text" name="email" on-change="updateNewsletterForm" id="newsletterForm_email">
+              <paper-button raised on-click="submitNewsletterForm">Subscribe</paper-button>
+            </form>
+            <form id="mktoForm_2492" style="display:none;"></form>
+          </iron-form>
+
+        </div>
+      </div>
+    </div>
+
+  </template>
+  <script src="https://app-sjg.marketo.com/js/forms2/js/forms2.min.js"></script>
+  <script>
+
+    Polymer({
+
+      is: 'tutorial-feedback',
+
+      properties: {
+        title: String,
+      },
+
+      ready: function() {
+        let wrapper = this.$.newsletter;
+        MktoForms2.loadForm("https://app-sjg.marketo.com", "066-EOV-335", 2492, function(form) {
+          form.onSuccess(function(values, followUpUrl) {
+            wrapper.innerHTML = "Thank you for subscribing."
+            // Returning false to stay on page
+            return false;
+          });
+        });
+      },
+
+      submitNewsletterForm: function() {
+        mktoForm = MktoForms2.getForm("2492");
+        if (mktoForm.validate()
+            && mktoForm.submittable()
+            && mktoForm.getValues()["Email"] != "") {
+          mktoForm.submit()
+        } else {
+          // Raise validate error
+        }
+      },
+
+      updateNewsletterForm: function() {
+        mktoForm = MktoForms2.getForm("2492");
+        mktoForm.setValues({"Email": this.$.newsletterForm_email.value})
+      },
+
+      submitPositive: function() {
+        ga('gtm1.send', {
+            hitType: 'event',
+            eventCategory: 'feedback',
+            eventAction: 'positive',
+            eventLabel: 'Positive'
+        });
+        Polymer.dom(this.$.feedbackIntro).innerHTML = 'Thank you for your feedback.';
+        Polymer.dom(this.$.feedbackButtons).innerHTML = '';
+      },
+
+      submitNeutral: function() {
+        ga('gtm1.send', {
+            hitType: 'event',
+            eventCategory: 'feedback',
+            eventAction: 'neutral',
+            eventLabel: 'Neutral'
+        });
+        Polymer.dom(this.$.feedbackIntro).innerHTML = 'Thank you for your feedback.';
+        Polymer.dom(this.$.feedbackButtons).innerHTML = '';
+      },
+
+      submitNegative: function() {
+        ga('gtm1.send', {
+            hitType: 'event',
+            eventCategory: 'feedback',
+            eventAction: 'negative',
+            eventLabel: 'Negative'
+        });
+        Polymer.dom(this.$.feedbackIntro).innerHTML = 'Thank you for your feedback.';
+        Polymer.dom(this.$.feedbackButtons).innerHTML = '';
+      },
+
+    });
+  </script>
+
+</dom-module>
