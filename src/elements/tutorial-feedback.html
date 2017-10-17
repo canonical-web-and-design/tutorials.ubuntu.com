@@ -1,6 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
-<link rel="import" href="../../bower_components/iron-form/iron-form.html">
+<link rel="import" href="../../bower_components/iron-form-element-behavior/iron-form-element-behavior.html">
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
@@ -14,74 +14,160 @@
 
     <style include="iron-flex iron-flex-alignment">
       :root {
-        background-color: pink;
-        width 100%;
+        box-shadow: 0px 20px 40px 0px #CCC;
+        margin-left: -24px;
+        margin-bottom: -24px;
+        margin-right: -24px;
+        margin-top: 2em;
+        background: linear-gradient(#F1F1F1, #FFF, #FFF, #FFF);
       }
+
+    .big {
+      --iron-icon-height: 32px;
+      --iron-icon-width: 32px;
+      margin-right: 30px;
+      margin-left: 8px;
+      margin-bottom: 1em;
+      cursor: pointer;
+    }
+
+    #newsletter {
+      background-color: #411934;
+      color: #fff;
+      padding-top: 1em;
+      padding-bottom: 1em;
+      padding-left: 1.6em;
+      display: none;
+    }
+
+    #feedback {
+      padding-top: 1em;
+      padding-bottom: 1em;
+      padding-left: 1.6em;
+    }
+
+    .submit-button {
+      background-color: green;
+      color: #FFF;
+    }
+
+    #issue-button {
+      text-decoration: none;
+      color: #FFF;
+      display: block;
+      margin-top: 1em;
+      margin-bottom: 1em;
+    }
+
+    #newsletterForm_button{
+      margin-left:0px;
+    }
+
+    #formError{
+      margin-bottom: 1.3em;
+      margin-top: 0.3em;
+      margin-left: 0.3em;
+      display: block;
+    }
+
+    #newsletterForm_email {
+      line-height: 34px;
+      padding: 3px;
+      padding-left: 6px;
+      width: 300px;
+      margin-bottom: 0em;
+      margin-right: 15px;
+    }
     </style>
 
     <div class="layout vertical">
-      <div id="feedbackIntro" class="layout">
-        Was this tutorial useful?
-      </div>
-      <div id="feedbackButtons" class="layout horizontal">
-        <iron-icon icon="icons:thumb-up" on-click="submitPositive"></iron-icon>
-        <iron-icon icon="icons:thumbs-up-down" on-click="submitNeutral"></iron-icon>
-        <iron-icon icon="icons:thumb-down" on-click="submitNegative"></iron-icon>
+      <div id="feedback">
+        <div id="feedbackIntro" class="layout">
+          <h3>Was this tutorial useful?</h3>
+        </div>
+        <div id="feedbackButtons" class="layout horizontal">
+          <iron-icon class="big" src="/images/Helpful-yes-24px.svg" on-click="submitPositive"></iron-icon>
+          <iron-icon class="big" src="/images/Helpful-unsure-24px.svg" on-click="submitNeutral"></iron-icon>
+          <iron-icon class="big" src="/images/Helpful-no-24px.svg" on-click="submitNegative"></iron-icon>
+        </div>
       </div>
       <div id="newsletter" class="layout">
         <div id="newsletter-intro">
-          Sign up to find out about new tutorials
+          <p>Sign up to find out about new tutorials</p>
         </div>
         <div id="newsletterFormWrapper" class="layout">
           <iron-form id="newsletterForm">
-            <form method="get" action="/">
-              <input type="text" name="email" on-change="updateNewsletterForm" id="newsletterForm_email">
-              <paper-button raised on-click="submitNewsletterForm">Subscribe</paper-button>
+            <form onsubmit="return false;">
+              <input type="text" name="email" on-change="updateNewsletterForm" on-emptied="emptyNewsletterForm" id="newsletterForm_email" placeholder="Email">
+              <paper-button id="newsletterForm_button" class="submit-button" raised on-click="submitNewsletterForm">Subscribe</paper-button>
+              <span id="formError"></span>
             </form>
             <form id="mktoForm_2492" style="display:none;"></form>
           </iron-form>
-
         </div>
       </div>
     </div>
 
   </template>
+
   <script src="https://app-sjg.marketo.com/js/forms2/js/forms2.min.js"></script>
   <script>
 
     Polymer({
 
       is: 'tutorial-feedback',
-
       properties: {
         title: String,
       },
 
       ready: function() {
         let wrapper = this.$.newsletter;
+
         MktoForms2.loadForm("https://app-sjg.marketo.com", "066-EOV-335", 2492, function(form) {
           form.onSuccess(function(values, followUpUrl) {
-            wrapper.innerHTML = "Thank you for subscribing."
+            wrapper.innerHTML = "<p>Thank you for subscribing.</p>"
             // Returning false to stay on page
             return false;
           });
         });
       },
 
+      _formIsErrorState: function (isError) {
+        if (isError) {
+          this.$.newsletterForm_email.style.borderColor = "red";
+          this.$.formError.innerHTML = "Please enter a valid email address."
+        } else {
+          this.$.newsletterForm_email.style.borderColor = "";
+          this.$.formError.innerHTML = ""
+        }
+        return false
+      },
+
       submitNewsletterForm: function() {
         mktoForm = MktoForms2.getForm("2492");
         if (mktoForm.validate()
             && mktoForm.submittable()
-            && mktoForm.getValues()["Email"] != "") {
-          mktoForm.submit()
+            && mktoForm.getValues()["Email"]) {
+          mktoForm.submit();
         } else {
-          // Raise validate error
+          this._formIsErrorState(true);
         }
       },
 
       updateNewsletterForm: function() {
+        // Update Marketo hidden form then validate address
         mktoForm = MktoForms2.getForm("2492");
         mktoForm.setValues({"Email": this.$.newsletterForm_email.value})
+        if (! mktoForm.validate()){
+          this._formIsErrorState(true);
+        } else {
+          this._formIsErrorState(false);
+        }
+      },
+
+      emptyNewsletterForm: function() {
+        // Clear error state on empty input
+        this._formIsErrorState(false)
       },
 
       submitPositive: function() {
@@ -91,8 +177,9 @@
             eventAction: 'positive',
             eventLabel: 'Positive'
         });
-        Polymer.dom(this.$.feedbackIntro).innerHTML = 'Thank you for your feedback.';
+        Polymer.dom(this.$.feedbackIntro).innerHTML = '<p>Thank you for your feedback.</p>';
         Polymer.dom(this.$.feedbackButtons).innerHTML = '';
+        this.$.newsletter.style.display = "block";
       },
 
       submitNeutral: function() {
@@ -102,7 +189,15 @@
             eventAction: 'neutral',
             eventLabel: 'Neutral'
         });
-        Polymer.dom(this.$.feedbackIntro).innerHTML = 'Thank you for your feedback.';
+        issueURL = 'https://github.com/canonical-websites/tutorials.ubuntu.com'
+            + '/issues/new?title=[' + this.title + ']'
+            + ' <please add a title>&body=<describe the issue>';
+        Polymer.dom(this.$.feedbackIntro).innerHTML = '\
+          <p>Thank you for your feedback.</p>\
+          <p>Would you like to help us improve this tutorial by filing an issue on github?\
+          <a href="' + issueURL + '" id="issue-button">\
+          <paper-button class="submit-button">Submit issue</paper-button>\
+          </a></p>';
         Polymer.dom(this.$.feedbackButtons).innerHTML = '';
       },
 
@@ -113,10 +208,17 @@
             eventAction: 'negative',
             eventLabel: 'Negative'
         });
-        Polymer.dom(this.$.feedbackIntro).innerHTML = 'Thank you for your feedback.';
+        issueURL = 'https://github.com/canonical-websites/tutorials.ubuntu.com'
+            + '/issues/new?title=[' + this.title + ']'
+            + ' <please add a title>&body=<describe the issue>';
+        Polymer.dom(this.$.feedbackIntro).innerHTML = '\
+          <p>Thank you for your feedback.</p>\
+          <p>Would you like to help us improve this tutorial by filing an issue on github?</p>\
+          <a href="' + issueURL + '" id="issue-button">\
+          <paper-button class="submit-button">Submit issue</paper-button>\
+          </a>';
         Polymer.dom(this.$.feedbackButtons).innerHTML = '';
       },
-
     });
   </script>
 
