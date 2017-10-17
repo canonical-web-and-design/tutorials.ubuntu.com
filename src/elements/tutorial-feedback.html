@@ -157,7 +157,7 @@
 
       updateNewsletterForm: function() {
         // Update Marketo hidden form then validate address
-        mktoForm = MktoForms2.getForm('2492';
+        mktoForm = MktoForms2.getForm('2492');
         mktoForm.setValues({'Email': this.$.newsletterForm_email.value})
         if (! mktoForm.validate()) {
           this._formIsErrorState(true);
