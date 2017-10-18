@@ -3,6 +3,8 @@
 <link rel="import" href="../bower_components/codelab-components/google-codelab-elements.html">
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 
+<link rel="import" href="elements/tutorial-feedback.html">
+
 <dom-module id="codelabs-page">
   <template>
     <style>
@@ -88,7 +90,8 @@
       on-response="_loadTutorial"
       bubbles="true">
     </iron-ajax>
-    <div id="contentContainer"></div>
+    <div id="contentContainer">
+    </div>
   </template>
 
   <script>
@@ -191,7 +194,18 @@
         this._updateMetadata();
         const resp = e.detail.response;
         let newHTML = resp.replace(/CODELABURL/g, this.url);
-        Polymer.dom(this.$.contentContainer).innerHTML = newHTML;
+        let contentContainer = Polymer.dom(this.$.contentContainer);
+
+        let currentUrl = this.routeData.codelab;
+        let metadata = this.codelabs.filter(function(metadata) {
+          return metadata.url === currentUrl;
+        })[0];
+        contentContainer.innerHTML = newHTML;
+        let steps = contentContainer.querySelectorAll('google-codelab-step');
+        let lastPage = steps[steps.length - 1];
+        let tutorialFeedback = document.createElement('tutorial-feedback');
+        tutorialFeedback.title = metadata.title;
+        lastPage.appendChild(tutorialFeedback);
       },
 
       _codelaburl: function(codelabpath) {

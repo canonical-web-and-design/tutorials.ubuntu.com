@@ -1,0 +1,228 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../bower_components/iron-form-element-behavior/iron-form-element-behavior.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="difficulty-indicator.html">
+<link rel="import" href="time-pretty.html">
+
+<dom-module id="tutorial-feedback">
+
+  <template>
+    <style>
+
+      :root {
+        box-shadow: 0 20px 40px 0 #ccc;
+        margin-left: -24px;
+        margin-bottom: -24px;
+        margin-right: -24px;
+        margin-top: 2em;
+        background: linear-gradient(#f1f1f1, #fff, #fff, #fff);
+      }
+
+      .big {
+        --iron-icon-height: 32px;
+        --iron-icon-width: 32px;
+
+        margin-right: 30px;
+        margin-left: 8px;
+        margin-bottom: 1em;
+        cursor: pointer;
+      }
+
+      #newsletter {
+        background-color: #411934;
+        color: #fff;
+        padding-top: 1em;
+        padding-bottom: 1em;
+        padding-left: 1.6em;
+        display: none;
+      }
+
+      #feedback {
+        padding-top: 1em;
+        padding-bottom: 1em;
+        padding-left: 1.6em;
+      }
+
+      #feedbackIntro {
+        margin-bottom: 1em;
+      }
+
+      .submit-button {
+        background-color: #0e8420;
+        color: #fff;
+      }
+
+      #issue-button {
+        text-decoration: none;
+        color: #fff;
+        display: block;
+        margin-top: 1.6em;
+        margin-bottom: 1em;
+        margin-left: 0;
+      }
+
+      #newsletterForm_button {
+        margin-left: 0;
+      }
+
+      #formError {
+        margin-bottom: 1.3em;
+        margin-top: 0.3em;
+        margin-left: 0.3em;
+        display: block;
+      }
+
+      #newsletterForm_email {
+        line-height: 34px;
+        padding: 3px;
+        padding-left: 6px;
+        width: 300px;
+        margin-bottom: 0;
+        margin-right: 15px;
+      }
+    </style>
+
+    <div class="layout vertical">
+      <div id="feedback">
+        <div id="feedbackIntro" class="layout">
+          <h3>Was this tutorial useful?</h3>
+        </div>
+        <div id="feedbackButtons" class="layout horizontal">
+          <iron-icon class="big" src="/images/Helpful-yes-24px.svg" on-click="submitPositive"></iron-icon>
+          <iron-icon class="big" src="/images/Helpful-unsure-24px.svg" on-click="submitNeutral"></iron-icon>
+          <iron-icon class="big" src="/images/Helpful-no-24px.svg" on-click="submitNegative"></iron-icon>
+        </div>
+      </div>
+      <div id="newsletter" class="layout">
+        <div id="newsletter-intro">
+          <p>Sign up to find out about new tutorials</p>
+        </div>
+        <div id="newsletterFormWrapper" class="layout">
+          <div id="newsletterForm">
+            <form onsubmit="return false;">
+              <input type="text" name="email" on-change="updateNewsletterForm" on-emptied="emptyNewsletterForm" id="newsletterForm_email" placeholder="Email">
+              <paper-button id="newsletterForm_button" class="submit-button" raised on-click="submitNewsletterForm">Subscribe</paper-button>
+              <span id="formError"></span>
+            </form>
+            <form id="mktoForm_2492" style="display:none;"></form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </template>
+
+  <script src="https://app-sjg.marketo.com/js/forms2/js/forms2.min.js"></script>
+  <script>
+
+    Polymer({
+
+      is: 'tutorial-feedback',
+      properties: {
+        title: String,
+      },
+
+      ready: function() {
+        let wrapper = this.$.newsletter;
+
+        MktoForms2.loadForm('https://app-sjg.marketo.com', '066-EOV-335', 2492, function(form) {
+          form.onSuccess(function(values, followUpUrl) {
+            wrapper.innerHTML = '<p>Thank you for subscribing.</p>';
+            // Returning false to stay on page
+            return false;
+          });
+        });
+      },
+
+      _formIsErrorState: function(isError) {
+        if (isError) {
+          this.$.newsletterForm_email.style.borderColor = 'red';
+          this.$.formError.innerHTML = 'Please enter a valid email address.';
+        } else {
+          this.$.newsletterForm_email.style.borderColor = '';
+          this.$.formError.innerHTML = '';
+        }
+        return false;
+      },
+
+      submitNewsletterForm: function() {
+        mktoForm = MktoForms2.getForm('2492');
+        if (mktoForm.validate()
+            && mktoForm.submittable()
+            && mktoForm.getValues()['Email']) {
+          mktoForm.submit();
+        } else {
+          this._formIsErrorState(true);
+        }
+      },
+
+      updateNewsletterForm: function() {
+        // Update Marketo hidden form then validate address
+        mktoForm = MktoForms2.getForm('2492');
+        mktoForm.setValues({'Email': this.$.newsletterForm_email.value});
+        if (! mktoForm.validate()) {
+          this._formIsErrorState(true);
+        } else {
+          this._formIsErrorState(false);
+        }
+      },
+
+      emptyNewsletterForm: function() {
+        // Clear error state on empty input
+        this._formIsErrorState(false);
+      },
+
+      _feedbackMessageGitHub: function() {
+        issueURL = 'https://github.com/canonical-websites/tutorials.ubuntu.com';
+        issueURL += '/issues/new?title=[' + this.title + '] ';
+        issueURL += '<please add a title>&body=<describe the issue>';
+        content = '<p>Thank you for your feedback.</p>';
+        content += '<p>Would you like to help us improve this tutorial ';
+        content += 'by filing an issue on GitHub?';
+        content += '<a href="' + issueURL + '" id="issue-button">';
+        content +=
+          '<paper-button class="submit-button">Submit issue</paper-button>';
+        content += '</a></p>';
+        Polymer.dom(this.$.feedbackIntro).innerHTML = content;
+        Polymer.dom(this.$.feedbackButtons).innerHTML = '';
+      },
+
+      submitPositive: function() {
+        ga('gtm1.send', {
+          hitType: 'event',
+          eventCategory: 'feedback',
+          eventAction: 'positive',
+          eventLabel: 'Positive',
+        });
+        Polymer.dom(this.$.feedbackIntro).innerHTML =
+          '<p>Thank you for your feedback.</p>';
+        Polymer.dom(this.$.feedbackButtons).innerHTML = '';
+        this.$.newsletter.style.display = 'block';
+      },
+
+      submitNeutral: function() {
+        ga('gtm1.send', {
+          hitType: 'event',
+          eventCategory: 'feedback',
+          eventAction: 'neutral',
+          eventLabel: 'Neutral',
+        });
+        this._feedbackMessageGitHub();
+      },
+
+      submitNegative: function() {
+        ga('gtm1.send', {
+          hitType: 'event',
+          eventCategory: 'feedback',
+          eventAction: 'negative',
+          eventLabel: 'Negative',
+        });
+        this._feedbackMessageGitHub();
+      },
+    });
+  </script>
+
+</dom-module>
