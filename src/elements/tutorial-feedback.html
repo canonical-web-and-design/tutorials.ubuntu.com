@@ -153,6 +153,12 @@
         if (mktoForm.validate()
             && mktoForm.submittable()
             && mktoForm.getValues()['Email']) {
+          ga('gtm1.send', {
+            hitType: 'event',
+            eventCategory: 'subscription',
+            eventAction: 'submit',
+            eventLabel: 'Subscribe',
+          });
           mktoForm.submit();
         } else {
           this._formIsErrorState(true);
