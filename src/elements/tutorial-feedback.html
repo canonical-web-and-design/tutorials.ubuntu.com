@@ -37,7 +37,6 @@
         padding-top: 1em;
         padding-bottom: 1em;
         padding-left: 1.6em;
-        display: none;
       }
 
       #feedback {
@@ -53,6 +52,12 @@
       .submit-button {
         background-color: #0e8420;
         color: #fff;
+        text-transform: capitalize;
+        font-family: 'Ubuntu';
+        padding-left: 24px;
+        padding-right: 24px;
+        height: 42px;
+        margin-left: 0;
       }
 
       #issue-button {
@@ -82,7 +87,10 @@
         width: 300px;
         margin-bottom: 0;
         margin-right: 15px;
+        font-family: 'Ubuntu';
+        font-size: 1em;
       }
+
     </style>
 
     <div class="layout vertical">
@@ -91,9 +99,10 @@
           <h3>Was this tutorial useful?</h3>
         </div>
         <div id="feedbackButtons" class="layout horizontal">
-          <iron-icon class="big" src="/images/Helpful-yes-24px.svg" on-click="submitPositive"></iron-icon>
-          <iron-icon class="big" src="/images/Helpful-unsure-24px.svg" on-click="submitNeutral"></iron-icon>
-          <iron-icon class="big" src="/images/Helpful-no-24px.svg" on-click="submitNegative"></iron-icon>
+          <iron-icon title="Positive response" id="positiveButton" class="big" src="/images/Helpful-yes-24px.svg" on-click="submitPositive"></iron-icon>
+          <iron-icon title="Neutral response" id="neutralButton" class="big" src="/images/Helpful-unsure-24px.svg" on-click="submitNeutral"></iron-icon>
+          <iron-icon title="Negative response" id="negativeButton" class="big" src="/images/Helpful-no-24px.svg" on-click="submitNegative"></iron-icon>
+
         </div>
       </div>
       <div id="newsletter" class="layout">
@@ -103,7 +112,7 @@
         <div id="newsletterFormWrapper" class="layout">
           <div id="newsletterForm">
             <form onsubmit="return false;">
-              <input type="text" name="email" on-change="updateNewsletterForm" on-emptied="emptyNewsletterForm" id="newsletterForm_email" placeholder="Email">
+              <input type="text" name="email" on-change="updateNewsletterForm" on-emptied="emptyNewsletterForm" id="newsletterForm_email" placeholder="Your email">
               <paper-button id="newsletterForm_button" class="submit-button" raised on-click="submitNewsletterForm">Subscribe</paper-button>
               <span id="formError"></span>
             </form>
@@ -206,7 +215,6 @@
         Polymer.dom(this.$.feedbackIntro).innerHTML =
           '<p>Thank you for your feedback.</p>';
         Polymer.dom(this.$.feedbackButtons).innerHTML = '';
-        this.$.newsletter.style.display = 'block';
       },
 
       submitNeutral: function() {
