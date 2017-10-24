@@ -2,7 +2,7 @@
 id: tutorial-setting-up-lxd-1604-fr
 summary: |
   Le déploiement de conteneurs rapides et légers sur Ubuntu est facile 
-  avec LXD. Nous vous montrerons comment configurer votre LXD et 
+  avec LXD. Nous vous montrerons comment configurer LXD et 
   déployer votre premier conteneur en quelques minutes seulement.
 categories: lxd
 language: french
@@ -11,7 +11,7 @@ difficulty: 2
 status: Published
 author: Alberto Donato
 translator: Winael
-published: 2017-06-29
+published: 2017-10-24
 
 ---
 
@@ -29,12 +29,12 @@ Il permet d'utiliser des conteneurs et de gérer des ressources connexes,
 comme les volumes de stockage et les réseaux.
 
 Ce tutoriel montrera comment installer et configurer LXD sur Ubuntu 
-16.04 (Xenial Xerus), et comment lancer un conteneur et y accéder.
+16.04 (Xenial Xerus), comment lancer un conteneur et y accéder.
 
 ### Pré-requis
 
-Le didacticiel nécessite une installation d'Ubuntu 16.04 (version de 
-Bureau ou Serveur), avec un accès à Internet. Cela peut être soit une 
+Le tutoriel nécessite une installation d'Ubuntu 16.04 (version de 
+Bureau ou Serveur), avec un accès à Internet. Cela peut être une 
 machine physique ou une machine virtuelle. 
 
 ## Installer LXD
@@ -84,9 +84,9 @@ Pour ce tutoriel, nous configurerons LXD en utilisant le back-end de
 stockage **ZFS**.
 
 Le système de fichiers ZFS fournit une fonctionnalité de 
-copie-sur-écriture et permet d'utiliser des fonctionnalités avancée de 
+copie-sur-écriture et permet d'utiliser des fonctionnalités avancées de 
 LXD, comme les quotas de disques par conteneur, les snapshots et 
-restaurations instantané, la migration optimisée (envoi/réception) et la
+restaurations instantanés, la migration optimisée (envoi/réception) et la
 création instantanée de conteneurs à partir d'une image.
 
 Pour installer les outils ZFS, exécutez simplement :
@@ -116,7 +116,7 @@ disque disponible.
 ![screenshot](images/lxd-init-1.png)
 
 Dans le cadre de la configuration d'initialisation de LXD, le réseau 
-peut également être configuré, de sorte que les conteneurs engendrés 
+peut également être configuré, de sorte que les conteneurs créés 
 puissent être consultés depuis l'hôte.
 
 Alors, choisissons **Yes** à la première question, afin de créer un pont
@@ -133,13 +133,11 @@ Configurez la mise en réseau IPv4 pour le pont en sélectionnant
 
 ![screenshot](images/lxd-init-4.png)
 
-The configurator will ask for a few details on how to configure the IPv4
-network, specifically:
 Le configurateur vous demandera quelques détails sur la configuration
 du réseau IPv4, en particulier:
 
  * l'adresse
- * CIDR
+ * le CIDR
  * la plage d'adresse pour le DHCP
  * nombre maximum de clients DHCP
 
@@ -161,7 +159,7 @@ C'est fini ! LXD est maintenant configuré et prêt à être utilisé.
 ## Lancer un conteneur
 Durée: 0:02
 
-Il est maintenant temps de commencer à utiliser LXD.
+Il est maintenant temps d'utiliser LXD.
 
 Tout d'abord, veillons à ce que le client puisse se connecter au démon, en exécutant :
 
@@ -169,7 +167,7 @@ Tout d'abord, veillons à ce que le client puisse se connecter au démon, en ex�
 lxc list
 ```
 
-La sortie devrait être similaire à :
+Le résultat devrait être similaire à :
 
 ```bash
 Generating a client certificate. This may take a minute...
@@ -181,7 +179,7 @@ To start your first container, try: lxc launch ubuntu:16.04
 +------+-------+------+------+------+-----------+
 ```
 
-qui montre qu'il n'y a pas de conteneur en cours d'exécution.which shows there are no running containers.
+qui montre qu'il n'y a pas de conteneur en cours d'exécution.
 
 Lançons maintenant notre premier conteneur :
 
@@ -189,7 +187,7 @@ Lançons maintenant notre premier conteneur :
 lxc launch ubuntu:16.04
 ```
 
-La sortie devrait ressembler à ceci :
+Le résultat devrait ressembler à ceci :
 
 ```bash
 Creating stirring-beagle
@@ -197,7 +195,7 @@ Starting stirring-beagle
 ```
 
 Cela va télécharger l'image officielle Ubuntu 16.04 LTS (Xenial Xerus) 
-et lancer un conteneur depuis avec.
+et l'utiliser comme système d'exploitation de notre conteneur.
 
 Si un nom de conteneur n'est pas fourni (comme dans ce cas), un nom 
 aléatoire sera généré.
@@ -237,11 +235,11 @@ stir-beagle /bin/bash`
 
 Notez que, puisque nous avons également configuré le réseau, le 
 conteneur a une adresse IPv4 (comme indiqué par `lxc list`) et peut 
-également être atteint via ssh depuis l'hôte. 
-Ceci, cependant, nécessite d'importer une clé ssh dans le conteneur 
+également être atteint via SSH depuis l'hôte. 
+Ceci nécessitera d'importer une clé SSH dans le conteneur 
 d'abord.
 
-Une fois que le conteneur n'est plus nécessaire, il peut être arrêté :
+Une fois que vous n'avez plus besoin du conteneur, il peut être arrêté :
 
 ```bash
 lxc stop stirring-beagle
@@ -259,9 +257,9 @@ lxc delete stirring-beagle
 Votre machine est maintenant configurée pour exécuter des conteneurs
 LXD.
 
-LXD fournit beaucoup plus de fonctionnalités et permet une grande 
-flexibilité dans la configuration des conteneurs, dans la limitation des
-ressources des conteneurs et des access.
+LXD fournit beaucoup d'autres fonctionnalités et permet une grande 
+flexibilité dans la configuration des conteneurs, dans la gestion des 
+ressources et de leurs permissions d'accès.
 
 Si vous désirez en savoir plus sur LXD et ses applications avancées, 
 jetez un oeil sur les ressources suivantes :
