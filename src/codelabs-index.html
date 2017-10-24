@@ -174,17 +174,18 @@
 
       codelabs-card {
         margin: 10px;
+        width: 100%;
       }
 
-      @media only screen and (max-width: 769px) {
+      @media only screen and (min-width: 625px) {
         codelabs-card {
-          width: 100%;
+          width: calc(50% - 20px);
         }
       }
 
-      @media only screen and (min-width: 769px) {
+      @media only screen and (min-width: 901px) {
         codelabs-card {
-          width: 306px;
+          width: calc(33.3% - 20px);
         }
       }
 

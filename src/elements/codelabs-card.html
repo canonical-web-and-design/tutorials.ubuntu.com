@@ -23,8 +23,10 @@
         font-family: 'Ubuntu', Helvetica, Arial;
         height: 100%;
         position: relative;
+        width: 100%;
 
         --paper-card-content: {
+          height: 100%;
           padding: 0;
         };
       }
@@ -32,6 +34,9 @@
       paper-card a {
         color: var(--primary-text-color);
         overflow: hidden;
+        display: flex;
+        height: 100%;
+        flex-direction: column;
       }
 
       .header {
@@ -41,6 +46,7 @@
         min-height: 120px;
         color: #fff;
         border-radius: 2px 2px 0 0;
+        flex: 1;
       }
 
       .body {
@@ -68,8 +74,8 @@
       }
 
       .duration {
-        text-align: right;
-        width: 100%;
+        min-width: 109px;
+        align-self: flex-end;
       }
 
       .card-actions {
@@ -84,14 +90,14 @@
       }
 
       .summary {
-        height: 170px;
+        min-height: 200px;
         margin: 0;
       }
 
       .meta {
         color: var(--secondary-text-color);
         font-size: 0.875em;
-        white-space: nowrap;
+        flex-wrap: wrap;
       }
 
       .meta--tags {
@@ -112,6 +118,11 @@
       .duration__value {
         color: var(--primary-text-color);
       }
+
+      .layout.start-justified {
+        justify-content: space-between;
+      }
+
     </style>
 
     <paper-card>
