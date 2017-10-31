@@ -1,7 +1,7 @@
 ---
 id: tutorial-setting-up-lxd-1604-fr
 summary: Le déploiement de conteneurs rapides et légers sur Ubuntu est facile avec LXD. Nous vous montrerons comment configurer LXD et déployer votre premier conteneur en quelques minutes seulement.
-categories: lxd
+categories: containers
 language: fr
 tags: tutorial,installation,ubuntu,desktop,server,lxd
 difficulty: 2
