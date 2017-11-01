@@ -27,7 +27,6 @@
 
       paper-dropdown-menu {
         font-family: 'Ubuntu', Helvetica, Arial;
-        width: 100%;
 
         --paper-input-container-focus-color: white;
 
@@ -63,10 +62,6 @@
         paper-dropdown-menu {
           width: 228px;
         }
-      }
-
-      paper-menu-button {
-        width: 100%;
       }
 
       .filter {
@@ -118,26 +113,45 @@
       }
 
       paper-listbox {
+        border: 1px solid #cdcdcd;
         padding: 0;
+        position: fixed;
+        left: 20px;
+        right: 20px;
+      }
+
+      @media only screen and (min-width: 769px) {
+        paper-listbox {
+          position: static;
+          width: inherit;
+        }
       }
 
       paper-item {
-        font-weight: 300;
-        width: 204px;
+        font-family: 'Ubuntu', Helvetica, Arial;
+        padding-left: 10px;
         cursor: pointer;
+        box-sizing: border-box;
       }
 
-      paper-item.iron-selected {
-        font-weight: 300;
+      .custom-width {
+        width: auto;
       }
+
+      @media only screen and (min-width: 769px) {
+        .custom-width {
+          width: 228px;
+        }
+      }
+
     </style>
 
     <div class="horizontal clearfix end">
       <div class="filters-wrapper">
         <div class="filter">
           <p class="filter-label">Filter results by:</p>
-          <paper-dropdown-menu label="<topic>" no-label-float noink no-animations>
-            <paper-listbox id="categorySelect" class="dropdown-content" attr-for-selected="data-sort" selected="{{selectedCategory}}">
+          <paper-dropdown-menu class="custom-width" label="<topic>" no-label-float noink no-animations>
+            <paper-listbox id="categorySelect" class="custom-width dropdown-content" attr-for-selected="data-sort" selected="{{selectedCategory}}">
               <template is="dom-repeat" items="[[_toArray(categoryOptions)]]">
                 <paper-item data-sort$="[[item.value]]">[[item.name]]</paper-item>
               </template>
@@ -147,8 +161,8 @@
 
         <div class="sort">
           <p class="filter-label">Sort results by:</p>
-          <paper-dropdown-menu no-label no-label-float noink no-animations>
-            <paper-listbox id="sortSelect" class="dropdown-content" attr-for-selected="data-sort" selected="{{selectedSort}}">
+          <paper-dropdown-menu class="custom-width" no-label no-label-float noink no-animations>
+            <paper-listbox id="sortSelect" class="custom-width dropdown-content" attr-for-selected="data-sort" selected="{{selectedSort}}">
               <template is="dom-repeat" items="[[_toArray(sortOptions)]]">
                 <paper-item data-sort$="[[item.value]]">[[item.name]]</paper-item>
               </template>
