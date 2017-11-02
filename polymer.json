@@ -7,27 +7,48 @@
     "src/error-404.html"
   ],
   "sources": [
-    "api/**/*",
     "images/**/*",
-    "src/codelabs/**/*",
+    "src/**/*",
     "static/**/*",
     "bower.json"
   ],
   "extraDependencies": [
-    "manifest.json",
-    "bower_components/webcomponentsjs/webcomponents-lite.min.js"
+    "api/**/*",
+    "bower_components/webcomponentsjs/webcomponents-lite.min.js",
+    "manifest.json"
   ],
   "builds": [{
     "name": "bundled",
     "bundle": true,
     "js": {"minify": true},
     "css": {"minify": true},
-    "html": {"minify": true}
+    "html": {"minify": true},
+    "addServiceWorker": true,
+    "addPushManifest": true,
+    "insertPrefetchLinks": true,
+    "basePath":true
   },{
-    "name": "unbundled",
-    "js": {"minify": true},
+    "name": "es6-bundled",
+    "bundle": true,
+    "js": {"minify": true, "compile": false},
     "css": {"minify": true},
-    "html": {"minify": true}
+    "html": {"minify": true},
+    "addServiceWorker": true,
+    "addPushManifest": true,
+    "insertPrefetchLinks": true,
+    "basePath":true,
+    "browserCapabilities": ["es2015"]
+  },{
+    "name": "es6-unbundled",
+    "bundle": false,
+    "js": {"minify": true, "compile": false},
+    "css": {"minify": true},
+    "html": {"minify": true},
+    "addServiceWorker": true,
+    "addPushManifest": true,
+    "insertPrefetchLinks": true,
+    "basePath":true,
+    "browserCapabilities": ["es2015", "push"]
   }],
   "lint": {
     "rules": ["polymer-2-hybrid"]
