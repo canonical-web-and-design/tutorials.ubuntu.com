@@ -8,9 +8,10 @@
 
   <meta name="theme-color" content="#dd4814">
 
+  <base href="/">
   <link rel="icon" type="image/png" href="https://assets.ubuntu.com/v1/cb22ba5d-favicon-16x16.png" sizes="16x16" />
   <link rel="icon" type="image/png" href="https://assets.ubuntu.com/v1/49a1a858-favicon-32x32.png" sizes="32x32" />
-  <link rel="manifest" href="/manifest.json">
+  <link rel="manifest" href="manifest.json">
 
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://assets.ubuntu.com/v1/3361409d-apple-touch-icon-144x144-precomposed.png" />
   <link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://assets.ubuntu.com/v1/5fe4d3c8-apple-touch-icon-114x114-precomposed.png" />
@@ -59,7 +60,7 @@
       if (!webComponentsSupported) {
         var script = document.createElement('script');
         script.async = true;
-        script.src = '/bower_components/webcomponentsjs/webcomponents-lite.min.js';
+        script.src = 'bower_components/webcomponentsjs/webcomponents-lite.min.js';
         script.onload = onload;
         document.head.appendChild(script);
       } else {
@@ -70,12 +71,12 @@
     // Load pre-caching Service Worker
     // if ('serviceWorker' in navigator) {
     //   window.addEventListener('load', function() {
-    //     navigator.serviceWorker.register('/service-worker.js');
+    //     navigator.serviceWorker.register('service-worker.js');
     //   });
     // }
   </script>
 
-  <link rel="import" href="/src/ubuntu-tutorials-app.html">
+  <link rel="import" href="src/ubuntu-tutorials-app.html">
 
   <meta name="google-site-verification" content="0IvYwDQk61DQg67UU7CV7LfBnPchnsRSupJp83QOCh8" />
 </head>
