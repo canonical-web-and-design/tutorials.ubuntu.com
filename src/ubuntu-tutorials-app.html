@@ -5,14 +5,13 @@
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 
-<link rel="import" href="elements/tutorials-app-header.html">
 <link rel="import" href="elements/websocket-reloader.html">
 
-<link rel="import" href="error-404.html">
 
 <dom-module id="ubuntu-tutorials-app">
   <link rel="lazy-import" group="codelabs-index" href="codelabs-index.html">
   <link rel="lazy-import" group="codelabs-page" href="codelabs-page.html">
+  <link rel="lazy-import" group="error-404" href="error-404.html">
 
   <template>
     <style>
@@ -55,19 +54,10 @@
 
     <websocket-reloader></websocket-reloader>
 
-
-
     <iron-pages role="main" selected="[[page]]" attr-for-selected="name">
-      <section name="index">
-        <tutorials-app-header hidden="[[_isMainHeaderHidden(page)]]"></tutorials-app-header>
-        <codelabs-index id="page-index" route="[[subroute]]" codelabs="{{codelabs}}"></codelabs-index>
-      </section>
-      <section name="tutorial">
-        <codelabs-page id="page-tutorial" route="[[subroute]]" codelabs="{{codelabs}}"></codelabs-page>
-      </section>
-      <section name="404">
-        <error-404 requested-page="[[page]]"></error-404>
-      </section>
+      <codelabs-index name="index" id="page-index" route="[[subroute]]" codelabs="{{codelabs}}"></codelabs-index>
+      <codelabs-page name="tutorial" id="page-tutorial" route="[[subroute]]" codelabs="{{codelabs}}"></codelabs-page>
+      <error-404 name="404" requested-page="[[page]]"></error-404>
     </iron-pages>
 
   </template>
@@ -111,17 +101,15 @@
         // load page import on demand.
         page = page || 'index';
         let pageToLoad = page;
-        if (page == 'index' || page == 'events') {
+        if (page == 'index') {
           page = 'index';
           pageToLoad = 'codelabs-index';
         }
         if (page == 'tutorial') {
           pageToLoad = 'codelabs-page';
         }
-
-        if (Polymer.isInstance(this.$['page-' + page])) {
-          this.page = page;
-          return;
+        if (page == '404') {
+          pageToLoad = 'error-404';
         }
 
         let hrefToImport = this.resolveUrl(pageToLoad + '.html');
@@ -137,11 +125,7 @@
       },
 
       _loadErrorPage: function _loadErrorPage() {
-        this.page = '404';
-      },
-
-      _isMainHeaderHidden: function(page) {
-        return page === 'tutorial';
+        this._loadPage('404');
       },
 
       _codelabsInfoHandler: function(event) {

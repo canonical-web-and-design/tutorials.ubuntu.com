@@ -46,7 +46,6 @@
       }
     </style>
     <app-header-layout>
-      <template is="dom-if" if="[[!hidden]]">
         <app-header fixed>
           <app-toolbar>
             <div class="app-logo">
@@ -56,17 +55,12 @@
             </div>
           </app-toolbar>
         </app-header>
-      </template>
     </app-header-layout>
   </template>
 
   <script>
     Polymer({
       is: 'tutorials-app-header',
-
-      properties: {
-        hidden: false,
-      },
     });
   </script>
 </dom-module>
