@@ -54,7 +54,7 @@
 
     <websocket-reloader></websocket-reloader>
 
-    <iron-pages role="main" selected="[[page]]" attr-for-selected="name">
+    <iron-pages id="pages" role="main" selected="[[page]]" attr-for-selected="name">
       <codelabs-index name="index" id="page-index" route="[[subroute]]" codelabs="{{codelabs}}"></codelabs-index>
       <codelabs-page name="tutorial" id="page-tutorial" route="[[subroute]]" codelabs="{{codelabs}}"></codelabs-page>
       <error-404 name="404" requested-page="[[page]]"></error-404>
@@ -117,6 +117,10 @@
           hrefToImport,
           function loadPage() {
             this.page = page;
+            let currentPage = this.$.pages.selectedItem;
+            if (currentPage.updateMetadata) {
+              currentPage.updateMetadata();
+            }
           },
           function onImportError(event) {
             this._loadErrorPage();

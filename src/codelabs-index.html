@@ -362,9 +362,13 @@
       ],
 
       attached: function() {
+        this.updateMetadata();
+      },
+
+      updateMetadata: function() {
         this.fire('app-metadata', {
           title: 'Ubuntu tutorials',
-          description: 'This is the page description',
+          description: `Ubuntu Tutorials are just like learning from pair programming except you can do it on your own. They provide a step-by-step process to doing development and devops activities on Ubuntu machines, servers or devices.`, // eslint-disable-line
         });
       },
 
