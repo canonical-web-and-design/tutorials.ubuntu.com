@@ -1,0 +1,8 @@
+# Don't include caches, logs and documentation
+cache.sqlite
+*.log
+README.md
+HACKING.md
+
+# The run script isn't needed
+run
