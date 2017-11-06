@@ -5,6 +5,7 @@
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 
 <link rel="import" href="elements/codelabs-card.html">
+<link rel="import" href="elements/tutorials-app-header.html">
 <link rel="import" href="elements/tutorials-filters.html">
 
 <dom-module id="codelabs-index">
@@ -224,6 +225,7 @@
       pattern="/:event"
       data="{{routeData}}"></app-route>
 
+    <tutorials-app-header></tutorials-app-header>
     <div>
       <template is="dom-if" if="{{currentEvent.id}}">
         <header class="horizontal layout event-wrapper">
@@ -360,9 +362,13 @@
       ],
 
       attached: function() {
+        this.updateMetadata();
+      },
+
+      updateMetadata: function() {
         this.fire('app-metadata', {
           title: 'Ubuntu tutorials',
-          description: 'This is the page description',
+          description: `Ubuntu Tutorials are just like learning from pair programming except you can do it on your own. They provide a step-by-step process to doing development and devops activities on Ubuntu machines, servers or devices.`, // eslint-disable-line
         });
       },
 
