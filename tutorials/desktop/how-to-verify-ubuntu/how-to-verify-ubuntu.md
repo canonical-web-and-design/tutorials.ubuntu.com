@@ -40,13 +40,15 @@ Duration: 0:04
 
 Get the signature key
 
-positive:
+positive
 : Tip - On non-Linux systems, you might need to download the GPG tools for this next step. To check if you have the GPG tools installed, run the command `gpg --version or gpg2 --version`.
 
 Get the public keys from the Ubuntu key server and add them to your keyring.
 
 ```bash
-$ gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys "8439 38DF 228D 22F7 B374 2BC0 D94A A3F0 EFE2 1092" "C598 6B4F 1257 FFA8 6632 CBA7 4618 1433 FBB7 5451"
+gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys "8439 38DF 228D 22F7 B374 2BC0 D94A A3F0 EFE2 1092" "C598 6B4F 1257 FFA8 6632 CBA7 4618 1433 FBB7 5451"
+```
+```bash
 gpg: directory `/home/ubuntu/.gnupg' created
 gpg: new configuration file `/home/ubuntu/.gnupg/gpg.conf' created
 gpg: WARNING: options in `/home/ubuntu/.gnupg/gpg.conf' are not yet active during this run
@@ -65,7 +67,9 @@ gpg:               imported: 2  (RSA: 1)
 Verify the key fingerprints.
 
 ```bash
-$ gpg --list-keys --with-fingerprint 0xFBB75451 0xEFE21092
+gpg --list-keys --with-fingerprint 0xFBB75451 0xEFE21092
+```
+```bash
 pub 1024D/FBB75451 2004-12-30
 Key fingerprint = C598 6B4F 1257 FFA8 6632 CBA7 4618 1433 FBB7 5451
 uid Ubuntu CD Image Automatic Signing Key cdimage@ubuntu.com
@@ -81,7 +85,9 @@ Duration: 0:02
 Now you can verify the signature.
 
 ```bash
-$ gpg --verify SHA256SUMS.gpg SHA256SUMS
+gpg --verify SHA256SUMS.gpg SHA256SUMS
+```
+```bash
 gpg: Signature made Fri 25 Mar 04:36:20 2016 GMT using DSA key ID FBB75451
 gpg: Good signature from "Ubuntu CD Image Automatic Signing Key <cdimage@ubuntu.com>" [unknown]
 gpg: WARNING: This key is not certified with a trusted signature!
@@ -107,19 +113,19 @@ Make sure the downloaded the SHA256SUMS and SHA256SUMS.gpg files are in the same
 On Ubuntu, the command to check will look like:
 
 ```bash
-$ sha256sum -c SHA256SUMS 2>&1 | grep OK
+sha256sum -c SHA256SUMS 2>&1 | grep OK
 ```
 
 On macOS, the command and good output will look like the following.
 
 ```bash
-$ shasum -a 256 -c SHA256SUMS 2>&1 | grep OK
+shasum -a 256 -c SHA256SUMS 2>&1 | grep OK
 ```
 
 If you’re using Windows, you may need to download a [SHA-256 tool](http://www.labtestproject.com/files/win/sha256sum/sha256sum.exe) first. Once you have, your command will look like:
 
 ```bash
-$ sha256sum.exe -c SHA256SUMS
+sha256sum.exe -c SHA256SUMS
 ```
 
 The output you want will look similar to the following:
