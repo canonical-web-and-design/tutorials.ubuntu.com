@@ -41,6 +41,10 @@ You will need:
 
 ![screenshot](https://assets.ubuntu.com/v1/5b12fa72-windows-ubuntu-download.png)
 
+
+negative
+: Take note of where your browser saves downloads: this is normally a directory called 'Downloads' on your Windows PC. Don't download the ISO image directly to the USB stick!
+
 ## USB selection
 Duration: 0:30
 
