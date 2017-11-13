@@ -13,7 +13,11 @@
       },
 
       ready: function() {
-        this._reconnect();
+        let isLocal = ['localhost', '127.0.0.1'].indexOf(location.hostname);
+        let isHTTPS = location.protocol === 'https:';
+        if (isLocal && !isHTTPS) {
+          this._reconnect();
+        }
       },
 
       // connect websocket and different handlers
