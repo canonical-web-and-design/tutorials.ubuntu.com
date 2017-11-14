@@ -36,7 +36,19 @@ We are going to start by downloading some dev tools and set up the project.
 ## Electron setup
 Duration: 10:00
 
-Open a terminal to create a `castlearena` project directory and enter it:
+Let's start by opening a terminal and installing some basic development tools, notably:
+
+* **curl**: a command-line utility to download remote content
+* **build-essential**: a collection of dependencies for building source code
+* **nodejs**: A JavaScript runtime, that will also provide the `npm` command we are going to use
+
+```bash
+sudo apt install curl build-essential libgconf2-4
+curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
+sudo apt install nodejs
+```
+
+Create a `castlearena` project directory and enter it:
 
 ```bash
 mkdir castlearena
@@ -50,14 +62,7 @@ mkdir app
 cd app
 ```
 
-Let's start by installing nodejs, which will provide the `npm` command line tool.
-
-```bash
-curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
-sudo apt-get install -y nodejs
-```
-
-Now that we have the `npm` command, we can use it to install electron and electron-builder inside the current directory. They will provide the runtime and tooling to build the app binary.
+With the `npm` command, we can install electron and electron-builder inside the current directory. They will provide the framework and tooling to build our app binary.
 
 ```bash
 npm install electron --save-dev --save-exact
@@ -68,14 +73,14 @@ When this is done we can move to the next step: creating the app.
 
 ## Creating the app
 
-We are going to start by creating an `main.js` file at the root of our project.
+We are going to start by creating a `main.js` file.
 
 Open your favorite editor and save the following code as `main.js`
 
 ```js
 const electron = require('electron');
 const { shell, app, BrowserWindow } = electron;
-const HOMEPAGE = 'http://castlearena.io/'
+const HOMEPAGE = 'http://castlearena.io'
 
 let mainWindow;
 
@@ -88,7 +93,6 @@ app.on('ready', () => {
         }
     });
     window.loadURL(HOMEPAGE);
-    })
 
     window.on('closed', () => {
         window = null;
@@ -103,10 +107,10 @@ Positive
 : Note that we have defined a `HOMEPAGE` variable, which contains the base URL of our app.
 This could point to a local file as well.
 
-Now, from your project directory (`castlearena/app/`), start the app:
+Now, from your project directory (`castlearena/app/`), let's try the app:
 
 ```bash
-npm start
+./node_modules/.bin/electron main.js
 ```
 
 You should now see a new window!
@@ -132,7 +136,7 @@ Let's add this line right above the `loadURL` function call, so our file looks l
 ```js
 const electron = require('electron');
 const { shell, app, BrowserWindow } = electron;
-const HOMEPAGE = 'http://castlearena.io/'
+const HOMEPAGE = 'http://castlearena.io'
 
 let mainWindow;
 
@@ -146,7 +150,6 @@ app.on('ready', () => {
     });
     window.setMenuBarVisibility(false);
     window.loadURL(HOMEPAGE);
-    })
 
     window.on('closed', () => {
         window = null;
@@ -178,7 +181,7 @@ We are going to add it to our code, so it looks like this:
 ```js
 const electron = require('electron');
 const { shell, app, BrowserWindow } = electron;
-const HOMEPAGE = 'http://castlearena.io/'
+const HOMEPAGE = 'http://castlearena.io'
 
 let mainWindow;
 
@@ -199,7 +202,7 @@ app.on('ready', () => {
         ev.preventDefault()
         shell.openExternal(url)
       };
-    })
+    });
 
     window.on('closed', () => {
         window = null;
@@ -207,12 +210,18 @@ app.on('ready', () => {
 });
 ```
 
-We are done with refinements, and we are almost done with the app. All we need, is to add some metadata, that electron-builder will use to generate a executable file.
+We are done with refinements, and we are almost done with the app. You can test it some more to see if it behaves as you would expect:
+
+```bash
+./node_modules/.bin/electron main.js
+```
+
+ Next, we are going to add some metadata to the app project and use electron-builder to generate an executable file.
 
 ## Electron metadata (package.json)
 Duration: 2:00
 
-Now that we have a working app, we need to turn it into an executable file. To do this, we are going to use a dependency we installed earlier: electron-builder. To work, it needs a `package.json` file containing some basic metadata.
+Now that we have a working app, we need to turn it into an executable file. To do this, we are going to use a dependency we installed earlier: electron-builder. To build the executable, it requires a `package.json` file containing some basic metadata.
 
 In your favorite editor, create a `package.json` file with the following content:
 
@@ -250,7 +259,7 @@ Snapcraft, the tool to create snaps, that you can install with:
 ```bash
 sudo snap install snapcraft --classic --candidate
 ```
-And LXD, that will provide a pristine Ubuntu 16.04 container for the snapping process. The following commands will take care of installing it:
+And LXD, a tool to manage Linux containers, that will provide a pristine Ubuntu 16.04 host for the snapping process. The following commands will take care of creating the `lxd` user group and installing the package:
 
 ```bash
 sudo groupadd --system lxd
@@ -259,7 +268,7 @@ newgrp lxd
 sudo snap install lxd
 ```
 
-LXD also needs to be initialized, so let's run the LXD wizard and choose the default response for each question (this will only take a few seconds):
+LXD needs to be initialized: let's run the LXD wizard and choose the default answer to each question.
 
 ```bash
 sudo lxd init
@@ -327,7 +336,7 @@ Snapcraft parts are pieces of code contained by the snap. In our case, mainly ou
 
 #### Declaring an `electron-app` part
 
-To declare a part, you need to give it an arbitrary name. In our case, let's call our part "electron-app". Then, we need to declare where to pull its code from, relatively to our project directory: `app/`. The plugin is the type of part we are building: it's a `nodejs` app. Which means snapcraft will use `nodejs` when building the snap, and bundle it (among other related dependencies) in the final snap package.
+To declare a part, you need to give it an arbitrary name. In our case, let's call our part "electron-app":
 
 ```yaml
 parts:
@@ -336,11 +345,20 @@ parts:
     plugin: nodejs
 ```
 
+A part needs a `source`, to declare where to pull its code from, relatively to our project directory. In this case: `app/`.
+
+The `plugin` is the type of part we are building: it's a `nodejs` app. Which means snapcraft will use `nodejs` when building the snap, and bundle it (among other related dependencies) in the final snap package.
+
 #### Runtime dependencies: `stage-packages`
 
-We also need to declare other dependencies that will be bundled in our snap using the `stage-packages` field. This list is common to most Electron apps:
+We also need to declare other dependencies that will be downloaded from the Ubuntu archive and bundled in our snap using the `stage-packages` field. This list is common to most Electron apps, let's add it to our part:
 
 ```yaml
+parts:
+  electron-app:
+    source: app/
+    plugin: nodejs
+
     stage-packages:
       - libnotify4
       - libappindicator1
@@ -353,12 +371,32 @@ We also need to declare other dependencies that will be bundled in our snap usin
       - pulseaudio
 ```
 
-The `after` field indicates that our part will be built "after" the: `desktop-glib-only` part. It's a part taken from a common repository snapcraft has access to. It provides a desktop launcher script that ensures Desktop apps are working correctly inside snap confinement and integrates seamlessly: with Desktop notifications and global sound controls for example.
+#### Even more dependencies
+
+Snapcraft allows users to share parts with other projects via a common parts repository. We are going to use it to pull a second part called `desktop-glib-only`, that provides a desktop launcher script that ensures Desktop apps are working correctly inside snap confinement and integrates seamlessly with Desktop notifications and global sound controls for example.
 
 ```yaml
+parts:
+  electron-app:
+    source: app/
+    plugin: nodejs
+
+    stage-packages:
+      - libnotify4
+      - libappindicator1
+      - libxtst6
+      - libnss3
+      - libxss1
+      - fontconfig-config
+      - gconf2
+      - libasound2
+      - pulseaudio
+
     after:
       - desktop-glib-only
 ```
+
+The `after` field indicates that our "`electron-app`" part will only be built "after" the: `desktop-glib-only` part.
 
 #### Build and post-build instructions
 
@@ -384,19 +422,150 @@ The following fields are taking care of each step:
       - -node_modules
 ```
 
+And can be added at the end of our part.
 
+Here is our `snapcraft.yaml` at this stage of the process:
 
-## Desktop integration
+```yaml
+parts:
+  electron-app:
+    source: app/
+    plugin: nodejs
 
-We are getting to it: how to showcase your webapp on the desktop.
+    stage-packages:
+      - libnotify4
+      - libappindicator1
+      - libxtst6
+      - libnss3
+      - libxss1
+      - fontconfig-config
+      - gconf2
+      - libasound2
+      - pulseaudio
 
-Let's start with an icon. 256x256px is generally a safe bet for desktop icons to look good under most circumstances.
+    after:
+      - desktop-glib-only
 
-Download this one and save it as `icon.png`
+    build: node_modules/.bin/electron-builder
+    install: |
+      mkdir $SNAPCRAFT_PART_INSTALL/app
+      mv dist/linux-unpacked/* $SNAPCRAFT_PART_INSTALL/app
+    prime:
+      - -node_modules
+```
+
+### Let's recap
+
+We have added general metadata to ensure our app appears correctly in stores and parts to ensure it bundles our executable and its dependencies in a confined package. But we are still missing one very important bit: the launcher.
+
+## Launcher and desktop integration
+
+To launch the app, the snap needs to know which command to run. This is done within an `apps` section in the `snapcraft.yaml`, where we are going to declare: the name of the app, the command to run and which access we want the app to be granted outside of the snap confinement.
+
+Positive
+: **About confinement**
+By default, a snap will be fully confined and will have no way to interact with other pieces of the system, such as accessing the network, the display and sound servers, etc. As a result, we need to declare explicitly what our app needs access to.
+
+This is what our `apps` section needs to look like.
+
+```yaml
+apps:
+  castlearena:
+    command: env TMPDIR=$XDG_RUNTIME_DIR desktop-launch $SNAP/app/electron-app
+    plugs:
+      - home
+      - x11
+      - unity7
+      - browser-support
+      - network
+      - gsettings
+      - pulseaudio
+      - opengl
+```
+
+This list of "`plugs`", which are permissions that connects into similarly named "`slots`" on the user system, is more or less what any desktop application would need.
+
+### All the pieces together
+
+By adding the `apps` section to your `snapcraft.yaml`, you should now have a file looking like this:
+
+```yaml
+name: castlearena
+version: '0.1'
+summary: Destroy your opponent's castle to win!
+description: |
+ Play online or against a bot, click and drag cards to your side of the field
+ to deploy powerful building and units to attack your ennemy.
+
+confinement: strict
+grade: stable
+
+parts:
+  electron-app:
+    plugin: nodejs
+    source: app/
+
+    stage-packages:
+      - libnotify4
+      - libappindicator1
+      - libxtst6
+      - libnss3
+      - libxss1
+      - fontconfig-config
+      - gconf2
+      - libasound2
+      - pulseaudio
+
+    after:
+      - desktop-glib-only
+
+    build: node_modules/.bin/electron-builder
+    install: |
+      mkdir $SNAPCRAFT_PART_INSTALL/app
+      mv dist/linux-unpacked/* $SNAPCRAFT_PART_INSTALL/app
+    prime:
+      - -node_modules
+
+apps:
+  castlearena:
+    command: env TMPDIR=$XDG_RUNTIME_DIR desktop-launch $SNAP/app/electron-app
+    plugs:
+      - home
+      - x11
+      - unity7
+      - browser-support
+      - network
+      - gsettings
+      - pulseaudio
+      - opengl
+```
+
+### Icon and desktop file
+
+The last bit of packaging we need is an icon and a `<app>.desktop` file so desktop environments recognize our app as such. The icon and the desktop file will be picked up by snapcraft and handled accordingly by putting them in a `snap/gui/` directory.
+
+Create this directory by running, from the root of our project:
+
+```bash
+mkdir snap/gui
+```
+
+Now, let's add an icon.
+
+#### The icon
+
+This one is a good match for our app, download this one and save it as `icon.png` in the `snap/gui/` directory.
 
 ![](https://assets.ubuntu.com/v1/b2af323c-icon.png?w=256)
 
-Create a desktop file
+Positive
+: An icon size of 256x256px is generally a safe bet for desktop icons to look good under most circumstances.
+
+### The `<app>.desktop` file
+
+`.desktop` files are a widely supported standard for Linux desktops. They allow the desktop shell to know about your application and display it along other apps.
+
+Create the following file and save it as `castlearena.desktop` in the `snap/gui/` directory.
 
 ```bash
 [Desktop Entry]
@@ -408,25 +577,53 @@ Exec=castlearena
 Terminal=false
 ```
 
+Most fields are self-explanatory, but note the importance of the `Name` field. We are using "Castle Arena" here for the first time and it's how our app will be presented to users in their app list once it's installed.
+
+**We are done with packaging our app.**
+
+In the next step, we are going to run snapcraft, install our new snap and test it.
+
 ## Building and testing the snap
 Duration: 1:00
+
+Now that we have created all the pieces: the app, the electron metadata (`package.json`), the snapcraft metadata (`snapcraft.yaml`) and the desktop file, it's time to run snapcraft!
+
+The command we are going to use is `snapcraft cleanbuild`: it will create an Ubuntu container using LXD, copy our project into it, download and build our part, compress the result as a snap and move the resulting snap file back into our project directory.
+
+From the root of our project (`castlearena/`), run:
 
 ```bash
 snapcraft cleanbuild
 ```
 
-* Download dependencies for each part
-* Build each part
-* Stage what needs to be in the snap
-* Package the staging area into a snap
+Some details about the output you are now looking at:
 
-### Time to test our snap!
+1. The container is created (if it's the first time you create an Ubuntu 16.04 container on this computer, an Ubuntu image is downloaded as part of the process)
+2. The project is copied in the container
+3. Snapcraft is installed in the container
+4. snapcraft pulls the source of each part
+5. ...and downloads all the required dependencies
+6. Each part is built following our instructions
+7. Snapcraft creates a staging directory where the content of our snap is curated based on instructions and parts plugin declarations
+8. The staging directory is packed into a snap
+
+When the process is over, you should see a new file at the root of your project:
+
+`castlearena_0.1_amd64.snap`
+
+Congrats, you made a snap!
+
+### Time to test our snap
+
+To install the snap on your system, run:
 
 ```bash
-snap install --dangerous castlearena_0_amd64.snap
+snap install --dangerous castlearena_0.1_amd64.snap
 ```
 
-From the command-line:
+The `--dangerous` flag indicates that the snap doesn't come from a store and that you are acknowledging it didn't pass security checks.
+
+Then, you can start your app:
 
 ```bash
 castlearena
