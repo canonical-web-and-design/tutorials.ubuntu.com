@@ -471,7 +471,7 @@ This is what our `apps` section needs to look like.
 ```yaml
 apps:
   castlearena:
-    command: env TMPDIR=$XDG_RUNTIME_DIR desktop-launch $SNAP/app/electron-app
+    command: env TMPDIR=$XDG_RUNTIME_DIR desktop-launch $SNAP/app/castlearena
     plugs:
       - home
       - x11
@@ -528,7 +528,7 @@ parts:
 
 apps:
   castlearena:
-    command: env TMPDIR=$XDG_RUNTIME_DIR desktop-launch $SNAP/app/electron-app
+    command: env TMPDIR=$XDG_RUNTIME_DIR desktop-launch $SNAP/app/castlearena
     plugs:
       - home
       - x11
