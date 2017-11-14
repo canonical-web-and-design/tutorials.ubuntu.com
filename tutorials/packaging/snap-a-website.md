@@ -613,7 +613,7 @@ When the process is over, you should see a new file at the root of your project:
 
 Congrats, you made a snap!
 
-### Time to test our snap
+### Time for some testing...
 
 To install the snap on your system, run:
 
@@ -621,27 +621,30 @@ To install the snap on your system, run:
 snap install --dangerous castlearena_0.1_amd64.snap
 ```
 
-The `--dangerous` flag indicates that the snap doesn't come from a store and that you are acknowledging it didn't pass security checks.
+Positive
+: **What does `--dangerous` mean?**
+The `--dangerous` flag indicates that you are acknowledging that this snap could be unsafe to install, this is necessary when the snap didn't went through store security checks. Since you are the developer of the snap, you know it's safe, but the snap command doesn't and would prevent the install if you omitted the flag.
 
-Then, you can start your app:
+Then, you can start the app with:
 
 ```bash
 castlearena
 ```
 
-#### See the snap as users would
+If you followed each step, you should be greeted by a pretty fun game:
 
-From the command-line:
-
-```bash
-snap info castlerena
-```
-
-Elsewhere:
-
-Search for it, and notice the name and icon of the desktop file are being used. If something looks wrong, you can fix it by editing the desktop file.
+You should also search from it in your desktop app list and check if the icon renders nicely! If something looks wrong, at this point you probably know where to fix it: the desktop file.
 
 ## What next?
+
+What a journey! If this is the first time you installed a snap or created a LXD container, you may have realized that most of the time spent in this tutorial was looking at downloads! When the tools have been used once, things get much faster, since most of them don't have to be installed or initialized anymore.
+
+### Let's recap what we went through
+
+* You know how to use snap packaging tools and have them installed
+* You know how to create a basic Electron app
+* You know how to snap an Electron app in a clean environment
+* You know how to bundle dependencies inside your snap and tweak the build steps
 
 ### What if the snap doesn't work?
 
