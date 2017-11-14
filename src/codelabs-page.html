@@ -134,6 +134,10 @@
             document.referrer.indexOf(window.location.hostname) === -1) {
           this.backURL = document.referrer;
         }
+        let el = document.querySelector('ubuntu-tutorials-app');
+        el.addEventListener('google-codelab-ready', function(error) {
+          this._attachFeedbackForm();
+        }.bind(this));
       },
 
       _onPageChange: function(slug) {
@@ -194,18 +198,22 @@
         const resp = e.detail.response;
         let newHTML = resp.replace(/CODELABURL/g, this.url);
         let contentContainer = Polymer.dom(this.$.contentContainer);
-
-        let currentUrl = this.routeData.codelab;
-        let metadata = this.codelabs.filter(function(metadata) {
-          return metadata.url === currentUrl;
-        })[0];
         contentContainer.innerHTML = newHTML;
 
         let codelab = document.querySelector('google-codelab');
         codelab._goToHome = this._goToHome.bind(this);
+      },
 
+      _attachFeedbackForm: function() {
+        let currentUrl = this.routeData.codelab;
+        let metadata = this.codelabs.filter(function(metadata) {
+          return metadata.url === currentUrl;
+        })[0];
+
+        let contentContainer = Polymer.dom(this.$.contentContainer);
         let steps = contentContainer.querySelectorAll('google-codelab-step');
-        let lastPage = steps[steps.length - 1];
+        let lastPage = steps[steps.length - 1].querySelector('.inner');
+
         let tutorialFeedback = document.createElement('tutorial-feedback');
         tutorialFeedback.title = metadata.title;
         lastPage.appendChild(tutorialFeedback);
