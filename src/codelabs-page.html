@@ -12,11 +12,23 @@
         --google-codelab-header-background: var(--secondary-color);
         --paper-blue-500: var(--secondary-color);
         --google-codelab-fab-background: var(--secondary-color);
+
+        --paper-toolbar-title: {
+          font-family: 'Ubuntu', sans-serif;
+          font-size: 1.17em;
+          font-weight: var(--font-weight);
+        };
       }
 
       :host {
         display: block;
         min-height: 100vh;
+      }
+
+      google-codelab {
+        --paper-drawer-panel-main-container: {
+          background: transparent;
+        };
       }
 
       google-codelab-step {
