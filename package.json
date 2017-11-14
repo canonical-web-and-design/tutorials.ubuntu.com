@@ -11,10 +11,11 @@
   "homepage": "https://tutorials.ubuntu.com",
   "scripts": {
     "build": "echo 'To build site, please use build-all'",
-    "build-all": "npm-run-all -s build-tutorials build-site",
+    "build-all": "npm-run-all -s build-tutorials build-api-feeds build-site",
+    "build-api-feeds": "./bin/build-api-feeds",
     "build-site": "npm-run-all polymer-build",
     "build-tutorials": "./bin/generate",
-    "clean": "rm -rf bower_components node_modules build",
+    "clean": "rm -rf api bower_components node_modules build src/codelabs",
     "lint-js": "eslint 'src/**/*.html'",
     "lint-polymer": "polymer lint -i src/*.html -i src/elements/*",
     "lint-style": "npm-run-all lint-style-*",
