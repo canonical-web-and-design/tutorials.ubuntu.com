@@ -645,21 +645,26 @@ Search for it, and notice the name and icon of the desktop file are being used. 
 
 ### What if the snap doesn't work?
 
-Here are some commonly used tools to debug snaps:
+Here are some commonly used techniques to debug snaps:
 
-* Mount a directory as a snap (with write access):
-  `unsquashfs <snap package>` will unpack the snap into a `squashfs-root` drectory
-  `snap try squashfs-root` will mount the directory as if it was an installed snap
-* Inspect apparmor logs for security denials:
+* Inspect system logs for security denials:
   `tail -f /var/log/syslog | grep <snap>`
-* Enter a shell with the same confinement as the snap to inspect the environment:
+* Run your snap in `devmode` (developer mode), to replace AppArmor security denials by warnings:
+  `snap install --devmode <snap package>` will install the snap in `devmode`
+  Then inspect system logs for security warnings with `tail -f /var/log/syslog | grep <snap>`
+* Mount a directory as a snap (with write access):
+  `unsquashfs <snap package>` will unpack the snap into a `squashfs-root` drectory.
+  `snap try squashfs-root` will mount the directory as if it was an installed snap.
+  You can then run the snap and edit its content at the same time.
+* Enter a shell with the same confinement as the snap to inspect its environment, paths, and see what it sees:
   `snap run --shell <snap>`
 
 
 ### How to share my snap with the world?
 
-You can release your snap in the Snap Store, privately or publicly. Publishing steps are available at ...
+You can release it in the Snap Store and make it available privately or publicly in 5 minutes.
+Publishing steps are available in the [snapcraft docs](https://docs.snapcraft.io/build-snaps/publish).
 
 ### Where to find support?
 
-The snapcraft forum is the best place to get your questions answered.
+The [snapcraft forum](https://forum.snapcraft.io) is the best place to get all your questions answered and get in touch with the community.
