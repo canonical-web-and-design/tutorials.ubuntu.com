@@ -16,15 +16,19 @@ published: 2017-11-14
 ## Overview
 Duration: 1:00
 
-Turning your website into a desktop integrated app is a relatively simple thing to do, but distributing it as such and making it noticeable in app stores is another story. This tutorial will show you how to leverage Electron and snaps to create a website-based desktop app from scratch and publish it on a multi-million users app store shared between many Linux distributions.
+Turning your website into a desktop integrated app is a relatively simple thing to do, but distributing it as such and making it noticeable in app stores is another story.
+
+This tutorial will show you how to leverage Electron and snaps to create a website-based desktop app from scratch and publish it on a multi-million user store shared between many Linux distributions.
 
 For this tutorial, the website we are going to package is an HTML5 game called [Castle Arena](http://castlearena.io).
+
+![](https://assets.ubuntu.com/v1/7f7e704f-shot.png)
 
 ### What you'll learn
 
 - How to create a website-based desktop app using Electron
 - How to turn it into a snap package
-- How to make your first release in the Snap Store
+- How to test it and share it with the world
 
 ### What you'll need
 
@@ -62,7 +66,7 @@ mkdir app
 cd app
 ```
 
-With the `npm` command, we can install electron and electron-builder inside the current directory. They will provide the framework and tooling to build our app binary.
+With the `npm` command, we can install *electron* and *electron-builder* inside the current directory. They will provide the framework and tooling to build our app binary.
 
 ```bash
 npm install electron --save-dev --save-exact
@@ -115,7 +119,7 @@ Now, from your project directory (`castlearena/app/`), let's try the app:
 
 You should now see a new window!
 
-<screenshot>
+![](https://assets.ubuntu.com/v1/38b307f0-snap-a-website-app-1.png)
 
 ### Some refinements
 
@@ -320,7 +324,7 @@ version: '0.1'
 summary: Destroy your opponent's castle to win!
 description: |
  Play online or against a bot, click and drag cards to your side of the field
- to deploy powerful building and units to attack your ennemy.
+ to deploy powerful buildings and units to attack your enemy.
 ```
 
 Then, `confinement`, that expresses the level of security of the package (`strict`, `devmode` or `classic`) and `grade` that denotes the stability of your app (`stable` or `devel`).
@@ -345,9 +349,9 @@ parts:
     plugin: nodejs
 ```
 
-A part needs a `source`, to declare where to pull its code from, relatively to our project directory. In this case: `app/`.
+A part needs a `source`, to declare where to pull its code from, relative to our project directory. In this case: `app/`.
 
-The `plugin` is the type of part we are building: it's a `nodejs` app. Which means snapcraft will use `nodejs` when building the snap, and bundle it (among other related dependencies) in the final snap package.
+The `plugin` is the type of part we are building: it's a `nodejs` app. This means snapcraft will use `nodejs` when building the snap, and bundle it (among other related dependencies) in the final snap package.
 
 #### Runtime dependencies: `stage-packages`
 
@@ -483,7 +487,7 @@ apps:
       - opengl
 ```
 
-This list of "`plugs`", which are permissions that connects into similarly named "`slots`" on the user system, is more or less what any desktop application would need.
+This list of "`plugs`", which are permissions that connect into similarly named "`slots`" on the user system, is more or less what any desktop application would need.
 
 ### All the pieces together
 
@@ -495,7 +499,7 @@ version: '0.1'
 summary: Destroy your opponent's castle to win!
 description: |
  Play online or against a bot, click and drag cards to your side of the field
- to deploy powerful building and units to attack your ennemy.
+ to deploy powerful buildings and units to attack your enemy.
 
 confinement: strict
 grade: stable
@@ -540,9 +544,11 @@ apps:
       - opengl
 ```
 
+Our work on the `snapcraft.yaml` file is done.
+
 ### Icon and desktop file
 
-The last bit of packaging we need is an icon and a `<app>.desktop` file so desktop environments recognize our app as such. The icon and the desktop file will be picked up by snapcraft and handled accordingly by putting them in a `snap/gui/` directory.
+The last bit of packaging we need is an icon and a `<app>.desktop` file so that desktop environments recognize our app as such. The icon and the desktop file will be picked up by snapcraft and handled accordingly by putting them in a `snap/gui/` directory.
 
 Create this directory by running, from the root of our project:
 
@@ -554,12 +560,12 @@ Now, let's add an icon.
 
 #### The icon
 
-This one is a good match for our app, download this one and save it as `icon.png` in the `snap/gui/` directory.
+This one is a good match for our app, download it and save it as `icon.png` in the `snap/gui/` directory.
 
 ![](https://assets.ubuntu.com/v1/b2af323c-icon.png?w=256)
 
 Positive
-: An icon size of 256x256px is generally a safe bet for desktop icons to look good under most circumstances.
+: A size of 256x256px is generally a safe bet for desktop icons to look good under most circumstances.
 
 ### The `<app>.desktop` file
 
@@ -599,13 +605,13 @@ snapcraft cleanbuild
 Some details about the output you are now looking at:
 
 1. The container is created (if it's the first time you create an Ubuntu 16.04 container on this computer, an Ubuntu image is downloaded as part of the process)
-2. The project is copied in the container
-3. Snapcraft is installed in the container
-4. snapcraft pulls the source of each part
-5. ...and downloads all the required dependencies
-6. Each part is built following our instructions
-7. Snapcraft creates a staging directory where the content of our snap is curated based on instructions and parts plugin declarations
-8. The staging directory is packed into a snap
+1. The project is copied in the container
+1. Snapcraft is installed in the container
+1. snapcraft pulls the source of each part
+1. ...and downloads all the required dependencies
+1. Each part is built following our instructions
+1. Snapcraft creates a staging directory where the content of our snap is curated based on instructions and parts plugin declarations
+1. The staging directory is packed into a snap
 
 When the process is over, you should see a new file at the root of your project:
 
@@ -631,7 +637,9 @@ Then, you can start the app with:
 castlearena
 ```
 
-If you followed each step, you should be greeted by a pretty fun game:
+If you followed each step, you should be greeted with a pretty fun game:
+
+![victory](https://assets.ubuntu.com/v1/10195d75-Peek+2017-11-14+17-01.gif)
 
 You should also search from it in your desktop app list and check if the icon renders nicely! If something looks wrong, at this point you probably know where to fix it: the desktop file.
 
