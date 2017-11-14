@@ -228,7 +228,7 @@ In your favorite editor, create a `package.json` file with the following content
 ```json
 {
   "name": "castlearena",
-  "version": "0.1",
+  "version": "0.1.0",
   "main": "./main.js",
   "scripts": {
     "start": "electron ."
