@@ -149,6 +149,10 @@
         let el = document.querySelector('ubuntu-tutorials-app');
         el.addEventListener('google-codelab-ready', function(error) {
           this._attachFeedbackForm();
+
+          // Set an empty title on the first child element of the codelab
+          // Firefox picks up Codelab's title attribute and makes a tooltip
+          contentContainer.querySelector('#drawer').setAttribute('title', '');
         }.bind(this));
       },
 
