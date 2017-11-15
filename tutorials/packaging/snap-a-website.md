@@ -37,7 +37,7 @@ For this tutorial, the website we are going to package is an HTML5 game called [
 We are going to start by downloading some dev tools and set up the project.
 
 ## Electron setup
-Duration: 10:00
+Duration: 3:00
 
 Let's start by opening a terminal and installing some basic development tools, notably:
 
@@ -76,6 +76,7 @@ npm install electron-builder --save-dev
 When this is done we can move to the next step: creating the app.
 
 ## Creating the app
+Duration: 10:00
 
 We are going to start by creating a `main.js` file.
 
@@ -255,6 +256,7 @@ Save the file as `package.json` in our Electron project (`castlearena/app`), alo
 We are done with the app! Now, let's have a look at our snap packaging.
 
 ## Snapcraft setup
+Duration: 5:00
 
 To package our app as a snap, we are going to need two more pieces of software:
 
@@ -306,7 +308,7 @@ castlearena/
 In the next step, we are going to edit this `snapcraft.yaml` file to teach snapcraft how to package our app and ensure our snap looks right to end users by setting a description, an icon, etc.
 
 ## Snap metadata (snapcraft.yaml)
-Duration: 5:00
+Duration: 10:00
 
 Snap metadata is provided by the `snapcraft.yaml` file. From user visible metadata (name, version, etc.) to internals (which command to run, source code to package, dependencies, etc.), this is where the snap is made.
 
@@ -463,6 +465,7 @@ parts:
 We have added general metadata to ensure our app appears correctly in stores, and parts to ensure it bundles our executable and its dependencies in a confined package. But we are still missing one very important bit: the launcher.
 
 ## Launcher and desktop integration
+Duration: 5:00
 
 To launch the app, the snap needs to know which command to run. This is done within an `apps` section in the `snapcraft.yaml`, where we are going to declare: the name of the app, the command to run and which access we want the app to be granted outside of the snap confinement.
 
@@ -595,7 +598,7 @@ Most fields are self-explanatory, but note the importance of the `Name` field. W
 In the next step, we are going to run snapcraft, install our new snap and test it.
 
 ## Building and testing the snap
-Duration: 1:00
+Duration: 8:00
 
 Now that we have created all the pieces: the app, the electron metadata (`package.json`), the snapcraft metadata (`snapcraft.yaml`) and the desktop file, it's time to run snapcraft!
 
@@ -650,6 +653,7 @@ If you followed each step, you should be greeted with a pretty fun game:
 You should also search from it in your desktop app list and check if the icon renders nicely! If something looks wrong, at this point you probably know where to fix it: the desktop file.
 
 ## What next?
+Duration: 1:00
 
 What a journey! If this is the first time you installed a snap or created a LXD container, you may have realised that most of the time spent in this tutorial was looking at downloads! When the tools have been used once, things get much faster, since most of them don't have to be installed or initialised anymore.
 
