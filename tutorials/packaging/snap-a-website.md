@@ -44,6 +44,7 @@ Let's start by opening a terminal and installing some basic development tools, n
 
 * **curl**: a command-line utility to download remote content
 * **build-essential**: a collection of dependencies for building source code
+* **libgconf2-4**: an Electron dependency, commonly used to store app configuration values
 * **nodejs**: A JavaScript runtime, that will also provide the `npm` command we are going to use
 
 ```bash
@@ -225,7 +226,7 @@ We are done with refinements, and we are almost done with the app. You can test 
 ## Electron metadata (package.json)
 Duration: 2:00
 
-Now that we have a working app, we need to turn it into an executable file. To do this, we are going to use a dependency we installed earlier: electron-builder. To build the executable, it requires a `package.json` file containing some basic metadata.
+Now that we have a working app, we are going to turn it into an executable file using a dependency we installed earlier: electron-builder To build the executable, it requires a `package.json` file containing some basic metadata.
 
 In your favorite editor, create a `package.json` file with the following content:
 
@@ -245,7 +246,7 @@ In your favorite editor, create a `package.json` file with the following content
 }
 ```
 
-As you can see, all entries are self-explicit. We have a name, a version, the location of our app, how to start the app using the `electron` command and instructions to build a linux executable without packaging (`dir` stands for `directory`).
+As you can see, all entries are self-explanatory. We have a name, a version, the location of our app, how to start the app using the `electron` command and instructions to build a linux executable without packaging (`dir` stands for `directory`).
 
 Positive
 : This is the simplest version of a `package.json` that works with electron-builder. You can extend it with "author", "description" and a lot of other fields, but since we are packaging this app as a snap, we can just focus (later in this tutorial) on the metadata provided by the snap package.
@@ -407,7 +408,7 @@ The `after` field indicates that our "`electron-app`" part will only be built "a
 Then we need to provide the following information:
 
 * **The command (or commands) to build the app**:
-  Since we are using electron-builder and simply calling `electron-builder` in the project will pick up details from our `package.json` file and generate an executable.
+  Since we are using electron-builder, simply calling `electron-builder` in the project will pick up details from our `package.json` file and generate an executable.
 
 * **What to do with the result of our build**:
   The result of running `electron-builder` is a `app/dist/linux-unpacked/`, this is what we want in the snap, in a dedicated `app/` directory for consistency.
@@ -460,7 +461,7 @@ parts:
 
 ### Let's recap
 
-We have added general metadata to ensure our app appears correctly in stores and parts to ensure it bundles our executable and its dependencies in a confined package. But we are still missing one very important bit: the launcher.
+We have added general metadata to ensure our app appears correctly in stores, and parts to ensure it bundles our executable and its dependencies in a confined package. But we are still missing one very important bit: the launcher.
 
 ## Launcher and desktop integration
 
@@ -486,6 +487,11 @@ apps:
       - pulseaudio
       - opengl
 ```
+
+The `command` field requires an explanation:
+ * since we are launching the snap within a confined space with restricted write access, we need to tell the executable where some things are: in this case `TMPDIR`, a standard temporary directory, that we are assigning to `$XDG_RUNTIME_DIR` since it's writable by snaps.
+ * The `desktop-launch` part is a helper script (coming from the `desktop-glib-only` part) that sets other environment variables for the snap to work seamlessly with the desktop.
+ * `$SNAP` is an environment variable containing the install path of the snap.
 
 This list of "`plugs`", which are permissions that connect into similarly named "`slots`" on the user system, is more or less what any desktop application would need.
 
@@ -548,7 +554,7 @@ Our work on the `snapcraft.yaml` file is done.
 
 ### Icon and desktop file
 
-The last bit of packaging we need is an icon and a `<app>.desktop` file so that desktop environments recognize our app as such. The icon and the desktop file will be picked up by snapcraft and handled accordingly by putting them in a `snap/gui/` directory.
+The last bit of packaging we need is an icon and an `<app>.desktop` file so that desktop environments recognise our app as such. The icon and the desktop file will be picked up by snapcraft and handled accordingly by putting them in a `snap/gui/` directory.
 
 Create this directory by running, from the root of our project:
 
@@ -610,14 +616,15 @@ Some details about the output you are now looking at:
 1. snapcraft pulls the source of each part
 1. ...and downloads all the required dependencies
 1. Each part is built following our instructions
-1. Snapcraft creates a staging directory where the content of our snap is curated based on instructions and parts plugin declarations
-1. The staging directory is packed into a snap
+1. Snapcraft creates a `stage` directory where the content of the snap is put together and curated based on parts declarations
+1. `stage` is then copied into a `prime` directory, where snap metadata and desktop file are added
+1. The `prime` directory is packed into a snap
 
 When the process is over, you should see a new file at the root of your project:
 
 `castlearena_0.1_amd64.snap`
 
-Congrats, you made a snap!
+**Congrats, you made a snap!**
 
 ### Time for some testing...
 
@@ -629,7 +636,7 @@ snap install --dangerous castlearena_0.1_amd64.snap
 
 Positive
 : **What does `--dangerous` mean?**
-The `--dangerous` flag indicates that you are acknowledging that this snap could be unsafe to install, this is necessary when the snap didn't went through store security checks. Since you are the developer of the snap, you know it's safe, but the snap command doesn't and would prevent the install if you omitted the flag.
+The `--dangerous` flag indicates that you are acknowledging that this snap could be unsafe to install, this is necessary when the snap hasn't been through store security checks. Since you are the developer of the snap, you know it's safe, but the snap command doesn't and would prevent the install if you omitted the flag.
 
 Then, you can start the app with:
 
@@ -645,14 +652,19 @@ You should also search from it in your desktop app list and check if the icon re
 
 ## What next?
 
-What a journey! If this is the first time you installed a snap or created a LXD container, you may have realized that most of the time spent in this tutorial was looking at downloads! When the tools have been used once, things get much faster, since most of them don't have to be installed or initialized anymore.
+What a journey! If this is the first time you installed a snap or created a LXD container, you may have realised that most of the time spent in this tutorial was looking at downloads! When the tools have been used once, things get much faster, since most of them don't have to be installed or initialised anymore.
 
 ### Let's recap what we went through
 
-* You know how to use snap packaging tools and have them installed
-* You know how to create a basic Electron app
-* You know how to snap an Electron app in a clean environment
-* You know how to bundle dependencies inside your snap and tweak the build steps
+  * You know how to use snap packaging tools and have them installed
+  * You know how to create a basic Electron app
+  * You know how to snap an Electron app in a clean environment
+  * You know how to bundle dependencies inside your snap and tweak the build steps
+
+### How to share my snap with the world?
+
+You can release it in the Snap Store and make it available privately or publicly in 5 minutes.
+Publishing steps are available in the [snapcraft docs](https://docs.snapcraft.io/build-snaps/publish).
 
 ### What if the snap doesn't work?
 
@@ -669,12 +681,6 @@ Here are some commonly used techniques to debug snaps:
   You can then run the snap and edit its content at the same time.
 * Enter a shell with the same confinement as the snap to inspect its environment, paths, and see what it sees:
   `snap run --shell <snap>`
-
-
-### How to share my snap with the world?
-
-You can release it in the Snap Store and make it available privately or publicly in 5 minutes.
-Publishing steps are available in the [snapcraft docs](https://docs.snapcraft.io/build-snaps/publish).
 
 ### Where to find support?
 
