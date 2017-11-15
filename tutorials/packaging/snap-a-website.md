@@ -4,10 +4,9 @@ summary: In this tutorial, you’ll learn how to create a desktop web app with E
 categories: packaging
 tags: snapcraft, snap, beginner, nodejs, electron, website
 status: Published
-feedback Link: https://github.com/ubuntu/codelabs/issues:
-author: David Callé <david.calle@canonical.com>
 difficulty: 2
 published: 2017-11-14
+author: David Callé <david.calle@canonical.com>
 
 ---
 
