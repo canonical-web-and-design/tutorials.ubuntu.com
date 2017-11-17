@@ -650,7 +650,7 @@ If you followed each step, you should be greeted with a pretty fun game:
 
 ![victory](https://assets.ubuntu.com/v1/10195d75-Peek+2017-11-14+17-01.gif)
 
-You should also search from it in your desktop app list and check if the icon renders nicely! If something looks wrong, at this point you probably know where to fix it: the desktop file.
+You should also search for the app in your desktop app list and check if the icon renders nicely! If something looks wrong, at this point you probably know where to fix it: the desktop file.
 
 ## What next?
 Duration: 1:00
