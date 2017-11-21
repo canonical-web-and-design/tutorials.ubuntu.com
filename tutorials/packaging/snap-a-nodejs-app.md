@@ -649,7 +649,7 @@ As a bonus, you have as well some basic training on systemd common commands to s
 
 [chucknorris.io]: https://chucknorris.io
 [basic snap usage]: https://tutorials.ubuntu.com/tutorial/basic-snap-usage
-[create your first snap]: https://tutorials.ubuntu.com/tutorial/create-first-snap
+[create your first snap]: https://tutorials.ubuntu.com/tutorial/create-your-first-snap
 [here-3]: https://github.com/ubuntu/snap-tutorials-code/tree/master/build-a-nodejs-service/step3
 [here-4]: https://github.com/ubuntu/snap-tutorials-code/tree/master/build-a-nodejs-service/step4
 [this]: https://github.com/ubuntu/snap-tutorials-code/tree/master/build-a-nodejs-service/final

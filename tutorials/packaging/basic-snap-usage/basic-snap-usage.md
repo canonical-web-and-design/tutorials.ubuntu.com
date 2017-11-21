@@ -319,7 +319,7 @@ By now you should have found snaps in the store, installed and updated them, cha
 [snap-openwrt feed]: https://github.com/teknoraver/snap-openwrt/blob/master/README.md
 [http://localhost:9000/]: http://localhost:9000/
 [Advanced snap usage]: https://tutorials.ubuntu.com/tutorial/advanced-snap-usage
-[Creating your first snap]: https://tutorials.ubuntu.com/tutorial/create-first-snap
+[Creating your first snap]: https://tutorials.ubuntu.com/tutorial/create-your-first-snap
 [snapcraft forum]: https://forum.snapcraft.io/
 [Snapcraft.io documentation]: http://snapcraft.io/docs/
 [contact us and the broader community]: http://snapcraft.io/community/

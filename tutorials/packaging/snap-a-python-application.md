@@ -648,7 +648,7 @@ You now know how to snap a simple Python application, the available options and 
 [httpstat]: https://github.com/reorx/httpstat
 [https://www.ubuntu.com]: https://www.ubuntu.com
 [basic snap usage]: https://tutorials.ubuntu.com/tutorial/basic-snap-usage
-[create your first snap]: https://tutorials.ubuntu.com/tutorial/create-first-snap
+[create your first snap]: https://tutorials.ubuntu.com/tutorial/create-your-first-snap
 [here]: https://github.com/ubuntu/snap-tutorials-code/tree/master/snap-python-app/step3
 [this]: https://github.com/ubuntu/snap-tutorials-code/tree/master/snap-python-app/final
 [snapcraft forum]: https://forum.snapcraft.io/
