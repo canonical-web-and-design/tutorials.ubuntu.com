@@ -98,7 +98,7 @@ Let's have a look at each field:
      * **5**: Ubuntu sysadmin/developer- very familiar with most aspects of the operating system and can be expected to know details about its inner workings
 
  * **status**: `Draft` or `Published`
- * **feedback-url**: where to report bugs and give feedback about this tutorial, unless you have very specific requirements, this should be: `https://github.com/canonical-websites/tutorials.ubuntu.com/issues`.
+ * **feedback-url**: where to report bugs and give feedback about this tutorial. Unless you have very specific requirements, this should be: `https://github.com/canonical-websites/tutorials.ubuntu.com/issues`.
  * **author**: the name and email address between brackets of the author of the tutorial. If you don't intend to maintain this tutorial after publication, please use `Canonical Web Team <webteam@canonical.com>`
  * **published**: a date in YYYY-MM-DD format, to be updated after any major change to the tutorial
 
