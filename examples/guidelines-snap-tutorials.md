@@ -1,13 +1,13 @@
 ---
 id: tutorial-guidelines
-summary: Get started with your first tutorial!
+summary: Learn how to create, write and publish tutorials on tutorials.ubuntu.com, reaching a wide audience of both beginner and advanced Linux users.
 categories: community
 tags: tutorial,guidelines, guide, write, contribute
 difficulty: 2
 status: Published
 feedback-link: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
-author: Javier Lopez <javier.lopez@example.com>
-published: 2017-01-13
+author: Canonical Web Team <webteam@canonical.com>
+published: 2017-11-23
 
 ---
 
@@ -30,7 +30,7 @@ We will start by looking at general guidelines, the structure of a tutorial and 
 ### What you'll need
 
 * A computer running Ubuntu 16.04 or above
-* the `git` command-line client (that you can install by running `sudo apt install git`)
+* The `git` command-line client (that you can install by running `sudo apt install git`)
 * [Docker](https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/) to run the website locally
 * A [GitHub](https://github.com) account, for the publication and review process
 
@@ -45,11 +45,11 @@ Tutorials are step by step guides aimed at a very diverse audience. To provide a
 
 A good tutorial should:
 
-* be focused on one topic or a very small group of related topics. Keep it simple and on point, people who want to learn multiple subjects will take multiple tutorials.
-* produce a tangible result. The topic is demonstrated with a *small practical project* and not only a theoretical or "hello world" example. The tutorial attendee will come out of it with a working example on his environment.
+* be focused on one topic or a very small group of related topics. Keep it simple and on point as people who want to learn multiple subjects will take multiple tutorials.
+* produce a tangible result. The topic is demonstrated with a *small practical project* and not only a theoretical or "hello world" example. The tutorial reader will come out of it with a working example on their environment.
 * be short. An estimated 60 minutes for a tutorial is an absolute maximum. Most tutorials should be in the range of 15 - 30 minutes.
 * be divided in short steps. Each step is practical and results in user-visible progress.
-* be entertaining! Try to have a fun project to work on, even if it's something useless!
+* be entertaining! Try to have a fun project to work on, even if it's something impractical!
 
 ### Tone
 
@@ -71,13 +71,13 @@ This file starts with a set of metadata in *Front matter* format to be consumed 
 ```
 ---
 id: tutorial-guidelines
-summary: Get started with your first tutorial!
+summary: Learn how to create, write and publish tutorials on tutorials.ubuntu.com, reaching a wide audience of both beginner and advanced Linux users.
 categories: community
 tags: guidelines, guide, write, contribute
 difficulty: 2
 status: Published
 feedback-url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
-author: Javier Lopez <javier.lopez@example.com>
+author: Canonical Web Team <webteam@canonical.com>
 published: 2017-01-13
 
 ---
@@ -85,7 +85,7 @@ published: 2017-01-13
 
 Let's have a look at each field:
 
- * **id**: the identifier of the tutorial to be used in the URL, keep it short but clear
+ * **id**: the identifier of the tutorial to be used in the URL. Keep it short but clear.
  * **summary**: a description of the tutorial (10 to 30 words) to be displayed on the frontpage of the site
  * **categories**: any of `cloud`, `community`, `containers`, `desktop`, `iot`,  `packaging` or `server`
  * **tags**: a comma-separated list of tags used by the site search
@@ -95,11 +95,11 @@ Let's have a look at each field:
      * **2**: Ubuntu novice - can be trusted to enter commands but experience limited to simple file operations
      * **3**: Experienced user - doesn't need explanations about common topics (networking, sudo, services)
      * **4**: Advanced user - has experience running Ubuntu for many years, but may be unfamiliar with some sysadmin/programming topics
-     * **5**: Ubuntu sysadmin/developer- very familiar with most aspects of the operating system and can be expected to know details about
+     * **5**: Ubuntu sysadmin/developer- very familiar with most aspects of the operating system and can be expected to know details about its inner workings
 
  * **status**: `Draft` or `Published`
  * **feedback-url**: where to report bugs and give feedback about this tutorial, unless you have very specific requirements, this should be: `https://github.com/canonical-websites/tutorials.ubuntu.com/issues`.
- * **author**: the name and email address between brackets of the author of the tutorial. If you don't intend to maintain this tutorial after publication, please use web-team
+ * **author**: the name and email address between brackets of the author of the tutorial. If you don't intend to maintain this tutorial after publication, please use `Canonical Web Team <webteam@canonical.com>`
  * **published**: a date in YYYY-MM-DD format, to be updated after any major change to the tutorial
 
 After this metadata section, the tutorial starts.
@@ -200,7 +200,7 @@ an HTML5 game called [Castle Arena](http://castlearena.io).
 
 ### The "What you'll learn" section
 
-This section includes the list of topics covered by your tutorial. It's a way to align readers expectations with the content they are going to read. They are presented as bullet points.
+This section includes the list of topics covered by your tutorial. It's a way to align readers expectations with the content they are going to read. Topics are presented as bullet points.
 
 #### Example
 
@@ -259,7 +259,7 @@ Note that Google Analytics is used as the survey backend.
 
 ### All the pieces together
 
-When we put all of these pieces together, here what an Overview step looks like:
+When we put all of these pieces together, here's what an Overview step looks like:
 
 ```markdown
 ## Overview
@@ -304,37 +304,37 @@ Be wary of a step's length. In average, 5 to 10 minutes is more than enough for 
 
 ### If too long, prefer dividing the tutorial
 
-Tutorials are self-sufficient, but they can nonetheless build upon each other (You can link from the requirements section of the first step, for example). One tutorial could require another tutorial to be completed first. And if you are reusing the same code, ensure you provide a repository as a starting point.
+Tutorials are self-sufficient, but they can nonetheless build upon each other (you can link from the requirements section of the first step, for example). One tutorial could require another tutorial to be completed first. And if you are reusing the same code, ensure you provide a repository as a starting point.
 
-If a tutorial is too long, consider breaking it up in several pieces. However, ensure all tutorials present a distinct objective.
+If a tutorial is too long, consider breaking it up into several pieces. However, ensure all tutorials present a distinct objective.
 
 ### Don’t have too many steps
 
-Steps should be concise and tutorials should be rather short. Consequently, you shouldn’t have too many steps in your tutorial. We don't want to make the attendee desperate by glancing at the number of remaining steps before tutorial completion.
+Steps should be concise and tutorials should be rather short. Consequently, you shouldn’t have too many steps in your tutorial. We don't want to make the reader desperate by glancing at the number of remaining steps before tutorial completion.
 
 ### Each step should be rewarding
 
-As a writer, you should try to keep the attendee entertained at each step and this is achieved by careful story building. Each step should end on concrete progress towards the end goal. It should be, if possible, tangible and interactive, so that the reader can be familiarised with notions introduced by the step.
+As a writer, you should try to keep the reader entertained at each step and this is achieved by careful story building. Each step should end on concrete progress towards the end goal. It should be, if possible, tangible and interactive, so that the reader can be familiarised with notions introduced by the step.
 
-You can aslo finish a step on a "cliffhanger", you will get bonus attendee commitment points!
+To earn bonus reader commitment points, finish a step on a "cliffhanger"!
 
 ### Make intentional mistakes
 
 This could seem counter-intuitive at first. However, learning by fire (or rather, by error here) is a key way of learning new things. Executing, erroring, analyzing and fixing has multiple benefits:
 
 * Users will be familiar with a particular error, and even if they don't remember explicitly how to fix it the next time they encounter it, they will have some clue and some deja-vu feeling which will guide them towards its resolution.
-* Providing the perfect answer from the start hides complexity and a lot of non-formally written subtleties. Forcing attendees to face them will ensure that the tutorial written doesn’t take these subtleties as a given and will greatly help newcomers.
+* Providing the perfect answer from the start hides complexity and a lot of non-formally written subtleties. Forcing readers to face them will ensure that the tutorial written doesn’t take these subtleties as a given and will greatly help newcomers.
 
 positive
-: A concrete example of this is, in the "Create your first snap" tutorial, how we introduce building a snap. After creating the parts, we immediately build the snap and install it. Then, we try to execute one of the snap binary, but no such command is found! That way, we can introduce the fact (in the following step) that binaries are not exposed by default as part of the snap. We can use this "mistake" to introduce further concepts.
+: A concrete example of this is, in the "Create your first snap" tutorial, how we introduce building a snap. After creating the parts, we immediately build the snap and install it. Then, we try to execute one of the snap binaries, but no such command is found! That way, we can introduce the fact (in the following step) that binaries are not exposed by default as part of the snap. We can use this "mistake" to introduce further concepts.
 
 ### External links in tutorials
 
-Links to external website are forbidden during a tutorial. We don’t want people's attention diverted from the task they are going through (which emphasize the fact that each step should have enough knowledge to be self-sufficient). In particular, do not link the attendee to the reference documentation. We want to keep the user’s attention on the current task only. Download links are allowed though.
+Links to external website are forbidden during a tutorial. We don’t want people's attention diverted from the task they are going through (which emphasize the fact that each step should have enough knowledge to be self-sufficient). In particular, do not link the reader to the reference documentation. We want to keep the user’s attention on the current task only. Download links are allowed though.
 
-As previously written, only the first and last steps can (and probably should) link to external documentation, for prerequisites or learning more on a particular topic. The same rule applies to external websites for libraries or frameworks.
+As previously written, only the first and last steps can (and probably should) link to external documentation for prerequisites or learning more on a particular topic. The same rule applies to external websites for libraries or frameworks.
 
-The only exception to this rule is for linking to source code, when it's used as a checkpoint in the tutorial (eg. "your code should look like this").
+The only exception to this rule is when linking to source code that is being used as a checkpoint in the tutorial (eg. "your code should look like this").
 
 Of course, this doesn’t concern key tutorial actions happening on a given website, like Launchpad, GitHub, login.ubuntu.com, etc.
 
@@ -342,9 +342,9 @@ Of course, this doesn’t concern key tutorial actions happening on a given webs
 
 This is mostly for developer oriented tutorials, but if this rule can be applied to an admin/advanced users oriented one, please do so!
 
-The advice is to provide regular checkpoints where people can sync back their source code with the tutorial, in particular at the start of a given step. Attendee could have stopped then resumed going through a tutorial, and may not have the source code from previous steps anymore. Consequently, in the case of a code-writing tutorial, please try to provide a link to the current state of the code at the start of a step.
+The advice is to provide regular checkpoints where people can sync back their source code with the tutorial, in particular, at the start of a given step. Readers could have stopped then resumed going through a tutorial, and may not have the source code from previous steps anymore. Consequently, in the case of a code-writing tutorial, please try to provide a link to the current state of the code at the start of a step.
 
-You can refer to it as “If you want to ensure you have all the needed bits we saw together in the previous steps…“ and point to an external repository on GitHub, launchpad or others… This element should be in an admonition:
+You can refer to it as “If you want to ensure you have all the needed bits we saw together in the previous steps…“ and point to an external repository on GitHub, Launchpad or others… This element should be in an admonition:
 
 Positive
 : **Lost or starting from here?**
@@ -358,11 +358,9 @@ In general, try to avoid leaving the user hanging for the right answer. Tutorial
 
 In particular, to avoid a teacher/student relationship, do not separate questions and answers (apart from cliffhangers as previously stated, but the questions you are asking your audience are more rhetorical in that case!).
 
-In general, do not put actionable attendee’s expectations in different steps, questions and answers should be on the same page. This way, the answer is always in the context of the given question.
-
 ### Do not repeat the setup/install phase for each tutorial
 
-Avoid repetitive setups or installation phases, particularly if the tutorial isn’t a beginner one. Beginner tutorials should contain a setup phase, other more advanced tutorials should reference other beginner tutorials as prerequisites.
+Avoid repetitive setups or installation phases, particularly if the tutorial isn’t a beginner one. Beginner tutorials should contain a setup phase while more advanced tutorials should reference other beginner tutorials as prerequisites.
 
 ### Command line snippets
 
@@ -374,7 +372,7 @@ For example:
 `foo/something --bar`
 ```
 
-Whic renders as `foo/something --bar`.
+Which renders as `foo/something --bar`.
 
 
 For longer example code we expect people to type in, we do not use the command prompt at the beginning of each line, and we separate the command from the output. This makes the command and outputs clearer and also easier to copy and paste.
@@ -403,11 +401,11 @@ You should now have all the cards in hand to provide a rewarding learning experi
 ## Rewarding your readers
 Duration: 2:00
 
-On the last page of a tutorial, the project is finished and you remember attendees they have reached their goal and have grown some new skills.
+On the last page of a tutorial, the project is finished and you remind readers they have reached their goal and have grown some new skills.
 
-Take one or two paragraphs to remind them of what they went through and what they have achieved. That way, attendees can reflect upon the various steps and this new acquired knowledge. Ensure you use a friendly title for this final step. “That’s all folks!” is used in some other tutorials.
+Take one or two paragraphs to remind them of what they went through and what they have achieved. That way, readers can reflect upon the various steps and their newly acquired knowledge. Ensure you use a friendly title for this final step.
 
-For example, as a reader of this tutorial, you should have understood what's needed to create a successful learning experience, what the recommendations are and how the syntax is working. You know how to deploy the website locally and how to propose your content for review!
+For example, as a reader of this tutorial, you should have understood what's needed to create a successful learning experience, what the recommendations are, and how the Markdown syntax works. You now know how to deploy the website locally and how to propose your content for review!
 
 On the last page, make sure you also include at least one of the following sections:
 
@@ -416,7 +414,7 @@ On the last page, make sure you also include at least one of the following secti
 
 ### "Next steps"
 
-With a list of bullet points, guide the attendee where to go from now on. This could be other tutorials being the “next logical ones”, communication channels and places where to get support from.
+With a list of bullet points, offer some guidance on the next steps a reader may want to take. This could be other tutorials being the “next logical ones”, communication channels and places where to get support from.
 
 #### Example
 
@@ -515,7 +513,7 @@ Which renders as:
 This block is highlighted as Go source code.
 ```
 
-These additions to standard Markdown are easy to master and play with, but in case you face unexpected behaviours in the rendering, feel free to reach out to tutorials maintainers at #ubuntu-doc on Freenode IRC.
+These additions to standard Markdown are easy to master and play with, but in case you face unexpected behaviours in the rendering, feel free to reach out to the tutorials maintainers at #ubuntu-doc on Freenode IRC.
 
 ## Local rendering
 Duration: 1:00
@@ -537,7 +535,7 @@ cd tutorials.ubuntu.com
 ./run
 ```
 
-If you have Docker correctly installed. It will build a local tutorials.ubuntu.com instance. The first time (and only the first time) you run this command, it will download all the required dependencies. When the site is ready, a local server starts serving it at `http://localhost:8016`.
+If you have Docker correctly installed, it will build a local tutorials.ubuntu.com instance. The first time (and only the first time) you run this command, it will download all the required dependencies. When the site is ready, a local server starts serving it at `http://localhost:8016`.
 
 By default, the site only displays this how-to tutorial.
 
@@ -610,18 +608,18 @@ git push -u origin <tutorial-id>
 
 You will then be asked to enter your GitHub credentials.
 
-Once your `push` has been processed, open the [GitHub project page](https://github.com/canonical-websites/tutorials.ubuntu.com). You should see a highlighted box near the top of the page, with your newly pushed git branch name (the tutorial id) on it. Click on the "Pull Request" button next to it.
+Once your `push` has been processed, open the [GitHub project page](https://github.com/canonical-websites/tutorials.ubuntu.com). You should see a highlighted box near the top of the page with your newly pushed git branch name (the tutorial id) on it. Click on the "Pull Request" button next to it.
 
 Fill up the form with the required information, such as describing your new tutorial and why it would be useful to readers.
 
-When your pull request is submitted, the team of reviewers will receive an email and add it to the review queue. Once they get to it, they will review the content and open a discussion with you on the Pull Request page. At the end of this process, they will either merge your changes into the project, request additional changes or reject your request.
+When your pull request is submitted, the team of reviewers will receive an email and add it to the review queue. Once they get to it, they will review the content and open a discussion with you on the Pull Request page. At the end of this process, they will either merge your changes into the project or request additional changes.
 
 ## That's all folks!
 Duration: 01:00
 
 Congrats, you made it! If you have been watching closely, you are now fully equipped to write a compelling tutorial and take your future readers to new heights!
 
-Now, you know how to:
+Now you know how to:
 
 * Create a welcoming and informative intro to your content
 * Provide an interesting and easy-to-follow learning experience
