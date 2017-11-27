@@ -6,8 +6,8 @@ tags: tutorial,guidelines, guide, write, contribute
 difficulty: 2
 status: Published
 feedback-link: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
-author: Canonical Web Team <webteam@canonical.com>
 published: 2017-11-23
+author: Canonical Web Team <webteam@canonical.com>
 
 ---
 
