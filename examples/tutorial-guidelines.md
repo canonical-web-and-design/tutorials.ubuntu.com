@@ -1,1 +1,0 @@
-../tutorials/community/tutorial-guidelines.md

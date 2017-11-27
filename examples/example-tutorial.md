@@ -1,12 +1,12 @@
 ---
-id: tutorial-guidelines
+id: example-tutorial
 summary: Learn how to create, write and publish tutorials on tutorials.ubuntu.com, reaching a wide audience of both beginner and advanced Linux users.
-categories: community
+categories: category
 tags: tutorial, guidelines, guide, write, contribute
 difficulty: 2
-status: Published
+status: draft
 feedback-link: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
-published: 2017-11-23
+published: 2017-01-01
 author: Canonical Web Team <webteam@canonical.com>
 
 ---
