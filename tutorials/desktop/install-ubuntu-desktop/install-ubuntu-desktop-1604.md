@@ -14,7 +14,7 @@ author: Canonical Web Team <webteam@canonical.com>
 # Memasang Ubuntu desktop
 
 ## Pendahuluan
-Duration: 0:05
+Durasi: 0:05
 
 Ubuntu desktop mudah digunakan, mudah di pasang dan juga memuat apapun yang kamu butuhkan untuk organisasi, sekolah,
 rumah atau perusahaan. Serta lisensi terbuka, aman, mudah digunakan dan juga  gratis di unduh.
