@@ -145,7 +145,6 @@ Setelah semuanya terpasang dan terkonfigurasi, jendela kecil akan menampilkan pe
 
 ![screenshot](https://assets.ubuntu.com/v1/f4e2a592-download-desktop-install-ubuntu-desktop_10.jpg)
 Selamat ! Kamu berhasil memasang sistem  opeasi Linux paling populer di dunia!
-Congratulations! You have successfully installed the world's most popular Linux operating system!
 
 Sekarang adalah waktu untuk memulai menikmati Ubuntu!
 
