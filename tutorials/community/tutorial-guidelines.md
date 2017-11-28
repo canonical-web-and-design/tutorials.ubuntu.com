@@ -503,9 +503,9 @@ Code blocks are declared by placing them between two lines containing three back
 
 Put the name of the coding language after the first fence to explicitly specify which highlighting plan to use, like this:
 
-   ```go
-   This block is highlighted as Go source code.
-   ```
+    ```go
+    This block is highlighted as Go source code.
+    ```
 
 Which renders as:
 
