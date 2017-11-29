@@ -5,7 +5,7 @@ categories: packaging
 language: pl
 status: Published
 feedback link: https://github.com/ubuntu/codelabs/issues
-tags: snap, usage, beginner, idf-2016, polish
+tags: snap, usage, beginner, idf-2016, polish, hidden
 difficulty: 1
 translator: Marcin Mikołajczak
 published: 2017-11-28
