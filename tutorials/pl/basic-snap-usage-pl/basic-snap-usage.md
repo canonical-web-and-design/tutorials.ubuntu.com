@@ -74,7 +74,7 @@ $ sudo pacman -S snapd
 sudo systemctl enable --now snapd.socket
 ```
 
-**Debian (tylko Sid)**
+**Debian (Stretch i Sid)**
 
 ```bash
 $ sudo apt install snapd
@@ -84,15 +84,7 @@ $ sudo apt install snapd
 
 ```bash
 $ sudo dnf install snapd
-
-# aktywuj usługę snapd:
-$ sudo systemctl enable --now snapd.service
-
-# wsparcie SELinux jest w fazie beta, obecnie:
-$ sudo setenforce 0
-
-# aby zachować to ustawienie, edytuj plik /etc/selinux/config, dodaj ustawienia SELINUX=permissive i uruchom system ponownie.
-```
+$ sudo ln -s /var/lib/snapd/snap /snap
 
 **openSuSE**
 
