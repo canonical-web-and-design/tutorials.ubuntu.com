@@ -158,7 +158,7 @@ positive
 : Note: when you install the first snap, snapd will download the base OS snap (which includes the very minimal bits required apps in confinement and amounts to some megabytes). Consequently, your first snap download time can take a little bit longer than it will be in the future for any other snap.
 
 
-To run the command, simply type hello in the command line (which is a command provided by the `hello` snap:
+To run the command, simply type hello in the command line (which is a command provided by the `hello` snap):
 
 ```bash
 $ hello
