@@ -33,7 +33,7 @@ We support Markdown as a source for our tutorials.
 
 _If you find any bugs in Markdown rendering, please report them to [Ubuntu tutorial deployment repository](https://github.com/ubuntu/tutorial-deployment)_
 
-Our [Ubuntu tutorial guidelines](./examples/guidelines-snap-tutorials.md) markdown tutorial is inside the `examples` folder. This contains useful information and resources for creating new tutorials, including documentation on custom markdown tags used in this project. You can view this tutorial in full by running the local server and can use the source as a template to create new content.
+Our [Ubuntu tutorial guidelines](examples/example-tutorial.md) markdown tutorial is inside the `examples` folder. This contains useful information and resources for creating new tutorials, including documentation on custom markdown tags used in this project. You can view this tutorial in full by running the local server and can use the source as a template to create new content.
 
 The markdown is rendered by [Google's claat markdown parser](https://github.com/googlecodelabs/tools/tree/master/claat/parser/md). More information can be found on their github page.
 
