@@ -173,12 +173,12 @@ This snippet takes care of it:
 
 ```js
 window.webContents.on('will-navigate', (ev, url) => {
-  parts = url.split("/");
-  if (parts[0] + "//" + parts[2] != HOMEPAGE){
-    ev.preventDefault()
-    shell.openExternal(url)
-  };
-})
+    parts = url.split('/');
+    if (parts[0] + '//' + parts[2] != HOMEPAGE) {
+        ev.preventDefault();
+        shell.openExternal(url);
+    };
+});
 ```
 
 We are going to add it to our code, so it looks like this:
@@ -202,11 +202,11 @@ app.on('ready', () => {
     window.loadURL(HOMEPAGE);
 
     window.webContents.on('will-navigate', (ev, url) => {
-      parts = url.split("/");
-      if (parts[0] + "//" + parts[2] != HOMEPAGE){
-        ev.preventDefault()
-        shell.openExternal(url)
-      };
+        parts = url.split('/');
+        if (parts[0] + '//' + parts[2] != HOMEPAGE) {
+            ev.preventDefault();
+            shell.openExternal(url);
+        };
     });
 
     window.on('closed', () => {
