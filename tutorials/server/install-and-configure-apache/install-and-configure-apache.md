@@ -131,7 +131,7 @@ To activate the new configuration, you need to run:
 root@ubuntu-server:/etc/apache2/sites-available#
 
 ```
-To load the new site, we restart Apache by typing
+To load the new site, we restart Apache by typing:
 ```bash
 service apache2 reload
 ```
