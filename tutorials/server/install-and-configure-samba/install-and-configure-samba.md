@@ -106,3 +106,8 @@ Note: `ip-address` is the Samba server IP address and `sambashare` is the name o
 You'll be prompted for your credentials. Enter them you will be connected to your Samba share!
 ![Samba](images/end.png)
 Yay!
+
+positive
+: **Further reading:**
+https://help.ubuntu.com/community/Samba/SambaServerGuide
+https://help.ubuntu.com/lts/serverguide/samba-fileserver.html
