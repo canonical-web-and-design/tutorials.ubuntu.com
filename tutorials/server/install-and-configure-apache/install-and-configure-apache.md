@@ -98,15 +98,15 @@ Now edit the configuration file:
 nano gci.conf
 ```
 We should have our email in `ServerAdmin` so users can reach you in case Apache experiences any error:
-```
+```bash
 ServerAdmin yourname@example.com
 ```
 We also want the `DocumentRoot` directive to point to the directory our site files are hosted on:
-```
+```bash
 DocumentRoot /var/www/gci/
 ```
 The default file doesn't come with a `ServerName` directive so we'll have to add and define it by adding this line below the last directive:
-```
+```bash
 ServerName gci.example.com
 ```
 This ensures people reach the right site instead of the default one when they type in gci.example.com
@@ -118,7 +118,7 @@ Duration: 1:00
 
 After setting up our website, we need to activate the virtual hosts configuration file to enable it.
 We do that by running the following command in the configuration file directory:
-```
+```bash
 sudo a2ensite gci.conf
 ```
 
@@ -131,11 +131,12 @@ root@ubuntu-server:/etc/apache2/sites-available#
 
 ```
 To load the new site, we restart Apache by typing
-```
+```bash
 service apache2 reload
 ```
 
 ### End result
+
 
 Now is the moment of truth, let's type our host name in a browser.
 ![Final](images/final.png)
