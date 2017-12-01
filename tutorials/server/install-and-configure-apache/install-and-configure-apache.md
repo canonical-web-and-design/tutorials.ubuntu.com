@@ -55,7 +55,8 @@ By default, Apache comes with a basic site (the one that we saw in the previous 
 
 We can modify how Apache handles incoming requests and have multiple sites running on the same server by editing its Virtual Hosts file.
 
-Today, we're going to leave the default Apache virtual host configuration pointing to www.example.com and set up our own at gci.example.com.
+Today, we're going to leave the default Apache virtual host configuration pointing to www.example.com and set up our own at **gci.example.com**.
+
 So let's start by creating a folder for our new website in `/var/www/` by running
 ```bash
 sudo mkdir /var/www/gci/
@@ -80,7 +81,7 @@ Paste the following code in the  `index.html` file:
 ```
 Pretty cool, right?
 
-Now let's create a VirtualHost file so it'll show up when we type in gci.example.com
+Now let's create a VirtualHost file so it'll show up when we type in **gci.example.com**.
 
 ## Setting up the VirtualHost Configuration File
 Duration: 3:00
@@ -91,11 +92,11 @@ cd /etc/apache2/sites-available/
 ```
 Since Apache came with a default VirtualHost file, let's use that as a base. (`gci.conf` is used here to match our subdomain name):
 ```bash
-cp 000-defualt.conf gci.conf
+sudo cp 000-defualt.conf gci.conf
 ```
 Now edit the configuration file:
 ```bash
-nano gci.conf
+sudo nano gci.conf
 ```
 We should have our email in `ServerAdmin` so users can reach you in case Apache experiences any error:
 ```bash
@@ -109,7 +110,7 @@ The default file doesn't come with a `ServerName` directive so we'll have to add
 ```bash
 ServerName gci.example.com
 ```
-This ensures people reach the right site instead of the default one when they type in gci.example.com
+This ensures people reach the right site instead of the default one when they type in **gci.example.com**.
 
 Now that we're done configuring our site, let's save and activate it in the next step!
 
