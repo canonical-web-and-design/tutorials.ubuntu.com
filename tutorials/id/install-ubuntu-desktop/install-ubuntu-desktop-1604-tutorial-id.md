@@ -76,7 +76,7 @@ Setelah memilih untuk memasang Ubuntu dari jendela selamat datang, kamu akan dit
 ## Alokasi ruang drive
 Duration: 0:01
 
-Gunakan kotak centang untuk memilih apakah kamu ingin Memasang Ubuntu berdampingan dengan sistem operasi lain, menghapus sistem operasi yang Anda dan menggantikannya dengan Ubuntu, atau — jika kamu adalah pengguna tingkat lanjut  — pilih opsi  ’**Something else**’.
+Gunakan kotak centang untuk memilih apakah kamu ingin Memasang Ubuntu berdampingan dengan sistem operasi lain, menghapus sistem operasi yang ada dan menggantikannya dengan Ubuntu, atau — jika kamu adalah pengguna tingkat lanjut  — pilih opsi  ’**Something else**’.
 
 ![screenshot](https://assets.ubuntu.com/v1/e07b98b8-ubuntu-installation-type.png)
 
@@ -103,7 +103,7 @@ Jika kamu tidak yakin dengan zona waktu kamu, tulis nama kota lokal atau kota at
 ![screenshot](https://assets.ubuntu.com/v1/a942aa3d-download-desktop-install-ubuntu-desktop_6.jpg)
 
 positif
-: Jika kamu memiliki masalah mengkoneksikan ke Intenet, gunakan menu di pojok kanan atas sudut untuk memilih jaringan.
+: Jika kamu memiliki masalah mengkoneksikan ke Internet, gunakan menu di pojok kanan atas untuk memilih jaringan.
 
 ## Pilih preferensi tata letak keyboard
 Duration: 0:01
@@ -121,7 +121,7 @@ Masukkan nama kamu dan pemasang akan otomatis mensugestikan nama komputer dan us
 
 Selanjutnya, masukkan password yang kuat. Pemasang akan memberitahu jika itu sangat lemah.
 
-Kamu bisa memilih otomatis login dan enkripsi folder rumah. Jika mesin kamu portable, kami merekomendasikan tetap login otomatis dimatikan atau menyalakan enskripsi. Ini akan mencegah orang lain mengakses file personal kamu jika mesin hilang atau dicuri.
+Kamu bisa memilih otomatis login dan enkripsi folder rumah. Jika mesin kamu portable, kami merekomendasikan agar login otomatis dimatikan atau menyalakan enskripsi. Ini akan mencegah orang lain mengakses file personal kamu jika mesin hilang atau dicuri.
 
 
 ![screenshot](https://assets.ubuntu.com/v1/69d32ea7-download-desktop-install-ubuntu-desktop_8.jpg)
@@ -138,7 +138,7 @@ Pemasang akan selesai di latar belakang ketika jendela pemasangan mengajari kamu
 ## Instalasi selesai
 Duration: 0:01
 
-Setelah semuanya terpasang dan terkonfigurasi, jendela kecil akan menampilkan pertanyaan untuk melakukan restart mesin. Klik `Restart Now` dan hkeluarkan DVD atau lepaskan flash disk USB ketika diminta.
+Setelah semuanya terpasang dan terkonfigurasi, jendela kecil akan menampilkan pertanyaan untuk melakukan restart mesin. Klik `Restart Now` dan keluarkan DVD atau lepaskan flash disk USB ketika diminta.
 
 
 ![screenshot](https://assets.ubuntu.com/v1/f4e2a592-download-desktop-install-ubuntu-desktop_10.jpg)
