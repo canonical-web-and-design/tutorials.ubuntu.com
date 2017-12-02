@@ -21,7 +21,7 @@ Ubuntu desktop sangat mudah digunakan, mudah dipasang dan juga memuat apapun yan
 
 ![screenshot](https://assets.ubuntu.com/v1/8de0a986-ubuntu-desktop.png)
 
-Di tutorial ini, kami akan melakukan pemasangan Ubuntu desktop ke dalam komputer kamu, menggunakan DVD maupun menggunakan flash disk USB.
+Di tutorial ini, kami akan melakukan pemasangan Ubuntu desktop ke dalam komputer kamu, menggunakan DVD ataupun menggunakan flash disk USB.
 
 
 ## Persyaratan
