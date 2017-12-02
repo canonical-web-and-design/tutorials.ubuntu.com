@@ -126,7 +126,7 @@ Kamu bisa memilih otomatis login dan enkripsi folder rumah. Jika mesin kamu port
 
 ![screenshot](https://assets.ubuntu.com/v1/69d32ea7-download-desktop-install-ubuntu-desktop_8.jpg)
 
-: Jika mengaktifkan enkripsi folder rumah dan kamu lupa passwornya, kamu tidak bisa mengambil data pribadi yang tersimpan di dalam folder home.
+: Jika mengaktifkan enkripsi folder rumah dan kamu lupa passwordnya, kamu tidak bisa mengambil data pribadi yang tersimpan di dalam folder home.
 
 ## Instalasi di latar belakang
 Duration: 0:20
