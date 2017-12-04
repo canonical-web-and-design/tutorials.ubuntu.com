@@ -1,6 +1,6 @@
 ---
 id: tutorial-install-ubuntu-desktop
-summary: Discover how easy it is to install Ubuntu desktop onto your laptop or PC computer, from either 
+summary: Discover how easy it is to install Ubuntu desktop onto your laptop or PC computer, from either
 a DVD or a USB flash drive.
 categories: desktop
 tags: tutorial,installation,ubuntu,desktop,Ubuntu 16.04 LTS
@@ -27,8 +27,8 @@ Duration: 0:01
 
 You'll need to consider the following before starting the installation:
 
-* Connect your laptop to a power source. 
-* Ensure you have at least 5GB of free storage space. 
+* Connect your laptop to a power source.
+* Ensure you have at least 5GB of free storage space.
 * Have access to either a DVD or a USB flash drive containing the version of Ubuntu you want
   to install.
 * Make sure you have a recent backup of your data. While it's unlikely that
@@ -84,7 +84,7 @@ positive
 ## Begin installation
 Duration: 0:01
 
-After configuring storage, click on the 'Install Now' button. A small pane will appear with an overview of the storage options you've chosen, with the chance to go back if the details are incorrect. 
+After configuring storage, click on the 'Install Now' button. A small pane will appear with an overview of the storage options you've chosen, with the chance to go back if the details are incorrect.
 
 Click `Continue` to fix those changes in place and start the installation process.
 
@@ -93,7 +93,7 @@ Click `Continue` to fix those changes in place and start the installation proces
 ## Select your location
 Duration: 0:01
 
-If you are connected to the internet, your location will be detected automatically. Check your location is correct and click ’Forward’ to proceed. 
+If you are connected to the internet, your location will be detected automatically. Check your location is correct and click ’Forward’ to proceed.
 
 If you’re unsure of your time zone, type the name of a local town or city or use the map to select your location.
 
@@ -105,7 +105,7 @@ positive
 ## Select your preferred keyboard layout
 Duration: 0:01
 
-To tell Ubuntu the layout of your keyboard, click on the language option you need followed by your keyboard's specific layout. If you’re not sure, click the ’**Detect Keyboard Layout**’ button for help. 
+To tell Ubuntu the layout of your keyboard, click on the language option you need followed by your keyboard's specific layout. If you’re not sure, click the ’**Detect Keyboard Layout**’ button for help.
 
 Keyboard layouts can always be changed, and supplementary layouts added, from the desktop after installation.
 
@@ -116,7 +116,7 @@ Duration: 0:01
 
 Enter your name and the installer will automatically suggest a computer name and username. These can easily be changed if you prefer. The computer name is how your computer will appear on the network, while your username will be your login and account name.
 
-Next, enter a strong password. The installer will let you know if it's too weak. 
+Next, enter a strong password. The installer will let you know if it's too weak.
 
 You can also choose to enable automatic login and home folder encryption. If your machine is portable, we recommend keeping automatic login disabled and enabling encryption. This should stop people accessing your personal files if the machine is lost or stolen.
 
@@ -134,7 +134,7 @@ The installer will now complete in the background while the installation window 
 ## Installation complete
 Duration: 0:01
 
-After everything has been installed and configured, a small window will appear asking you to restart your machine. Click on `Restart Now` and remove either the DVD or USB flash drive when promoted. 
+After everything has been installed and configured, a small window will appear asking you to restart your machine. Click on `Restart Now` and remove either the DVD or USB flash drive when promoted.
 
 ![screenshot](https://assets.ubuntu.com/v1/f4e2a592-download-desktop-install-ubuntu-desktop_10.jpg)
 
