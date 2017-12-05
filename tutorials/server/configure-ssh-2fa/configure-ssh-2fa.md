@@ -83,7 +83,7 @@ Write down your emergency codes on paper or find other, safe place to keep them.
 That's all. Now, let's open Google Authenticator and add our secret code to make it work.
 
 
-![IMAGE](./output.png)
+![IMAGE](./images/output.png)
 
 
 negative
@@ -94,14 +94,19 @@ Duration: 2:00
 
 We will use latest version of Authenticator from Play Store. The progress shouldn't look very different on iOS.
 
+![IMAGE](./images/add-button.png)
+
 ### Add secret through QR code
 
 Touch the Add icon (+) and select “Scan a barcode”. Use phone camera to scan QR code. You can use this key to access SSH.
 
+![IMAGE](./images/add-options.png)
 
 ### Add secret through key
 
 Touch the Add icon (+) and select “Enter a provided key”. Enter the name that will make you remember it's authentication key for your SSH shell. Type key provided by `google-authenticator` command.
+
+![IMAGE](./images/example-code.png)
 
 
 ## Getting help
