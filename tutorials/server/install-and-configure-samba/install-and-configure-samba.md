@@ -6,6 +6,7 @@ tags: tutorial,installation,ubuntu,file server,samba
 difficulty: 1
 status: Published
 published: 2017-12-01
+author: Aden Padilla <adenpadilla@gmail.com>
 
 ---
 
@@ -14,12 +15,13 @@ published: 2017-12-01
 ## Overview
 Duration: 1:00
 
-A Samba file server enables file sharing across different operating systems over a network.
+A Samba file server enables file sharing across different operating systems over a network. It lets you access your desktop files from a laptop and share files with Windows and macOS users.
 
 This guide covers the installation and configuration of Samba on Ubuntu.
 
 ### What you'll learn
 - How to set up a Samba file server
+- How to share files across a local network
 
 ### What you'll need
 - Ubuntu 16.04 LTS
@@ -49,7 +51,7 @@ Duration: 2:00
 
 Now that Samba is installed, we need to create a directory for it to share:
 ```bash
-mkdir /home/username/sambashare/
+mkdir /home/<username>/sambashare/
 ```
 The command above creates a new folder `sambashare` in our home directory which we will share later.
 
@@ -65,6 +67,9 @@ At the bottom of the file, add the following lines:
     read only = no
     browsable = yes
 ```
+Then press `Ctrl-O` to save and `Ctrl-X` to exit from the *nano* text editor.
+
+
 ### What we've just added
 - [sambashare]: The name inside the brackets is the name of our share.
 - comment: A brief description of the share.
@@ -90,12 +95,13 @@ negative
 Username used must belong to a system account, else it won't save.
 
 ### Connecting to Share
-On Ubuntu, open up the default file manager and click "Connect to Server";
-On macOS, in the Finder menu, click Go > Connect to Server;
-and enter:
-```
-smb://ip-address/sambashare
-```
+On Ubuntu:
+Open up the default file manager and click *Connect to Server* then enter:
+![ubuntuctn](images/ubuntuctn.png)
+
+On macOS:
+In the Finder menu, click *Go > Connect to Server* then enter:
+![macosctn](images/macosctn.png)
 
 On Windows, open up File Manager and edit the file path to:
 ```address
@@ -103,11 +109,8 @@ On Windows, open up File Manager and edit the file path to:
 ```
 Note: `ip-address` is the Samba server IP address and `sambashare` is the name of the share.
 
-You'll be prompted for your credentials. Enter them you will be connected to your Samba share!
+You'll be prompted for your credentials. Enter them to connect!
 ![Samba](images/end.png)
-Yay!
 
-positive
-: **Further reading:**
-https://help.ubuntu.com/community/Samba/SambaServerGuide
-https://help.ubuntu.com/lts/serverguide/samba-fileserver.html
+### If you'd like to take your configuration further...
+- [Samba Server Guide](https://help.ubuntu.com/community/Samba/SambaServerGuide)
