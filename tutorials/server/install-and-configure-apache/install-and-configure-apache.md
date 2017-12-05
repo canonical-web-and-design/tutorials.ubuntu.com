@@ -2,12 +2,12 @@
 id: install-and-configure-apache
 summary: This tutorial covers the installation and configuration of an Apache web server
 categories: server
-tags: ubuntu-server, apache, web server
+tags: ubuntu-server, apache, web server, hidden
 difficulty: 3
 status: published
 feedback-url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
-author: Aden Padilla <adenpadilla@gmail.com>
 published: 2017-11-30
+author: Aden Padilla <adenpadilla@gmail.com>
 
 ---
 
