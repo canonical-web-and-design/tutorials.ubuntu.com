@@ -15,7 +15,7 @@ var required_keys = [ 'id',
 var files = find.fileSync(/\.md$/,"tutorials");
 for(var i=0, len=files.length; i < len; i++){
   var f = gm.read(files[i]);
-  validate(f, files[i].split("/").slice(-1)[0]);
+  validate(f, files[i]);
 }
 
 // Validates metadata for each tutorial
