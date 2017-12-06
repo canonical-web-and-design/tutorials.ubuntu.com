@@ -2,11 +2,13 @@
 id: using-intel-realsense-sdk
 summary: We are going to illustrate how to build some Intel RealSense SDK samples on an ubuntu desktop. You will be able to hook up on your Intel Joule and build the samples, explore some of the code and try them!
 categories: iot
-status: Published
-feedback-link: https://github.com/ubuntu/codelabs/issues
+status: published
+feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 tags: snap, classic, realsense, joule
 difficulty: 2
-Published: 2017-01-20
+published: 2017-01-20
+author: Canonical Web Team <webteam@canonical.com>
+
 
 ---
 

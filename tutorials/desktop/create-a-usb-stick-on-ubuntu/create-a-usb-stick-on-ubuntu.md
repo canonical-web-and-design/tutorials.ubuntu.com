@@ -4,9 +4,10 @@ summary: Use your Ubuntu desktop to create a bootable USB stick that can be used
 categories: desktop
 tags: tutorial,installation,usb,ubuntu,desktop
 difficulty: 2
-status: Published
+status: published
 published: 2017-07-11
 author: Canonical Web Team <webteam@canonical.com>
+feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 
 ---
 
@@ -65,7 +66,7 @@ Duration: 0:03
 
 Before making any permanent changes, you will be asked to confirm the USB device you've chosen is correct. This is important because any data currently stored on this device will be destroyed.
 
-After confirming, the write process will start and a progress bar appears. 
+After confirming, the write process will start and a progress bar appears.
 
 ![screenshot](https://assets.ubuntu.com/v1/dac30d7d-usb-1604-writing.png?w=550)
 
@@ -94,5 +95,3 @@ If you get stuck, help is always at hand:
 [askubuntu]: https://askubuntu.com/
 [ubuntuforums]: https://ubuntuforums.org/
 [ircsupport]: https://wiki.ubuntu.com/IRC/ChannelList
-
-

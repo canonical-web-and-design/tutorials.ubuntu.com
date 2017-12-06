@@ -3,10 +3,11 @@ id: snap-a-website
 summary: In this tutorial, you’ll learn how to create a desktop web app with Electron and package it as a snap.
 categories: packaging
 tags: snapcraft, snap, beginner, nodejs, electron, website
-status: Published
+status: published
 difficulty: 2
 published: 2017-11-14
 author: David Callé <david.calle@canonical.com>
+feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 
 ---
 

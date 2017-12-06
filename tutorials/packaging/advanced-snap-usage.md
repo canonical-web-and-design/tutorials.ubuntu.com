@@ -2,12 +2,12 @@
 id: advanced-snap-usage
 summary: Learn advanced techniques and features of snapd. What happens when installing a snap, how to access service logs and configure snaps, connect interfaces and change confinement modes? We’ll detail it all and even more here for you!
 categories: packaging
-status: Published
-feedback-link: https://github.com/ubuntu/codelabs/issues
+status: published
+feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 tags: snap, usage, classic, devmode, classic, confinement, service, log, interface, configuration, hook, file system
 difficulty: 3
 published: 2017-04-07
-Author: Didier Roche <didier.roche@canonical.com>
+author: Didier Roche <didier.roche@canonical.com>
 
 ---
 

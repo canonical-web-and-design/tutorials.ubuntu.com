@@ -4,9 +4,10 @@ summary: Use the Ubuntu command line or PuTTY running on Windows 10 to generate 
 categories: server
 tags: tutorial,ssh,installation,windows,ubuntu,terminal
 difficulty: 2
-status: Published
+status: published
 published: 2017-10-02
 author: Graham Morrison <graham.morrison@canonical.com>
+feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 
 ---
 
@@ -61,9 +62,9 @@ The key generation process is identical to the process on a native Linux or Ubun
 ssh-keygen -t rsa
 ```
 
-You will be asked two questions. The first asks where to save the key, and you can press return to accept the default value. The second question asks for the passphrase. As discussed, entering a passphrase will require you to use the same passphrase whenever the key is accessed. 
+You will be asked two questions. The first asks where to save the key, and you can press return to accept the default value. The second question asks for the passphrase. As discussed, entering a passphrase will require you to use the same passphrase whenever the key is accessed.
 
-However, the passphrase isn't a requirement, and pressing return (twice) will generate a key pair without one. Consequently, you won't be asked for a passphrase when using your key. 
+However, the passphrase isn't a requirement, and pressing return (twice) will generate a key pair without one. Consequently, you won't be asked for a passphrase when using your key.
 
 When the process has finished, the private key and the public key can be found in the `~/.ssh` directory accessible from the Ubuntu terminal, or the following folder from Windows file manager:
 
@@ -83,7 +84,7 @@ To generate a key pair with the PuTTY key generator, simply run `puttygen.exe` a
 
 You will be asked to move the mouse and press keys to improve the random number generation at the heart of SSH security. After this, the raw contents of the public key will be displayed alongside its fingerprint and a timestamp comment.
 
-Two important fields, *Key passphrase* and *Confirm passphrase*, allow you to enter a passphrase to protect the private key. 
+Two important fields, *Key passphrase* and *Confirm passphrase*, allow you to enter a passphrase to protect the private key.
 
 Finally, you will need to export both the private and public keys separately:
 

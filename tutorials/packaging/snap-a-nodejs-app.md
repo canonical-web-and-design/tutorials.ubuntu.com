@@ -7,7 +7,8 @@ feedback: https://github.com/ubuntu/codelabs/issues
 tags: snapcraft, nodejs, service, beginner, plug, interface, webserver
 difficulty: 2
 published: 2016-10-14
-Author: Didier Roche <didier.roche@canonical.com>
+author: Didier Roche <didier.roche@canonical.com>
+feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 
 ---
 

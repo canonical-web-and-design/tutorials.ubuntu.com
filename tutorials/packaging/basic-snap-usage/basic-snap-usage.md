@@ -2,11 +2,13 @@
 id: basic-snap-usage
 summary: In this tutorial, we are going to cover the very basic on how to use snaps on your distributions, and the main benefits from them.
 categories: packaging
-status: Published
+status: published
 feedback link: https://github.com/ubuntu/codelabs/issues
 tags: snap, usage, beginner, idf-2016
 difficulty: 1
 published: 2016-08-15
+feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
+author: Canonical Web Team <webteam@canonical.com>
 
 ---
 

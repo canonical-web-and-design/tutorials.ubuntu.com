@@ -3,12 +3,12 @@ id: snap-a-python-application
 summary: In this tutorial, you’ll create a snap of a command-line utility for website benchmarking, called httpstat. This utility is written in Python and requires only access to the network to perform its task
 categories: packaging
 environment: snapcraft, usage, build, beginner, python
-status: Draft
-feedback Link: https://github.com/ubuntu/codelabs/issues:
-author: simos
+status: published
+feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 tags: python,network,interface
 difficulty: 2
 published: 2017-02-14
+author: Canonical Web Team (formerly "simos") <webteam@canonical.com>
 
 ---
 

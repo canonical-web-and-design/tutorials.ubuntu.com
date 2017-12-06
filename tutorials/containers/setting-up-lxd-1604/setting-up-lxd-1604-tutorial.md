@@ -4,9 +4,10 @@ summary: Deploying fast, lightweight containers on Ubuntu is easy with LXD. We'l
 categories: containers
 tags: tutorial,installation,ubuntu,desktop,server,lxd,lxc
 difficulty: 2
-status: Published
-author: Alberto Donato
+status: published
+feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 published: 2017-06-29
+author: Alberto Donato <alberto.donato@canonical.com>
 
 ---
 

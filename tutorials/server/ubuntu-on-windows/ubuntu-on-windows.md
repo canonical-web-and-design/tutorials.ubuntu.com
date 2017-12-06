@@ -4,9 +4,10 @@ summary: Get access to the unrivalled power of the Ubuntu terminal, including to
 categories: server
 tags: tutorial,installation,windows,ubuntu,terminal
 difficulty: 2
-status: Published
+status: published
 published: 2017-08-29
 author: Graham Morrison <graham.morrison@canonical.com>
+feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 
 ---
 

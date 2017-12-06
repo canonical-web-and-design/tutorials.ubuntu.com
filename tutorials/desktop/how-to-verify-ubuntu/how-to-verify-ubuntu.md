@@ -4,8 +4,10 @@ summary: Verifying your ISO helps insure the data integrity and authenticity of 
 categories: desktop
 tags: tutorial,installation,verify,ubuntu
 difficulty: 3
-status: Published
+status: published
 published: 2017-05-31
+feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
+author: Canonical Web Team <webteam@canonical.com>
 
 ---
 

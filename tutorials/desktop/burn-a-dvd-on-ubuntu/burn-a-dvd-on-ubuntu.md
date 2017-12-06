@@ -4,8 +4,10 @@ summary: Instructions on how to burn an Ubuntu installation DVD on Ubuntu with B
 categories: desktop
 tags: tutorial,installation,dvd,ubuntu,desktop
 difficulty: 2
-status: Published
+status: published
 published: 2017-05-31
+feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
+author: Canonical Web Team <webteam@canonical.com>
 
 ---
 

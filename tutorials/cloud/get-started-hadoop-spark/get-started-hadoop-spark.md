@@ -5,8 +5,10 @@ summary: Learn how to operate a big data cluster, to analyse batch data with Map
 categories: cloud
 tags: hadoop, spark, juju, jaas, big data
 difficulty: 2
-status: Published
-Published: 2017-07-07
+status: published
+published: 2017-07-07
+feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
+author: Canonical Web Team <webteam@canonical.com>
 
 ---
 
