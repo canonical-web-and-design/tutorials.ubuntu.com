@@ -4,9 +4,10 @@ summary: Install and configure Samba to share files across a network.
 categories: server
 tags: tutorial,installation,ubuntu,file server,samba
 difficulty: 1
-status: Published
+status: published
 published: 2017-12-01
 author: Aden Padilla <adenpadilla@gmail.com>
+feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 
 ---
 
