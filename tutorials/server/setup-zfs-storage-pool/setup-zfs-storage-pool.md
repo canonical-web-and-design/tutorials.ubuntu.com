@@ -4,9 +4,10 @@ summary: Create a ZFS storage pool using zpool
 categories: server
 tags: tutorial,storage pool,zfs,file server
 difficulty: 2
-status: Published
+status: published
 published: 2017-12-05
 author: Aden Padilla <adenpadilla@gmail.com>
+feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 
 ---
 
