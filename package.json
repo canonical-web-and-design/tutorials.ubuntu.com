@@ -20,7 +20,7 @@
     "lint-polymer": "polymer lint -i src/*.html -i src/elements/*",
     "lint-style": "npm-run-all lint-style-*",
     "lint-style-html": "stylelint 'src/**/*.html' --extract",
-    "lint-content": "mocha -R dot",
+    "lint-content": "mocha -R min",
     "polymer": "./bin/polymer",
     "polymer-build": "npm-run-all 'polymer build {@}' --",
     "polymer-lint": "npm-run-all 'polymer lint {@}' --",
