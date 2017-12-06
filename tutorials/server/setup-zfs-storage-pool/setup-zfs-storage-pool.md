@@ -33,7 +33,7 @@ Duration: 1:00
 
 To install ZFS, run:
 ```bash
-sudo apt install zfs
+sudo apt install zfsutils-linux
 ```
 
 After that, we can check if ZFS was installed correctly by running:
@@ -100,6 +100,5 @@ This is the status of our newly created pool:
 ![newpoolstats](images/newpoolstats.png)
 
 
-positive
-: **Find out more about ZFS Storage Pools:**
-https://docs.oracle.com/cd/E19253-01/819-5461/6n7ht6qvi/index.html
+### Find out more about ZFS Storage Pools...
+- [Oracle ZFS Administration Guide](https://docs.oracle.com/cd/E19253-01/819-5461/index.html)
