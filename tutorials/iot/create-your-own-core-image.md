@@ -2,11 +2,12 @@
 id: create-your-own-core-image
 summary: Create your own Ubuntu Core image for a particular model, by assembling snaps available in the store. Make your own device image with some snap preinstalled or additional functionalities!
 categories: iot
-status: Published
-feedbacklink: https://github.com/ubuntu/codelabs/issues
+status: published
+feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 tags: snap, ubuntu-image, image, device, assertion, model
 difficulty: 3
 published: 2016-09-13
+author: Canonical Web Team <webteam@canonical.com>
 
 ---
 

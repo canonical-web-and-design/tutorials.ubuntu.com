@@ -2,12 +2,12 @@
 id: install-kubernetes-with-conjure-up
 summary: This tutorial will guide you through the installation of the Canonical Distribution of Kubernetes with a few simple commands using conjure-up.
 categories: containers
-status: Published
-feedback-link: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
+status: published
 tags: kubernetes, conjure-up
 difficulty: 2
 published: 2017-08-21
 author: Karl Williams <karl.williams@canonical.com>
+feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 
 ---
 

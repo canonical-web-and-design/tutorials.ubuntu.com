@@ -4,9 +4,10 @@ summary: How to write a USB stick with macOS.
 categories: desktop
 tags: tutorial,installation,usb,macOS,ubuntu,desktop
 difficulty: 2
-status: Published
+status: published
 published: 2017-08-18
 author: Canonical Web Team <webteam@canonical.com>
+feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 
 ---
 
@@ -26,7 +27,7 @@ Creating a bootable USB stick is very simple, especially if you're going to use 
 
 ### Apple hardware considerations
 
-There are a few additional considerations when booting the USB stick on Apple hardware. This is because Apple's 'Startup Manager', summoned by holding the Option/alt (⌥) key when booting, won't detect the USB stick without a specific partition table and layout. We'll cover this in a later step. 
+There are a few additional considerations when booting the USB stick on Apple hardware. This is because Apple's 'Startup Manager', summoned by holding the Option/alt (⌥) key when booting, won't detect the USB stick without a specific partition table and layout. We'll cover this in a later step.
 
 ## Requirements
 Duration: 1:00
@@ -56,9 +57,9 @@ negative
 ## Install and run Etcher
 Duration: 2:00
 
-To write the ISO file to the USB stick, we're going to use a free and open source application called [Etcher][etcher]. After downloading this and clicking to mount the package, Etcher can either be run in-place or dragged into your Applications folder. 
+To write the ISO file to the USB stick, we're going to use a free and open source application called [Etcher][etcher]. After downloading this and clicking to mount the package, Etcher can either be run in-place or dragged into your Applications folder.
 
-By default, recent versions of macOS block the running of applications from unidentified developers. To side-step this issue, enable 'App Store and identified developers' in the 'Security & Privacy' pane of System Preferences. If you are still warned against running the application, click 'Open Anyway' in the same pane. 
+By default, recent versions of macOS block the running of applications from unidentified developers. To side-step this issue, enable 'App Store and identified developers' in the 'Security & Privacy' pane of System Preferences. If you are still warned against running the application, click 'Open Anyway' in the same pane.
 
 ![screenshot](https://assets.ubuntu.com/v1/d8a3ee9d-macos-usb-etcher-run.png)
 
@@ -84,7 +85,7 @@ The *Flash* stage of the process will show progress, writing speed and an estima
 
 When everything has finished, Etcher will declare the process a success.
 
-Congratulations! You now have Ubuntu on a USB stick, bootable and ready to go. 
+Congratulations! You now have Ubuntu on a USB stick, bootable and ready to go.
 
 ![screenshot](https://assets.ubuntu.com/v1/9e8704ce-macos-usb-etcher-success.png)
 
@@ -116,7 +117,7 @@ Finally, if you get stuck, help is always at hand:
 
 <!-- LINKS -->
 [getubuntu]: https://www.ubuntu.com/download
-[macusb]: https://help.ubuntu.com/community/How%20to%20install%20Ubuntu%20on%20MacBook%20using%20USB%20Stick 
+[macusb]: https://help.ubuntu.com/community/How%20to%20install%20Ubuntu%20on%20MacBook%20using%20USB%20Stick
 [installubuntu]: https://tutorials.ubuntu.com/tutorial/tutorial-install-ubuntu-desktop#0
 [macdvd]: https://tutorials.ubuntu.com/tutorial/tutorial-burn-a-dvd-on-macos#0
 [askubuntu]: https://askubuntu.com/

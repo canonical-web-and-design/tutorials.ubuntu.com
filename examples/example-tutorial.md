@@ -5,7 +5,7 @@ categories: category
 tags: tutorial, guidelines, guide, write, contribute
 difficulty: 2
 status: draft
-feedback-link: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
+feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 published: 2017-01-01
 author: Canonical Web Team <webteam@canonical.com>
 
@@ -75,10 +75,10 @@ summary: Learn how to create, write and publish tutorials on tutorials.ubuntu.co
 categories: community
 tags: guidelines, guide, write, contribute
 difficulty: 2
-status: Published
-feedback-url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
-author: Canonical Web Team <webteam@canonical.com>
+status: published
+feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 published: 2017-01-13
+author: Canonical Web Team <webteam@canonical.com>
 
 ---
 ```
@@ -97,8 +97,8 @@ Let's have a look at each field:
      * **4**: Advanced user - has experience running Ubuntu for many years, but may be unfamiliar with some sysadmin/programming topics
      * **5**: Ubuntu sysadmin/developer- very familiar with most aspects of the operating system and can be expected to know details about its inner workings
 
- * **status**: `Draft` or `Published`
- * **feedback-url**: where to report bugs and give feedback about this tutorial. Unless you have very specific requirements, this should be: `https://github.com/canonical-websites/tutorials.ubuntu.com/issues`.
+ * **status**: `draft` or `published`
+ * **feedback_url**: where to report bugs and give feedback about this tutorial. Unless you have very specific requirements, this should be: `https://github.com/canonical-websites/tutorials.ubuntu.com/issues`.
  * **author**: the name and email address between brackets of the author of the tutorial. If you don't intend to maintain this tutorial after publication, please use `Canonical Web Team <webteam@canonical.com>`
  * **published**: a date in YYYY-MM-DD format, to be updated after any major change to the tutorial
 
@@ -142,10 +142,10 @@ summary: This is my tutorial, there are many like it but this one is mine
 categories: community
 tags: beginner, some, other, tags
 difficulty: 1
-status: Published
-feedback-url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
-author: Javier Lopez <javier.lopez@example.com>
+status: published
+feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 published: 2017-01-13
+author: Javier Lopez <javier.lopez@example.com>
 
 ---
 

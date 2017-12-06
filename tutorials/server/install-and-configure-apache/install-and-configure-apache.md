@@ -4,10 +4,11 @@ summary: This tutorial covers the installation and configuration of an Apache we
 categories: server
 tags: ubuntu-server, apache, web server, hidden
 difficulty: 3
-status: published
+status: draft
 feedback-url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 published: 2017-11-30
 author: Aden Padilla <adenpadilla@gmail.com>
+feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 
 ---
 

@@ -2,11 +2,12 @@
 id: create-your-first-snap
 summary: We are going to use snapcraft to walk you through the creation of your first snap and main snapcraft concepts.
 categories: packaging
-status: Published
-feedback link: https://github.com/ubuntu/codelabs/issues
+status: published
 tags: snapcraft, usage, build, beginner, idf-2016
 difficulty: 1
 published: 2016-08-31
+feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
+author: Canonical Web Team <webteam@canonical.com>
 
 ---
 

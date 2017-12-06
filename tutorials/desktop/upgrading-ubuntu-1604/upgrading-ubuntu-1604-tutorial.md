@@ -4,8 +4,10 @@ summary: If you’re already running Ubuntu, you can upgrade in a few clicks fro
 categories: desktop
 tags: tutorial,installation,upgrade,ubuntu,desktop
 difficulty: 2
-status: Published
+status: published
 published: 2017-05-31
+feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
+author: Canonical Web Team <webteam@canonical.com>
 
 ---
 

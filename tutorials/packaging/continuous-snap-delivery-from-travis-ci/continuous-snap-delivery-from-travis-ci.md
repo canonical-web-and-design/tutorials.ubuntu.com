@@ -4,9 +4,10 @@ summary: Learn how to use Travis CI to deliver a new snap version to your early 
 categories: packaging
 tags: snapcraft,travis,ci,cd
 difficulty: 3
-status: Published
+status: published
 published: 2017-07-13
 author: Lea Arias <leo.arias@canonical.com>
+feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 
 ---
 

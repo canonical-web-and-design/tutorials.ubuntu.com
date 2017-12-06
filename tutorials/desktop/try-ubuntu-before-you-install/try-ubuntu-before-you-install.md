@@ -1,13 +1,13 @@
 ---
 id: try-ubuntu-before-you-install
-summary: Test out and use the wonderful Ubuntu desktop without installing
-anything on your hardware.
+summary: Test out and use the wonderful Ubuntu desktop without installing anything on your hardware.
 categories: desktop
 tags: tutorial,installation,live usb,ubuntu,desktop
 difficulty: 2
-status: Published
+status: published
 published: 2017-07-24
 author: Canonical Web Team <webteam@canonical.com>
+feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 
 ---
 
@@ -16,7 +16,7 @@ author: Canonical Web Team <webteam@canonical.com>
 ## Getting started
 Duration: 0:01
 
-Running Ubuntu directly from either a USB stick or a DVD is a quick and easy way to experience how Ubuntu works for you, and how it works with your hardware. Most importantly, it doesn't alter your computer's configuration in any way, and a simple restart without the USB stick or DVD is all that's needed to restore your machine to its previous state. 
+Running Ubuntu directly from either a USB stick or a DVD is a quick and easy way to experience how Ubuntu works for you, and how it works with your hardware. Most importantly, it doesn't alter your computer's configuration in any way, and a simple restart without the USB stick or DVD is all that's needed to restore your machine to its previous state.
 
 With a *live* Ubuntu, you can do almost anything you can from an *installed* Ubuntu:
 
@@ -66,7 +66,7 @@ positive
 ## Choose your preferred language
 Duration: 0:03
 
-After the desktop has loaded, you'll see the welcome window. From here, you can select your language from a list on the left and choose between either installing Ubuntu directly, or trying the desktop first. Select **Try Ubuntu** to launch into the full desktop experience. 
+After the desktop has loaded, you'll see the welcome window. From here, you can select your language from a list on the left and choose between either installing Ubuntu directly, or trying the desktop first. Select **Try Ubuntu** to launch into the full desktop experience.
 
 ![screenshot](https://assets.ubuntu.com/v1/49a92ce6-install_1.jpg)
 
@@ -92,8 +92,8 @@ Finally, if you get stuck, help is always at hand:
 [usbwindows]: https://tutorials.ubuntu.com/tutorial/tutorial-create-a-usb-stick-on-windows
 [usbubuntu]: https://tutorials.ubuntu.com/tutorial/tutorial-create-a-usb-stick-on-ubuntu
 [dvdmacos]: https://tutorials.ubuntu.com/tutorial/tutorial-burn-a-dvd-on-macos
-[dvdwindows]: https://tutorials.ubuntu.com/tutorial/tutorial-burn-a-dvd-on-windows 
-[dvdubuntu]: https://tutorials.ubuntu.com/tutorial/tutorial-burn-a-dvd-on-ubuntu 
+[dvdwindows]: https://tutorials.ubuntu.com/tutorial/tutorial-burn-a-dvd-on-windows
+[dvdubuntu]: https://tutorials.ubuntu.com/tutorial/tutorial-burn-a-dvd-on-ubuntu
 [dvdguide]: https://help.ubuntu.com/community/BootFromCD
 [askubuntu]: https://askubuntu.com/
 [ubuntuforums]: https://ubuntuforums.org/

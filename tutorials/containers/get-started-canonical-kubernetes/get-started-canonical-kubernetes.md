@@ -4,9 +4,10 @@ summary: Learn how to operate a production-ready Kubernetes cluster. Kubernetes 
 categories: containers
 tags: jaas, juju, kubernetes, beginner, container, docker, cloud
 difficulty: 3
-status: Published
-Published: 2017-07-21
+status: published
+published: 2017-07-21
 author: Canonical Web Team <webteam@canonical.com>
+feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 
 ---
 
@@ -42,7 +43,7 @@ To substantiate these claims, we're going to build a highly available (HA) produ
 ## Deploying with JAAS
 Duration: 8:00
 
-To kick off, **[open a Canonical distribution of Kubernetes][charmstorek8s]**. 
+To kick off, **[open a Canonical distribution of Kubernetes][charmstorek8s]**.
 
 ![Kubernetes Direct Deploy](./images/k8-directdeploy.png)
 

@@ -4,9 +4,10 @@ summary: Learn how to create KVM pods with MAAS. MAAS is an enterprise-grade inf
 categories: server
 tags: maas, virtualization, pod, kvm, cloud
 difficulty: 4
-status: Published
-Published: 2017-10-08
+status: published
+published: 2017-10-08
 author: Canonical Web Team <webteam@canonical.com>
+feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 
 ---
 

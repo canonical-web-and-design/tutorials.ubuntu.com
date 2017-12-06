@@ -4,8 +4,10 @@ summary: Turn your PC into a powerful server, capable of delivering anything fro
 categories: server
 tags: tutorial,installation,ubuntu,server,Ubuntu 16.04 LTS
 difficulty: 2
-status: Published
+status: published
 published: 2017-07-07
+feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
+author: Canonical Web Team <webteam@canonical.com>
 
 ---
 
@@ -28,7 +30,7 @@ Duration: 0:01
 
 You'll need to consider the following before starting the installation:
 
-* Ensure you have at least 2GB of free storage space. 
+* Ensure you have at least 2GB of free storage space.
 * Have access to either a DVD or a USB flash drive containing the version of Ubuntu Server you want
   to install.
 * If you're going to install Ubuntu Server alongside data you wish to keep, ensure you have a recent backup.
@@ -65,7 +67,7 @@ Duration: 0:20
 
 The Ubuntu Server boot menu includes handy options for testing your system and for testing the validity of the install media and system disks.
 
-There are two options for installation, and you should select 'Install Ubuntu Server'. 
+There are two options for installation, and you should select 'Install Ubuntu Server'.
 
 ![screenshot](https://assets.ubuntu.com/v1/c08110df-server-boot-menu.png)
 
@@ -79,7 +81,7 @@ If the installer successfully detects your network configuration, you'll be aske
 ![screenshot](https://assets.ubuntu.com/v1/fc14d32b-server-network.png)
 
 positive
-: If network autodetection fails, this will mostly likely be because your network isn't using DHCP or the DHCP server isn't accessible. You will see another menu offering you the option to configure the network manually or rerun the autodetection routine. 
+: If network autodetection fails, this will mostly likely be because your network isn't using DHCP or the DHCP server isn't accessible. You will see another menu offering you the option to configure the network manually or rerun the autodetection routine.
 
 ## User configuration
 Duration: 0:03
@@ -93,7 +95,7 @@ Duration: 0:05
 
 After answering a question about your time zone, you need to configure local storage.
 
-If the storage connected to your server is raw and unformatted, the installer will detect this and present a menu offering four options. The simplest is the second, 'Guided - use entire disk and set up LVM', and we'd recommend selecting this. 
+If the storage connected to your server is raw and unformatted, the installer will detect this and present a menu offering four options. The simplest is the second, 'Guided - use entire disk and set up LVM', and we'd recommend selecting this.
 
 Any of these options will obviously destroy any data currently on your partition(s), but resizing and creating new partitions are options available by selecting 'Manual'.
 
@@ -107,7 +109,7 @@ Duration: 0:02
 
 After accepting the changes that are going to be made to your storage, the installer will determine the packages to be installed. This will take a few moments.
 
-You will then be asked to enter an HTTP proxy address. This can be ignored if you don't know whether you need one to access the internet from your server. You'll also be asked whether you require automatic updates. Selecting 'Install security updates automatically' is the safest default option. 
+You will then be asked to enter an HTTP proxy address. This can be ignored if you don't know whether you need one to access the internet from your server. You'll also be asked whether you require automatic updates. Selecting 'Install security updates automatically' is the safest default option.
 
 ![screenshot](https://assets.ubuntu.com/v1/4f89d790-server-updates.png)
 
@@ -120,12 +122,12 @@ We'd recommend selecting 'standard system utilities' and 'OpenSSH server' as a m
 
 ![screenshot](https://assets.ubuntu.com/v1/51cf4395-server-software.png)
 
-## Installation 
+## Installation
 Duration: 0:02
 
 Ubuntu Server will now be installed. When complete, one final question asks for permission to install the GRUB boot loader. You should answer 'Yes'.
 
-The installer will finish up by installing the final packages and configuration files. 
+The installer will finish up by installing the final packages and configuration files.
 
 ![screenshot](https://assets.ubuntu.com/v1/a8d32900-server-grub.png)
 

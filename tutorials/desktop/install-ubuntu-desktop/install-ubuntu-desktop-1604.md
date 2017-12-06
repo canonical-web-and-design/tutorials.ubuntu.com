@@ -1,13 +1,13 @@
 ---
 id: tutorial-install-ubuntu-desktop
-summary: Discover how easy it is to install Ubuntu desktop onto your laptop or PC computer, from either
-a DVD or a USB flash drive.
+summary: Discover how easy it is to install Ubuntu desktop onto your laptop or PC computer, from either a DVD or a USB flash drive.
 categories: desktop
 tags: tutorial,installation,ubuntu,desktop,Ubuntu 16.04 LTS
 difficulty: 2
-status: Published
+status: published
 published: 2017-07-06
 author: Canonical Web Team <webteam@canonical.com>
+feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 
 ---
 

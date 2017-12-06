@@ -5,10 +5,11 @@ categories: containers
 language: fr
 tags: tutorial,installation,ubuntu,desktop,server,lxd
 difficulty: 2
-status: Published
-author: Alberto Donato
+status: published
 translator: Winael
 published: 2017-10-24
+feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
+author: Alberto Donato <alberto.donato@canonical.com>
 
 ---
 

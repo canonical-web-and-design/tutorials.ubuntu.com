@@ -2,12 +2,12 @@
 id: setup-ubuntu-core-intel-joule
 summary: In this codelab, we are going to setup Ubuntu Core on your Intel Joule. We’ll flash the sd card with an Ubuntu Core image and then configure it.
 categories: iot
-status: Published
-feedback-link https://github.com/ubuntu/codelabs/issues
+status: published
+feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 tags: snap, usage, beginner, joule, console-conf
 difficulty: 1
 published: 2016-12-10
-Author: Didier Roche <didier.roche@canonical.com>
+author: Didier Roche <didier.roche@canonical.com>
 
 ---
 

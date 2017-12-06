@@ -4,9 +4,10 @@ summary: How to write a USB stick with Windows.
 categories: desktop
 tags: tutorial,installation,usb,windows,ubuntu,desktop
 difficulty: 2
-status: Published
+status: published
 published: 2017-07-18
 author: Canonical Web Team <webteam@canonical.com>
+feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 
 ---
 
@@ -97,7 +98,7 @@ Duration: 1:00
 
 Rufus will complete the write process and silently drop-back to its default window.
 
-Congratulations! You now have Ubuntu on a USB stick, bootable and ready to go. 
+Congratulations! You now have Ubuntu on a USB stick, bootable and ready to go.
 
 If you want to install Ubuntu, take a look at our [install Ubuntu desktop tutorial][ubuntudesktop].
 
@@ -118,4 +119,3 @@ If you get stuck, help is always at hand:
 [ubuntuforums]: https://ubuntuforums.org
 [ircsupport]: https://wiki.ubuntu.com/IRC/ChannelList
 [rufus]: https://rufus.akeo.ie/
-

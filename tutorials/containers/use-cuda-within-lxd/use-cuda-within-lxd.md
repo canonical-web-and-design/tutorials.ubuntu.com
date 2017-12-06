@@ -4,8 +4,10 @@ summary: Accelerate data processing within LXD containers by enabling direct acc
 categories: containers
 tags: lxd, cuda, nvidia, gpu, big data, lxc
 difficulty: 4
+status: published
 published: 2017-07-12
 author: Graham Morrison <graham.morrison@canonical.com>
+feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 
 ---
 

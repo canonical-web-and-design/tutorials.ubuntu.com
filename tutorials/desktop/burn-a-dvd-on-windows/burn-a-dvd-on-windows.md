@@ -4,9 +4,10 @@ summary: Instructions on how to burn an Ubuntu installation DVD on Windows.
 categories: desktop
 tags: tutorial,installation,burn,dvd,windows,ubuntu,desktop
 difficulty: 2
-status: Published
+status: published
 published: 2017-05-31
 author: Canonical Web Team <webteam@canonical.com>
+feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 
 ---
 

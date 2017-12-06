@@ -3,12 +3,13 @@ id: basic-snap-usage-pl
 summary: W tym poradniku zostaną poruszone podstawowe informacje dotyczące korzystania z pakietów snap na Twojej dystrybucji oraz korzyści wynikające z używania ich.
 categories: packaging
 language: pl
-status: Published
-feedback link: https://github.com/ubuntu/codelabs/issues
+status: published
 tags: snap, usage, beginner, idf-2016, polish, hidden
 difficulty: 1
 translator: Marcin Mikołajczak
 published: 2017-11-28
+feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
+author: Canonical Web Team <webteam@canonical.com>
 
 ---
 
@@ -165,7 +166,7 @@ hello            	2.10   	20   canonical   -
 core      	16.04.1	423  canonical   -
 ```
 
-Zauważ, że bazowy pakiet uruchomieniowy `core` również znajduje się na liście. Zawiera on również aktualna wersję snapd, dzięki czemu będzie on zawsze aktualny. 
+Zauważ, że bazowy pakiet uruchomieniowy `core` również znajduje się na liście. Zawiera on również aktualna wersję snapd, dzięki czemu będzie on zawsze aktualny.
 
 ### Uaktualnianie systemu
 
