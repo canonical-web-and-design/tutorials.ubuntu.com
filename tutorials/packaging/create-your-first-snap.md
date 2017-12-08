@@ -152,7 +152,7 @@ confinement: devmode # use 'strict' once you have the right plugs and slots
 This part of `snapcraft.yaml` is mandatory and describes the very basics of the snap metadata. Let’s go through this line by line:
 
   - **name** describes the name of the snap.
-  - **version** is the current version of the snap. This is just a human readable string. The ascii order doesn’t matter: all snap uploads will get an incremental snap **revision**, which is independant from the version. It’s separated so that you can upload multiple times the same snap for the same architecture with the exact same version. See it as a string that indicates to your user the current version, like “stable”, “2.0” and such.
+  - **version** is the current version of the snap. This is just a human readable string. The ascii order doesn’t matter: all snap uploads will get an incremental snap **revision**, which is independent from the version. It’s separated so that you can upload multiple times the same snap for the same architecture with the exact same version. See it as a string that indicates to your user the current version, like “stable”, “2.0” and such.
   - **summary** is a short, one-line summary or tag-line for your snap.
   - **description** should provide the user with enough information to judge if the snap is going to be useful to them. This description can span over multiple lines if prefixed with **|**.
   - **grade** can be used by the publisher to indicate the quality confidence in the build. The store will prevent publishing "devel" grade builds to stable channels.
@@ -685,7 +685,7 @@ sudo snap install hello-didrocks --channel=candidate
 ```
 
 negative
-: As you uploaded an amd64 binary, only people on amd64 machine will get access to this snap. You can either only focus on one architecture to support, build yourself for all supported architectures your snap, or use [build.snapcraft.io](https://build.snapcraft.io) to push your `snapcraft.yaml`, and get resulting snaps built on all architectures for you!
+: As you uploaded an amd64 binary, only people on 64-bit machines will get access to this snap. You can either only focus on one architecture to support, manually build a binary for each architecture you wish to support, or use [build.snapcraft.io](https://build.snapcraft.io) to push your `snapcraft.yaml`, and get resulting snaps built on all architectures for you!
 
 From here, if you are happy with the testing of your snap, you can use the `snapcraft release` command to have fine-grained control over what you are releasing and where:
 
