@@ -11,7 +11,7 @@ feedback_url: https://github.com/kubeapps/kubeapps/issues
 
 ---
 
-# Supercharge your Kubernetes cluster with Kubeapps
+# Install Kubeapps on your Kubernetes cluster
 
 ## Overview
 Duration: 1
