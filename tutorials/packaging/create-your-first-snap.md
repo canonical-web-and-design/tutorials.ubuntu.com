@@ -486,7 +486,7 @@ One last thing you might want to do before the snap is ready for wider consumpti
 
 
 negative
-: Users of snaps using `devmode`, will need to pass `--devmode` during the installation, so they explicitly agree to trust you and your snap. Another benefit of removing devmode is that you will be able to ship your snap on the **stable** or **candidate** channels (you can only publish to the other channels, like **beta** or **edge** as your snap is less trusted) and users will be able to search for it using `snap find`.
+: Users of snaps using `devmode`, will need to pass `--devmode` during the installation, so they explicitly agree to trust you and your snap. Another benefit of removing devmode is that you will be able to ship your snap on the **stable** or **candidate** channels (you can only release to the other channels, like **beta** or **edge** as your snap is less trusted) and users will be able to search for it using `snap find`.
 
 
 For this to be declared in your snap, let’s set `confinement` to `strict` in your `snapcraft.yaml`:
@@ -551,7 +551,7 @@ positive
 
 You are done. This snap is ready for publication!
 
-## Upload to the store
+## Push to the store
 Duration: 5:00
 
 
@@ -560,29 +560,34 @@ positive
 Check or download [here][here3] to see what your current directory should look like.
 
 
-Apps can easily be uploaded to the store via [My Apps]. Registering an account is easy, so let’s do that first.
+Apps can easily be uploaded to the [Snap Store](https://snapcraft.io/discover/). Registering an account is easy, so let’s do that first.
 
 ### Registering an account
 
-Open My Apps in your browser and follow the instructions to register an account:
+Open the [snapcraft dashboard](https://dashboard.snapcraft.io/dev/account/) in your browser and follow the instructions to register an account:
 
 
-![IMAGE](https://assets.ubuntu.com/v1/2cb98ee4-screen1.png)
+![IMAGE](https://assets.ubuntu.com/v1/3569be21-Screenshot-2017-12-8+Sign+in+to+see+your+snaps.png)
 
 Select "I am a new Ubuntu One user” and complete the needed data.
 
-![IMAGE](https://assets.ubuntu.com/v1/32614c93-screen2.png)
+![IMAGE](https://assets.ubuntu.com/v1/47ddef27-Screenshot-2017-12-8+Log+in.png)
 
-Enter your email address, name and password, accept the terms of service and create the account. Remember as well to choose a namespace on myapps before registering your snap.
+Enter your email address, name and password, accept the terms of service and create the account. Remember as well to choose a "Snap store username", that will identify you as a developer, before registering your snap.
 
-It’s then time for you to get authenticated from snapcraft:
+### Command-line authentication
+
+It’s time for you to get authenticated from snapcraft:
+
+To do so, use the `snapcraft login` command.
 
 If it is your first time you will get a message to enable multifactor authentication and agree with the developer terms and conditions.
 
 
 ```bash
 ~/hello$ snapcraft login
-Enter your Ubuntu One SSO credentials.
+Enter your Ubuntu One e-mail address and password.
+If you do not have an Ubuntu One account, you can create one at https://dashboard.snapcraft.io/openid/login
 Email: myemail@provider.com
 Password:
 One-time password (just press enter if you don't use two-factor authentication):
@@ -596,12 +601,26 @@ You can logout any time with simply `snapcraft logout`.
 
 Before being able to upload any snap, you need to register (meaning: reserving) a name. That way, this snap name is yours, and you will be able to upload snaps matching this name.
 
-To reserve a new name, simply try:
+To reserve a new name, simply try `snapcraft register`:
 
 
 ```bash
 ~/hello$ snapcraft register hello-<yourname>
 snapcraft register hello-<yourname>
+
+We always want to ensure that users get the software they expect
+for a particular name.
+
+If needed, we will rename snaps to ensure that a particular name
+reflects the software most widely expected by our community.
+
+For example, most people would expect ‘thunderbird’ to be published by
+Mozilla. They would also expect to be able to get other snaps of
+Thunderbird as 'thunderbird-$username'.
+
+Would you say that MOST users will expect 'hello-<yourname>' to come from
+you, and be the software you intend to publish there? [y/N]: y
+
 Registering hello-<yourname>.
 Congratulations! You're now the publisher for 'hello-<yourname>'.
 ```
@@ -616,7 +635,7 @@ If you changed your snap name while registering, you need to rebuild this snap w
 name: hello-didrocks
 […]
 ```
-  - as we want to publish it in the candidate channel, we need to set its grade to stable:
+  - as we want to release it in the candidate channel, we need to set its grade to stable:
 
 ```bash
 grade: stable
@@ -637,11 +656,11 @@ Snapping 'hello-didrocks' -
 Snapped hello-didrocks_2.10_amd64.snap
 ```
 
-### Upload your snap
+### Push and release your snap
 
 It’s high time to make this snap available to the world!
 
-Let’s try to publish it to the **candidate** channel for now:
+Let’s try to release it to the **candidate** channel for now:
 
 ```bash
 ~/hello$ snapcraft push hello-didrocks_2.10_amd64.snap --release=candidate
@@ -659,24 +678,29 @@ beta       ^          ^
 edge       ^          ^
 ```
 
-You should receive an email telling you that your snap is pending review (automatic checking). If you are not using any reserved interfaces and security checks are passing, it would be available to the user (in the **candidate**, **beta** and **edge** channels in this case) to your users via a simple:
-
+You should receive an email telling you that your snap is pending review (automatic checking). If you are not using any reserved interfaces and security checks are passing, it would be available to the user (in the **candidate** channel in this case) to your users via a simple:
 
 ```bash
-$ sudo snap install hello-didrocks --channel=candidate
+sudo snap install hello-didrocks --channel=candidate
 ```
 
-
 negative
-: As you uploaded an amd64 binary, only people on amd64 machine will get access to this snap. You can either only focus on one architecture to support, build yourself for all supported architectures your snap, or use **launchpad snap build service** to push your `snapcraft.yaml`, and get resulting snaps built on all architectures for you! More information are [available here].
+: As you uploaded an amd64 binary, only people on amd64 machine will get access to this snap. You can either only focus on one architecture to support, build yourself for all supported architectures your snap, or use [build.snapcraft.io](https://build.snapcraft.io) to push your `snapcraft.yaml`, and get resulting snaps built on all architectures for you!
 
-From here, if you are happy with the testing of your snap, you can snapcraft push again the same file, omitting `--release` option to publish a revision 2 in the **stable** channel. You can use the website as well and check the box for the channels you want this revision 1 to be published to.
+From here, if you are happy with the testing of your snap, you can use the `snapcraft release` command to have fine-grained control over what you are releasing and where:
 
-Remember that snaps with `confinement: devmode` can’t be published to the **stable** or **candidate** channels.
+The general syntax is:
+```bash
+snapcraft release <snap-name> <revision> <channel>
+```
 
+So, to release hello-didrocks to the stable channel, and make it immediately visible in the store:
 
-positive
-: Note: both of these steps (registering and uploading new snaps) are also available through the web interface. You then just upload your .snap files after clicking on **New Snap** on the website and filling in the form.
+```bash
+snapcraft release hello-didrocks 1 stable
+```
+
+Remember that snaps with `confinement: devmode` can’t be released to the **stable** or **candidate** channels.
 
 The web interface will give you information about the publication status. Take a look to see all the available options!
 
@@ -716,7 +740,7 @@ By now you should successfully have built your first snap, fixed build issues, e
 [here3]: https://github.com/ubuntu/snap-tutorials-code/tree/master/create-your-first-snap/step5
 [here4]: https://github.com/ubuntu/snap-tutorials-code/tree/master/create-your-first-snap/step6
 [My Apps]: https://dashboard.snapcraft.io/dev/snaps/
-[available here]: https://kyrofa.com/posts/building-your-snap-on-device-there-s-a-better-way
+[available here]: https://docs.snapcraft.io/build-snaps/builders
 [this]: https://github.com/ubuntu/snap-tutorials-code/tree/master/create-your-first-snap/final
 [build a nodejs service]: https://tutorials.ubuntu.com/tutorial/build-a-nodejs-service
 [snapcraft forum]: https://forum.snapcraft.io/

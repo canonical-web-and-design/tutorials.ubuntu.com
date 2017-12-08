@@ -667,8 +667,7 @@ What a journey! If this is the first time you installed a snap or created a LXD 
 
 ### How to share my snap with the world?
 
-You can release it in the Snap Store and make it available privately or publicly in 5 minutes.
-Publishing steps are available in the [snapcraft docs](https://docs.snapcraft.io/build-snaps/publish).
+To release it in the Snap Store and make it available to others, privately or publicly, follow the [publishing steps](https://docs.snapcraft.io/build-snaps/publish).
 
 ### What if the snap doesn't work?
 
