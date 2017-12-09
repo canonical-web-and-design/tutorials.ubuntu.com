@@ -2,7 +2,7 @@
 id: tutorial-irc-server
 summary: Learn how to install and configure an InspIRCd IRC server. this is for more advanced users comfortable with the command line.
 categories: server
-tags: irc, InspIRCd, Chat, server, guide, tutorial
+tags: irc, InspIRCd, chat, server, guide, tutorial
 difficulty: 3
 status: draft
 feedback-link: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
@@ -107,11 +107,11 @@ Installation is done in two steps, first we must build the program into the dire
 
 As you are already in the installation directory, you can simply type `make`. this process will take around 10 minutes so feel free to step away from the computer.
 
-next to copy the program, we type:
+Next to copy the program, we type:
 ```markdown
 make install
 ```
-Now reboot your computer by typing `reboot`
+Now reboot your computer by typing `reboot`, make sure there are no other running programs.
 
 Great! Now we have InspIRCd fully installed, we can continue to set up an IRC Server.
 ##Running the Server
@@ -175,7 +175,7 @@ The configuration file should look like this:
 
 <server
         name="tutorials.ubuntu.com"
-        description="Welcome to ubuntu tutorials"
+        description="Welcome to Ubuntu Tutorials"
         id="97K"
         network="tutorials.ubuntu.com">
 
@@ -184,7 +184,7 @@ The configuration file should look like this:
 
 <admin
        name="tutorial ubuntu"
-       nick="tutor"
+       nick="tutorial"
        email="tutorials@ubuntu.com">
 
 ####### PORT CONFIGURATION #######
@@ -214,3 +214,21 @@ In your the terminal window you already have open, type:
 If you see a message that says InspIRCd is already running, your server is now online.
 
 Changes to your web server are made to the config file, a list of supported commands and other useful information can be found at [InspIRCd's Wiki](https://wiki.InspIRCd.org/).
+
+###You now know how to:
+* Prepare an environment to install an IRC Server using InspIRCd
+* Install InspIRCd using GitHub
+* Configure InspIRCd using a `.conf` file
+* Start the service
+
+###What's Next?
+* Modify your external internet connection to forward port 6697
+* Ensure your network has a static IP address
+* Get a URL to easily send traffic to your server (optional)
+
+###I Need Help
+* Double Check that the port is available
+* Ensure the `.config` file is correct
+* Make sure you typed the commands properly
+* Try using sudo (if you arent already)
+* Ask a question on [Ask Ubuntu](https://askubuntu.com/)
