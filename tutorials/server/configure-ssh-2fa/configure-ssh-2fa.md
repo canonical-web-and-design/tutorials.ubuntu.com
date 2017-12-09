@@ -16,7 +16,7 @@ Duration: 2:00
 
 ## Overview
 
-SSH, the secure shell, is often used to access remote Linux systems. Because we often use it to connect with computers containing important data, it's recommended to add another security layer. Here comes the two factor authentication (*2FA*).
+SSH, the secure shell, is often used to access remote Linux systems. Because we often use it to connect with computers containing important data, it’s recommended to add another security layer. Here comes the two factor authentication (*2FA*).
 
 ### What is two-factor authentication
 
@@ -24,13 +24,13 @@ Multi-factor authentication is a method of confirming your identity using at lea
 
 We will use the Google Authenticator app available for Android (in the [Play Store]) and iOS (in [iTunes]) to generate authentication codes.
 
-### What you'll need
+### What you’ll need
 
   - A computer running Ubuntu 16.04 LTS or above
   - A phone running Android or iOS
   - A configured SSH connection
   - You should understand the danger of stolen passwords.
-  - You don't need to know what two-factor authentication is and how it works.
+  - You don’t need to know what two-factor authentication is and how it works.
 
 
 ## Installing and configuring required packages
@@ -86,21 +86,21 @@ It will ask you a series of questions, here is a recommended configuration:
   - Increase the original generation time limit: no
   - Enable rate-limiting: yes
 
-You may have noticed the giant QR code that appeared during the process, underneath are your emergency scratch codes to be used if you don't have access to your phone: write them down on paper and keep them in a safe place.
+You may have noticed the giant QR code that appeared during the process, underneath are your emergency scratch codes to be used if you don’t have access to your phone: write them down on paper and keep them in a safe place.
 
-That's all. Now, let's open Google Authenticator and add our secret key to make it work.
+That's all. Now, let’s open Google Authenticator and add our secret key to make it work.
 
 
 ![IMAGE](./images/output.png)
 
 
 negative
-: Don't use unencrypted services to store secret keys, such as a notes synchronization service and so on. If you don't want to type the key manually, use the QR code.
+: Don’t use unencrypted services to store secret keys, such as a notes synchronization service and so on. If you don't want to type the key manually, use the QR code.
 
 ## Adding the secret to Google Authenticator
 Duration: 2:00
 
-We will use the latest version of Authenticator from the Play Store. The process shouldn't look very different on iOS.
+We will use the latest version of Authenticator from the Play Store. The process shouldn’t look very different on iOS.
 
 ![IMAGE](./images/add-button.png)
 
