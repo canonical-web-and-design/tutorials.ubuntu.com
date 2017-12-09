@@ -2,7 +2,7 @@
 id: configure-ssh-2fa
 summary: Configure SSH to use two-factor authentication
 categories: server
-tags: tutorial,ssh,security,ubuntu,terminal
+tags: tutorial,ssh,security,ubuntu,terminal, hidden
 difficulty: 2
 status: published
 published: 2017-12-04
@@ -24,7 +24,7 @@ Multi-factor authentication is a method of confirming your identity using at lea
 
 We will use the Google Authenticator app available for Android (in the [Play Store]) and iOS (in [iTunes]) to generate authentication codes.
 
-### What you’ll need
+### What you'll need
 
   - A computer running Ubuntu 16.04 LTS or above
   - A phone running Android or iOS
