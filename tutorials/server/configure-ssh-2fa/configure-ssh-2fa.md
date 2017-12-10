@@ -47,7 +47,7 @@ sudo apt install libpam-google-authenticator
 
 ### Configuring SSH
 
-To make SSH use the oath PAM module, add the following line to the /etc/pam.d/sshd file:
+To make SSH use the Google Authenticator PAM module, add the following line to the /etc/pam.d/sshd file:
 
 ```
 auth required pam_google_authenticator.so
