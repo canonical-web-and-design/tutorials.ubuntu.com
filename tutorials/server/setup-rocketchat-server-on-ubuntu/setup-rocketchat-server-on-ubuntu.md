@@ -4,7 +4,7 @@ summary: Learn how to setup a RocketChat server on Ubuntu.
 categories: server
 tags: guide, rocketchat, server
 difficulty: 2
-status: draft
+status: published
 feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 author: Ivan Fonseca <ivanfon@riseup.net>
 published: 2017-12-09
