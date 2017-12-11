@@ -7,6 +7,7 @@ difficulty: 1
 status: Published
 published: 2017-12-02
 author: Aden Padilla <adenpadilla@gmail.com>
+feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 
 ---
 
@@ -15,9 +16,9 @@ author: Aden Padilla <adenpadilla@gmail.com>
 ## Overview
 Duration: 1:00
 
-Java Runtime Environment (JRE) is required to run Java programs. There are several versions of Java and the ones we can install on our Ubuntu machines are OpenJRE and Oracle JRE. Both of them are similar and should not have any functional difference but some prefer OpenJRE over Oracle JRE as it is easier to install because it requires no additional repositories to be added. However, there are cases where you might need the other one.
+The Java Runtime Environment (JRE) is required to run Java programs. While there are multiple JRE variants available, the two most popular ones on Ubuntu are OpenJRE and Oracle JRE. Using one over the other should not create any functional difference in most applications, however, some prefer OpenJRE over Oracle JRE as it doesn't contain closed-source components and is maintained as part of the Ubuntu archive, with easier installation and upgrades.
 
-In this guide, we'll be going through the installation of both of them. Of course, you generally only need one so pick one that best suites your need.
+In this guide, we'll be going through the installation of both of them. Of course, you generally only need one to pick one that best suits your needs.
 
 ### What you'll learn
 - How to install OpenJRE
@@ -42,7 +43,7 @@ We can check if OpenJRE was properly installed by running:
 java -version
 ```
 
-The following should be its output:
+It should output the following:
 ```bash
 openjdk version "1.8.0_151"
 OpenJDK Runtime Environment (build 1.8.0_151-8u151-b12-0ubuntu0.16.04.2-b12)
@@ -53,45 +54,58 @@ And that's it!
 
 In the next step we'll install Oracle JRE.
 
-## Install Oracle JRE
-Duration: 2:00
+## Installing Oracle JRE
+Duration: 3:00
 
-Oracle doesn't provide an official install package for Ubuntu but luckily **WebUp8Team** created a script that installs Oracle JRE for us.
+### Downloading JRE Binaries
 
-We start by installing **WebUpd8Team**'s repository for their script:
+Download JRE binaries in *.tar.gz (tarball)* by heading over to [their website](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html).
+
+### Installing
+
+Create a directory to install JRE in with:
 ```bash
-sudo add-apt-repository ppa:webupd8team/java
+sudo mkdir /usr/local/java
 ```
-After adding it we run:
-```bash
-sudo apt update
-```
-Then finally:
-```bash
-sudo apt install oracle-java8-installer
-```
-After agreeing to the install prompt, we'll be greeted with the following screen:
-![prompt1](images/notiagree.png)
-Read their license terms over at the link provided then press enter.
 
-Another screen will pop up asking if you agree to their terms.
-![prompt2](images/agreeprompt.png)
-If you do, select yes and the installation will proceed. All we have to do now is sit back and let the script do the rest of the work for us.
+Move the JRE binaries into the directory:
+```bash
+sudo mv jre-8u151-linux-x64.tar.gz /usr/local/java
+```
 
-When it's done, we can check if it was set up correctly by typing:
+Go into the install directory:
+```bash
+cd /usr/local/java
+```
+
+Unpack the tarball:
+```bash
+sudo tar zxvf jre-8u151-linux-x64.tar.gz
+```
+
+### Post-installation steps
+
+To save space, delete the tarball by running:
+```bash
+sudo rm jre-8u151-linux-x64.tar.gz
+```
+
+Let the system know where JRE is installed:
+```bash
+sudo update-alternatives --install "/usr/bin/java" "java" "/usr/local/java/jre1.8.0_151/bin/java" 1
+```
+
+After that's done, check the installation by running:
 ```bash
 java -version
 ```
-
-You should see the following output:
+It should output the following:
 ```bash
 java version "1.8.0_151"
 Java(TM) SE Runtime Environment (build 1.8.0_151-b12)
 Java HotSpot(TM) 64-Bit Server VM (build 25.151-b12, mixed mode)
 ```
 
-And that concludes our tutorial. But don't let that stop you, there's a link below if you want to learn more!
 
-positive
-: **Read more:**
-https://help.ubuntu.com/community/Java#Installation_of_Java_Runtime_Environment
+### Need further assistance?
+- [Java Help Center](https://java.com/en/download/help/)
