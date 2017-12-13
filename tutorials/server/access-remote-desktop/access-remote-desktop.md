@@ -1,6 +1,6 @@
 ---
 id: access-remote-desktop
-summary: Connect with remote desktop using Remmina through VNC protocol.
+summary: Use Remmina and the VNC protocol to connect to your desktop from anywhere, or access remotely shared desktops locally.
 categories: server
 tags: tutorial,ubuntu,server,vnc,remmina,remote-client
 difficulty: 2
@@ -16,48 +16,49 @@ author: Marcin Mikołajczak <me@m4sk.in>
 ## Overview
 Duration: 1:00
 
-**Virtual Network Computing** (VNC) is a protocol commonly used to share graphical desktop over a network. Popular uses for VNC include technical support.
+**Virtual Network Computing** (VNC) is a protocol commonly used to share a graphical desktop over a network. Popular uses for VNC include technical support and screen sharing.
 
-By default, Ubuntu comes with [Remmina] remote desktop client with support for VNC and RDP protocols. We will use it to accessremote server.
+By default, Ubuntu comes with [Remmina] remote desktop client with support for VNC and RDP protocols. We will use it to access remote server.
 
 ### What you’ll need
 
   - A computer running Ubuntu 16.04 LTS or above
-  - A configured VNC connection
+  - A running VNC server
   - Remmina Remote Desktop Client installed
 
-positive
-: If you don’t have Remmina on your Ubuntu installation, install it with `sudo apt install remmina remmina remmina-plugin-vnc`. You can also use snap package (`sudo snap install remmina`).
+### Installing Remmina
+
+If you don’t have Remmina on your Ubuntu installation, install it with `sudo apt install remmina remmina-plugin-vnc`. You can also use snap package (`sudo snap install remmina`).
 
 
-## Remmina interface
+## Launch Remmina
 Duration: 1:00
 
-Remmina comes with easy-to-use interface, allowing us to save remote desktop preferences. We can add profiles to groups, to make searching them easier.
+Remmina’s user-interface is easy to use. A quick connection can be made from the entry field beneath the toolbar by switching from the RDP to the VNC protocol, entering the address of your VNC server and clicking “Connect !”. But for convenience, it’s far better to create a re-usable connection, which we’ll cover in the next step.
 
 ![screenshot](remmina-interface.png)
 
 
-## Adding connection
+## Add a connection
 Duration: 3:00
 
-Although you can quickly connect with VNC by switching from ***RDP*** to ***VNC*** in drop-down menu in main window, typing your IP address (with port, of course) and clicking ***Connect !*** button, it’s better to create save connection to make next connections faster.
+Click on “New” to open the “Remote Desktop Preference” pane. The following details should be configured:
 
-Run Remmina. Click on ***New***. You can set name and add connection to one of groups (it can be anything you want) and select***VNC - Virtual Network Computing*** from protocols drop-down menu.
-
-In ***Server*** field, type IP address of server you are going to connect with, including port. Type VNC password (can differ from user apssword) in ***Password*** field. That’s everything you will usually need to do.
-
-Because of limitations caused by speed of Internet connections and lack of possibility for hardware acceleration, by default ***Color depth*** is set to 8-bit (8 bpp). You can change it to 16-bit or 24-bit, if you need. You can also change graphics quality, which will also affect on Internet speed.
+  - **Server**: The IP address and port of the VNC server you wish to connect to. For example, 192.168.1.2:5901
+  - **User name**: Not necessary unless your server is using VNC users.
+  - **Password**: If your server uses a password, enter it here. If not entered and your server requires a password, you’ll be able to enter it after starting the connection.
+  - **Colour depth**: Choose 24-bit for a fast connection, such as across a LAN, or 256 colours when using a low bandwidth connection.
+  - **Quality**: Provides more control over bandwidth and rendering quality, with “Poor” trades visual quality for responsiveness, while “Best” does the opposite.
 
 ![screenshot](adding-connection.png)
 
-Now, let's connect to our VNC!
+Click “Save” when you’re happy with the connection. Now, let’s connect to our VNC!
 
 
-## Connecting with VNC server.
+## Connecting to the server
 Duration: 3:00
 
-To connect with configured VNC server, simply double-click on newly created profile.
+Connect to the VNC server by selecting your server profile and clicking “connect”.
 
 ![screenshot](preview.png)
 
@@ -66,12 +67,12 @@ In toolbar, you have options to switch to fullscreen mode, change view and graph
 ![screenshot](toolbar.png)
 
 
-## That's all!
+## That’s all!
 Duration: 1:00
 
-### Easy, wasn't it?
+### Easy, wasn’t it?
 
-Congratulations! You have just learned how to use Remmina to connect with VNC server. You can remotely access your computer or give someone technical support (if he know how to configure VNC server…).
+Congratulations! You have successfully used Remmina to connect to a VNC server, allowing you to remotely access your machine or potentially provide some technical support to someone sharing theirs.
 
 If you need more guidance on using VNC client, help is always at hand:
 
