@@ -8,7 +8,6 @@ status: published
 feedback-url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 published: 2017-12-12
 author: Marcin Mikołajczak <me@m4sk.in>
-feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 
 ---
 
