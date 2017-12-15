@@ -2,7 +2,7 @@
 id: install-jre
 summary: Installation of Java Runtime Environment (JRE) on Ubuntu
 categories: desktop
-tags: tutorial,installation,ubuntu,desktop,java,jre
+tags: tutorial,installation,ubuntu,desktop,java,jre, gci, hidden
 difficulty: 1
 status: published
 published: 2017-12-02
