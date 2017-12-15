@@ -2,7 +2,7 @@
 id: access-remote-desktop
 summary: Use Remmina and the VNC protocol to connect to your desktop from anywhere, or access remotely shared desktops locally.
 categories: server
-tags: tutorial,ubuntu,server,vnc,remmina,remote-client
+tags: tutorial,ubuntu,server,vnc,remmina,remote-client, hidden
 difficulty: 2
 status: published
 published: 2017-12-09
