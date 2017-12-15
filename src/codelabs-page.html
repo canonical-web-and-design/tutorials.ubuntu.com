@@ -153,11 +153,6 @@
       ],
 
       ready: function() {
-        // If client linked here AND referral wasn't within host, change backURL
-        if (document.referrer &&
-            document.referrer.indexOf(window.location.hostname) === -1) {
-          this.backURL = document.referrer;
-        }
         let el = document.querySelector('ubuntu-tutorials-app');
         el.addEventListener('google-codelab-ready', function(error) {
           this._attachFeedbackForm();
