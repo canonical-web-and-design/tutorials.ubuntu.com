@@ -18,7 +18,7 @@ Duration: 1:00
 
 The Java Runtime Environment (JRE) is required to run Java programs. While there are multiple JRE variants available, the two most popular ones on Ubuntu are OpenJRE and Oracle JRE. Using one over the other should not create any functional difference in most applications, however, some prefer OpenJRE over Oracle JRE as it doesn't contain closed-source components and is maintained as part of the Ubuntu archive, with easier installation and upgrades.
 
-In this guide, we'll be going through the installation of both of them. Of course, you generally only need one to pick one that best suits your needs.
+In this guide, we'll be going through the installation of both of them. Of course, you generally only need to pick the one that best suits your needs.
 
 ### What you'll learn
 - How to install OpenJRE
