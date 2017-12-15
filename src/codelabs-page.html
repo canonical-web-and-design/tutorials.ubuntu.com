@@ -1,7 +1,10 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/app-route/app-route.html">
+<link rel="import" href="../bower_components/app-route/app-route-converter.html">
 <link rel="import" href="../bower_components/codelab-components/google-codelab-elements.html">
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../bower_components/iron-location/iron-location.html">
+<link rel="import" href="../bower_components/iron-location/iron-query-params.html">
 
 <link rel="import" href="elements/tutorial-feedback.html">
 
@@ -88,6 +91,11 @@
       }
     </style>
 
+    <iron-location query="{{query}}"></iron-location>
+    <iron-query-params
+        params-string="{{query}}"
+        params-object="{{queryParams}}">
+    </iron-query-params>
     <app-route
       route="{{route}}"
       pattern="/:codelab"
@@ -133,6 +141,10 @@
           type: String,
           value: '/',
         },
+        queryParams: {
+          type: Object,
+          value: {},
+        },
       },
 
       observers: [
@@ -163,11 +175,22 @@
       },
 
       _goToHome: function() {
-        if (history.pushState) {
-          window.history.pushState({}, null, this.backURL);
+        let backURL = this.backURL;
+        if (this.queryParams.backURL !== undefined) {
+          backURL = this.queryParams.backURL;
+        }
+
+        const isExternalURLRegex = new RegExp('^(?:[a-z]+:)?//', 'i');
+        let isExternalURL = false;
+        if (backURL && isExternalURLRegex.test(backURL)) {
+          isExternalURL = true;
+        }
+
+        if (history.pushState && !isExternalURL) {
+          window.history.pushState({}, null, backURL);
           window.dispatchEvent(new CustomEvent('location-changed'));
         } else {
-          window.location.href = this.backURL;
+          window.location.href = backURL;
         }
       },
 
