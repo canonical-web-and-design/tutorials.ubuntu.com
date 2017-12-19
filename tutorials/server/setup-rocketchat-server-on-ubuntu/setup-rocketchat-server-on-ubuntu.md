@@ -53,7 +53,7 @@ snap install rocketchat-server
 
 ### Accessing your server
 
-By default, your server will be available on port 3000. You can access this by going to `serverIP:3000` in your web browser, or `localhost:3000` if you're running the server locally. You should be greeted by the following screen:
+By default, your server will be available on port 3000. You can access this by going to `serverIP:3000` (replacing ‘serverIP’ with your server’s IP address) in your web browser, or `localhost:3000` if you're running the server locally. You should be greeted by the following screen:
 
 ![RocketChat login page](images/1.png)
 
@@ -68,7 +68,7 @@ To install it, run `snap install rocketchat-server`. You can access the server a
 
 ### Creating an account
 
-First, you'll have to create an account. The first account created on the server will be an admin, which will allow you to configure the server.
+First, you'll have to create an account. The first account created on the server will automatically become an admin, which will allow you to configure the server.
 
 Click on `Register a new account`. You'll be shown a screen where you must enter your name, email and password.
 
@@ -98,13 +98,13 @@ You may send direct messages to team members by opening the member list (located
 
 #### Messages
 
-Messages can be sent (quite intutively) by typing in the chatbar and pressing enter. You may add attachments (files, video and audio), emoji and apply basic formatting.
+Messages can be sent (quite intuitively) by typing in the chatbar and pressing enter. You may add attachments (files, video and audio), emoji, and apply basic formatting.
 
-All messages have a menu that can be accessed by hovering over them and clicking on the series of dots that appear over it at the top-right corner. If you sent the message (or you have the proper permissions), you can edit or delete the message. You can also star a message to save it for later, or, with the proper permissions, pin it to the channel to save it for everyone. Stars and pins can be accessed from the right sidebar.
+All messages have a menu that can be accessed by hovering over them and clicking on the series of dots that appear over it at the top-right corner. If you sent the message (or you have the proper permissions), you can edit or delete it. You can also star a message to save it for later, or, with the proper permissions, pin it to the channel to save it for everyone. Stars and pins can be accessed from the right sidebar.
 
 #### Other features
 
-From the right sidebar, you can also change notification prefernces and see the file list for a channel. If you click on your name at the top-left, you will open a menu where you can change your status (online, away, etc), change your account settings, or (if you're an admin) change server administration settings.
+From the right sidebar, you can also change notification preferences and see the file list for a channel. If you click on your name at the top-left, you will open a menu where you can change your status (online, away, etc), change your account settings, or (if you're an admin), change server administration settings.
 
 That's a quick RocketChat primer. Now, let's move on to server configuration!
 
@@ -190,11 +190,11 @@ positive
 : **If you're running the server locally, you can replace the domain with `localhost`.**
 In the example above, we would change the first line to `localhost:3001`.
 
-By leaving the `http` or `https` out of the domain, HTTP will automatically be redirected to HTTPS.
+By leaving the `http` or `https` out of the domain, HTTP requests will automatically be redirected to HTTPS.
 
 negative
 : **When you change the domain or port, you must also change the `Site URL` setting in RocketChat.**
-The next time an admin logs in, RocketChat will prompt them to automatically change the `Site URL`. You can also change this in the server administration settings.
+The next time an admin logs in after the domain or port changes, RocketChat will prompt them to automatically change the `Site URL`. You can also change this manually in the server administration settings.
 
 ### Further reading
 
