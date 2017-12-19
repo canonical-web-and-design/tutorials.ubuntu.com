@@ -1,6 +1,6 @@
 ---
 id: tutorial-ubuntu-desktop-aws
-summary: Learn how to connect and run ubuntu desktop on AWS EC2 Instance using TightVNC. Access GUI to manage your machine more easily.
+summary: Learn how to connect and run ubuntu desktop on AWS EC2 Instance. Access GUI to manage your machine more easily.
 categories: server
 tags: vnc,aws,ec2,tutorial,ubuntu,server,Ubuntu 16.04 LTS
 difficulty: 2
@@ -14,128 +14,130 @@ author: Simran Singh <invincible.simran@gmail.com>
 # Running Ubuntu Desktop on AWS EC2 Instance
 
 ## Overview
-Duration: 0:02
+Duration: 0:01
 
-This tutorial will guide you through the setup of running ubuntu desktop on AWS EC2 Instance using TightVNC on mac or windows.
+This tutorial will guide you through the setup of running ubuntu desktop on AWS EC2 Instance using TightVNC on a
+system running Ubuntu 16.04+.
 
 What you'll need :
 
-* Access to an AWS EC2 instance using commandline.
-* If you're using mac then you'll be needing VNC Connect - [Download VNC Connect](https://www.realvnc.com/en/connect/download/vnc/)
-* If you're using windows then you'll be needing PuTTy Client and TightVNC - [Download PuTTy](http://www.putty.org/)  |  [Download TightVNC](https://www.tightvnc.com/download.php)
-
+* Access to an AWS EC2 instance using commandline - This tutorial assumes that you're logged into the machine using SSH.
+* A machine running ubuntu 16.04+.
+* Remmia Remote Desktop Client (Pre-installed on 16.04+)
 
 ## Setting up TightVNC on AWS
-
-
-
-## Boot from DVD
 Duration: 0:02
 
-To trigger the installation process, perform the following:
+Let's install Ubuntu Desktop and TightVNC on your EC2 instance.
+After logging in to your EC2 instance using the terminal, enter the following commands to install the tools that will be required to run ubuntu desktop :
 
-1. Put the Ubuntu DVD into your DVD drive.
-1. Restart your computer.
+Note: While installing VNC Server you'll be required to setup a password for the server.
+So remember this since it will be needed later to connect to our VNC server.
 
-A few moments later, a large 'Language' menu will appear and selecting your language will take you to the boot menu.
+```bash
+$ sudo apt-get update
 
-![screenshot](https://assets.ubuntu.com/v1/87351452-server-language-select.png)
+$ sudo apt-get install ubuntu-desktop
 
-If you don’t get this menu, read the [booting from the DVD guide](https://help.ubuntu.com/community/BootFromCD?_ga=2.102380610.2115462233.1496186978-1155966827.1485186360) for more information.
+$ sudo apt-get install tightvncserver
 
-## Boot from USB flash drive
-Duration: 0:02
+$ sudo apt-get install gnome-panel gnome-settings-daemon metacity nautilus gnome-terminal
+```
 
-Most computers will boot from USB automatically. Simply insert the USB flash drive and either power on your computer or restart it. You should see the same language menu we saw in the previous 'Install from DVD' step, followed by the boot menu.
+After completion, your machine is ready with GUI support but needs some configuration to be done.
 
-If your computer doesn't automatically boot from USB, try holding `F12` when your computer first starts. With most machines, this will allow you to select the USB device from a system-specific boot menu.
-
-positive
-: F12 is the most common key for bringing up your system's boot menu, but Escape, F10 and F2 are common alternatives. If you're unsure, look for a brief message when your system starts - this will often inform you of which key to press to bring up the boot menu.
-
-## Boot options
-Duration: 0:20
-
-The Ubuntu Server boot menu includes handy options for testing your system and for testing the validity of the install media and system disks.
-
-There are two options for installation, and you should select 'Install Ubuntu Server'.
-
-![screenshot](https://assets.ubuntu.com/v1/c08110df-server-boot-menu.png)
-
-## Network configuration
-Duration: 0:03
-
-After selecting installation language, geographical location and keyboard layout, the installer will perform some background configuration and processing. In particular, the installer will attempt to automatically configure your network.
-
-If the installer successfully detects your network configuration, you'll be asked to enter a hostname, which can either be modified or left as the default 'ubuntu'.
-
-![screenshot](https://assets.ubuntu.com/v1/fc14d32b-server-network.png)
-
-positive
-: If network autodetection fails, this will mostly likely be because your network isn't using DHCP or the DHCP server isn't accessible. You will see another menu offering you the option to configure the network manually or rerun the autodetection routine.
-
-## User configuration
-Duration: 0:03
-
-After networking, you'll be asked to enter your full name, username and password. As you're configuring a server that's likely to be accessible from the internet (if you choose), make sure your password is strong and difficult to guess.
-
-![screenshot](https://assets.ubuntu.com/v1/cfd45d64-server-password.png)
-
-## Storage configuration
+## Configuring the VNC server
 Duration: 0:05
 
-After answering a question about your time zone, you need to configure local storage.
+In your terminal type the following command to launch VNC server to create an initial configuration file:
 
-If the storage connected to your server is raw and unformatted, the installer will detect this and present a menu offering four options. The simplest is the second, 'Guided - use entire disk and set up LVM', and we'd recommend selecting this.
+```bash
+$ vncserver :1
+```
 
-Any of these options will obviously destroy any data currently on your partition(s), but resizing and creating new partitions are options available by selecting 'Manual'.
+Open the configuration file in vim:
 
-![screenshot](https://assets.ubuntu.com/v1/bde68a78-server-partition-auto.png)
+```bash
+$ vim ~/.vnc/xstartup
+```
 
-positive
-: If your server storage is already being used, or has been used prior to the installation, you will get a slightly different menu. Once again, the simplest option is to select 'Guided - use the entire disk and set up LVM', but you can also choose the specific partition if that's convenient.
+![screenshot](./images/vim-startup.png)
 
-## Package retrieval
+Press the 'i' key on your keyboard to get into the insert mode which will allow you to enter text into the file.
+Edit the file to look like so :
+
+```bash
+#!/bin/sh
+
+export XKL_XMODMAP_DISABLE=1
+unset SESSION_MANAGER
+unset DBUS_SESSION_BUS_ADDRESS
+
+[ -x /etc/vnc/xstartup ] && exec /etc/vnc/xstartup
+[ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources
+xsetroot -solid grey
+
+vncconfig -iconic &
+gnome-panel &
+gnome-settings-daemon &
+metacity &
+nautilus &
+gnome-terminal &
+
+```
+
+After you’re done, enter '*Ctrl + :*' and type '*wq*' to save and quit the file.
+
+![screenshot](./images/vim-save.png)
+
+Great! 
+We're almost done with the configuration.
+Now, let's restart the VNC server by killing it first and then starting it up.
+
+To kill the vnc server and start it again, type the following command:
+```bash
+$ vncserver -kill :1
+
+$ vncserver :1
+```
+
+Congratulations, you're done with the configuration for Ubuntu Desktop.
+
+## AWS Configuration 
 Duration: 0:02
 
-After accepting the changes that are going to be made to your storage, the installer will determine the packages to be installed. This will take a few moments.
+We need to make sure that the AWS instance has inbound rules setup to allow connection using VNC.
+So, head over to your AWS EC2 console and modify the inbound-rules.
+Add the entry : 
+Custom TCP Rule | TCP | 5901 | Custom | 0.0.0.0/0 | VNC Connect 
 
-You will then be asked to enter an HTTP proxy address. This can be ignored if you don't know whether you need one to access the internet from your server. You'll also be asked whether you require automatic updates. Selecting 'Install security updates automatically' is the safest default option.
+![screenshot](./images/inbound-rules.png) 
 
-![screenshot](https://assets.ubuntu.com/v1/4f89d790-server-updates.png)
+Save this entry.
+Done! 
 
-## Software selection
-Duration: 0:01
-
-The final step before installation starts requires you to select the software you want pre-installed on your server. You can select from a broad set of categories or manually choose the packages yourself. This option is purely for convenience, as you can easily install any additional software you need after installation has completed.
-
-We'd recommend selecting 'standard system utilities' and 'OpenSSH server' as a minimum so that your system is both fully functional and accessible from any SSH client on your local network.
-
-![screenshot](https://assets.ubuntu.com/v1/51cf4395-server-software.png)
-
-## Installation
+## Connecting to Ubuntu Desktop 
 Duration: 0:02
 
-Ubuntu Server will now be installed. When complete, one final question asks for permission to install the GRUB boot loader. You should answer 'Yes'.
+Launch Remmia Remote Desktop Client.
+Then, 
+1. Choose the connection type as 'VNC'
 
-The installer will finish up by installing the final packages and configuration files.
+2. Enter your EC2 url along with the port number as 1.
+For eg. : 
+My EC2 instance URL and the port number as 1 will be  
+```bash
+ ec2-54-172-197-171.compute-1.amazonaws.com:1
+```
+![screenshot](./images/connect-to-aws.png)
+3. Enter the password you provided during the installation of the VNC Server.
+4. Connect! 
 
-![screenshot](https://assets.ubuntu.com/v1/a8d32900-server-grub.png)
+Congratulations, you've successfully configured your EC2 instance to run Ubuntu Desktop GUI Support.
 
-## Installation complete
-Duration: 0:02
+![screenshot](./images/connection-successful.png)
 
-Congratulations! With the installation complete, you can now remove your installation media, restart your machine and begin enjoying Ubuntu Server.
-
-If you're looking for a place to start with your new server, we'd recommend reading the [Server Guide](https://help.ubuntu.com/lts/serverguide/).
-
-Alternatively, alongside its vast array of industry defining applications and services, use your fresh installation to take a look at some of [Canonical's](https://www.canonical.com/) most advanced technologies:
-
-- [MAAS](https://maas.io/) - Metal as a Service, offers complete automation of your physical servers for amazing data centre operational efficiency.
-
-- [Landscape](https://landscape.canonical.com/landscape-features), our cost-effective way to support and monitor large and growing networks of desktops, servers and clouds.
-
-![screenshot](https://assets.ubuntu.com/v1/dbd27849-server-complete.png)
+Hope you liked the tutorial.
 
 ## Finding help
 Duration: 0:02
