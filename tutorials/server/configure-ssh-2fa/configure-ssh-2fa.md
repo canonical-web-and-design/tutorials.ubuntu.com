@@ -2,7 +2,7 @@
 id: configure-ssh-2fa
 summary: Configure SSH to use two-factor authentication
 categories: server
-tags: tutorial,ssh,security,ubuntu,terminal, hidden
+tags: tutorial,ssh,security,ubuntu,terminal, hidden, gci
 difficulty: 2
 status: published
 published: 2017-12-04
