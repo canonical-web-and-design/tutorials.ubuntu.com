@@ -2,7 +2,7 @@
 id: configure-ssh-2fa
 summary: Configure SSH to use two-factor authentication
 categories: server
-tags: tutorial,ssh,security,ubuntu,terminal, hidden
+tags: tutorial,ssh,security,ubuntu,terminal, hidden, gci
 difficulty: 2
 status: published
 published: 2017-12-04
@@ -47,7 +47,7 @@ sudo apt install libpam-google-authenticator
 
 ### Configuring SSH
 
-To make SSH use the oath PAM module, add the following line to the /etc/pam.d/sshd file:
+To make SSH use the Google Authenticator PAM module, add the following line to the /etc/pam.d/sshd file:
 
 ```
 auth required pam_google_authenticator.so
