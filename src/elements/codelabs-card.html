@@ -123,6 +123,12 @@
         justify-content: space-between;
       }
 
+      .label {
+        height: 28px;
+        position: absolute;
+        right: 0;
+      }
+
     </style>
 
     <paper-card>
@@ -130,7 +136,9 @@
         <a href="/tutorial/[[url]][[generateBackParameter]]#0" title="[[heading]]">
           <div class="header vertical layout">
             <div class="horizontal end-justified layout">
-              <div class="light card-category">[[firstcategory]]</div>
+              <div class="light card-category">[[firstcategory]]
+                <img class="label" src="[[label]]">
+              </div>
             </div>
             <h2 class="heading">[[heading]]</h2>
           </div>
@@ -169,6 +177,10 @@
         difficulty: Number,
         duration: Number,
         tags: Array,
+        label: {
+          type: String,
+          computed: '_extractLabelTag(tags)',
+        },
         published: {
           type: String,
         },
@@ -183,6 +195,13 @@
       _extractFirstCategory: function(category) {
         let firstcategory = category[0];
         return firstcategory;
+      },
+
+      _extractLabelTag: function(tags) {
+        if (tags.includes('gci')) {
+          return '../../images/label-gci.png';
+        };
+        return '';
       },
 
       _generateBackParameter: function(currenturl) {

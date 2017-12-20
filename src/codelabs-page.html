@@ -89,6 +89,18 @@
         /*  Override images being forced at 100% width  */
         width: auto;
       }
+
+      #contentContainer google-codelab aside.label {
+        border: 1px solid #2397f3;
+        background: #f1f8ff;
+      }
+
+      #contentContainer google-codelab aside .label-img {
+        width: 100px;
+        float: left;
+        margin-top: 10px;
+        margin-right: 14px;
+      }
     </style>
 
     <iron-location query="{{query}}"></iron-location>
@@ -156,6 +168,7 @@
         let el = document.querySelector('ubuntu-tutorials-app');
         el.addEventListener('google-codelab-ready', function(error) {
           this._attachFeedbackForm();
+          this._addLabelNote();
 
           // Set an empty title on the first child element of the codelab
           // Firefox picks up Codelab's title attribute and makes a tooltip
@@ -251,6 +264,31 @@
         let tutorialFeedback = document.createElement('tutorial-feedback');
         tutorialFeedback.title = metadata.title;
         lastPage.appendChild(tutorialFeedback);
+      },
+
+      _addLabelNote: function(tags) {
+        let currentUrl = this.routeData.codelab;
+        let metadata = this.codelabs.filter(function(metadata) {
+          return metadata.url === currentUrl;
+        })[0];
+
+        if (metadata.tags.includes('gci')) {
+          let contentContainer = Polymer.dom(this.$.contentContainer);
+          let steps = contentContainer.querySelectorAll('google-codelab-step');
+          let lastPage = steps[0].querySelector('p');
+          content = '<aside class="label special style-scope codelabs-page">';
+          content += '<img class="label-img style-scope codelabs-page" ';
+          content += 'src="../../images/label-gci-text.png" alt="Google Code-in">';
+          content += 'Canonical and the Ubuntu community are proud to ';
+          content += 'participate in <a href="https://codein.withgoogle.com/">';
+          content += 'the Google Code-in contest</a>.';
+          content += '<br>This tutorial was written by a participating student,';
+          content += ' not a professional writer, ';
+          content += 'so if you have any comments or suggestions, ';
+          content += 'please leave some feedback - the community ';
+          content += '(and the student!) will greatly appreciate it.</p>';
+          lastPage.insertAdjacentHTML('beforeBegin', content);
+        };
       },
 
       _codelaburl: function(codelabpath) {

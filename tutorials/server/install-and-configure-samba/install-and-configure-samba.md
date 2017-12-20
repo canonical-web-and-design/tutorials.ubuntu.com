@@ -2,7 +2,7 @@
 id: install-and-configure-samba
 summary: Install and configure Samba to share files across a network.
 categories: server
-tags: tutorial,installation,ubuntu,file server,samba, hidden
+tags: tutorial,installation,ubuntu,file server,samba, gci
 difficulty: 1
 status: published
 published: 2017-12-01
