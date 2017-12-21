@@ -23,7 +23,7 @@ What you'll need :
 
 * Access to an AWS EC2 instance using commandline - This tutorial assumes that you're logged into the machine using SSH
 * A machine running ubuntu 16.04+
-* Remmia Remote Desktop Client (Pre-installed on 16.04+)
+* Remmina Remote Desktop Client (Pre-installed on 16.04+)
 
 ## Setting up TightVNC on AWS
 Duration: 0:02
