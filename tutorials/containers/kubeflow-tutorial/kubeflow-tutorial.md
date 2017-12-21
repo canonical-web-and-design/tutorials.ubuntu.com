@@ -1,12 +1,12 @@
 ---
-id: kubeflow-tutorial
-summary: Learn how to leverage Kubeflow on top of CDK
+id: get-started-kubeflow
+summary: Learn how to install Kubeflow on top of Kubernetes to deploy machine learning workloads.
 categories: containers
-tags: tensorflow, kubernetes, kubeflow, conjure-up
+tags: tensorflow, kubernetes, kubeflow, conjure-up, k8s, machine, learning, ml
 difficulty: 4
 status: draft
 feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
-published: 2017-12-11
+published: 2017-12-21
 author: Stephan Fabel <stephan.fabel@canonical.com>
 
 ---
@@ -16,7 +16,9 @@ author: Stephan Fabel <stephan.fabel@canonical.com>
 ## Overview
 Duration: 2:00
 
-This tutorial will guide you through installing [KubeFlow](https://github.com/google/kubeflow) on top of the [Canonical Distribution of Kubernetes (CDK)](https://www.ubuntu.com/kubernetes) using conjure-up. We will use Amazon AWS to deploy CDK  and deploy KubeFlow using ksonnet. Finally, we will test our KubeFlow installation by submitting a sample job and verifying that the GPU is being used.
+This tutorial will guide you through installing [KubeFlow](https://github.com/google/kubeflow) on top of the [Canonical Distribution of Kubernetes (CDK)](https://www.ubuntu.com/kubernetes) using conjure-up.
+
+We will deploy the cluster on Amazon AWS and use ksonnet - a framework to manage Kubernetes application manifests - to deploy KubeFlow. Finally, we will test our KubeFlow installation by submitting a sample job and verifying that the GPU is being used.
 
 ### KubeFlow
 
@@ -25,7 +27,7 @@ KubeFlow is an open source project dedicated to providing easy to use Machine Le
 ### What you'll learn
 
 - how to create GPU workers in CDK using conjure-up
-- how to install KubeFlow using Ksonnet
+- how to install KubeFlow using ksonnet
 - how to run your first job on KubeFlow using those GPU resources
 
 ### What you'll need
@@ -33,7 +35,7 @@ KubeFlow is an open source project dedicated to providing easy to use Machine Le
 - Amazon Web Services account credentials
 - ability to provision [AWS EC2 P2 instances](https://aws.amazon.com/ec2/instance-types/p2/)
 - general knowledge of how to [deploy Kubernetes using conjure-up](https://tutorials.ubuntu.com/tutorial/install-kubernetes-with-conjure-up)
-- [Ksonnet](https://github.com/ksonnet/ksonnet) installed and ready to be used
+- [ksonnet](https://github.com/ksonnet/ksonnet) installed and ready to be used
 
 Survey
 : How will you use this tutorial?
@@ -44,16 +46,16 @@ Survey
  - Intermediate
  - Proficient
 
-## Create your CDK Cluster
+## Creating your CDK Cluster
 Duration: 8:00
 
 In order for us to provision GPU-enabled workloads such as TensorFlow on top of Kubernetes, we need to provision worker nodes in the appropriate instance type.
 
 ### Deploy a GPU-enabled Kubernetes Worker
 
-For this tutorial, we will start with a dedicated CDK cluster to run our Machine Learning workloads on top of TensorFlow. By default, ``conjure-up canonical-kubernetes`` will instantiate the kubernetes-worker nodes as ``m3.medium``, which is not what we need in our case.
+For this tutorial, we will start with a dedicated CDK cluster to run our Machine Learning workloads on top of TensorFlow. By default, `conjure-up canonical-kubernetes` will instantiate the kubernetes-worker nodes as `m3.medium`, which is not what we need in our case.
 
-We will therefore create a bundle snippet called ``cdk-gpu-worker.yaml`` with the following contents:
+We will therefore create a bundle snippet called `cdk-gpu-worker.yaml` with the following contents:
 
 ```yaml
 services:
@@ -71,65 +73,98 @@ This will ensure we have the right instance flavors available for our Kubernetes
 Kick off the deployment of your cluster:
 
 ```bash
-$ conjure-up --bundle-add cdk-gpu-worker.yaml canonical-kubernetes
+conjure-up --bundle-add cdk-gpu-worker.yaml canonical-kubernetes
 ```
 
-You might have to add your AWS credentials in order to be able to use AWS as target cloud environment. We are using aws/us-east-1 as it has the ``p2.xlarge`` flavors available.
+You might have to add your AWS credentials in order to be able to use AWS as target cloud environment. We are using aws/us-east-1 as it has the `p2.xlarge` flavors available.
 
 After the installation is complete, copy the K8s configuration file locally:
 
 ```bash
-$ juju scp kubernetes-master/0:config ~/.kube/config
+juju scp kubernetes-master/0:config ~/.kube/config
 ```
 
-## Installing KubeFlow using Ksonnet
-Duration: 5:00
+## Installing KubeFlow using ksonnet
+Duration: 3:00
 
 Now that we have a Kubernetes cluster up and running, we will deploy KubeFlow to it. The KubeFlow project is a relatively new community spun out of the Kubernetes project and aims to make machine learning developer workflows easy.
 
-We prepare our Ksonnet deployment "kf-tutorial" and add the necessary packages to it. To keep things clean and tidy, we create a dedicated Kubernetes namespace, and tie that to our Ksonnet deployment as an environment which we'll call "cdk":
+We are going to prepare our ksonnet deployment "kf-tutorial" and add the necessary packages to it. To keep things clean and tidy, we'll also create a dedicated Kubernetes namespace, and tie that to our ksonnet deployment as an environment which we'll call "cdk".
 
+Let's start by initializing ksonnet:
 
 ```bash
-$ kubectl create namespace kf-tutorial
-$ ks init kf-tutorial && cd kf-tutorial
-$ ks env add cdk
-$ ks registry add kubeflow github.com/google/kubeflow/tree/master/kubeflow
-$ ks pkg install kubeflow/core
-$ ks pkg install kubeflow/tf-serving
-$ ks pkg install kubeflow/tf-job
+kubectl create namespace kf-tutorial
+ks init kf-tutorial && cd kf-tutorial
 ```
 
-Ksonnet will pick up the configuration in our local ``~/.kube/config`` and prepare the environment for us. We can then proceed to apply the parameters to the prototypes and deploy the KubeFlow core components (JupyterHub and the TensorFlow job controller):
+Then, we create our environment:
 
 ```bash
-$ ks generate core kubeflow-core --name=kubeflow-core --namespace=kf-tutorial
-$ ks apply cdk -c kubeflow-core
+ks env add cdk
+ks registry add kubeflow github.com/google/kubeflow/tree/master/kubeflow
+```
+
+And install our apps:
+
+```bash
+ks pkg install kubeflow/core
+ks pkg install kubeflow/tf-serving
+ks pkg install kubeflow/tf-job
+```
+
+ksonnet will pick up the configuration in our local `~/.kube/config` and prepare the environment for us. We can then proceed to apply the parameters to the prototypes and deploy the KubeFlow core components (JupyterHub and the TensorFlow job controller):
+
+```bash
+ks generate core kubeflow-core --name=kubeflow-core --namespace=kf-tutorial
+ks apply cdk -c kubeflow-core
 ```
 
 You should see some informational messages confirming the deployment. Let's look at the Kubernetes Dashboard to verify. It should look similar to this (note the namespace "kf-tutorial"):
 
-![alt_text](./images/kubeflow-core.png "Ksonnet KubeFlow Core Deployment")
+![alt_text](./images/kubeflow-core.png "ksonnet KubeFlow Core Deployment")
 
-If you like, you can already access KubeFlow through the JupyterHub by visiting the EXTERNAL-IP address for the tf-hub-lb service:
+If you like, you can already access KubeFlow through the JupyterHub by visiting the `EXTERNAL-IP` address for the tf-hub-lb service:
+
+You can get it with:
 
 ```bash
-$ kubectl get services --namespace=kf-tutorial
+kubectl get services --namespace=kf-tutorial
+```
+
+Which will return our list of services, with their external IPs:
+
+```bash
 NAME        TYPE           CLUSTER-IP       EXTERNAL-IP        PORT(S)        AGE
 tf-hub-0    ClusterIP      None             <none>             8000/TCP       7m
 tf-hub-lb   LoadBalancer   10.152.183.118   ace3eaaf2e457...   80:32456/TCP   6m
 ```
 
-However we are not done! Part of the appeal of using Kubernetes together with TensorFlow is the ability to submit your own TF jobs directly through the Kubernetes API. We will leverage the Custom Resource Definition (CRD) feature of Kubernetes to provide that. Luckily, the KubeFlow Core installation step already created the CRD so we can immediately submit models as Ksonnet components by using the generate/apply pair of commands:
+However we are not done! Part of the appeal of using Kubernetes together with TensorFlow is the ability to submit your own TF jobs directly through the Kubernetes API. In the next step, we are going to leverage the Custom Resource Definition (CRD) feature of Kubernetes to provide that.
+
+## Submitting TensorFlow jobs
+Duration: 3:00
+
+The Custom Resource Definition (CRD) allows you to define custom objects with their own name and schema. This is what we are going to use to submit TensorFlow jobs to our cluster.
+
+Luckily, the KubeFlow Core installation step already created the CRD so we can immediately submit models as ksonnet components by using the generate/apply pair of commands.
+
+The job we are going to deploy is `tf-cnn`, a convolutional neural network (CNN) example shipped with KubeFlow:
 
 ```bash
-$ ks generate tf-cnn kubeflow-test --name=cdk-tf-cnn --namespace=kf-tutorial
-$ ks apply cdk -c kubeflow-test --namespace=kf-tutorial
+ks generate tf-cnn kubeflow-test --name=cdk-tf-cnn --namespace=kf-tutorial
+ks apply cdk -c kubeflow-test --namespace=kf-tutorial
 ```
 
-You can see that a resource of type "tfjob" was submitted into the "kf-tutorial" namespace:
+We can check that a resource of type "tfjob" was indeed submitted into the "kf-tutorial" namespace:
+
 ```bash
-$ kubectl get tfjobs --namespace=kf-tutorial
+kubectl get tfjobs --namespace=kf-tutorial
+```
+
+Which should return:
+
+```bash
 NAME         AGE
 cdk-tf-cnn   1m
 ```
@@ -141,7 +176,12 @@ You can also find the three components of the TensorFlow job (Master, Parameter 
 Once all pods have been deployed, we can verify the CNN job is running properly by inspecting the logs of the worker pod:
 
 ```bash
-$ kubectl logs --namespace=kf-tutorial -f cdk-tf-cnn-worker-rptp-0-wjdph
+kubectl logs --namespace=kf-tutorial -f cdk-tf-cnn-worker-rptp-0-wjdph
+```
+
+The end of the log should show us our job:
+
+```bash
 --snip--
 INFO|2017-12-19T01:12:17|/opt/launcher.py|27| TensorFlow:  1.5
 INFO|2017-12-19T01:12:17|/opt/launcher.py|27| Model:       resnet50
@@ -160,10 +200,15 @@ INFO|2017-12-19T01:12:21|/opt/launcher.py|27| 2017-12-19 01:12:21.230800: I tens
 INFO|2017-12-19T01:12:22|/opt/launcher.py|27| Running warm up
 ```
 
-There it is! Congratulations, you have successfully run KubeFlow on top of CDK on AWS. However, is it actually using the GPU? Let's check:
+There it is! Congratulations, you have successfully launched KubeFlow on top of CDK on AWS. However, is it actually using the GPU? Let's check with `ks show`:
 
 ```bash
-$ ks show cdk -c kubeflow-test
+ks show cdk -c kubeflow-test
+```
+
+Which will return:
+
+``` bash
 ---
 apiVersion: tensorflow.org/v1alpha1
 kind: TfJob
@@ -235,19 +280,24 @@ spec:
 tfImage: gcr.io/kubeflow/tf-benchmarks-cpu:v20171202-bdab599-dirty-284af3
 ```
 
-As you can see, there are no GPUs being used (the parameter ``--device=cpu`` indicates this and forces the usage of the cpu version of the docker image). Let's deploy it again, this time enabling GPUs to be used. Clean up the current CPU-only job execution before moving on to the next section:
+As you can see, there are no GPUs being used (the parameter `--device=cpu` indicates this and forces the usage of the cpu version of the docker image). Let's deploy it again, this time enabling GPUs to be used. Clean up the current CPU-only job execution before moving on to the next section:
 
 ```bash
-$ ks delete cdk -c kubeflow-test --namespace=kf-tutorial
+ks delete cdk -c kubeflow-test --namespace=kf-tutorial
 ```
 
-## Running a TensorFlow job with GPU-support enabled
+## Enabling GPU-support
 Duration: 4:00
 
-In order to instruct KubeFlow to request a GPU to compute the CNN, we need to take a look at the Ksonnet tf-cnn prototype parameters:
+In order to instruct KubeFlow to request a GPU to compute the CNN, we need to take a look at the `ksonnet tf-cnn` prototype parameters:
 
 ```bash
-$ ks param list | grep kubeflow-test
+ks param list | grep kubeflow-test
+```
+
+It should return the following parameters:
+
+```bash
 kubeflow-test batch_size  32
 kubeflow-test image       "gcr.io/kubeflow/tf-benchmarks-cpu:v20171202-bdab599-dirty-284af3"
 kubeflow-test image_gpu   "gcr.io/kubeflow/tf-benchmarks-gpu:v20171202-bdab599-dirty-284af3"
@@ -259,23 +309,28 @@ kubeflow-test num_ps      1
 kubeflow-test num_workers 1
 ```
 
-As you can see, there is a variable called ``num_gpus`` which is set to 0. Let's set the parameter to "1" and apply the parameters again:
+As you can see, there is a variable called `num_gpus` which is set to "0". Let's set it to "1" and apply the parameters again:
 
 ```bash
-$ ks param set cdk kubeflow-test num_gpus 1
-$ ks apply cdk -c kubeflow-test --namespace=kf-tutorial
+ks param set cdk kubeflow-test num_gpus 1
+ks apply cdk -c kubeflow-test --namespace=kf-tutorial
 ```
 
-Try to verify that the parameter was successfully set. If so we're ready to apply the parameters to the Ksonnet prototype and create a TfJob component utilizing the GPU on the p2.xlarge instance:
+Try to verify that the `num_gpus` parameter was successfully set. If so we're ready to apply the parameters to the ksonnet prototype and create a TfJob component utilizing the GPU on the p2.xlarge instance:
 
 ```bash
-$ ks apply cdk -c kubeflow-test-gpu --namespace=kf-tutorial
+ks apply cdk -c kubeflow-test-gpu --namespace=kf-tutorial
 ```
 
-Let's check whether the GPU is actually being used:
+Let's use `ks show` one more time to check whether the GPU is actually being used:
 
 ```bash
-$ ks show cdk -c kubeflow-test
+ks show cdk -c kubeflow-test
+```
+
+Which should return a similar output as previously, but without the `--device=cpu` parameter:
+
+``` bash
 ---
 apiVersion: tensorflow.org/v1alpha1
 kind: TfJob
@@ -349,12 +404,12 @@ Congratulations! You're ready to rock'n roll using KubeFlow on CDK!
 ## Next Steps
 Duration: 2:00
 
-The goal of this tutorial was to get you up and running quickly using KubeFlow. As we verified the installation, we submitted a sample job, called ``tf-cnn``, which executes High Performance Benchmarks, an implementation of several convolutional neural network models. In order to create your own job executing your own code, you need to manually create a ``tf-job`` resource and fill the parameters accordingly, including linking to the right docker image.
+The goal of this tutorial was to get you up and running quickly using KubeFlow. As we verified the installation, we submitted a sample job, called `tf-cnn`, which executes High Performance Benchmarks, an implementation of several convolutional neural network models. In order to create your own job executing your own code, you need to manually create a `tf-job` resource and fill the parameters accordingly, including linking to the right docker image.
 
-Recommended reading:
+### Recommended reading
 
 * [TensorFlow](https://www.tensorflow.org/)
 * [Kubeflow](https://github.com/google/kubeflow)
 * [TensorFlow: CNN Benchmarks](https://github.com/tensorflow/benchmarks/tree/master/scripts/tf_cnn_benchmarks)
 * [Creating a Custom TfJob to serve a TF model](https://github.com/jlewi/kubeflow/blob/28fd44ca51075d9c5c3b4784a1224f480075d5cb/README.ksonnet.md#serve-a-model)
-* [Ksonnet](https://ksonnet.io/) - A CLI-supported framework for extensible Kubernetes configurations
+* [ksonnet](https://ksonnet.io/) - A CLI-supported framework for extensible Kubernetes configurations
