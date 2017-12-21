@@ -2,7 +2,7 @@
 id: tutorial-ubuntu-desktop-aws
 summary: Learn how to connect and run Ubuntu desktop on AWS EC2 Instance. Access GUI to manage your machine more easily.
 categories: server
-tags: vnc,aws,ec2,tutorial,ubuntu,server,Ubuntu 16.04 LTS
+tags: vnc, aws, ec2, tutorial, ubuntu, server, gci, hidden
 difficulty: 2
 status: published
 published: 2017-12-16
