@@ -299,7 +299,7 @@ Duration: 2:00
 The goal of this tutorial was to get you up and running quickly using KubeFlow. As we verified the installation, we submitted a sample job, called `tf-cnn`, which executes High Performance Benchmarks, an implementation of several convolutional neural network models. In order to create your own job executing your own code, you need to manually create a `tf-job` resource and fill the parameters accordingly, including linking to the right docker image.
 
 ### Enabling GPU support
-As we noted in the introduction to this tutorial, Kubeflow is leveraging the GPU resources on a Kubernetes worker via a different mechanism. Stay tuned while we prepare a follow-up tutorial that shows how to utilize them via our new release of CDK (1.9).
+As we noted in the introduction to this tutorial, Kubeflow is leveraging the GPU resources on a Kubernetes worker via a different mechanism. Stay tuned while we prepare a follow-up tutorial that shows how to utilize them via our new release of CDK (1.9). You can subscribe at the end of this tutorial to be notified when this happens.
 
 ### Recommended reading
 
