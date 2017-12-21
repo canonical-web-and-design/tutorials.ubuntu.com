@@ -1,6 +1,6 @@
 ---
 id: tutorial-ubuntu-desktop-aws
-summary: Learn how to connect and run ubuntu desktop on AWS EC2 Instance. Access GUI to manage your machine more easily.
+summary: Learn how to connect and run Ubuntu desktop on AWS EC2 Instance. Access GUI to manage your machine more easily.
 categories: server
 tags: vnc,aws,ec2,tutorial,ubuntu,server,Ubuntu 16.04 LTS
 difficulty: 2
@@ -11,7 +11,7 @@ author: Simran Singh <invincible.simran@gmail.com>
 
 ---
 
-# Running Ubuntu Desktop on AWS EC2 Instance
+# Running Ubuntu Desktop on an AWS EC2 instance
 
 ## Overview
 Duration: 0:01
@@ -21,27 +21,27 @@ system running Ubuntu 16.04+.
 
 What you'll need :
 
-* Access to an AWS EC2 instance using commandline - This tutorial assumes that you're logged into the machine using SSH.
-* A machine running ubuntu 16.04+.
+* Access to an AWS EC2 instance using commandline - This tutorial assumes that you're logged into the machine using SSH
+* A machine running ubuntu 16.04+
 * Remmia Remote Desktop Client (Pre-installed on 16.04+)
 
 ## Setting up TightVNC on AWS
 Duration: 0:02
 
 Let's install Ubuntu Desktop and TightVNC on your EC2 instance.
-After logging in to your EC2 instance using the terminal, enter the following commands to install the tools that will be required to run ubuntu desktop :
+After logging in to your EC2 instance using the terminal, enter the following commands to install the tools that will be required to run Ubuntu desktop :
 
-Note: While installing VNC Server you'll be required to setup a password for the server.
+: Note: While installing VNC Server you'll be required to setup a password for the server.
 So remember this since it will be needed later to connect to our VNC server.
 
 ```bash
-$ sudo apt-get update
+ sudo apt-get update
 
-$ sudo apt-get install ubuntu-desktop
+ sudo apt-get install ubuntu-desktop
 
-$ sudo apt-get install tightvncserver
+ sudo apt-get install tightvncserver
 
-$ sudo apt-get install gnome-panel gnome-settings-daemon metacity nautilus gnome-terminal
+ sudo apt-get install gnome-panel gnome-settings-daemon metacity nautilus gnome-terminal
 ```
 
 After completion, your machine is ready with GUI support but needs some configuration to be done.
@@ -52,13 +52,13 @@ Duration: 0:05
 In your terminal type the following command to launch VNC server to create an initial configuration file:
 
 ```bash
-$ vncserver :1
+ vncserver :1
 ```
 
 Open the configuration file in vim:
 
 ```bash
-$ vim ~/.vnc/xstartup
+ vim ~/.vnc/xstartup
 ```
 
 ![screenshot](./images/vim-startup.png)
@@ -119,7 +119,7 @@ Done!
 ## Connecting to Ubuntu Desktop 
 Duration: 0:02
 
-Launch Remmia Remote Desktop Client.
+Launch Remmina Remote Desktop Client.
 Then, 
 1. Choose the connection type as 'VNC'
 
