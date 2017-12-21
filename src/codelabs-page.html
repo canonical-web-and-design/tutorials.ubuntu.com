@@ -91,8 +91,8 @@
       }
 
       #contentContainer google-codelab aside.label {
-        border: 1px solid #2397f3;
-        background: #f1f8ff;
+        border: 1px solid #2397F3;
+        background: #2397F310;
       }
 
       #contentContainer google-codelab aside .label-img {
@@ -276,18 +276,13 @@
           let contentContainer = Polymer.dom(this.$.contentContainer);
           let steps = contentContainer.querySelectorAll('google-codelab-step');
           let lastPage = steps[0].querySelector('p');
-          content = '<aside class="label special style-scope codelabs-page">';
-          content += '<img class="label-img style-scope codelabs-page" ';
-          content += 'src="../../images/label-gci-text.png" alt="Google Code-in">';
-          content += 'Canonical and the Ubuntu community are proud to ';
-          content += 'participate in <a href="https://codein.withgoogle.com/">';
-          content += 'the Google Code-in contest</a>.';
-          content += '<br>This tutorial was written by a participating student,';
-          content += ' not a professional writer, ';
-          content += 'so if you have any comments or suggestions, ';
-          content += 'please leave some feedback - the community ';
-          content += '(and the student!) will greatly appreciate it.</p>';
-          lastPage.insertAdjacentHTML('beforeBegin', content);
+          content = '<aside class="label special style-scope codelabs-page">'
+          content += '<img class="label-img style-scope codelabs-page" src="https://assets.ubuntu.com/v1/b652d02e-label-gci-text.png">'
+          content += 'Canonical and the Ubuntu community are proud to participate in <a href="https://codein.withgoogle.com/">the Google Code-in contest</a>.'
+          content += '<br>This tutorial was written by a participating student, not a professional writer, '
+          content += 'so if you have any comments or suggestions, please leave some feedback '
+          content += '- the community (and the student!) will greatly appreciate it.</p>'
+          lastPage.insertAdjacentHTML('beforeBegin',content);
         };
       },
 
