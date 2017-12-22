@@ -35,13 +35,10 @@ After logging in to your EC2 instance using the terminal, enter the following co
 So remember this since it will be needed later to connect to our VNC server.
 
 ```bash
- sudo apt-get update
-
- sudo apt-get install ubuntu-desktop
-
- sudo apt-get install tightvncserver
-
- sudo apt-get install gnome-panel gnome-settings-daemon metacity nautilus gnome-terminal
+ sudo apt update
+ sudo apt install ubuntu-desktop
+ sudo apt install tightvncserver
+ sudo apt install gnome-panel gnome-settings-daemon metacity nautilus gnome-terminal
 ```
 
 After completion, your machine is ready with GUI support but needs some configuration to be done.
