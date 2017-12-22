@@ -367,6 +367,12 @@
         this.updateMetadata();
       },
 
+      ready: function() {
+        if (this.route.__queryParams['q']) {
+          this.filterSearch = this.route.__queryParams['q'];
+        }
+      },
+
       updateMetadata: function() {
         this.fire('app-metadata', {
           title: 'Ubuntu tutorials',
