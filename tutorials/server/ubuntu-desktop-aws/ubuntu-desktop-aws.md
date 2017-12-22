@@ -16,7 +16,7 @@ author: Simran Singh <invincible.simran@gmail.com>
 ## Overview
 Duration: 0:01
 
-This tutorial will guide you through the setup of running ubuntu desktop on AWS EC2 Instance using TightVNC on a
+This tutorial will guide you through the setup of running ubuntu desktop on an AWS EC2 instance using TightVNC on a
 system running Ubuntu 16.04+.
 
 What you'll need :
@@ -93,9 +93,9 @@ Now, let's restart the VNC server by killing it first and then starting it up.
 
 To kill the vnc server and start it again, type the following command:
 ```bash
-$ vncserver -kill :1
+vncserver -kill :1
 
-$ vncserver :1
+vncserver :1
 ```
 
 Congratulations, you're done with the configuration for Ubuntu Desktop.
