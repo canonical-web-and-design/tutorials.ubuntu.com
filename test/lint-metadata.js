@@ -13,9 +13,29 @@ var required_keys = [ 'id',
                  'author']
 
 var files = find.fileSync(/\.md$/,"tutorials");
+var tutorial_ids = []
 for(var i=0, len=files.length; i < len; i++){
   var f = gm.read(files[i]);
   validate(f, files[i]);
+  tutorial_ids.push(f.data.id)
+}
+duplicates_check(tutorial_ids);
+
+// Checks for duplicates in tutorials ids
+function duplicates_check(array) {
+  describe('The list of tutorials', function(){
+    it('doesn\'t contain duplicated IDs', function(done){
+      var sorted_arr = array.slice().sort();
+      var duplicates = [];
+      for (var i = 0; i < sorted_arr.length - 1; i++) {
+          if (sorted_arr[i + 1] == sorted_arr[i]) {
+              duplicates.push(sorted_arr[i]);
+          }
+      }
+      assert(duplicates.length == 0, `duplicates found: ${duplicates}`);
+      done();
+    });
+  });
 }
 
 // Validates metadata for each tutorial
