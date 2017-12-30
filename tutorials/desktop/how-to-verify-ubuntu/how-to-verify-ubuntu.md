@@ -41,7 +41,7 @@ Download the SHA256SUMS and SHA256SUMS.gpg files from any of the mirrors and put
 Duration: 0:04
 
 positive
-: Tip - On non-Linux systems, you might need to download the GPG tools for this next step. To check if you have the GPG tools installed, run the command `gpg --version or gpg2 --version`.
+: Tip - On non-Linux systems, you might need to download the GPG tools for this next step. To check if you have the GPG tools installed, run the command `gpg --version` or `gpg2 --version`.
 
 Get the public keys from the Ubuntu key server and add them to your keyring.
 
