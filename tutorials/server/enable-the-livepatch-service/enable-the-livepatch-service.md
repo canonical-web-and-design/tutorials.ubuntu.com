@@ -51,7 +51,7 @@ Then, start a new shell so you `PATH` variable is updated to include the `snapd`
 
 Ubuntu 16.04 LTS supports snaps by default - you don't have to do anything more.
 
-### Instaling the daemon
+### Installing the daemon
 
 To install the Livepatch daemon, simply type:
 
