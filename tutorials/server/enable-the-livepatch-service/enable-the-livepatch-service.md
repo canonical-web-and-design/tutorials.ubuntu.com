@@ -23,7 +23,7 @@ This tutorial will show you how to enable this service on your Ubuntu system.
 ### What you'll need
 
 - A computer running Ubuntu 16.04 LTS or 14.04 LTS with Internet connection
-* An Ubuntu One account
+- An Ubuntu One account
 - Some basic command-line knowledge
 
 ## Getting the Livepatch token
@@ -47,7 +47,7 @@ $ sudo apt update
 $ sudo apt install snapd
 ```
 
-Then, start a new shell so you `PATH` variable is updated to include the `snapd` package.
+Then, start a new shell so your `PATH` variable is updated to include the `snapd` package.
 
 Ubuntu 16.04 LTS supports snaps by default - you don't have to do anything more.
 
