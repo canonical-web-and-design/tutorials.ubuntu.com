@@ -122,9 +122,7 @@ C:\Users\mathi\> .\dockerd.exe -D --data-root C:\lcow
 
 negative
 : **Docker already running?**
-If the Docker installer sets Docker to run automatically at boot, you may need to
-quit the already running daemon via its toolbar icon before running the above
-commands.
+If the Docker installer sets Docker to run automatically at boot, you may need to quit the already running daemon via its toolbar icon before running the above commands.
 
 Then, start a Powershell window as Administrator; and run *docker.exe*, instructing it to pull the image for your container:
 
