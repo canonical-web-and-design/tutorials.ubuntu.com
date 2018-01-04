@@ -160,7 +160,7 @@ If you need some guidance getting started with the Ubuntu container images for H
 [getstartedcli]: https://help.ubuntu.com/community/UsingTheTerminal
 [windowsinsider]: https://insider.windows.com/en-us/
 [storelink]: ms-windows-store://pdp/?productid=9NBLGGH4MSV6&referrer=unistoreweb&scenario=click&webig=11a9a85f-44f0-4cf5-ac1f-d9e148f2c23b&muid=01A3F9D8DEC2605B1426F331DF03617B
-[win10fall]: https://www.microsoft.com/en-us/windows/upcoming-features
+[win10fall]: https://support.microsoft.com/en-gb/help/4028685/windows-10-get-the-fall-creators-update 
 [askubuntu]: https://askubuntu.com/
 [forums]: https://ubuntuforums.org/
 [ubuntuirc]: https://wiki.ubuntu.com/IRC/ChannelList
