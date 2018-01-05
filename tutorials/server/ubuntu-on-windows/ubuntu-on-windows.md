@@ -27,9 +27,6 @@ The Ubuntu terminal for Windows has many of the same features you'll find using 
 - Run native tools such as SSH, git, apt and dpkg directly from your Windows computer
 - A huge community of friendly, approachable users
 
-positive
-: Currently, applications that require a graphical interface will not work from the Ubuntu terminal.
-
 ![screenshot](https://assets.ubuntu.com/v1/00e5322f-win10-ubuntu-trusted-app.png)
 
 ## Requirements
