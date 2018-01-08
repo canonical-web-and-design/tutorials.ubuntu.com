@@ -25,7 +25,7 @@ This tutorial will show you how to enable this service on your Ubuntu system.
 ### What you'll need
 
 - A computer running Ubuntu 16.04 LTS or 14.04 LTS with an Internet connection
-- An [Ubuntu SSO](https://login.ubuntu.com) account
+- An [Ubuntu One](https://login.ubuntu.com) account
 - Some basic command-line knowledge
 
 ## Getting the Livepatch token
