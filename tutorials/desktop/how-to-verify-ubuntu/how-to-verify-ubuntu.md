@@ -33,17 +33,15 @@ Duration: 0:02
 
 Download the SHA256SUMS and SHA256SUMS.gpg files from any of the mirrors and put them in the same directory.
 
-[Download sums and signature for Ubuntu 16.04.2 LTS&nbsp;&rsaquo;](http://releases.ubuntu.com/16.04)
+[Download sums and signature for Ubuntu 16.04.3 LTS&nbsp;&rsaquo;](http://releases.ubuntu.com/16.04)
 
-![screenshot](https://assets.ubuntu.com/v1/f1cce1af-verify-1-releases.png)
+![Verify release screenshot](https://assets.ubuntu.com/v1/f1cce1af-verify-1-releases.png)
 
-## Verify release screenshot
+## Get the signature key
 Duration: 0:04
 
-Get the signature key
-
 positive
-: Tip - On non-Linux systems, you might need to download the GPG tools for this next step. To check if you have the GPG tools installed, run the command `gpg --version or gpg2 --version`.
+: Tip - On non-Linux systems, you might need to download the GPG tools for this next step. To check if you have the GPG tools installed, run the command `gpg --version` or `gpg2 --version`.
 
 Get the public keys from the Ubuntu key server and add them to your keyring.
 
