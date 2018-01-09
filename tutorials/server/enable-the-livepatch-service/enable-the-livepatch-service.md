@@ -2,7 +2,7 @@
 id: enable-the-livepatch-service
 summary: Learn how to install and run Canonical's Livepatch service to get critical kernel patches without rebooting.
 categories: server
-tags: server, livepatch, security, kernel, update, gci
+tags: server, livepatch, security, kernel, update, gci, hidden
 difficulty: 1
 status: published
 feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
@@ -11,12 +11,12 @@ author: Konrad Krawiec <konrad11901@gmail.com>
 
 ---
 
-# Enable the Canonical Livepatch service
+# Apply kernel patches without rebooting
 
 ## Overview
 Duration: 1:00
 
-[Canonical Livepatch service](https://www.ubuntu.com/server/livepatch) applies critical kernel security patches without rebooting Ubuntu. This is especially useful on production environments, or generally systems that shouldn't be disrupted.
+The [Canonical Livepatch Service](https://www.ubuntu.com/server/livepatch) applies critical kernel security patches without rebooting Ubuntu. This is especially useful on production environments, databases, and generally systems that shouldn't be disrupted.
 
 Livepatch is free for up to 3 machines. It is also included in every [Ubuntu Advantage](https://buy.ubuntu.com) subscription.
 
@@ -86,7 +86,7 @@ Once the service has checked your token, you should see the following message:
 Successfully enabled device. Using machine-token: <token>
 ```
 
-You can assure that the Livepatch service is working properly by running:
+You can ensure that the Livepatch service is working properly by running:
 
 ```bash
 canonical-livepatch status --verbose
@@ -95,7 +95,7 @@ canonical-livepatch status --verbose
 ## Conclusion
 Duration: 1:00
 
-Congratulation, you now have zero downtime kernel patching on your system!
+Congratulations, you now have zero downtime kernel patching on your system!
 
 ### Next steps
 
