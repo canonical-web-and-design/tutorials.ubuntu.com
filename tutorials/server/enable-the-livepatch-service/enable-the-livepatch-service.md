@@ -16,7 +16,7 @@ author: Konrad Krawiec <konrad11901@gmail.com>
 ## Overview
 Duration: 1:00
 
-The [Canonical Livepatch Service](https://www.ubuntu.com/server/livepatch) applies critical kernel security patches without rebooting Ubuntu. This is especially useful on production environments, databases, and generally systems that shouldn't be disrupted.
+The [Canonical Livepatch Service](https://www.ubuntu.com/server/livepatch) applies critical kernel security patches without rebooting Ubuntu. This is especially useful on production environments and services where any downtime could be disruptive.
 
 Livepatch is free for up to 3 machines. It is also included in every [Ubuntu Advantage](https://buy.ubuntu.com) subscription.
 
@@ -37,7 +37,7 @@ To get it, simply visit the [Livepatch portal](https://auth.livepatch.canonical.
 
 ![IMAGE](./images/livepatch-portal.png)
 
-Select the **Ubuntu user** option and click **Get your Livepatch token**. You'll have to log in with your Ubuntu One account if you haven't done it already.
+Select the **Ubuntu user** option and click **Get your Livepatch token**. You'll have to log in with your Ubuntu One account if you haven't done so already.
 
 The portal will return your Livepatch credentials:
 
