@@ -134,7 +134,7 @@ Once you select that button, you'll be given a choice between the operating syst
 
 You can even select a language, although since we're only building snaps here, we'll just use "Other".
 
-Finally, it gives you a suggestion for a basic `.circleci/config.yml`. No need to do any of that, just hit "Start building". That will set things up such that Circle CI will be triggered whenever you make changes to your repository. You'll notice it start to build the current state of the repository, but will soon realize there is nothing to run (because we haven't done that, yet).
+Finally, it gives you a suggestion for a basic `.circleci/config.yml`. No need to do any of that, just hit "Start building". That will set things up such that Circle CI will be triggered whenever you make changes to your repository. You'll notice it starts to build the current state of the repository, but will soon realize there is nothing to run (because we haven't done that, yet).
 
 The way we tell Circle CI what needs to run is by creating a new directory in the root of our project called `.circleci`, and creating a `config.yml` file within it. Let's go ahead and create that now, although we don't put anything in that file just yet:
 
@@ -488,10 +488,11 @@ You should successfully have built your snap in a clean environment, configured 
 [Create your first snap]: /tutorial/create-your-first-snap
 [https://github.com]: https://github.com/
 [https://github.com/new]: https://github.com/new
+[https://circleci.com/vcs-authorize]: https://circleci.com/vcs-authorize/
 [https://dashboard.snapcraft.io]: https://dashboard.snapcraft.io/
 [four channels]: https://snapcraft.io/docs/reference/channels#channels
 [this demo repository]: https://github.com/kyrofa/hello-snap-kyrofa
 [use the snapcraft build service]: https://build.snapcraft.io/
-[tutorials]: https://tutorials.ubuntu.com
+[tutorials]: https://tutorials.ubuntu.com?q=snap
 [our forum]: https://forum.snapcraft.io
 [Circle CI 2.0 docs]: https://circleci.com/docs/2.0/
