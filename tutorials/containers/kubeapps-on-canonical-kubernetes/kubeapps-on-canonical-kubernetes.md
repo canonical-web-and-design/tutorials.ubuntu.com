@@ -46,11 +46,8 @@ sudo snap install conjure-up --classic
 Install the Canonical Distribution of Kubernetes using `conjure-up`.
 
 ```bash
-conjure-up canonical-kubernetes --channel edge
+conjure-up canonical-kubernetes
 ```
-
-positive
-: The `--channel edge` argument is a temporary workaround for the issue described [here](https://github.com/juju-solutions/bundle-canonical-kubernetes/issues/451) and will not be required in future stable releases of Kubernetes.
 
 Follow the on-screen instructions to select AWS as the cloud provider and specify the AWS credentials in subsequent prompts.
 
