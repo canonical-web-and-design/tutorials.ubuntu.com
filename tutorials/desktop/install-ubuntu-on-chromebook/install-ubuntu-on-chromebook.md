@@ -53,6 +53,9 @@ Once in this mode, press `Ctrl-D`. You will be prompted with an opportunity to "
 
 When you boot up your Chromebook, it will begin with a warning screen noting that "OS verification is OFF". You will need to press `Ctrl-D` to continue. Your device will now transition to Developer Mode.
 
+![]https://www.howtogeek.com/wp-content/uploads/2015/02/ximg_54f13e24a1e8f.jpg.pagespeed.gp+jp+jw+pj+ws+js+rj+rp+rw+ri+cp+md.ic.EsQ9doLxVp.jpg
+(Image credit: Chris Hoffman, How-to Geek)
+
 Every boot thereafter will also begin with that warning screen, and a need to press `Ctrl-D` to continue. Do not follow the onscreen instructions to turn OS verification on, or you risk wiping your machine's data and turning Developer Mode off.
 
 ## Installing Ubuntu with crouton
