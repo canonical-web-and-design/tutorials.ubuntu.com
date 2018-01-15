@@ -16,9 +16,9 @@ author: Konrad Krawiec <konrad11901@gmail.com>
 ## Overview
 Duration: 1:00
 
-[OpenStack](https://www.openstack.org) is a very popular software for creating private and public clouds.
+[OpenStack](https://www.openstack.org) is a very popular software stack for creating private and public clouds.
 
-OpenStack is quite an advanced platform and deploying it may not be an easy task. Luckily, with [conjure-up](https://conjure-up.io), it's very simple and straightforward.
+OpenStack is an advanced platform and deploying it manually may not be an easy task. Luckily, with [conjure-up](https://conjure-up.io), it's very simple and straightforward.
 
 ### What you'll learn
 
@@ -42,7 +42,7 @@ conjure-up requires that the minimum version of LXD be **2.18**, so the version 
 
 ### Installing LXD
 
-The recommended installation method of LXD are [snaps](https://snapcraft.io). Don't worry - the snap support is included with Ubuntu 16.04 LTS and above, so we don't have to do anything.
+The recommended LXD installation method is to use [snaps](https://snapcraft.io). Don't worry - the snap support is included with Ubuntu 16.04 LTS and above, so we don't have to do anything.
 
 To install LXD, open the terminal emulator and type:
 
@@ -98,7 +98,7 @@ Then, simply run:
 conjure-up
 ```
 
-We'll see the "Spell selection" screen.
+We'll see the "Spell selection" screen:
 
 ![](./images/conjure-up-1.png)
 
@@ -140,7 +140,7 @@ Next, the post-deploy steps will be run:
 
 Again, please be patient and wait for the post-deploy steps to finish.
 
-After everything is completed, we'll see the following screen:
+After everything has completed, we'll see the following screen:
 
 ![](./images/conjure-up-9.png)
 
@@ -151,11 +151,11 @@ Duration: 1:00
 
 Now, let's check if everything is working.
 
-Open a web browser and navigate to the Horizon using the URL we copied before.
+Open a web browser and navigate to the Horizon using the URL we copied before. We will see the following login screen:
 
 ![](./images/horizon-1.png)
 
-Use **admin** as a login and **openstack** as a password. After logging in, you should see something similar to this:
+Use **admin** as a login and **openstack** as a password. After logging in, we should see something similar to this:
 
 ![](./images/horizon-2.png)
 
