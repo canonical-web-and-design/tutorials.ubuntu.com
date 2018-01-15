@@ -101,7 +101,7 @@ Congratulations, you now have zero downtime kernel patching on your system!
 
 If you have a problem, we're ready to help! Check the following links:
 
-* [Ubuntu forums](https://community.ubuntu.com)
+* [Ubuntu Forums](https://ubuntuforums.org)
 * [Ask Ubuntu](https://askubuntu.com/)
 
 ### Further reading
