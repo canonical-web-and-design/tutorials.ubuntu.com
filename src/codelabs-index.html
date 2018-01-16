@@ -211,13 +211,64 @@
         text-decoration: underline;
       }
 
-    .external {
+      .external {
         background-image: url('https://assets.ubuntu.com/v1/f24a8aa0-external-link-orange.svg');
         background-position: 100% top;
         background-repeat: no-repeat;
         background-size: 0.7em 0.7em;
         padding-right: 0.9em;
-    }
+      }
+
+      .footer {
+        border-top: 1px solid #cdcdcd;
+        font-size: 0.875rem;
+        line-height: 1.5;
+        margin-top: 2rem;
+        padding: 1rem 0 2rem;
+      }
+
+      .footer > p {
+        box-sizing: border-box;
+        margin: 2rem auto;
+        max-width: 1000px;
+        padding: 0 20px;
+      }
+
+      .footer__nav {
+        box-sizing: border-box;
+        margin: 1rem auto;
+        max-width: 1000px;
+        padding: 0 20px;
+      }
+
+      .footer__links {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      .footer__item {
+        display: inline-block;
+        margin-right: 0.5rem;
+      }
+
+      .footer__item::after {
+        content: '\00b7';
+        display: inline-block;
+        font-size: 1em;
+        margin-left: 0.5rem;
+      }
+
+      .footer__item:last-child::after {
+        display: none;
+      }
+
+      .footer__link {
+        color: #000;
+      }
+
+      .footer__link:visited {
+        color: #000;
+      }
     </style>
 
     <app-route
@@ -297,6 +348,22 @@
             </template>
           </div>
         </div>
+        <footer class="footer">
+          <p>© 2018 Canonical Ltd. Ubuntu and Canonical are registered trademarks of Canonical Ltd.</p>
+          <nav class="footer__nav">
+            <ul class="footer__links">
+              <li class="footer__item">
+                <a class="footer__link" href="https://www.ubuntu.com/legal">Legal Information</a>
+              </li>
+              <li class="footer__item">
+                <a class="footer__link" href="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy">Cookie policy</a>
+              </li>
+              <li class="footer__item">
+                <a class="footer__link" href="https://github.com/canonical-websites/tutorials.ubuntu.com/issues/new">Report a bug on this site</a>
+              </li>
+            </ul>
+          </nav>
+        </footer>
       </div>
     </div>
   </template>
