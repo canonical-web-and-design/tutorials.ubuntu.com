@@ -53,9 +53,6 @@ Once in this mode, press `Ctrl-D`. You will be prompted with an opportunity to "
 
 When you boot up your Chromebook, it will begin with a warning screen noting that "OS verification is OFF". You will need to press `Ctrl-D` to continue. Your device will now transition to Developer Mode.
 
-![]https://www.howtogeek.com/wp-content/uploads/2015/02/ximg_54f13e24a1e8f.jpg.pagespeed.gp+jp+jw+pj+ws+js+rj+rp+rw+ri+cp+md.ic.EsQ9doLxVp.jpg
-(Image credit: Chris Hoffman, How-to Geek)
-
 Every boot thereafter will also begin with that warning screen, and a need to press `Ctrl-D` to continue. Do not follow the onscreen instructions to turn OS verification on, or you risk wiping your machine's data and turning Developer Mode off.
 
 ## Installing Ubuntu with crouton
@@ -64,6 +61,8 @@ Duration: 4:00
 Empowered with Developer Mode, we will download the crouton script at this [link](https://goo.gl/fd3zc).
 
 Then we will open up a shell by pressing `Ctrl-Alt-T`, and then typing `shell`. Now we have a full bash shell at our fingertips.
+
+Screenshot link goes here
 
 For a simple setup, we're going to type `sudo sh ~/Downloads/crouton -t unity`. This will download the Ubuntu 16.04 packages with the default Unity desktop environment.
 
@@ -86,11 +85,11 @@ You can get back to Ubuntu in future sessions by typing `sudo startunity` into y
 ## Practical and fun uses for your system
 Duration: 3:00
 
-Like playing games? `sudo apt-get install steamv in a terminal gets you Valve's Steam gaming client for Linux-based desktop gaming on your Chromebook. If you're not a previous Steam user, you'll need to register an account.
+Like playing games? `sudo apt install steam in a terminal gets you Valve's Steam gaming client for Linux-based desktop gaming on your Chromebook. If you're not a previous Steam user, you'll need to register an account.
 
-Enjoy irony? `sudo apt-get install firefox`. Have fun running Firefox on ChromeOS!
+Enjoy irony? `sudo apt install firefox`. Have fun running Firefox on ChromeOS!
 
-Want to browse for other ideas? `sudo apt-get install gnome-software ubuntu-software` gets you the Software tool for access to a wide variety of useful applications. Install LibreOffice for full office productivity, GIMP for desktop image editing, Audacity for audio editng, or Kodi for your multimedia enjoyment. If you're a developer, install your IDE of choice and hack away!
+Want to browse for other ideas? `sudo apt install gnome-software ubuntu-software` gets you the Software tool for access to a wide variety of useful applications. Install LibreOffice for full office productivity, GIMP for desktop image editing, Audacity for audio editng, or Kodi for your multimedia enjoyment. If you're a developer, install your IDE of choice and hack away!
 
 Really, practically anything you could run on a "real Ubuntu laptop" could be run here. Have fun!
 
