@@ -62,7 +62,7 @@ Empowered with Developer Mode, we will download the crouton script at this [link
 
 Then we will open up a shell by pressing `Ctrl-Alt-T`, and then typing `shell`. Now we have a full bash shell at our fingertips.
 
-Screenshot link goes here
+![](https://assets.ubuntu.com/v1/8ce6c5e1-Screenshot+2018-01-16+at+14.46.00.png)
 
 For a simple setup, we're going to type `sudo sh ~/Downloads/crouton -t unity`. This will download the Ubuntu 16.04 packages with the default Unity desktop environment.
 
@@ -85,7 +85,7 @@ You can get back to Ubuntu in future sessions by typing `sudo startunity` into y
 ## Practical and fun uses for your system
 Duration: 3:00
 
-Like playing games? `sudo apt install steam in a terminal gets you Valve's Steam gaming client for Linux-based desktop gaming on your Chromebook. If you're not a previous Steam user, you'll need to register an account.
+Like playing games? `sudo apt install steam` in a terminal gets you Valve's Steam gaming client for Linux-based desktop gaming on your Chromebook. If you're not a previous Steam user, you'll need to register an account.
 
 Enjoy irony? `sudo apt install firefox`. Have fun running Firefox on ChromeOS!
 
