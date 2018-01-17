@@ -1,6 +1,6 @@
 ---
 id: install-openstack-with-conjure-up
-summary: Learn how to deploy OpenStack on a single machine using the conjure-up spell.
+summary: Learn how to deploy OpenStack on a single machine using the conjure-up deployment tool.
 categories: containers
 tags: containers, server, openstack, conjure-up, gci
 difficulty: 2
