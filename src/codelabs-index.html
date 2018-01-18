@@ -327,13 +327,11 @@
             <div class="flex"></div>
           </div>
           <div class="horizontal layout wrap">
-            <template is="dom-if" if="[[!isEmpty]]">
-              <template is="dom-repeat" items="[[filteredTutorials]]" sort="[[_getSortFunction(filterSort)]]">
-                <codelabs-card heading="[[item.title]]" summary="[[item.summary]]" category="[[item.category]]"
-                              difficulty="[[item.difficulty]]" duration="[[item.duration}}" tags="[[item.tags]]"
-                              published="[[item.published]]" url="[[item.url]]"
-                              ></codelabs-card>
-              </template>
+            <template is="dom-repeat" items="[[filteredTutorials]]" sort="[[_getSortFunction(filterSort)]]">
+              <codelabs-card heading="[[item.title]]" summary="[[item.summary]]" category="[[item.category]]"
+                            difficulty="[[item.difficulty]]" duration="[[item.duration}}" tags="[[item.tags]]"
+                            published="[[item.published]]" url="[[item.url]]"
+                            ></codelabs-card>
             </template>
             <template is="dom-if" if="[[isEmpty]]">
               <div class="no-results">
