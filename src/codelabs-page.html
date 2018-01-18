@@ -226,21 +226,6 @@
         }
       },
 
-      _codelabsInfoHandler: function(event) {
-        this.categoriesmap = event.detail.response['categories'];
-        this.eventsmap = event.detail.response['events'];
-        event.detail.response['codelabs'].forEach(function(codelab) {
-          this.push('codelabs', codelab);
-        }, this);
-
-        // Force a binding update. Officially recommended, really!
-        // https://www.polymer-project.org/1.0/docs/devguide/model-data#override-dirty-check
-        let codelabs = this.codelabs;
-        this.codelabs = [];
-        this.codelabs = codelabs;
-        this._updateMetadata();
-      },
-
       _loadTutorial: function(e, url) {
         this._updateMetadata();
         const resp = e.detail.response;
