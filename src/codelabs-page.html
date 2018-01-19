@@ -162,6 +162,7 @@
       observers: [
         '_handleLoading(loading, url)',
         '_onPageChange(routeData.codelab)',
+        '_updateMetadata(routeData.codelab, codelabs)',
       ],
 
       ready: function() {
@@ -210,7 +211,7 @@
       },
 
       _updateMetadata: function() {
-        if (!this.codelabs) {
+        if (!this.codelabs || !this.routeData || !this.routeData.codelab) {
           return;
         }
         let currentUrl = this.routeData.codelab;
@@ -223,21 +224,6 @@
             description: metadata.summary,
           });
         }
-      },
-
-      _codelabsInfoHandler: function(event) {
-        this.categoriesmap = event.detail.response['categories'];
-        this.eventsmap = event.detail.response['events'];
-        event.detail.response['codelabs'].forEach(function(codelab) {
-          this.push('codelabs', codelab);
-        }, this);
-
-        // Force a binding update. Officially recommended, really!
-        // https://www.polymer-project.org/1.0/docs/devguide/model-data#override-dirty-check
-        let codelabs = this.codelabs;
-        this.codelabs = [];
-        this.codelabs = codelabs;
-        this._updateMetadata();
       },
 
       _loadTutorial: function(e, url) {
