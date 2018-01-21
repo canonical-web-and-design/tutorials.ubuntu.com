@@ -2,7 +2,7 @@
 id: setup-rocketchat-server-on-ubuntu
 summary: Learn how to setup a RocketChat server on Ubuntu.
 categories: server
-tags: guide, rocketchat, server
+tags: guide, rocketchat, server, gci, chat, productivity
 difficulty: 2
 status: published
 feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
@@ -24,7 +24,7 @@ This tutorial will teach you how to setup and configure a RocketChat server on U
 
 ### What you'll need
 
-- Ubuntu Desktop or Server 16.04 or greater
+- Ubuntu Server 16.04 or greater
 - Basic command-line knowledge
 
 positive
@@ -42,7 +42,7 @@ Survey
 ## Installation
 Duration: 2:00
 
-First, we need to install RocketChat. RocketChat can easily be installed using Snapcraft. Snaps are secure, isolated from the rest of your system, and auto-updated.
+First, we need to install RocketChat. Luckily, there's a RocketChat snap that can easily be installed using Snapcraft. Snaps are easy to install, isolated from the rest of your system, and auto-updated.
 
 ### Installing the Snap
 
@@ -62,10 +62,6 @@ Now that your server is setup, you can actually start using it! In the next sect
 
 ## Basic usage
 Duration: 5:00
-
-positive
-: **You should already have the RocketChat server installed!**
-To install it, run `snap install rocketchat-server`. You can access the server at `localhost:3000`.
 
 ### Creating an account
 
@@ -112,7 +108,7 @@ That's a quick RocketChat primer. Now, let's move on to server configuration!
 ## Managing the RocketChat service
 Duration: 3:00
 
-Your RocketChat server is managed through systemd services. They start on boot by default and automatically restart on failure.
+Your RocketChat server is managed through systemd services. By default, they start on boot and automatically restart on failure.
 
 You can check the status of the RocketChat server service with the following command:
 
@@ -146,7 +142,7 @@ To start the server again, we can run the above command, replacing `stop` with `
 
 `systemctl start snap.rocketchat-server.rocketchat-server.service`
 
-We can also restart the server directly, instead of starting and stopping it:
+We can also restart the server directly, instead of stopping and starting it:
 
 `systemctl restart snap.rocketchat-server.rocketchat-server.service`
 
@@ -155,7 +151,7 @@ The MongoDB database that powers your RocketChat server is ran by the `snap.rock
 ## Changing port and enabling SSL
 Duration: 3:00
 
-RocketChat uses Caddy as it's HTTP server. We can generate a default config with:
+RocketChat uses Caddy as it's HTTP server. Before we can change it's settings, we need to generate a config file. We can generate the default config with:
 
 `rocketchat-server.initcaddy`
 
