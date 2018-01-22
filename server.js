@@ -174,6 +174,8 @@ const app = express();
 // and bot rendering.
 app.set('trust proxy', true);
 
+app.set('env', 'production')
+
 if (args['https-redirect']) {
   console.info(`Redirecting HTTP requests to HTTPS.`);
   app.use((req, res, next) => {
@@ -194,6 +196,15 @@ if (args['bot-proxy']) {
     injectShadyDom: true,
   }));
 }
+
+// Serve API folder directly
+app.use('/api', express.static(
+  path.join(__dirname, 'api'),
+  {
+    // Return a 404 if api file does not exist
+    fallthrough: false,
+  }
+));
 
 const tutorialsSitemap = generateSitemap();
 app.get('/sitemap.xml', function(req, res) {
