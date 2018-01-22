@@ -30,10 +30,10 @@ let prpl = require('prpl-server');
 const commandLineArgs = require('command-line-args');
 const commandLineUsage = require('command-line-usage');
 const ansi = require('ansi-escape-sequences');
+const cheerio     = require('cheerio');
+const interceptor = require('express-interceptor');
 const rendertron = require('rendertron-middleware');
 const sitemap = require('sitemap');
-
-const tutorialsData = require(path.join(__dirname, 'api', 'codelabs.json')).codelabs;
 
 const argDefs = [
   {
@@ -145,9 +145,26 @@ if (args['cache-control']) {
   config.cacheControl = args['cache-control'];
 };
 
+// Route prpl-server errors back to Express
+config.forwardErrors = true;
+
+const hostname = 'https://tutorials.ubuntu.com';
+const tutorialBasePath= `/tutorial`;
+const tutorialBaseURL = `${hostname}${tutorialBasePath}`;
+
+const siteTitle = 'Ubuntu tutorials'
+const siteDescription = 'Ubuntu Tutorials are just like learning from pair programming except you can do it on your own. They provide a step-by-step process to doing development and devops activities with Ubuntu, on servers, clouds or devices.';
+
+const tutorialsAPIPath = path.join(__dirname, 'api', 'codelabs.json');
+const tutorialsData = require(tutorialsAPIPath).codelabs;
+let isError = false;
+let isTutorial = false;
+let tutorialExists = false;
+let tutorialMetadata = false;
+
 function generateSitemap() {
    let tutorialsSitemap = sitemap.createSitemap ({
-    hostname: 'https://tutorials.ubuntu.com',
+    hostname: hostname,
     cacheTime: 600000
   });
 
@@ -159,7 +176,7 @@ function generateSitemap() {
     if (tutorial.tags.indexOf('hidden') !== -1) {
       return;
     }
-    let tutorialURL = 'tutorial/' + tutorial.id
+    let tutorialURL = tutorialBasePath + '/' + tutorial.id
     tutorialsSitemap.add(tutorialURL);
   });
 
@@ -187,7 +204,87 @@ if (args['https-redirect']) {
   });
 }
 
+function setCanonicalURL($document, $head, url) {
+  let $canonicalURL = $document(`link[rel="canonical"]`);
+  if ($canonicalURL.length === 0) {
+    $canonicalURL = $document(`<link rel="canonical">`);
+    $head.append($canonicalURL);
+  }
+  $canonicalURL.attr('href', url);
+}
+
+function setMetaTag($document, $head, name, content) {
+  let $metaTag = $document(`meta[name="${name}"]`);
+  if ($metaTag.length === 0) {
+    $metaTag = $document(`<meta name="${name}">`);
+    $head.append($metaTag);
+  }
+  $metaTag.attr('content', content);
+}
+
+function mapTutorialMetadata(tutorialMetadata, HTMLMeta) {
+  const metadataMap = {
+    author: ['author', 'article:author'],
+    image: ['og:image'],
+    published: ['article:published_time'],
+    summary: ['description', 'og:description'],
+  }
+  for (let key in metadataMap) {
+    if (tutorialMetadata[key] !== undefined) {
+      metadataMap[key].forEach(function(metaName) {
+        HTMLMeta[metaName] = tutorialMetadata[key];
+      });
+    }
+  }
+  return HTMLMeta;
+}
+
+const applyMetadata = interceptor(function(req, res){
+  return {
+    // Only HTML responses will be intercepted
+    isInterceptable: function(){
+      const isHTML = /text\/html/.test(res.get('Content-Type'));
+      return !isError && isHTML;
+    },
+    // Appends a paragraph at the end of the response body
+    intercept: function(body, send) {
+      const $document = cheerio.load(body);
+      const $head = $document('head');
+      let title = siteTitle;
+      let url = false;
+      let HTMLMeta = {
+        description: siteDescription,
+      };
+
+      if (isTutorial && tutorialMetadata) {
+        title = `${tutorialMetadata.title} | ${title}`;
+        url = `${tutorialBaseURL}/${tutorialMetadata.id}`;
+        HTMLMeta['og:title'] = title;
+        HTMLMeta['og:type'] = 'article';
+        HTMLMeta['og:url'] = url;
+
+        HTMLMeta = mapTutorialMetadata(tutorialMetadata, HTMLMeta);
+      }
+
+      for(let key in HTMLMeta) {
+        setMetaTag($document, $head, key, HTMLMeta[key]);
+      }
+
+      if (url) {
+        setCanonicalURL($document, $head, url);
+        setMetaTag($document, $head, 'og:url', url);
+      }
+
+      $document('title').text(title);
+      send($document.html());
+    }
+  };
+})
+
 app.use(compression());
+
+// Add the interceptor middleware
+app.use(applyMetadata);
 
 if (args['bot-proxy']) {
   console.info(`Proxying bots to "${args['bot-proxy']}".`);
@@ -209,10 +306,12 @@ app.use('/api', express.static(
 // If a tutorial does not exist, return a 404 header
 app.use('/tutorial/:id', function(req, res, next){
   const id = req.params.id;
-  let metadata = tutorialsData.filter(function(metadata) {
-    return metadata.id === id;
+  isTutorial = true;
+  tutorialMetadata = tutorialsData.filter(function(data) {
+    return data.id === id;
   })[0];
-  if (!metadata) {
+  if (!tutorialMetadata) {
+    isError = true;
     res.status(404);
   }
   next()
@@ -225,6 +324,11 @@ app.get('/sitemap.xml', function(req, res) {
 });
 
 app.use('/', prpl.makeHandler(args.root, config));
+
+app.use(function errorHandler(req, res, next){
+  isError = true;
+  next();
+});
 
 const server = app.listen(args.port, args.host, () => {
   const addr = server.address();
