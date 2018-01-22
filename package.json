@@ -40,11 +40,14 @@
     "gray-matter": "^3.1.1",
     "mocha": "^4.0.1",
     "mocha-minimalist-reporter": "^1.1.0",
-    "npm-run-all": "^4.0.2",
     "polymer-cli": "^1.5.7",
     "prpl-server": "^1.0.0",
     "stylelint": "7.13.0",
     "stylelint-config-polymer": "^0.0.1",
     "stylelint-processor-html": "^1.0.0"
+  },
+  "dependencies": {
+    "npm-run-all": "^4.0.2",
+    "sitemap": "^1.13.0"
   }
 }

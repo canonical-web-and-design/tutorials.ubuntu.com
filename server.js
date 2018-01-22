@@ -31,6 +31,9 @@ const commandLineArgs = require('command-line-args');
 const commandLineUsage = require('command-line-usage');
 const ansi = require('ansi-escape-sequences');
 const rendertron = require('rendertron-middleware');
+const sitemap = require('sitemap');
+
+const tutorialsData = require(path.join(__dirname, 'api', 'codelabs.json')).codelabs;
 
 const argDefs = [
   {
@@ -142,6 +145,27 @@ if (args['cache-control']) {
   config.cacheControl = args['cache-control'];
 };
 
+function generateSitemap() {
+   let tutorialsSitemap = sitemap.createSitemap ({
+    hostname: 'https://tutorials.ubuntu.com',
+    cacheTime: 600000
+  });
+
+  // Add root path
+  tutorialsSitemap.add({url: '/'});
+
+  // Add an item for each tutorial
+  tutorialsData.forEach(function(tutorial) {
+    if (tutorial.tags.indexOf('hidden') !== -1) {
+      return;
+    }
+    let tutorialURL = 'tutorial/' + tutorial.id
+    tutorialsSitemap.add(tutorialURL);
+  });
+
+  return tutorialsSitemap;
+}
+
 const app = express();
 
 // Trust X-Forwarded-* headers so that when we are behind a reverse proxy,
@@ -171,7 +195,13 @@ if (args['bot-proxy']) {
   }));
 }
 
-app.use(prpl.makeHandler(args.root, config));
+const tutorialsSitemap = generateSitemap();
+app.get('/sitemap.xml', function(req, res) {
+  res.header('Content-Type', 'application/xml');
+  res.send( tutorialsSitemap.toString() );
+});
+
+app.use('/', prpl.makeHandler(args.root, config));
 
 const server = app.listen(args.port, args.host, () => {
   const addr = server.address();

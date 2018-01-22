@@ -5912,6 +5912,13 @@ sinon@^2.3.5:
     text-encoding "0.6.4"
     type-detect "^4.0.0"
 
+sitemap@^1.13.0:
+  version "1.13.0"
+  resolved "https://registry.yarnpkg.com/sitemap/-/sitemap-1.13.0.tgz#569cbe2180202926a62a266cd3de09c9ceb43f83"
+  dependencies:
+    underscore "^1.7.0"
+    url-join "^1.1.0"
+
 slash@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/slash/-/slash-1.0.0.tgz#c41f2f6c39fc16d1cd17ad4b5d896114ae470d55"
@@ -6635,7 +6642,7 @@ underscore.string@3.3.4:
     sprintf-js "^1.0.3"
     util-deprecate "^1.0.2"
 
-underscore@^1.8.3:
+underscore@^1.7.0, underscore@^1.8.3:
   version "1.8.3"
   resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.8.3.tgz#4f3fb53b106e6097fcf9cb4109f2a5e9bdfa5022"
 
@@ -6712,6 +6719,10 @@ upper-case@^1.1.1:
 urijs@1.16.1, urijs@^1.16.1:
   version "1.16.1"
   resolved "https://registry.yarnpkg.com/urijs/-/urijs-1.16.1.tgz#859ad31890f5f9528727be89f1932c94fb4731e2"
+
+url-join@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/url-join/-/url-join-1.1.0.tgz#741c6c2f4596c4830d6718460920d0c92202dc78"
 
 url-parse-lax@^1.0.0:
   version "1.0.0"

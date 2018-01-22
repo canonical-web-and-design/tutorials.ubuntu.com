@@ -15,7 +15,8 @@
   "extraDependencies": [
     "api/**/*",
     "bower_components/webcomponentsjs/webcomponents-lite.min.js",
-    "manifest.json"
+    "manifest.json",
+    "robots.txt"
   ],
   "builds": [{
     "name": "bundled",
