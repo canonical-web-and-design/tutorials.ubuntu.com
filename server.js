@@ -206,6 +206,18 @@ app.use('/api', express.static(
   }
 ));
 
+// If a tutorial does not exist, return a 404 header
+app.use('/tutorial/:id', function(req, res, next){
+  const id = req.params.id;
+  let metadata = tutorialsData.filter(function(metadata) {
+    return metadata.id === id;
+  })[0];
+  if (!metadata) {
+    res.status(404);
+  }
+  next()
+});
+
 const tutorialsSitemap = generateSitemap();
 app.get('/sitemap.xml', function(req, res) {
   res.header('Content-Type', 'application/xml');
