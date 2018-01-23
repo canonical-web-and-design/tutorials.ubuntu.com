@@ -159,6 +159,7 @@ const tutorialsAPIPath = path.join(__dirname, 'api', 'codelabs.json');
 const tutorialsData = require(tutorialsAPIPath).codelabs;
 let isError = false;
 let isTutorial = false;
+let isFileRequest = false;
 let tutorialExists = false;
 let tutorialMetadata = false;
 
@@ -244,7 +245,7 @@ const applyMetadata = interceptor(function(req, res){
     // Only HTML responses will be intercepted
     isInterceptable: function(){
       const isHTML = /text\/html/.test(res.get('Content-Type'));
-      return !isError && isHTML;
+      return !isError && !isFileRequest && isHTML;
     },
     // Appends a paragraph at the end of the response body
     intercept: function(body, send) {
@@ -293,6 +294,13 @@ if (args['bot-proxy']) {
     injectShadyDom: true,
   }));
 }
+
+app.use('*.html', function(req, res, next) {
+  // If the path ends with .html, it is a direct file request
+  // and we should avoid modifying the output
+  isFileRequest = true;
+  next()
+});
 
 // Serve API folder directly
 app.use('/api', express.static(
