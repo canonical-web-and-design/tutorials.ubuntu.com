@@ -220,8 +220,15 @@
         })[0];
         if (metadata !== undefined) {
           this.fire('app-metadata', {
-            title: metadata.title + ' | Ubuntu tutorials',
-            description: metadata.summary,
+            'title': metadata.title + ' | Ubuntu tutorials',
+            'description': metadata.summary,
+            'author': metadata.author || '',
+            'og:description': metadata.summary || '',
+            'og:image': metadata.image || '',
+            'og:title': metadata.title + ' | Ubuntu tutorials',
+            'og:type': 'article',
+            'article:author': metadata.author || '',
+            'article:published_time': metadata.published || '',
           });
         }
       },
