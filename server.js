@@ -157,11 +157,6 @@ const siteDescription = 'Ubuntu Tutorials are just like learning from pair progr
 
 const tutorialsAPIPath = path.join(__dirname, 'api', 'codelabs.json');
 const tutorialsData = require(tutorialsAPIPath).codelabs;
-let isError = false;
-let isTutorial = false;
-let isFileRequest = false;
-let tutorialExists = false;
-let tutorialMetadata = false;
 
 function generateSitemap() {
    let tutorialsSitemap = sitemap.createSitemap ({
@@ -245,7 +240,7 @@ const applyMetadata = interceptor(function(req, res){
     // Only HTML responses will be intercepted
     isInterceptable: function(){
       const isHTML = /text\/html/.test(res.get('Content-Type'));
-      return !isError && !isFileRequest && isHTML;
+      return !res.locals.isError && !res.locals.isFileRequest && isHTML;
     },
     // Appends a paragraph at the end of the response body
     intercept: function(body, send) {
@@ -257,14 +252,14 @@ const applyMetadata = interceptor(function(req, res){
         description: siteDescription,
       };
 
-      if (isTutorial && tutorialMetadata) {
-        title = `${tutorialMetadata.title} | ${title}`;
-        url = `${tutorialBaseURL}/${tutorialMetadata.id}`;
+      if (res.locals.isTutorial && res.locals.tutorialMetadata) {
+        title = `${res.locals.tutorialMetadata.title} | ${title}`;
+        url = `${tutorialBaseURL}/${res.locals.tutorialMetadata.id}`;
         HTMLMeta['og:title'] = title;
         HTMLMeta['og:type'] = 'article';
         HTMLMeta['og:url'] = url;
 
-        HTMLMeta = mapTutorialMetadata(tutorialMetadata, HTMLMeta);
+        HTMLMeta = mapTutorialMetadata(res.locals.tutorialMetadata, HTMLMeta);
       }
 
       for(let key in HTMLMeta) {
@@ -282,6 +277,14 @@ const applyMetadata = interceptor(function(req, res){
   };
 })
 
+app.use(function(req, res, next){
+  res.locals.isError = false;
+  res.locals.isTutorial = false;
+  res.locals.isFileRequest = false;
+  res.locals.tutorialMetadata = false;
+  next();
+});
+
 app.use(compression());
 
 // Add the interceptor middleware
@@ -298,7 +301,7 @@ if (args['bot-proxy']) {
 app.use('*.html', function(req, res, next) {
   // If the path ends with .html, it is a direct file request
   // and we should avoid modifying the output
-  isFileRequest = true;
+  res.locals.isFileRequest = true;
   next()
 });
 
@@ -314,12 +317,12 @@ app.use('/api', express.static(
 // If a tutorial does not exist, return a 404 header
 app.use('/tutorial/:id', function(req, res, next){
   const id = req.params.id;
-  isTutorial = true;
-  tutorialMetadata = tutorialsData.filter(function(data) {
+  res.locals.isTutorial = true;
+  res.locals.tutorialMetadata = tutorialsData.filter(function(data) {
     return data.id === id;
   })[0];
-  if (!tutorialMetadata) {
-    isError = true;
+  if (!res.locals.tutorialMetadata) {
+    res.locals.isError = true;
     res.status(404);
   }
   next()
@@ -334,7 +337,7 @@ app.get('/sitemap.xml', function(req, res) {
 app.use('/', prpl.makeHandler(args.root, config));
 
 app.use(function errorHandler(req, res, next){
-  isError = true;
+  res.locals.isError = true;
   next();
 });
 
