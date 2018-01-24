@@ -125,6 +125,16 @@
             if (currentPage.updateMetadata) {
               currentPage.updateMetadata();
             }
+            // We don't currently manage canonical URLs and the may be set
+            // from server. This will remove them for now on page changes.
+            const canonicalTag = document.querySelectorAll(
+              'link[rel="canonical"]'
+            );
+            if (canonicalTag.length > 0) {
+              canonicalTag.forEach((node) => {
+                node.parentNode.removeChild(node);
+              });
+            }
           },
           function onImportError(event) {
             this._loadErrorPage();

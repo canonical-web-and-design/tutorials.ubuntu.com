@@ -25,5 +25,5 @@ WORKDIR /srv
 ADD . .
 
 # Setup commands to run server
-ENTRYPOINT ["yarn", "run", "prpl-server"]
+ENTRYPOINT ["yarn", "run", "start-server"]
 CMD [""]
