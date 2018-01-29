@@ -1,6 +1,6 @@
 ---
-id: continuous-snap-delivery-from-circle-ci
-summary: Learn how to use Circle CI to deliver a new snap version to your early adopters every time you make a change in your master branch.
+id: continuous-snap-delivery-from-circleci
+summary: Learn how to use CircleCI to deliver a new snap version to your early adopters every time you make a change in your master branch.
 categories: packaging
 tags: snapcraft,circle,ci,cd
 difficulty: 3
@@ -11,20 +11,20 @@ feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 
 ---
 
-# Continuous snap delivery from Circle CI
+# Continuous snap delivery from CircleCI
 
 ## Overview
 Duration: 1:00
 
-Circle CI is a continuous integration service that can be used to build, test and deliver software. It's priced based on the number of concurrent build instances you require. A single instance is free, and [more are available](https://circleci.com/pricing/).
+CircleCI is a continuous integration service that can be used to build, test and deliver software. It's priced based on the number of concurrent build instances you require. A single instance is free (or four for FOSS), and [more are available](https://circleci.com/pricing/).
 
-We will use Circle CI to build your snap and push it automatically to the `edge` channel of the [snap store](https://dashboard.snapcraft.io) every time you make a change to your `master` branch in GitHub.
+We will use CircleCI to build your snap and push it automatically to the `edge` channel of the [snap store](https://dashboard.snapcraft.io) every time you make a change to your `master` branch in GitHub.
 
 ![](images/logo.png)
 
 ### What you'll learn
-  - How to build your snap in Circle CI
-  - How to push your snap to the store automatically from Circle CI
+  - How to build your snap in CircleCI
+  - How to push your snap to the store automatically from CircleCI
   - How to use snapcraft to enable all this, with a few simple commands
 
 ### What you'll need
@@ -44,7 +44,7 @@ survey
  - Proficient
 : What is your preferred continuous integration system?
  - Travis CI
- - Circle CI
+ - CircleCI
  - Jenkins CI
  - GitLab CI
  - Other
@@ -119,24 +119,24 @@ snapcraft login
 snapcraft register hello-yourname
 ```
 
-We now have a GitHub project containing packaging details for a snap that has been registered to our account. Let's move onto Circle CI.
+We now have a GitHub project containing packaging details for a snap that has been registered to our account. Let's move onto CircleCI.
 
-## Setting up Circle CI
+## Setting up CircleCI
 Duration: 5:00
 
-To use Circle CI, first we will have to sign up there. Let's go to [https://circleci.com/vcs-authorize] and click "Log In with GitHub". Then, click "Authorize application" to allow Circle CI to access your GitHub account.
+To use CircleCI, first we will have to sign up there. Let's go to [https://circleci.com/signup/] and click "Sign Up with GitHub". Then, click "Authorize application" to allow CircleCI to access your GitHub account.
 
 Now, you should see a list of GitHub repositories, including your snap. If you don't see this list, there should be an "Add projects" button. Enable the GitHub repository of your snap by clicking the "Setup project" button next to it.
 
 ![](images/setup_project.png)
 
-Once you select that button, you'll be given a choice between the operating system and platform you'd like to use. You'll need to use Linux (of course), and while the platform is up to you we recommend version 2.0, and will use that here.
+Once you select that button, you'll be given a choice between the operating system and platform you'd like to use. You'll need to use Linux (of course) and the CircleCI 2.0 platform.
 
 You can even select a language, although since we're only building snaps here, we'll just use "Other".
 
-Finally, it gives you a suggestion for a basic `.circleci/config.yml`. No need to do any of that, just hit "Start building". That will set things up such that Circle CI will be triggered whenever you make changes to your repository. You'll notice it starts to build the current state of the repository, but will soon realize there is nothing to run (because we haven't done that, yet).
+Finally, it gives you a suggestion for a basic `.circleci/config.yml`. No need to do any of that, just hit "Start building". That will set things up such that CircleCI will be triggered whenever you make changes to your repository. You'll notice it starts to build the current state of the repository, but will soon realize there is nothing to run (because we haven't done that, yet).
 
-The way we tell Circle CI what needs to run is by creating a new directory in the root of our project called `.circleci`, and creating a `config.yml` file within it. Let's go ahead and create that now, although we don't put anything in that file just yet:
+The way we tell CircleCI what needs to run is by creating a new directory in the root of our project called `.circleci`, and creating a `config.yml` file within it. Let's go ahead and create that now, although we don't put anything in that file just yet:
 
 ```bash
 cd ~/workspace/hello-snap-username
@@ -144,24 +144,24 @@ mkdir .circleci
 touch .circleci/config.yml
 ```
 
-Circle CI will run the steps we specify in this file on every pull request and every time we make a change to any of the branches. These steps will be a few bash commands that we'll provide momentarily to build and publish your snap.
+CircleCI will run the steps we specify in this file on every pull request and every time we make a change to any of the branches. These steps will be a few bash commands that we'll provide momentarily to build and publish your snap.
 
-Later you can use Circle CI to run your tests. For that you will have to adjust this file depending on the language of your project, and add steps to test your snap before pushing it. However, we don't need any of that here-- we're just focusing on continuous delivery.
+Later you can use CircleCI to run your tests. For that you will have to adjust this file depending on the language of your project, and add steps to test your snap before pushing it. However, we don't need any of that here -- we're just focusing on continuous delivery.
 
-In the next step we'll make sure that your snap can be built successfully in Circle CI, so we can push the generated snap to the store.
+In the next step we'll make sure that your snap can be built successfully in CircleCI, so we can push the generated snap to the store.
 
 ## Building the snap in a clean environment
 Duration: 8:00
 
-Circle CI uses a build environment based on Ubuntu 14.04, which is missing some requirements for running snapcraft. However, it does have support for Docker, so we will use a Docker container to build the snap.
+CircleCI uses a build environment based on Ubuntu 14.04, which is missing some requirements for running snapcraft. However, it does have support for Docker, so we will use a Docker container to build the snap.
 
-Before we try building our snap in Circle CI, we need to make sure the snap builds correctly in a Docker container.
+Before we try building our snap in CircleCI, we need to make sure the snap builds correctly in a Docker container.
 
 Positive
 : **The need for a clean environment**
 When you build a snap on your machine, it could be using some dependencies that are already installed, but that you forgot to declare as `build-packages` in the snapcraft.yaml. This means that, when someone tries to build the same snap on a different machine, those undeclared packages could be missing and the build would fail. A clean environment, such as a default Ubuntu 14.04 or 16.04 in a container, ensures reliable builds.
 
-Let’s install Docker, to get the same environment that Circle CI will use to build the snap:
+Let’s install Docker, to get the same environment that CircleCI will use to build the snap:
 
 
 ```bash
@@ -187,18 +187,18 @@ Snapped hello-snap-kyrofa_2.10_amd64.snap
 
 If you can build your snap locally, but it fails when building it in the container, you're probably missing some `build-packages` in the snapcraft.yaml file. Use the error message to identify the missing packages, and try again until you are able to build the snap in a clean environment, without depending on your local machine.
 
-Once you get the snap building in the Docker container, you can be confident that it will build without problems in Circle CI.
+Once you get the snap building in the Docker container, you can be confident that it will build without problems in CircleCI.
 
 We are ready to enable continuous delivery!
 
-## Building and pushing the snap in Circle CI
+## Building and pushing the snap in CircleCI
 Duration: 15:00
 
-The final step to enable continuous delivery from Circle CI to all your early adopters is to add some commands to the `.circleci/config.yml` file we created earlier.
+The final step to enable continuous delivery from CircleCI to all your early adopters is to add some commands to the `.circleci/config.yml` file we created earlier.
 
 ### Export login capable of pushing this snap
 
-The first thing we need to do is export a login so that the Snapcraft running in Circle CI can authenticate as us, thereby gaining permission to actually upload this snap (note that this feature requires at least Snapcraft v2.37, which at the time of this writing is only available in the `beta` channel of the snap):
+The first thing we need to do is export a login so that the Snapcraft running in CircleCI can authenticate as us, thereby gaining permission to actually upload this snap (note that this feature requires at least Snapcraft v2.37, which at the time of this writing is only available in the `beta` channel of the snap):
 
 ```
 $ snapcraft export-login --snaps hello-kyrofa --channels edge --acls package_upload credentials
@@ -235,7 +235,7 @@ rm credentials
 
 Note that this exported login by default is only valid for a year. Once it expires you'll have to do this step again to refresh it (export it and encrypt it using the same password).
 
-We need to be able to decrypt this file in Circle CI, so open up your project's settings. Under "BUILD SETTINGS" select "Environment Variables" and then select "Add Variable"
+We need to be able to decrypt this file in CircleCI, so open up your project's settings. Under "BUILD SETTINGS" select "Environment Variables" and then select "Add Variable"
 
 ![](images/environment_variables.png)
 
@@ -322,7 +322,7 @@ Let's break that down piece by piece.
 version: 2
 ```
 
-As we mentioned previously, we're using platform v2.0. This is how we communicate that to Circle CI.
+As we mentioned previously, we're using platform v2.0. This is how we communicate that to CircleCI.
 
 ```yaml
 jobs:
@@ -349,7 +349,7 @@ jobs:
           paths: ['*.snap']
 ```
 
-Here we create the `build` job, responsible for-- you guessed it-- building the snap. As we mentioned, Circle CI uses a build environment based on Ubuntu 14.04, so here we're specifying that this job should run on a Xenial (16.04) Docker image. Then we provide a number of steps to conduct the build:
+Here we create the `build` job, responsible for-- you guessed it-- building the snap. As we mentioned, CircleCI uses a build environment based on Ubuntu 14.04, so here we're specifying that this job should run on a Xenial (16.04) Docker image. Then we provide a number of steps to conduct the build:
 
 1. Checkout the code
 2. Install snapcraft
@@ -390,7 +390,7 @@ Here we create the `build` job, responsible for-- you guessed it-- building the 
             /snap/bin/snapcraft push *.snap --release edge
 ```
 
-Here we create the `release` job, responsible for pushing and releasing the snap in the store. The first thing you'll notice is that this job doesn't run in Docker. That's because snaps can't be installed in Docker, and for this job we need to install Snapcraft from the snap instead of the deb. Why? Because the ability to login using exported credentials was introduced in Snapcraft v2.37, which at the time of this writing hasn't been released as a deb, and is only available in the `beta` channel of the snap. As a result, we use `machine: true` to tell Circle CI that we need a virtual machine instead of Docker.
+Here we create the `release` job, responsible for pushing and releasing the snap in the store. The first thing you'll notice is that this job doesn't run in Docker. That's because snaps can't be installed in Docker, and for this job we need to install Snapcraft from the snap instead of the deb. Why? Because the ability to login using exported credentials was introduced in Snapcraft v2.37, which at the time of this writing hasn't been released as a deb, and is only available in the `beta` channel of the snap. As a result, we use `machine: true` to tell CircleCI that we need a virtual machine instead of Docker.
 
 Then we provide the steps required to push/release the snap:
 
@@ -419,11 +419,11 @@ That's it! To finish, commit the changes and push, using these commands:
 
 ```bash
 git add .circleci/config.yml
-git commit -m 'Enable continuous delivery of the snap from Circle CI'
+git commit -m 'Enable continuous delivery of the snap from CircleCI'
 git push
 ```
 
-Go to back to Circle CI and select "workflows". You'll either see one pending, or already running. Select it, and you'll see two jobs: the `build` job and the `release` job. Once the `release` job finishes, you should see a final message that looks something like this:
+Go to back to CircleCI and select "workflows". You'll either see one pending, or already running. Select it, and you'll see two jobs: the `build` job and the `release` job. Once the `release` job finishes, you should see a final message that looks something like this:
 
 
 ```bash
@@ -454,7 +454,7 @@ latest   amd64   stable     -          -
 
 ```
 
-You may have also received an email message from Circle CI notifying you about the successful execution, and another from the store notifying you about the new snap.
+You may have also received an email message from CircleCI notifying you about the successful execution, and another from the store notifying you about the new snap.
 
 Congratulations! Now you can spread the word and tell everybody to help you test your app by running a single command:
 
@@ -473,17 +473,17 @@ From now on, every single change that lands in the `master` branch of your proje
 
 Your final code directory should contain a `.circleci/` directory containing both a `config.yml` as well as a `credentials.enc`, similar to [this demo repository].
 
-You should successfully have built your snap in a clean environment, configured your project to build the snap continuously on Circle CI, and deliver a new version to the edge channel for every change on your `master` branch. You can relax because your delivery pipeline is all automated. Now let your community know about this, encourage them to try the edge snap, and to tell their friends how cool it is to get even more testers.
+You should successfully have built your snap in a clean environment, configured your project to build the snap continuously on CircleCI, and deliver a new version to the edge channel for every change on your `master` branch. You can relax because your delivery pipeline is all automated. Now let your community know about this, encourage them to try the edge snap, and to tell their friends how cool it is to get even more testers.
 
 ### Next steps
 
-  - Circle CI is very nice, but it can only build snaps for the amd64 architecture. If you need to deliver your snaps for users in other architectures like armhf and arm64, you can [use the snapcraft build service].
+  - CircleCI is very nice, but it can only build snaps for the amd64 architecture. If you need to deliver your snaps for users in other architectures like armhf and arm64, you can [use the snapcraft build service].
   - Learn some more advanced techniques on how to use snaps by looking for other [tutorials]!
   - Join the snapcraft.io community by subscribing to [our forum].
 
 ### Further readings
 
-  - The [Circle CI 2.0 docs] have a lot of information about adding tests and other things to your CI executions.
+  - The [CircleCI 2.0 docs] have a lot of information about adding tests and other things to your CI executions.
 
 [Create your first snap]: /tutorial/create-your-first-snap
 [https://github.com]: https://github.com/
@@ -495,4 +495,4 @@ You should successfully have built your snap in a clean environment, configured 
 [use the snapcraft build service]: https://build.snapcraft.io/
 [tutorials]: https://tutorials.ubuntu.com?q=snap
 [our forum]: https://forum.snapcraft.io
-[Circle CI 2.0 docs]: https://circleci.com/docs/2.0/
+[CircleCI 2.0 docs]: https://circleci.com/docs/2.0/
