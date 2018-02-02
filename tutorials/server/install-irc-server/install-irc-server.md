@@ -3,7 +3,7 @@ id: tutorial-irc-server
 summary: Learn how to install, configure and run the fantastic InspIRCd IRC server, direct from the latest source code.
 categories: server
 status: published
-tags: irc, InspIRCd, chat, server, guide, tutorial, hide
+tags: irc, InspIRCd, chat, server, guide, tutorial, hidden
 difficulty: 4
 published: 2018-02-02
 feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
