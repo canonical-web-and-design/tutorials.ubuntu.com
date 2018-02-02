@@ -248,21 +248,21 @@ Create a new variable named "SNAPCRAFT_CREDENTIALS_KEY" and set its value to the
 Now open up your `.circleci/config.yml` file and make it look like this:
 
 ```yaml
+defaults: &defaults
+  working_directory: ~/workspace
+  docker:
+    - image: snapcore/snapcraft:edge
+
 version: 2
 jobs:
   build:
-    working_directory: ~/workspace
-    docker:
-      - image: ubuntu:xenial
-        environment:
-          LC_ALL: C.UTF-8
-          LANG: C.UTF-8
+    <<: *defaults
     steps:
       - checkout
 
       - run:
-          name: Install prerequisites
-          command: apt update && apt install -y snapcraft
+          name: Update index
+          command: apt update
 
       - run:
           name: Build snap
@@ -273,10 +273,7 @@ jobs:
           paths: ['*.snap']
 
   release:
-    working_directory: ~/workspace
-    # Virtual machine instead of docker because we need to install a snap,
-    # which doesn't run in docker.
-    machine: true
+    <<: *defaults
     steps:
       - checkout
 
@@ -287,8 +284,7 @@ jobs:
           name: Install prerequisites
           command: |
             sudo apt update
-            sudo apt install -y openssl snapd
-            sudo snap install --beta --classic snapcraft
+            apt install -y openssl
 
       - run:
           name: Decrypt credentials
@@ -299,10 +295,12 @@ jobs:
               -k $SNAPCRAFT_CREDENTIALS_KEY
 
       - run:
+          name: Authenticate snapcraft
+          command: snapcraft login --with credentials
+
+      - run:
           name: Push/release snap
-          command: |
-            /snap/bin/snapcraft login --with credentials
-            /snap/bin/snapcraft push *.snap --release edge
+          command: snapcraft push *.snap --release edge
 
 workflows:
   version: 2
@@ -319,6 +317,15 @@ workflows:
 Let's break that down piece by piece.
 
 ```yaml
+defaults: &defaults
+  working_directory: ~/workspace
+  docker:
+    - image: snapcore/snapcraft:edge
+```
+
+This is a YAML anchor. It doesn't do anything by itself, but we'll be using it below to keep each job using the same settings. It provides a specification for the working directory (where we'll build the snap) and tells CircleCI which Docker image to use.
+
+```yaml
 version: 2
 ```
 
@@ -327,18 +334,13 @@ As we mentioned previously, we're using platform v2.0. This is how we communicat
 ```yaml
 jobs:
   build:
-    working_directory: ~/workspace
-    docker:
-      - image: ubuntu:xenial
-        environment:
-          LC_ALL: C.UTF-8
-          LANG: C.UTF-8
+    <<: *defaults
     steps:
       - checkout
 
       - run:
-          name: Install prerequisites
-          command: apt update && apt install -y snapcraft
+          name: Update index
+          command: apt update
 
       - run:
           name: Build snap
@@ -349,7 +351,7 @@ jobs:
           paths: ['*.snap']
 ```
 
-Here we create the `build` job, responsible for-- you guessed it-- building the snap. As we mentioned, CircleCI uses a build environment based on Ubuntu 14.04, so here we're specifying that this job should run on a Xenial (16.04) Docker image. Then we provide a number of steps to conduct the build:
+Here we create the `build` job, responsible for-- you guessed it-- building the snap. We use our `defaults` anchor for the correct settings, and provide a number of steps to conduct the build:
 
 1. Checkout the code
 2. Install snapcraft
@@ -358,10 +360,7 @@ Here we create the `build` job, responsible for-- you guessed it-- building the 
 
 ```yaml
   release:
-    working_directory: ~/workspace
-    # Virtual machine instead of docker because we need to install a snap,
-    # which doesn't run in docker.
-    machine: true
+    <<: *defaults
     steps:
       - checkout
 
@@ -372,8 +371,7 @@ Here we create the `build` job, responsible for-- you guessed it-- building the 
           name: Install prerequisites
           command: |
             sudo apt update
-            sudo apt install -y openssl snapd
-            sudo snap install --beta --classic snapcraft
+            apt install -y openssl
 
       - run:
           name: Decrypt credentials
@@ -384,19 +382,20 @@ Here we create the `build` job, responsible for-- you guessed it-- building the 
               -k $SNAPCRAFT_CREDENTIALS_KEY
 
       - run:
+          name: Authenticate snapcraft
+          command: snapcraft login --with credentials
+
+      - run:
           name: Push/release snap
-          command: |
-            /snap/bin/snapcraft login --with credentials
-            /snap/bin/snapcraft push *.snap --release edge
+          command: snapcraft push *.snap --release edge
 ```
 
-Here we create the `release` job, responsible for pushing and releasing the snap in the store. The first thing you'll notice is that this job doesn't run in Docker. That's because snaps can't be installed in Docker, and for this job we need to install Snapcraft from the snap instead of the deb. Why? Because the ability to login using exported credentials was introduced in Snapcraft v2.37, which at the time of this writing hasn't been released as a deb, and is only available in the `beta` channel of the snap. As a result, we use `machine: true` to tell CircleCI that we need a virtual machine instead of Docker.
 
-Then we provide the steps required to push/release the snap:
+Here we create the `release` job, responsible for pushing and releasing the snap in the store. Again, we use our `defaults` anchor for the correct settings, and provide a number of steps to push/release the snap:
 
 1. Checkout the code
-2. Attached the workspace we cached in the `build` step (thus getting the already-built snap)
-3. Install openssl, snapd, and snapcraft
+2. Attach the workspace we cached in the `build` step (thus getting the already-built snap)
+3. Install openssl
 4. Using openssl (and the environment variable we just created containing the password), decrypt the credentials
 5. Using snapcraft, login with the now-decrypted credentials, and push the snap, releasing to the `edge` channel.
 
@@ -427,15 +426,7 @@ Go to back to CircleCI and select "workflows". You'll either see one pending, or
 
 
 ```bash
-/snap/bin/snapcraft login --with credentials
 /snap/bin/snapcraft push *.snap --release edge
-
-
-Login successful. You now have these capabilities:
-
-snaps:       ['hello-kyrofa']
-channels:    ['edge']
-permissions: ['package_upload']
 
 Pushing hello-kyrofa_2.10_amd64.snap
 After pushing, an attempt to release to ['edge'] will be made
@@ -471,7 +462,7 @@ From now on, every single change that lands in the `master` branch of your proje
 
 ### Final code
 
-Your final code directory should contain a `.circleci/` directory containing both a `config.yml` as well as a `credentials.enc`, similar to [this demo repository].
+Your final code should contain a `.circleci/` directory containing both a `config.yml` as well as a `credentials.enc`, similar to [this demo repository].
 
 You should successfully have built your snap in a clean environment, configured your project to build the snap continuously on CircleCI, and deliver a new version to the edge channel for every change on your `master` branch. You can relax because your delivery pipeline is all automated. Now let your community know about this, encourage them to try the edge snap, and to tell their friends how cool it is to get even more testers.
 

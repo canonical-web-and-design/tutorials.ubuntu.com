@@ -2,7 +2,7 @@
 id: install-ubuntu-on-chromebook
 summary: Learn how to install Ubuntu 16.04 LTS in a chroot on Chromebooks, using the third-party crouton tool.
 categories: desktop
-tags: chromebook, desktop, crouton, hidden
+tags: chromebook, desktop, crouton
 difficulty: 3
 status: draft
 feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
