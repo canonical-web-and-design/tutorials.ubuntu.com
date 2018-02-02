@@ -1,5 +1,5 @@
 ---
-id: continuous-snap-delivery-from-circleci
+id: continuous-snap-delivery-from-circle-ci
 summary: Learn how to use CircleCI to deliver a new snap version to your early adopters every time you make a change in your master branch.
 categories: packaging
 tags: snapcraft,circle,ci,cd
