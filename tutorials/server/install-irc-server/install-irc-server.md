@@ -6,7 +6,7 @@ status: published
 tags: irc, InspIRCd, chat, server, guide, tutorial, hide
 difficulty: 4
 published: 2018-02-02
-feedback-url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
+feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 author: Varun Patel <varun-patel@live.com>
 
 ---
