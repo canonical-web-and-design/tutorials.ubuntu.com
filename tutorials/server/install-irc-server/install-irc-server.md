@@ -1,6 +1,6 @@
 ---
 id: tutorial-irc-server
-summary: Learn how to install, configure and run the fantastic InspIRCd IRC server from the latest source code.
+summary: Learn how to install, configure and run the fantastic InspIRCd IRC server, direct from the latest source code.
 categories: server
 status: published
 tags: irc, InspIRCd, chat, server, guide, tutorial, hide
