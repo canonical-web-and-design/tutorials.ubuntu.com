@@ -1,36 +1,44 @@
 ---
 id: tutorial-irc-server
-summary: Learn how to install and configure an InspIRCd IRC server. this is for more advanced users comfortable with the command line.
+summary: Learn how to install, configure and run the fantastic InspIRCd IRC server from the latest source code.
 categories: server
-status: draft
-tags: irc, InspIRCd, chat, server, guide, tutorial
-difficulty: 3
-published: 2017-12-03
+status: published
+tags: irc, InspIRCd, chat, server, guide, tutorial, hide
+difficulty: 4
+published: 2018-02-02
 feedback-url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 author: Varun Patel <varun-patel@live.com>
 
 ---
-#Set up an IRC Server Using InspIRCd
 
-##Overview
+# Run your own IRC server
+
+## Overview
 Duration: 2:00
 
-In this tutorial, you will learn now to install an Internet Relay Chat server onto your existing Ubuntu installation. This tutorial is recommended for users who are comfortable with using the terminal.
+Despite modern alternatives like Slack, the ancient *[IRC][irc-info]* is still hugely popular as an online interactive chat platform. 
 
-Over the course of this tutorial, we will install dependencies for InspIRCd, download the latest version from GitHub, install the program and learn how to run it.
+This may be because there are IRC clients for almost every operating system and device, from the Commodore Amiga to your smartphone, and the technology behind IRC is reassuringly simplistic - it really is just raw text and a few control characters being bumped around the network.
 
-###What you'll learn
+Online servers, such as those offered by [Freenode][freenode], are wonderful for both public and private channels. But it's equally easy to run your own private IRC server, giving you complete control over your data, logs and configuration settings whilst avoiding all the risks and frustrations of dealing with IRC spammers and bots.
+
+In this tutorial, we'll cover installing the [InspIRCd][inspircd] IRC server on Ubuntu, from installing its dependencies and building the latest version from GitHub, to configuration and execution.
+
+
+### What you'll learn
 
 * How to prepare your environment for the installation of InspIRCd
-* How to install InspIRCd from GitHub
-* How to Run InspIRCd
-* How to Start your first InspIRCd Server
+* How to build and install InspIRCd from GitHub
+* How to start your first InspIRCd server
+* How to configure InspIRCd
 
 ### What you'll need
 
-* A computer running Ubuntu 14.04 Trusty Tahr or above
-* The `git` command line client (can be installed using `sudo apt-get install git` in terminal)
-* Updated apt packages `sudo apt-get update`
+* A computer running Ubuntu 16.04 LTS (Xenial) or later
+* A network connection
+
+positive
+: This tutorial is recommended for users who are comfortable using the terminal.
 
 Survey
 : How will you use this tutorial?
@@ -41,91 +49,128 @@ Survey
  - Intermediate
  - Proficient
 
-##Dependencies
+## Dependencies
 Duration: 3:00
 
-Before we begin, it is important to install the dependencies needed by InspIRCd.
-We begin by updating our packages,
-```markdown
-sudo apt-get update
-```
-The first thing we should do is make sure git is installed, we can do so by entering
-```markdown
+For the first step, we'll install the dependencies needed to build and run InspIRCd, starting with *git*:
+
+```bash
 sudo apt-get install git
 ```
-Next we will install perl dependencies so we can run the configuration script included with InspIRCd.
-```markdown
+
+Next is *Perl* so we can run the configuration script included with InspIRCd:
+
+```bash
 sudo apt-get install perl
 sudo apt-get install g++
 ```
-And finally we need to make sure that make is installed
-```markdown
+
+And finally we need to make sure that *make* is installed:
+
+```bash
 sudo apt-get install make
 ```
-You are now ready to move on to the next step, Downloading the program!
 
-##Downloading From Github
+## Download source
 Duration: 3:00
 
-To begin, we must choose the version we would like to install, this can be found at [InspIRCd's website](http://www.InspIRCd.org/). Here you will find the latest release name, at the time of writing this is V2.0.25. From this we can formulate the download path. The file must be retreived form GitHub, this can be done by:
-```markdown
-wget https://github.com/InspIRCd/archive/v2.0.25.tar.gz
-```
-* please note that you must replace the 2.0.25 with your version number
+The latest version of InspIRCd can be downloaded from:
+[https://github.com/inspircd/inspircd/releases/latest](https://github.com/inspircd/inspircd/releases/latest)
 
-Now we must unpack this folder, to do so we enter into terminal:
-```markdown
+As we're going to be building the latest version from the source code, we need to grab the *tar.gz* archive either with your browser or from the command line. To take version `2.0.25` as an example, you could use the following command to download the archive:
+
+```bash
+wget https://github.com/inspircd/inspircd/archive/v2.0.25.tar.gz
+```
+
+Use *tar* to extract the download: 
+
+```bash
 tar xvf ./v2.0.25.tar.gz
 ```
-* please note that you must replace the 2.0.25 with your version number
 
-Your program is now reday to configure, when ready click next.
-##Configuring the installer
+## Build configuration
 Duration: 5:00
 
-Now it is time to configure the installation, here we can choose where to install all the files and any additional features. First we must enter the installation directory:
-```markdown
+With the source code downloaded and extracted, we can now configure how we want InspIRCd built.
+
+First, enter the installation directory:
+
+```bash
 cd inspircd-2.0.25
 ```
-* please note that you must replace the 2.0.25 with your version number
 
-To begin configuring the installation, we must enter the following command in our terminal:
-```markdown
+positive
+: The version number above needs to correspond with your downloaded version.
+
+To begin configuring the installation, enter the following:
+
+```bash
 perl ./configure
 ```
-Now a series of questions will be asked, if you are unsure defaults will work. Press enter whenever asked a question. The last question will ask,
-```markdown
-Would you like to check for updates to third-party modules?
-```
-For this you should type y and then press enter.
 
-Now it is time to install the program using make.
-##Make and Make Install
+You are now asked a series of questions. When unsure, press *return* to answer with the default values.
+
+The final question will ask whether you'd like to check for updates to third-party modules, and you should answer `y` for yes.
+
+The final output should be similar to the following:
+
+```no-output
+Ok, 144 modules.
+Writing inspircd_config.h
+Writing GNUmakefile ...
+Writing BSDmakefile ...
+Writing inspircd ...
+Writing cache file for future ./configures ...
+
+
+To build your server with these settings, please run 'make' now.
+*** Remember to edit your configuration files!!! ***
+```
+
+We can now proceed with the *build* step.
+
+
+## Build the server
 Duration: 15:00
 
-Installation is done in two steps, first we must build the program into the directories, next we copy the built program to the correct location.
+The server can now be built by executing `make` in the installation directory. This process will take around 10 minutes, depending on your system speed, so feel free to step away from the computer.
 
-As you are already in the installation directory, you can simply type `make`. this process will take around 10 minutes so feel free to step away from the computer.
+With that complete, type `make install` to move the executable files into the locations configured earlier. An overview of this process is output upon completion:
 
-Next to copy the program, we type:
-```markdown
-make install
+```no-highlight
+*************************************
+*       BUILDING INSPIRCD           *
+*                                   *
+*   This will take a *long* time.   *
+*     Why not read our wiki at      *
+*     http://wiki.inspircd.org      *
+*  while you wait for make to run?  *
+*************************************
+
+*************************************
+*        INSTALL COMPLETE!          *
+*************************************
+Paths:
+  Base install: /home/javier/build/inspircd-2.0.25/run
+  Configuration: /home/javier/build/inspircd-2.0.25/run/conf
+  Binaries: /home/javier/build/inspircd-2.0.25/run/bin
+  Modules: /home/javier/build/inspircd-2.0.25/run/modules
+  Data: /home/javier/build/inspircd-2.0.25/run/data
+To start the ircd, run: /home/javier/build/inspircd-2.0.25/run/inspircd start
+Remember to create your config file: /home/javier/build/inspircd-2.0.25/run/conf/inspircd.conf
+Examples are available at: /home/javier/build/inspircd-2.0.25/run/conf/examples/
 ```
-Now reboot your computer by typing `reboot`, make sure there are no other running programs.
 
-Great! Now we have InspIRCd fully installed, we can continue to set up an IRC Server.
-##Running the Server
+With InspIRCd fully installed, we can configure the server.
+
+
+## Server configuration
 Duration: 10:00
 
-The first step is to create a configuration file for the program. To begin, navigate into your installation directory. If you used defaults back in Configuring the Insaller, you can now enter:
-```markdown
-cd inspircd-2.0.25
-```
-* please note that you must replace the 2.0.25 with your version number
+From the build directory, create a text file called `run/config/inspircd.conf` and insert the following:
 
-Now we must enter the information required to start the server.
-Copy and paste the following into an editor:
-```markdown
+```xml
 <config format="xml">
 <define name="bindip" value="1.2.2.3">
 <define name="localips" value="&bindip;/24">
@@ -153,20 +198,23 @@ Copy and paste the following into an editor:
       port="SERVER_PORT"
       type="SERVER_TYPE">
 ```
-Now we need to change some values.
-* *SERVER_HOSTNAME/FQDN* --> Your server's hostname
-* *SERVER_DESCRIPTION* --> Your server's description
-* *SERVER_SID* --> Must be a unique sequence of 3 characters the first being a number. (make sure to capitalize)
-* *NETWORK_NAME* --> The name of your network
-* *ADNIN_NAME* --> The chat admin's name
-* *ADMIN_NICK* --> The chat admin's nick
-* *ADMIN_EMAIL* --> The chat admin's email
-* *SERVER_IP* --> The server's public IP
-* *SERVER_PORT* --> The server's port (usually 6697 works)
-* *SERVER_TYPE* --> The clients or servers type. (cleints should be fine here)
 
-The configuration file should look like this:
-```markdown
+Change the following values in the above text to reflect your own configuration:
+
+* *SERVER_HOSTNAME/FQDN*: Hostname for the server
+* *SERVER_DESCRIPTION*: A description for your server
+* *SERVER_SID*: A unique sequence of 3 characters, the first being a number (make sure to capitalise)
+* *NETWORK_NAME*: The name of your IRC network
+* *ADNIN_NAME*: IRC *admin* name
+* *ADMIN_NICK*: IRC *admin* nick
+* *ADMIN_EMAIL*: IRC *admin* email
+* *SERVER_IP*: Public IP for the server
+* *SERVER_PORT*: Server port (usually 6697)
+* *SERVER_TYPE*: The clients or servers type (clients should be fine here)
+
+The configuration file should now look something like this:
+
+```xml
 <config format="xml">
 <define name="bindip" value="1.2.2.3">
 <define name="localips" value="&bindip;/24">
@@ -195,40 +243,59 @@ The configuration file should look like this:
       type="clients">
 ```
 
-To create and edit the configuration file type:
-```markdown
-nano run/config/inspircd.conf
-```
-Now paste your edited configuration file's contents
+Make sure you save your changes!
 
-We're almost there!
-##You're Done!
+## Run the server
 Duration: 2:00
 
-Its now time to start up InspIRCd for the first time!
-In your the terminal window you already have open, type:
-```markdown
+It's now time to start up InspIRCd for the first time!
+
+In your the terminal window, type:
+
+```bash
 ./inspircd start
 ./inspircd status
 ```
-If you see a message that says InspIRCd is already running, your server is now online.
 
-Changes to your web server are made to the config file, a list of supported commands and other useful information can be found at [InspIRCd's Wiki](https://wiki.InspIRCd.org/).
+If successful, you will see the following output:
 
-###You now know how to:
-* Prepare an environment to install an IRC Server using InspIRCd
-* Install InspIRCd using GitHub
+```no-highlight
+InspIRCd is running (PID: 13301)
+```
+
+Congratulations! Your server is now online!
+
+Any IRC client capable of accessing your server will now be able to connect to your IRC server.
+
+## Congratulations!
+Duration: 2:00
+
+### You now know how to:
+
+* Grab source code from GitHub
+* Prepare an environment to build InspIRCd
 * Configure InspIRCd using a `.conf` file
 * Start the service
 
-###What's Next?
+### What's Next?
+
 * Modify your external internet connection to forward port 6697
 * Ensure your network has a static IP address
 * Get a URL to easily send traffic to your server (optional)
 
-###I Need Help
+Changes to your IRC server need to be made to the config file and a list of supported commands and other useful information can be found at [InspIRCd's Wiki](https://wiki.InspIRCd.org/).
+
+### Need Help?
+
 * Double Check that the port is available
 * Ensure the `.config` file is correct
 * Make sure you typed the commands properly
-* Try using sudo (if you arent already)
-* Ask a question on [Ask Ubuntu](https://askubuntu.com/)
+* Try using sudo (if you aren't already)
+* Ask a question on [Ask Ubuntu][ask-ubuntu]
+
+
+<!-- LINKS -->
+[irc-info]: https://en.wikipedia.org/wiki/Internet_Relay_Chat
+[freenode]: https://freenode.net/
+[inspircd]: http://www.inspircd.org/
+[ask-ubuntu]: https://askubuntu.com/
