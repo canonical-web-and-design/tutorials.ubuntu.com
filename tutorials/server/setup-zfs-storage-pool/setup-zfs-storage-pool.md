@@ -1,8 +1,8 @@
 ---
 id: setup-zfs-storage-pool
-summary: Find out how to enable ZFS and create a storage pool on Ubuntu 16.04
+summary: Find out how to enable ZFS and create a storage pool on Ubuntu 16.04.
 categories: server
-tags: storage, zfs, server, filesystem, gci
+tags: storage, zfs, server, filesystem, gci, hidden
 difficulty: 2
 status: published
 published: 2018-02-01
