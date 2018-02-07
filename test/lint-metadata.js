@@ -12,6 +12,12 @@ var required_keys = [ 'id',
                  'published',
                  'author']
 
+var common_mistakes = ['feedback_link',
+                      'feedback-link',
+                      'feedback link',
+                      'feedback-url',
+                      'feedback url']
+
 var files = find.fileSync(/\.md$/,"tutorials");
 var tutorial_ids = []
 for(var i=0, len=files.length; i < len; i++){
@@ -45,6 +51,13 @@ function validate(f, fn) {
       required_keys.forEach(contains)
       function contains(item){
         assert(Object.keys(f.data).includes(item), `does not contain "${item}"`);
+      }
+      done();
+    });
+    it('doesn\'t contain common mistakes', function(done) {
+      common_mistakes.forEach(notcontains)
+      function notcontains(item){
+        assert(!Object.keys(f.data).includes(item), `contains "${item}"`);
       }
       done();
     });
