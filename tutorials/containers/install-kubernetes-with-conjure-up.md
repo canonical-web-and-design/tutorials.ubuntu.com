@@ -18,9 +18,9 @@ feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 ## Overview
 Duration: 1
 
-This tutorial will guide you through the installation of the Canonical Distribution of Kubernetes with a few simple commands using conjure-up.
+This tutorial will guide you through the installation of the Canonical Distribution of Kubernetes®* with a few simple commands using conjure-up.
 
-### The Canonical Distribution of Kubernetes
+### The Canonical Distribution of Kubernetes®
 
 In partnership with Google, Canonical now delivers a ‘pure K8s’ experience, tested across a wide range of clouds and integrated with modern metrics and monitoring.
 
@@ -56,6 +56,8 @@ Although this tutorial will assume a public cloud installation, if you wish to i
 
 positive
 : Note: ZFS is recommended, but not required.
+
+_* Kubernetes® is a registered trademark of The Linux Foundation in the United States and other countries, and is used pursuant to a license from The Linux Foundation_
 
 ## Getting started
 Duration: 5
