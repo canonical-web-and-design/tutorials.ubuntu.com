@@ -20,27 +20,46 @@ Duration:
 To get us up and running with Arduino, we are going to install the **Arduino IDE**, a program that will help us write code for the Arduino, and run our code on the board.
 
 ### What you'll learn
-- How to install the Arduino package with `apt-get`
--
+- How to install the Arduino package from a tarball
+- How to add a user to a group (here, the `dialout` group)
 
 ### What you'll need
 - Ubuntu 16.04 (and above) Desktop
 - An Arduino board, and included mini-USB cable
-- Some basic command-line knowledge
+- Some basic command-line knowledge (including how to use `cd` to change directories)
 
-## Installing via apt
-Duration: 1:00 
+## Installing via a tarball
+Duration: 3:00
 
-Installing the Arduino IDE and all its dependencies using `apt` is easy; just run
+We can download the latest version of the Arduino IDE from the Arduino website ([here](https://www.arduino.cc/en/Main/Software)) as a *tarball*. A tarball is a type of compressed folder, like a `.zip` file, commonly used to distrubute software in Linux; its file extension is usually `.tar.xz` (or `.tar.gz`, if it uses _Z compression_. We'll get to this later).
+
+In order to extract the files we need from the tarball, we can open a terminal, `cd` to where the downloaded tarball is, then run 
 
 ```bash
-sudo apt isntall arduino
+tar xvf FILENAME
 ```
 
-in a terminal.
+where `FILENAME` is the name of the download (typically arduino-(version number)-linux64.tar.xz).
 
+The command can be read as 
+* e**X**tract from an archive...
+* **V**erbosely (meaning it prints the name of every file it finds)...
+* from a **f**ile given by `FILENAME`.
 
-When apt finishes up, the Arduino IDE should be installed correctly! Let's try to launch it in the next step.
+When the command finishes, run `ls` again; `tar` should have created a new folder named arduino-(version number).
+
+`cd` into the folder; there will be a file named `install.sh` in the folder. To install the IDE, execute `install.sh` with
+
+```bash
+./install.sh
+```
+
+If the script executes correctly and outputs `done!` at the end of its output, the IDE was installed correctly! Let's try to launch it in the next step.
+
+negative
+: **Installing via apt**
+While there *is* a package for the Arduino IDE on current APT repositories, it has not been updated for a while.
+As such, while it is still possible to install the IDE by running `sudo apt install arduino`, it is **not recommended** to do so, as asking for support when using outdated software is more difficult.
 
 ## First Launch
 Duration: 1:00
