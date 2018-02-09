@@ -132,7 +132,7 @@ Congratulations, you have updated your Ubuntu install with a cutting edge new fi
 - How to install the ZFS utilities
 - How to identify which drives to use in a ZFS pool
 - The basic types of ZFS pools
-- How to create and moutn a pool
+- How to create and mount a pool
 - How to remove the pool once you no longer need it
 
 Be sure to check back on this site for more tutorials on using ZFS! 
