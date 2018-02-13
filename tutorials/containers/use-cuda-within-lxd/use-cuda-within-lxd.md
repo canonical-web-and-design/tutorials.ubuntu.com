@@ -33,7 +33,7 @@ LXD's unrivalled density in real-world cloud deployments, and its ability to run
 Our configuration is going to be based on the following:
 - 1 or more Nvidia GPUs
 - [Ubuntu 16.04 LTS][xenial] (Xenial)
-- [LXD](https://tutorials.ubuntu.com/tutorial/tutorial-setting-up-lxd-1604) version 2.5 or higher (2.13 is the current Xenial version)
+- [LXD][getstarted] version 2.5 or higher (2.13 is the current Xenial version)
 
 positive
 : LXD versioning is incremental, which means version 2.13 is more recent than version 2.5.
