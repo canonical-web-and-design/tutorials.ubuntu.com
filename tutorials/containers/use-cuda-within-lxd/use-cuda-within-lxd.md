@@ -18,15 +18,22 @@ Duration: 3:00
 
 Hugely parallelised GPU data processing, using either [CUDA][nvidiacuda] or [OpenCL][opencl], is changing the shape of data science. It even has its own snappy acronym - GPGPU - General-purpose computing on graphics processing units.  It's no surprise, then, that flexible, scalable access to these GPU resources is becoming a key requirement in many cloud deployments (see the Canonical Distribution of [Kubernetes][kubernetes] for a good example). But it's not always easy, nor cheap, to get started. Unless you use [LXD][lxd].
 
-LXD's unrivalled density in real-world cloud deployments, and its ability to run locally, make it a game-game changing tool for experimenting with cloud-like GPU data processing. It enables you to create local scalable deployments using nothing more than a PC with a GPU or two. As we'll now demonstrate.
+![cuda-lxd-logos](https://assets.ubuntu.com/v1/8546712c-rect5436.png)
 
-## Requirements
-Duration: 2:00
+LXD's unrivalled density in real-world cloud deployments, and its ability to run locally, make it a game-changing tool for experimenting with cloud-like GPU data processing. It enables you to create local scalable deployments using nothing more than a PC with a GPU or two. As we'll now demonstrate.
+
+### What you'll learn
+
+- How to replace default Nvidia drivers with the latest ones
+- How to install the CUDA toolkit
+- How to configure LXD to use Nvidia GPUs and CUDA
+
+### What you'll need
 
 Our configuration is going to be based on the following:
 - 1 or more Nvidia GPUs
 - [Ubuntu 16.04 LTS][xenial] (Xenial)
-- LXD version 2.5 or higher (2.13 is the current Xenial version)
+- [LXD](https://tutorials.ubuntu.com/tutorial/tutorial-setting-up-lxd-1604) version 2.5 or higher (2.13 is the current Xenial version)
 
 positive
 : LXD versioning is incremental, which means version 2.13 is more recent than version 2.5.
@@ -38,7 +45,7 @@ However, LXD's hardware passthrough enables any GPU to appear natively to any de
 As both Nvidia's drivers and CUDA are constantly in a rapid state of development, we're going to install and use the latest versions we can get hold of. This will mean using packages separate from those supplied by the distribution, which we'll cover in the next step.
 
 ## Remove Nvidia drivers
-Duration: 10:00
+Duration: 13:00
 
 With either a new or old Ubuntu 16.04 installation, it's likely that you'll have Nvidia drivers of one sort or another on your system. We need to make sure these are fully removed before attempting to install a new set.
 
@@ -57,7 +64,6 @@ sudo apt remove --purge nvidia*
 It's safer to reboot your machine at this point, although this isn't strictly necessary.
 
 ### Remove Nouveau drivers
-Duration: 3:00
 
 The *nouveau* driver, installed by default when you elect not to add Nvidia's proprietary drivers, may refuse to remove itself. You can check with the following command:
 
