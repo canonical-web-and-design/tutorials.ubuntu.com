@@ -49,7 +49,7 @@ To ensure maximum compatibility with Apple hardware, we're going to first blank 
 - Set the format to `MS-DOS (FAT)` and the scheme to `GUID Partition Map`
 - Check you've chosen the correct device and click `Erase`
 
-![screenshot](https://assets.ubuntu.com/v1/b50caa3d-macos-usb-format.png)
+![screenshot](https://assets.ubuntu.com/v1/e0915a12-36187570-fdfeafae-10fa-11e8-8b51-c9377a9b60de.png)
 
 negative
 : **Warning:** Disk Utility needs to be used with caution as selecting the wrong device or partition can result in data loss.
