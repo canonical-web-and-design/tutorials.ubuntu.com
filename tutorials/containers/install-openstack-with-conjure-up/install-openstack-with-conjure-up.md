@@ -83,7 +83,7 @@ sudo usermod -a -G lxd <username>
 newgrp lxd
 ```
 
-If you are using a proxy server, you might run into errors if you do not configure lxd specifically. To do so use the following commands:
+If you are using a proxy server, you might run into errors if you do not configure LXD specifically. To do so use the following commands:
 
 ```bash
 lxc config set core.proxy_http <http proxy server>
