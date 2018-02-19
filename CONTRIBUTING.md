@@ -1,16 +1,16 @@
 # How to contribute
 
-Issues, tutorials requests, new tutorials, content fixes and code contributions are all very appreciated. We ask that you read the relevant sections of this document before contributing.
+Issues, tutorials requests, new tutorials, content fixes and code contributions are all very much appreciated. We ask that you read the relevant sections of this document before contributing.
 
 ## Contributing a content fix
 
-Have you spotted a typo? A screenshot that needs updating? A nonsensical sentence? While we strive to foster and maintain quality content, mistakes happen. If you have the time, please open a new Pull Request, propose a fix and add the "Tutorials content" label to it, it will be reviewed quickly.
+Have you spotted a typo? A screenshot that needs updating? A nonsensical sentence? While we strive to foster and maintain quality content, mistakes happen. If you have the time, please open a new Pull Request, propose a fix and add the "Tutorials Content" label to it, it will be reviewed quickly.
 
 ## Contributing a new tutorial
 
 See our [writing guide](https://tutorials.ubuntu.com/?q=tutorial+guidelines) for extensive documentation on writing and publishing a new tutorial. It contains step-by-step documentation, content guidelines and examples to help you make the best of this platform. 
 
-All tutorials are reviewed and merged by the Canonical Docs team in order to maintain content consistency. You can get in touch with us on Freenode IRC, in #ubuntu-doc.
+All tutorials are reviewed and merged by the Canonical Docs team in order to maintain content consistency. You can get in touch with us on Freenode IRC, in [#ubuntu-doc](http://webchat.freenode.net/?channels=ubuntu-doc).
 
 ### New tutorial FAQ
 
@@ -20,7 +20,7 @@ Each tutorial is a single Markdown file, placed inside the `tutorials` folder of
 
 #### Where are images hosted?
 
-Image can be placed inside this repository, alongside a tutorial in an `images` folder.
+Images can be placed inside this repository, alongside a tutorial in an `images` folder.
 
 Note that some tutorials use `assets.ubuntu.com` for image hosting: it's an access-controlled file hosting service used by the Canonical Web team to host images for Ubuntu related websites. If you open a pull request containing images, there is a chance that your reviewer will upload your images there in order to control the size of the repository.
 
