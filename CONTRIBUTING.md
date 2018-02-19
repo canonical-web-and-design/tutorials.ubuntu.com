@@ -40,7 +40,7 @@ Please save new markdown files in a folder inside `./tutorials/<category>/`, and
 
 #### A Markdown paragraph is not rendering correctly, why?
 
-The Markdown is rendered by [Google's claat markdown parser](https://github.com/googlecodelabs/tools/tree/master/claat/parser/md), with some custom additions documented in [the writing guide](https://tutorials.ubuntu.com/?q=tutorial+guidelines).
+The Markdown is rendered by [Google's claat markdown parser](https://github.com/googlecodelabs/tools/tree/master/claat/parser/md), with some custom additions documented in [the writing guide](https://tutorials.ubuntu.com/tutorial/tutorial-guidelines#6).
 
 Most Markdown features are supported, however, if you find any bugs in the rendering, please report them in the [Ubuntu tutorial deployment repository](https://github.com/ubuntu/tutorial-deployment).
 
