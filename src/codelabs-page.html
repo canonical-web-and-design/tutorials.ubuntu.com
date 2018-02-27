@@ -183,6 +183,24 @@
         }
       },
 
+      _extractRootDomain: function(url) {
+        let domain;
+        if (url.indexOf('://') > -1) {
+          domain = url.split('/')[2];
+        } else {
+          domain = url.split('/')[0];
+        }
+        // Strip port and params
+        domain = domain.split(':')[0];
+        domain = domain.split('?')[0];
+
+        splitArr = domain.split('.');
+        arrLen = splitArr.length;
+        domain = domain.split('.').reverse();
+        let root = domain[1] + '.' + domain[0];
+        return root;
+      },
+
       _goToHome: function() {
         let backURL = this.backURL;
         if (this.queryParams.backURL !== undefined) {
@@ -190,6 +208,23 @@
         }
 
         const isExternalURLRegex = new RegExp('^(?:[a-z]+:)?//', 'i');
+        const domainsWhitelist =
+          ['ubuntu.com',
+            'snapcraft.io',
+            'jujucharms.com',
+            'maas.io',
+            'conjure-up.io',
+            'netplan.io',
+            'canonical.com',
+            'launchpad.net',
+            'linuxcontainers.org',
+            'cloud-init.io',
+            'vanillaframework.io'];
+
+        // Join the array in '(a)|(b)|(c)' format
+        let whitelistStr = domainsWhitelist.map((i) => '(' + i + ')').join('|');
+        const isWhitelisted = new RegExp('(' + whitelistStr + ')');
+
         let isExternalURL = false;
         if (backURL && isExternalURLRegex.test(backURL)) {
           isExternalURL = true;
@@ -199,7 +234,12 @@
           window.history.pushState({}, null, backURL);
           window.dispatchEvent(new CustomEvent('location-changed'));
         } else {
-          window.location.href = backURL;
+          let rootDomain = this._extractRootDomain(backURL);
+          if (isWhitelisted.test(rootDomain)) {
+            window.location.href = backURL;
+          } else {
+            window.location.href = '/';
+          }
         }
       },
 
