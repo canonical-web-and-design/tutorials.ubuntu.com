@@ -127,15 +127,32 @@ Connect the USB keyboard and the HDMI display to the board, then plug in the mic
 
 ### With a USB TTL Serial cable
 
--- SERIAL STEPS
+A USB serial cable allows you to access your Pi command line from your main computer through the serial interface.
+
+With your Pi powered off, plug the black, green and white connectors of your serial cable in the following pins:
+
+![](images/serial.png)
+
+...and the USB end into your computer.
+
+Open a terminal and run:
+
+```bash
+sudo screen /dev/ttyUSB0 115200
+```
+
+You should be greeted by a blank terminal, that will come to life when you power on the board.
+
+negative
+: A garbled and unreadable serial output is often the sign of a corrupted or failing SD card, if it happens, try to reflash the SD card or use a new one.
 
 ### First boot wizard
 
-Once Ubuntu Core has booted, you will be prompted to "Press enter to configure".
+Once Ubuntu Core has finished booting for the first time, you will be prompted to "Press enter to configure".
 
 The first configuration step is to setup your WiFi connection:
 
-Start by selection wlan
+Start by wlan selection
 
 -- SCREENSHOT
 
