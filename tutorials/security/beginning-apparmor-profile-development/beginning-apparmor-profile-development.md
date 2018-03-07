@@ -19,7 +19,7 @@ Duration: 2:00
 
 AppArmor is a Mandatory Access Control (MAC) system which confines programs to a limited set of resources. AppArmor confinement is provided via profiles loaded into the kernel. AppArmor can be set to either enforce the profile or complain when profile rules are violated.
 
-For this tutorial, we will generate an AppArmor profile for certspotter. certspotter is a new utility in Ubuntu as of 17.10 and no profile yet exists. certspotter monitors certificate transparency logs to see if new certificates have been generated for domains listed in a watchlist. Users of certspotter are encouraged to set up a cron job to regularly monitor new entries. I want to use this useful utility, but I haven’t had a chance to browse the source code, so I want to limit what it can do on my system.
+For this tutorial, we will generate an AppArmor profile for certspotter. certspotter is a new utility in Ubuntu as of 17.10 and no profile yet exists. certspotter monitors certificate transparency logs to see if new certificates have been generated for domains listed in a watchlist. Users of certspotter are encouraged to set up a cron job to regularly monitor new entries. I want to use this useful utility, but I haven't had a chance to browse the source code, so I want to limit what it can do on my system.
 
 
 ### What you'll learn
@@ -36,15 +36,15 @@ Ready? Let's get started!
 ## Introduction to AppArmor Profiles
 Duration: 5:00
 
-AppArmor profiles are simple text files. Absolute paths as well as file globbing can be used when specifying file access. Most rules specify the type of access which is allowed: ‘r’ (read), ‘w’ (write), ‘m’ (memory map as executable), ‘k’ (file locking), ‘l’ (creation hard links), and ‘ix’ to execute another 	program with the new program inheriting policy. Other access rules also exists such as ‘Px’ (execute under another profile, after cleaning the environment), ‘Cx’ (execute under a child profile, after cleaning the environment), and ‘Ux’ (execute unconfined, after cleaning the environment)
+AppArmor profiles are simple text files. Absolute paths as well as file globbing can be used when specifying file access. Most rules specify the type of access which is allowed: 'r' (read), 'w' (write), 'm' (memory map as executable), 'k' (file locking), 'l' (creation hard links), and 'ix' to execute another 	program with the new program inheriting policy. Other access rules also exists such as 'Px' (execute under another profile, after cleaning the environment), 'Cx' (execute under a child profile, after cleaning the environment), and 'Ux' (execute unconfined, after cleaning the environment)
 AppArmor supports	
 * access controls for capabilities
 * access controls for networking
-* explicit deny rules are supported, to override other allow rules (eg access to @{HOME}/bin/bad.sh is denied with auditing due to ‘audit deny @{HOME}/bin/** mrwkl,’ even though general access to @{HOME} is permitted with ‘@{HOME}/** rw,’)
+* explicit deny rules are supported, to override other allow rules (eg access to @{HOME}/bin/bad.sh is denied with auditing due to 'audit deny @{HOME}/bin/** mrwkl,' even though general access to @{HOME} is permitted with '@{HOME}/** rw,')
 * include files are supported to ease development and simplify profiles (ie #include <abstractions/base>, #include 	<abstractions/nameservice>, #include <abstractions/user-tmp>)
 * variables can be defined and manipulated outside the profile (#include <tunables/global> for @{PROC} and @{HOME})
 
-To get started, let’s install some useful AppArmor utilities:
+To get started, let's install some useful AppArmor utilities:
 
 ```bash
 sudo apt install apparmor-easyprof apparmor-notify apparmor-utils
@@ -56,7 +56,7 @@ Duration: 5:00
 
 The easiest way to get started is to create a skeleton profile, set AppArmor to complain mode for your target and then use the aa-logprof tool to evaluate the denials.
 
-We’ll use aa-easyprof to generate the skeleton policy; let’s see what it generates:
+We'll use aa-easyprof to generate the skeleton policy; let's see what it generates:
 ```bash
 $ aa-easyprof /usr/bin/certspotter
 ```
@@ -83,7 +83,7 @@ $ aa-easyprof /usr/bin/certspotter
 # No write paths specified
 }
 ```
-Looks pretty basic, so let’s write that output into the profile file:
+Looks pretty basic, so let's write that output into the profile file:
 ```bash
 $  aa-easyprof /usr/bin/certspotter > usr.bin.certspotter
 $ sudo mv usr.bin.certspotter /etc/apparmor.d
@@ -97,7 +97,7 @@ Trying to run certspotter, results in an immediate (safe) crash.
 $ certspotter
 certspotter: /home/testuser/.certspotter/watchlist: open /home/testuser/.certspotter/watchlist permission denied  
 ```
-This basic profile doesn’t allow certspotter access to resources it needs, so let’s look at the AppArmor denial messages to see what went wrong.
+This basic profile doesn't allow certspotter access to resources it needs, so let's look at the AppArmor denial messages to see what went wrong.
 
 ## AppArmor Denials and Complain Mode
 Duration: 5:00
@@ -113,12 +113,12 @@ $ /usr/bin/aa-notify -s 1 -v
 ```
 will show any AppArmor denials within the last day.
 
-We are going to take the easy route to develop this profile and use the aa-logprof tool to evaluate the log entries that AppArmor makes in complain mode, so let’s set AppArmor to complain mode for this policy so that we can see what is happening.
+We are going to take the easy route to develop this profile and use the aa-logprof tool to evaluate the log entries that AppArmor makes in complain mode, so let's set AppArmor to complain mode for this policy so that we can see what is happening.
 ```bash
 $ sudo aa-complain /usr/bin/certspotter
 ```
 
-Now let’s try running certspotter again. 
+Now let's try running certspotter again. 
 ```bash
 $ certspotter
 ```
@@ -127,7 +127,7 @@ It immediately starts generating AppArmor entries in the logs that look like thi
 ```
 Feb 23 13:34:24 tutorials audit[18643]: AVC apparmor=”ALLOWED” operation=”recvmsg” profile=”/usr/bin/certspotter” pid=18643 comm=”certspotter” laddr=10.0.2.15 lport=46314 faddr=10.0.2.16 fport=443 family=”inet” sock_type=”stream” protocol=6 requested_mast=”receive” denied_mask=”receive”
 ```
-because we haven’t yet created the profile rules to allow it to access the network.
+because we haven't yet created the profile rules to allow it to access the network.
 
 
 ## Using aa-logprof to Refine the Profile
@@ -167,7 +167,7 @@ Severity: unknown
 
 A
 ```
-certspotter uses the network to retrieve information from the certificate transparency logs. We have the choice to either specifically allow this first network related access or to use the existing nameservice abstraction which grants common access patterns. You can review the details of the abstraction in /etc/apparmor.d/abstractions/nameservice. This access pattern makes sense for certspotter, so let’s allow it.
+certspotter uses the network to retrieve information from the certificate transparency logs. We have the choice to either specifically allow this first network related access or to use the existing nameservice abstraction which grants common access patterns. You can review the details of the abstraction in /etc/apparmor.d/abstractions/nameservice. This access pattern makes sense for certspotter, so let's allow it.
 ```
 Profile: /usr/bin/certspotter
 Path: /proc/sys/kernel/hostname
@@ -179,7 +179,7 @@ Severity: 6
 
 A
 ```
-We don’t have a problem with certspotter knowing the system’s hostname, so let’s Allow it.
+We don't have a problem with certspotter knowing the system's hostname, so let's Allow it.
 ```
 Profile: /usr/bin/certspotter
 Path: /home/testuser/.certspotter/watchlist
@@ -192,7 +192,7 @@ Severity: 4
 
 A
 ```
-certspotter reads the watchlist to determine which domains to monitor. We want certspotter to work for all users of the system and not just ourselves, so suggested rule 1 is better than rule 2. However we also know that certspotter uses the .certspotter directory to write information that it discovers, its lock file and other data, so this r rule will be insufficient. Additionally, we would prefer to use the {HOME} tunable rather than the globbed path. For now, let’s accept it as a placeholder and take a TODO to touch it up later.
+certspotter reads the watchlist to determine which domains to monitor. We want certspotter to work for all users of the system and not just ourselves, so suggested rule 1 is better than rule 2. However we also know that certspotter uses the .certspotter directory to write information that it discovers, its lock file and other data, so this r rule will be insufficient. Additionally, we would prefer to use the {HOME} tunable rather than the globbed path. For now, let's accept it as a placeholder and take a TODO to touch it up later.
 ```
 Profile: /usr/bin/certspotter
 Path: /home/testuser/.certspotter/version
@@ -223,15 +223,15 @@ When you Save the profile, aa-logprof automatically causes the profile to be rel
 ## Hand Editing the Profile
 Duration: 2:00
 
-Let’s go back and touch up the profile to allow certspotter to read and write from the $HOME/.certspotter directory.
+Let's go back and touch up the profile to allow certspotter to read and write from the $HOME/.certspotter directory.
 ```bash
 $ sudo vi /etc/apparmor.d/usr.bin.certspotter
 ```
-let’s change the
+let's change the
 /home/*/.certspotter/watchlist r,
 line to
 owner @{HOME}/.certspotter/** rw,
-certspotter can now read and write from the current user’s .certspotter directory in their home directory. You can take this opportunity to touch up the ###AUTHOR###, ###COPYRIGHT###, and ###COMMENT### placeholders with your preferred information.
+certspotter can now read and write from the current user's .certspotter directory in their home directory. You can take this opportunity to touch up the ###AUTHOR###, ###COPYRIGHT###, and ###COMMENT### placeholders with your preferred information.
 Reload the policy once again:
 ```bash
 $ sudo apparmor_parser -r /etc/apparmor.d/usr.bin.certspotter
@@ -240,7 +240,7 @@ $ sudo apparmor_parser -r /etc/apparmor.d/usr.bin.certspotter
 ## AppArmor deny rules
 Duration: 2:00
 
-We’re feeling especially paranoid today, so we are going to add in a few rules to ensure that certspotter can’t exfiltrate some of the data from $HOME.
+We're feeling especially paranoid today, so we are going to add in a few rules to ensure that certspotter can't exfiltrate some of the data from $HOME.
 ```
 deny @{HOME}/Documents r,
 deny @{HOME}/Private r,
@@ -249,18 +249,18 @@ deny @{HOME}/Videos r,
 deny @{HOME}/fake r,
 deny @{HOME}/.config r,
 ```
-The fake directory doesn’t exist on this system, but the policy rule is still valid and AppArmor will enforce rules on it if it ever gets created someday.
+The fake directory doesn't exist on this system, but the policy rule is still valid and AppArmor will enforce rules on it if it ever gets created someday.
 
-Don’t forget to reload the policy!
+Don't forget to reload the policy!
 ```bash
 $ sudo apparmor_parser -r /etc/apparmor.d/usr.bin.certspotter
 ```
-Ok, let’s restart certspotter and see if it works:
+Ok, let's restart certspotter and see if it works:
 ```bash
 $ /usr/bin/certspotter
 ```
 
-It seems to be working with no new denials being generated, so let’s take AppArmor out of complain mode for this profile and set it to enforcing:
+It seems to be working with no new denials being generated, so let's take AppArmor out of complain mode for this profile and set it to enforcing:
 ```bash
 $ sudo aa-enforce certspotter
 ```
@@ -272,12 +272,12 @@ Some tips when evaluating your AppArmor policy:
 * AppArmor provides additional permission checks to traditional Discretionary Access Controls (DAC). DAC is always checked in addition to the AppArmor permission checks. As such, AppArmor cannot override DAC to provide more access than what would be normally allowed.
 * AppArmor normalizes path names. It resolves symlinks and considers each hard link as a different access path.	
 * Deny rules cannot be overridden by an allow rule.
-* Creation of files requires the create permission (implied by w) on the path to be created. Separate rules for writing to the directory of where the file resides are not required. Deletion works like creation but 	requires the delete permission (implied by w). Copy requires ‘r’ 	of the source with create and write at the destination (implied by w). Move is like copy, but also requires delete at source.
+* Creation of files requires the create permission (implied by w) on the path to be created. Separate rules for writing to the directory of where the file resides are not required. Deletion works like creation but 	requires the delete permission (implied by w). Copy requires 'r' 	of the source with create and write at the destination (implied by w). Move is like copy, but also requires delete at source.
 * The profile must be loaded before an application starts for the 	confinement to take effect. You will want to make sure that you load 	policy during boot before any confined daemons or applications.
 
-Aha! The tip about deny rules not being able to be overridden by an allow rule is why we can’t just deny all of @{HOME} to certspotter and just allow it access to @{HOME}/.certspotter.
+Aha! The tip about deny rules not being able to be overridden by an allow rule is why we can't just deny all of @{HOME} to certspotter and just allow it access to @{HOME}/.certspotter.
 
-For a final test, let’s add a cron job for certspotter as the project recommends.
+For a final test, let's add a cron job for certspotter as the project recommends.
 
 ```bash
 $ crontab -e
@@ -287,10 +287,10 @@ $ crontab -e
 Remember to check periodically to see if any new denials have been generated. For bonus points, try running through the certspotter package tests to exercise less common code path. 
 
 
-## That’s it!
+## That's it!
 Duration: 1:00
 
-And that’s it! You have generated your first AppArmor profile. You should probably ask someone else to review the final profile to make sure that privilege hasn’t been over granted. Hop into #apparmor on OFTC to ask questions. Submit a pull request to add your profile into the extras directory in the [AppArmor project on Gitlab] (https://gitlab.com/apparmor/apparmor/tree/master/profiles/apparmor/profiles/extras) so that other AppArmor users benefit from your work.
+And that's it! You have generated your first AppArmor profile. You should probably ask someone else to review the final profile to make sure that privilege hasn't been over granted. Hop into #apparmor on OFTC to ask questions. Submit a pull request to add your profile into the extras directory in the [AppArmor project on Gitlab] (https://gitlab.com/apparmor/apparmor/tree/master/profiles/apparmor/profiles/extras) so that other AppArmor users benefit from your work.
 
 
 ### Further reading
