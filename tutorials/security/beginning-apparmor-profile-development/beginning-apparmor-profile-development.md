@@ -37,7 +37,7 @@ Ready? Let's get started!
 Duration: 5:00
 
 AppArmor profiles are simple text files. Absolute paths as well as file globbing can be used when specifying file access. Most rules specify the type of access which is allowed: 'r' (read), 'w' (write), 'm' (memory map as executable), 'k' (file locking), 'l' (creation hard links), and 'ix' to execute another 	program with the new program inheriting policy. Other access rules also exists such as 'Px' (execute under another profile, after cleaning the environment), 'Cx' (execute under a child profile, after cleaning the environment), and 'Ux' (execute unconfined, after cleaning the environment)
-AppArmor supports	
+AppArmor supports
 * access controls for capabilities
 * access controls for networking
 * explicit deny rules are supported, to override other allow rules (eg access to @{HOME}/bin/bad.sh is denied with auditing due to 'audit deny @{HOME}/bin/** mrwkl,' even though general access to @{HOME} is permitted with '@{HOME}/** rw,')
@@ -71,7 +71,7 @@ $ aa-easyprof /usr/bin/certspotter
 
 # No template variables specified
 
-“/usr/bin/certspotter” {
+"/usr/bin/certspotter" {
 #include <abstractions/base>
 
 # No abstractions specified
@@ -85,7 +85,7 @@ $ aa-easyprof /usr/bin/certspotter
 ```
 Looks pretty basic, so let's write that output into the profile file:
 ```bash
-$  aa-easyprof /usr/bin/certspotter > usr.bin.certspotter
+$ aa-easyprof /usr/bin/certspotter > usr.bin.certspotter
 $ sudo mv usr.bin.certspotter /etc/apparmor.d
 ```
 and load the profile
@@ -95,7 +95,7 @@ $ sudo apparmor_parser -r /etc/apparmor.d/usr.bin.certspotter
 Trying to run certspotter, results in an immediate (safe) crash.
 ```bash
 $ certspotter
-certspotter: /home/testuser/.certspotter/watchlist: open /home/testuser/.certspotter/watchlist permission denied  
+certspotter: /home/testuser/.certspotter/watchlist: open /home/testuser/.certspotter/watchlist permission denied
 ```
 This basic profile doesn't allow certspotter access to resources it needs, so let's look at the AppArmor denial messages to see what went wrong.
 
@@ -107,7 +107,7 @@ AppArmor denials are logged to /var/log/kern.log (or /var/log/audit/audit.log if
 $ sudo sysctl -w kernel.printk_ratelimit=0
 ```
 
-Another way to to view AppArmor denials is by using the aa-notify tool. aa-notify is a very simple program that will report any new AppArmor denials by consulting /var/log/kern.log (or /var/log/audit/audit.log if auditd is installed). For example, 
+Another way to to view AppArmor denials is by using the aa-notify tool. aa-notify is a very simple program that will report any new AppArmor denials by consulting /var/log/kern.log (or /var/log/audit/audit.log if auditd is installed). For example,
 ```bash
 $ /usr/bin/aa-notify -s 1 -v
 ```
@@ -118,14 +118,14 @@ We are going to take the easy route to develop this profile and use the aa-logpr
 $ sudo aa-complain /usr/bin/certspotter
 ```
 
-Now let's try running certspotter again. 
+Now let's try running certspotter again.
 ```bash
 $ certspotter
 ```
 
 It immediately starts generating AppArmor entries in the logs that look like this:
 ```
-Feb 23 13:34:24 tutorials audit[18643]: AVC apparmor=”ALLOWED” operation=”recvmsg” profile=”/usr/bin/certspotter” pid=18643 comm=”certspotter” laddr=10.0.2.15 lport=46314 faddr=10.0.2.16 fport=443 family=”inet” sock_type=”stream” protocol=6 requested_mast=”receive” denied_mask=”receive”
+Feb 23 13:34:24 tutorials audit[18643]: AVC apparmor="ALLOWED" operation="recvmsg" profile="/usr/bin/certspotter" pid=18643 comm="certspotter" laddr=10.0.2.15 lport=46314 faddr=10.0.2.16 fport=443 family="inet" sock_type="stream" protocol=6 requested_mast="receive" denied_mask="receive"
 ```
 because we haven't yet created the profile rules to allow it to access the network.
 
@@ -270,7 +270,7 @@ Duration: 5:00
 
 Some tips when evaluating your AppArmor policy:
 * AppArmor provides additional permission checks to traditional Discretionary Access Controls (DAC). DAC is always checked in addition to the AppArmor permission checks. As such, AppArmor cannot override DAC to provide more access than what would be normally allowed.
-* AppArmor normalizes path names. It resolves symlinks and considers each hard link as a different access path.	
+* AppArmor normalizes path names. It resolves symlinks and considers each hard link as a different access path.
 * Deny rules cannot be overridden by an allow rule.
 * Creation of files requires the create permission (implied by w) on the path to be created. Separate rules for writing to the directory of where the file resides are not required. Deletion works like creation but 	requires the delete permission (implied by w). Copy requires 'r' 	of the source with create and write at the destination (implied by w). Move is like copy, but also requires delete at source.
 * The profile must be loaded before an application starts for the 	confinement to take effect. You will want to make sure that you load 	policy during boot before any confined daemons or applications.
@@ -284,7 +284,7 @@ $ crontab -e
 33 14 * * * /usr/bin/certspotter
 ```
 
-Remember to check periodically to see if any new denials have been generated. For bonus points, try running through the certspotter package tests to exercise less common code path. 
+Remember to check periodically to see if any new denials have been generated. For bonus points, try running through the certspotter package tests to exercise less common code path.
 
 
 ## That's it!
