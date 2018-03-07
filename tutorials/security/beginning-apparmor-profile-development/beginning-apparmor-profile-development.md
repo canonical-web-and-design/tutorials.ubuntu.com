@@ -36,12 +36,12 @@ Ready? Let's get started!
 ## Introduction to AppArmor Profiles
 Duration: 5:00
 
-AppArmor profiles are simple text files. Absolute paths as well as file globbing can be used when specifying file access. Most rules specify the type of access which is allowed: 'r' (read), 'w' (write), 'm' (memory map as executable), 'k' (file locking), 'l' (creation hard links), and 'ix' to execute another 	program with the new program inheriting policy. Other access rules also exists such as 'Px' (execute under another profile, after cleaning the environment), 'Cx' (execute under a child profile, after cleaning the environment), and 'Ux' (execute unconfined, after cleaning the environment)
+AppArmor profiles are simple text files. Absolute paths as well as file globbing can be used when specifying file access. Most rules specify the type of access which is allowed: 'r' (read), 'w' (write), 'm' (memory map as executable), 'k' (file locking), 'l' (creation hard links), and 'ix' to execute another program with the new program inheriting policy. Other access rules also exists such as 'Px' (execute under another profile, after cleaning the environment), 'Cx' (execute under a child profile, after cleaning the environment), and 'Ux' (execute unconfined, after cleaning the environment)
 AppArmor supports
 * access controls for capabilities
 * access controls for networking
 * explicit deny rules are supported, to override other allow rules (eg access to @{HOME}/bin/bad.sh is denied with auditing due to 'audit deny @{HOME}/bin/** mrwkl,' even though general access to @{HOME} is permitted with '@{HOME}/** rw,')
-* include files are supported to ease development and simplify profiles (ie #include <abstractions/base>, #include 	<abstractions/nameservice>, #include <abstractions/user-tmp>)
+* include files are supported to ease development and simplify profiles (ie #include <abstractions/base>, #include <abstractions/nameservice>, #include <abstractions/user-tmp>)
 * variables can be defined and manipulated outside the profile (#include <tunables/global> for @{PROC} and @{HOME})
 
 To get started, let's install some useful AppArmor utilities:
@@ -272,8 +272,8 @@ Some tips when evaluating your AppArmor policy:
 * AppArmor provides additional permission checks to traditional Discretionary Access Controls (DAC). DAC is always checked in addition to the AppArmor permission checks. As such, AppArmor cannot override DAC to provide more access than what would be normally allowed.
 * AppArmor normalizes path names. It resolves symlinks and considers each hard link as a different access path.
 * Deny rules cannot be overridden by an allow rule.
-* Creation of files requires the create permission (implied by w) on the path to be created. Separate rules for writing to the directory of where the file resides are not required. Deletion works like creation but 	requires the delete permission (implied by w). Copy requires 'r' 	of the source with create and write at the destination (implied by w). Move is like copy, but also requires delete at source.
-* The profile must be loaded before an application starts for the 	confinement to take effect. You will want to make sure that you load 	policy during boot before any confined daemons or applications.
+* Creation of files requires the create permission (implied by w) on the path to be created. Separate rules for writing to the directory of where the file resides are not required. Deletion works like creation but requires the delete permission (implied by w). Copy requires 'r' of the source with create and write at the destination (implied by w). Move is like copy, but also requires delete at source.
+* The profile must be loaded before an application starts for the confinement to take effect. You will want to make sure that you load policy during boot before any confined daemons or applications.
 
 Aha! The tip about deny rules not being able to be overridden by an allow rule is why we can't just deny all of @{HOME} to certspotter and just allow it access to @{HOME}/.certspotter.
 
