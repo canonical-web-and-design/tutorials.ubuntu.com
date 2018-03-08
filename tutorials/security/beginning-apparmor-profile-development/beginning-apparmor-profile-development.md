@@ -54,7 +54,7 @@ In addition:
 * explicit deny rules are supported to override allow rules (eg access to `@{HOME}/bin/bad.sh` is denied with auditing due to `audit deny @{HOME}/bin/** mrwkl,` even though general access to `@{HOME}` is permitted with `@{HOME}/** rw,`)
 * include files are supported to ease development and simplify profiles (ie `#include <abstractions/base>`, `#include <abstractions/nameservice>`, `#include <abstractions/user-tmp>`)
 
-To get started, let's install some useful AppArmor utilities:
+To get started, let's install some useful AppArmor utilities and the application that we want to confine:
 
 ```bash
 sudo apt install apparmor-easyprof apparmor-notify apparmor-utils certspotter
