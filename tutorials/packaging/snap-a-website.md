@@ -380,7 +380,7 @@ parts:
 
 #### Even more dependencies
 
-Snapcraft allows users to share parts with other projects via a common parts repository. We are going to use it to pull a second part called `desktop-gtk2`, that provides a desktop launcher script that ensures Desktop apps are working correctly inside snap confinement and integrates seamlessly with Desktop notifications, input methods and global sound controls for example.
+Snapcraft allows users to share parts with other projects via a common parts repository. We are going to use it to pull a second part called `desktop-gtk2`, which provides a desktop launcher script that ensures Desktop apps are working correctly inside snap confinement and integrates seamlessly with Desktop notifications, input methods and global sound controls for example.
 
 ```yaml
 parts:
