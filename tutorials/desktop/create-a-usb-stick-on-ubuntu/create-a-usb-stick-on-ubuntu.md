@@ -53,7 +53,7 @@ We're going to use an application called 'Startup Disk Creator' to write the ISO
 ## ISO and USB selection
 Duration: 0:02
 
-When launched, Startup Disk Creator will ISO files in your *Downloads* folder, as well as any attached USB storage it can write to.
+When launched, Startup Disk Creator will look for the ISO files in your *Downloads* folder, as well as any attached USB storage it can write to.
 
 It's likely that both your Ubuntu ISO and the correct USB device will have been detected and set as 'Source disc image' and 'Disk to use' in the application window. If not, use the 'Other' button to locate your ISO file and select the exact USB device you want to use from the list of devices.
 
