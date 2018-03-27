@@ -29,13 +29,17 @@ We will use a third-party script called crouton to install Ubuntu using a chroot
 
 ### What you'll need
 
-- A Chromebook
+- A Chromebook (Intel/ARM CPU)
 - Some basic command-line knowledge
 - At least 1 GB of free storage space
 
 negative
 : **crouton is not part of the Ubuntu project**
 While we love the value that crouton provides, please note that crouton is a third-party script. It is not provided by nor supported by Canonical nor by the Ubuntu project. Use of crouton is at your own risk.
+
+negative
+: **NVidia Tegra CPUs**
+The Tegra CPU needs additional drivers not covered in this tutorial. We will add a tutorial covering this in the future (or why not [contribute one?](https://tutorials.ubuntu.com/tutorial/tutorial-guidelines#0)).
 
 ## Enabling Developer Mode
 Duration: 4:00
