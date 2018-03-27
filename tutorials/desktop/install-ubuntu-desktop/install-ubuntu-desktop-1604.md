@@ -134,7 +134,7 @@ The installer will now complete in the background while the installation window 
 ## Installation complete
 Duration: 0:01
 
-After everything has been installed and configured, a small window will appear asking you to restart your machine. Click on `Restart Now` and remove either the DVD or USB flash drive when promoted.
+After everything has been installed and configured, a small window will appear asking you to restart your machine. Click on `Restart Now` and remove either the DVD or USB flash drive when prompted.
 
 ![screenshot](https://assets.ubuntu.com/v1/f4e2a592-download-desktop-install-ubuntu-desktop_10.jpg)
 
