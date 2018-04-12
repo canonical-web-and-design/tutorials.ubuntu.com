@@ -195,7 +195,7 @@ ksonnet will pick up the configuration in our local `~/.kube/config` and prepare
 ks generate core kubeflow-core --name=kubeflow-core --namespace=kf-tutorial
 ```
 
-As GKE has RBAC enabled and our user has insufficient permissions, we need to grant the *admin* role to our user with an additional command before running the same *apply* command as CDK users:
+As GKE has RBAC enabled and our user has insufficient permissions, we need to grant the *admin* role to our user with an additional command for GKE:
 
 ```bash
 kubectl create clusterrolebinding default-admin --clusterrole=cluster-admin --user=your-user@acme.com
