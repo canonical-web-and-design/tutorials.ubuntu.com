@@ -45,13 +45,13 @@ If you are using bash on Windows 10 (why on earth not? See [this tutorial][tut-w
 
 You can install the latest GnuPG using [Homebrew][homebrew]:
 
-```
+```bash
 brew install gnupg
 ```
 
 The `sha256sum` program and other useful utilities are provided by `coreutils`:
 
-```
+```bash
 brew install coreutils
 ```
 
@@ -64,13 +64,13 @@ Your mileage may vary, but these are standard tools included and enabled by defa
 You can check the commands work as expected by running the following:
 
 
-```
+```bash
 gpg --list keys
 ```
 
 If this is the first time you have run `gpg`, this will create a trust database for the current user.
 
-```
+```bash
 md5sum --version
 sha256sum --version
 ```
@@ -81,7 +81,7 @@ Duration: 0:01
 
 Alongside the actual ISO files containing the Ubuntu image you downloaded, all Ubuntu mirrors publish some extra files. The ones we are interested in are called:
 
-```
+```bash
 SHA256SUMS                                    
 SHA256SUMS.gpg  
 ```
@@ -121,7 +121,7 @@ This is actually a really useful message, as it tells us which key or keys were 
 
 This is done with the following command. Note that the ID numbers are hexadecimal, so we prefix them with `0x`:
 
-```bash
+```no-highlight
 gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys 0xFBB75451 0xEFE21092
 ```
 
@@ -181,7 +181,7 @@ gpg:          There is no indication that the signature belongs to the owner.
 Primary key fingerprint: 8439 38DF 228D 22F7 B374  2BC0 D94A A3F0 EFE2 1092
 ```
 
-A **Good** signature means that the checked file was definitely signed by the owner of the keyfile stated (if they didn't match, the signature would be reported as **BAD**. The warning message is simply there to let you know that you have not countersigned the key and it isn't in your list of trusted sources. If you want to know more about signing keys and trust, you can check out the [Ubuntu community GPG wiki page][gpg-wiki].
+A **Good** signature means that the checked file was definitely signed by the owner of the keyfile stated (if they didn't match, the signature would be reported as **BAD**). The warning message is simply there to let you know that you have not countersigned the key and it isn't in your list of trusted sources. If you want to know more about signing keys and trust, you can check out the [Ubuntu community GPG wiki page][gpg-wiki].
 
 Now that we have verified the checksum file was created by Ubuntu, we can check that the ISO file we downloaded matches the checksum.
 
