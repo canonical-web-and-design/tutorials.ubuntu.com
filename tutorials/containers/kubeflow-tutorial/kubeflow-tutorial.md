@@ -226,7 +226,7 @@ tf-hub-0    ClusterIP      None             <none>             8000/TCP       7m
 tf-hub-lb   LoadBalancer   10.152.183.118   ace3eaaf2e457...   80:32456/TCP   6m
 ```
 
-While GDK users will see output like this:
+While GKE users will see output like this:
 
 ```no-highlight
 NAME               TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
@@ -237,7 +237,7 @@ tf-hub-0           ClusterIP   None            <none>        80/TCP     18m
 tf-job-dashboard   ClusterIP   10.27.247.218   <none>        80/TCP     13m
 ```
 
-If GDK users would like to access *tf-job-dashboard*, expose it using a Loadbalancer:
+If GKE users would like to access *tf-job-dashboard*, expose it using a Loadbalancer:
 
 ```bash
 kubectl expose deployment tf-job-dashboard --type=LoadBalancer --name=lb-tf-job-dashboard -n kf-tutorial
@@ -256,7 +256,7 @@ The Custom Resource Definition (CRD) allows you to define custom objects with th
 
 Luckily, the Kubeflow Core installation step already created the CRD so we can immediately submit models as ksonnet components by using the generate/apply pair of commands.
 
-The job we are going to deploy is `tf-cnn`, a [convolutional neural network (CNN)](https://en.wikipedia.org/wiki/Convolutional_neural_network) example shipped with Kubeflow (GDK users can substitute *cdk* for *gke*):
+The job we are going to deploy is `tf-cnn`, a [convolutional neural network (CNN)](https://en.wikipedia.org/wiki/Convolutional_neural_network) example shipped with Kubeflow (GKE users can substitute *cdk* for *gke*):
 
 ```bash
 ks generate tf-cnn kubeflow-test --name=cdk-tf-cnn --namespace=kf-tutorial
