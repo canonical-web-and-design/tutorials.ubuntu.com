@@ -195,24 +195,19 @@ ksonnet will pick up the configuration in our local `~/.kube/config` and prepare
 ks generate core kubeflow-core --name=kubeflow-core --namespace=kf-tutorial
 ```
 
-CDK users should now enter the following:
+CDK users should enter the following:
 
 ```bash
-# CDK only
 ks apply cdk -c kubeflow-core
 ```
+
+As GKE has RBAC enabled and our user has insufficient permissions, we need to grant the *admin* role to our user with an additional command before running the same *apply* command as CDK users:
 
 ```bash
 kubectl create clusterrolebinding default-admin --clusterrole=cluster-admin --user=your-user@acme.com
 ks apply gke -c kubeflow-core
 ```
-As GDK has RBAC enabled, and our user insufficient permissions, we need to grant the *admin* role to our user with an additional command:
 
-```bash
-# GDK only
-ks generate core kubeflow-core --name=kubeflow-core --namespace=kf-tutorial
-ks apply cdk -c kubeflow-core
-```
 You should see some informational messages confirming the deployment. Let's look at the Kubernetes Dashboard to verify. `kubectl proxy` will proxy the dashboard and we will use the token from kube config file to login. What you see should look similar to this (note the namespace "kf-tutorial"):
 
 ![alt_text](./images/kubeflow-core.png "ksonnet Kubeflow Core Deployment")
@@ -242,7 +237,7 @@ tf-hub-0           ClusterIP   None            <none>        80/TCP     18m
 tf-job-dashboard   ClusterIP   10.27.247.218   <none>        80/TCP     13m
 ```
 
-If GDK users would like to access the *tf-job-dashboard*, expose it using a Loadbalancer:
+If GDK users would like to access *tf-job-dashboard*, expose it using a Loadbalancer:
 
 ```bash
 kubectl expose deployment tf-job-dashboard --type=LoadBalancer --name=lb-tf-job-dashboard -n kf-tutorial
@@ -261,18 +256,11 @@ The Custom Resource Definition (CRD) allows you to define custom objects with th
 
 Luckily, the Kubeflow Core installation step already created the CRD so we can immediately submit models as ksonnet components by using the generate/apply pair of commands.
 
-The job we are going to deploy is `tf-cnn`, a [convolutional neural network (CNN)](https://en.wikipedia.org/wiki/Convolutional_neural_network) example shipped with Kubeflow:
+The job we are going to deploy is `tf-cnn`, a [convolutional neural network (CNN)](https://en.wikipedia.org/wiki/Convolutional_neural_network) example shipped with Kubeflow (GDK users can substitute *cdk* for *gke*):
 
 ```bash
 ks generate tf-cnn kubeflow-test --name=cdk-tf-cnn --namespace=kf-tutorial
 ks apply cdk -c kubeflow-test
-```
-
-GDK users need to substitute *gke* for *cdk*:
-
-```bash
-ks generate tf-cnn kubeflow-test --name=gke-tf-cnn --namespace=kf-tutorial
-ks apply gke -c kubeflow-test
 ```
 
 We can check that a resource of type "tfjob" was indeed submitted into the "kf-tutorial" namespace:
@@ -288,7 +276,7 @@ NAME         AGE
 cdk-tf-cnn   1m
 ```
 
-You can also find the components of the TensorFlow job in the "Jobs" section of your Kubernetes Dashboard. The following image shows the Parameter Server and Worker and components on GKE. CDK has a Master component in addition to these two: 
+You can also find the components of the TensorFlow job in the "Jobs" section of your Kubernetes Dashboard. The following image shows the Parameter Server and Worker and components on GKE. CDK has a *Master* component in addition to these two: 
 
 ![alt_text](./images/cnn-job-listing.png "TensorFlow Master, Parameter Server and Worker deployed")
 
@@ -326,7 +314,7 @@ You can check its parameters using the ``ks show`` command:
 ks show cdk -c kubeflow-test
 ```
 
-Which will return the following on CDK, and be similar on GKE:
+The above will return the following on CDK, and be similar on GKE:
 
 ``` yaml
 ---
@@ -422,7 +410,7 @@ Duration: 2:00
 The goal of this tutorial was to get you up and running quickly using Kubeflow. As we verified the installation, we submitted a sample job, called `tf-cnn`, which executes High Performance Benchmarks, an implementation of several convolutional neural network models. In order to create your own job executing your own code, you need to manually create a `tf-job` resource and fill the parameters accordingly, including linking to the right docker image.
 
 ### Enabling GPU support
-As we noted in the introduction to this tutorial, Kubeflow is leveraging the GPU resources on a Kubernetes worker via a different mechanism. Stay tuned while we prepare a follow-up tutorial that shows how to utilize them via our new release of CDK (1.9). You can subscribe at the end of this tutorial to be notified of updates and new publications.
+As we noted in the introduction to this tutorial, Kubeflow is leveraging the GPU resources on a Kubernetes worker via a different mechanism. Stay tuned while we prepare a follow-up tutorial that shows how to utilize them. You can subscribe at the end of this tutorial to be notified of updates and new publications.
 
 ### Recommended reading
 
