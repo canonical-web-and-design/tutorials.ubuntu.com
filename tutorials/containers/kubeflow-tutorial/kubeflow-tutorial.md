@@ -97,7 +97,7 @@ juju scp kubernetes-master/0:config ~/.kube/config
 ## Create your GKE Cluster
 Duration: 8:00
 
-Skip to the next step if you're purely interested CDK.
+Skip to the next step if you have already set up a cluster with CDK.
 
 For GKE we first want to set a default [compute zone](https://cloud.google.com/compute/docs/regions-zones/#available) for our cluster. For example: 
 
@@ -195,17 +195,16 @@ ksonnet will pick up the configuration in our local `~/.kube/config` and prepare
 ks generate core kubeflow-core --name=kubeflow-core --namespace=kf-tutorial
 ```
 
-CDK users should enter the following:
-
-```bash
-ks apply cdk -c kubeflow-core
-```
-
 As GKE has RBAC enabled and our user has insufficient permissions, we need to grant the *admin* role to our user with an additional command before running the same *apply* command as CDK users:
 
 ```bash
 kubectl create clusterrolebinding default-admin --clusterrole=cluster-admin --user=your-user@acme.com
-ks apply gke -c kubeflow-core
+```
+
+Finally, enter the following - replacing *cdk* with *gke* for GKE deployments:
+
+```bash
+ks apply cdk -c kubeflow-core
 ```
 
 You should see some informational messages confirming the deployment. Let's look at the Kubernetes Dashboard to verify. `kubectl proxy` will proxy the dashboard and we will use the token from kube config file to login. What you see should look similar to this (note the namespace "kf-tutorial"):
