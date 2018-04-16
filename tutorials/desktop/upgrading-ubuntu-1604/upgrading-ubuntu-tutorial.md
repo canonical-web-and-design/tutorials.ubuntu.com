@@ -5,7 +5,7 @@ categories: desktop
 tags: tutorial,installation,upgrade,ubuntu,desktop
 difficulty: 2
 status: published
-published: 2017-05-31
+published: 2017-04-26
 feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 author: Canonical Web Team <webteam@canonical.com>
 
@@ -19,9 +19,9 @@ Duration: 0:01
 positive
 : We recommend that you backup your existing Ubuntu installation before you update your computer.
 
-Being able to upgrade from one version of Ubuntu to the next is one of Ubuntu's best features. You benefit from the latest software, get security patches and all upgraded technology that comes with a new release without having to resort to reinstallation or re-configuring your system. 
+Being able to upgrade Ubuntu from one version to the next is one of Ubuntu's best features. You benefit from getting the latest software, including new security patches, and all the upgraded technology that comes with a new release without having to resort to reinstalling and reconfiguring your system. 
 
-Best of all, upgrading Ubuntu to the next release is easy. As we'll now demonstrate.
+Best of all, upgrading Ubuntu to the latest release is easy. As we'll demonstrate!
 
 If you are upgrading from a version released prior to Ubuntu 15.10, [please read the upgrade notes for more information](https://help.ubuntu.com/community/UpgradeNotes).
 
@@ -47,20 +47,36 @@ Select the tab called **Updates**, if not already selected. Then set the **Notif
 
 Click on **Close** to be taken back to the update pane and **OK** to close this.
 
-We now need to open *Update Manager* one more time, only this time *Update Manager* will open up and tell you that a new distribution is available. Click **Upgrade** and follow the on-screen instructions.
+We now need to open *Update Manager* one more time, only this time *Update Manager* will open up and tell you that a new distribution is available. Click **Upgrade**.
 
 ![Software Updater new version discovered](https://assets.ubuntu.com/v1/dc25872f-ubuntu-upgrade-xenial.png)
+
+positive
+: Our images show an upgrade from Ubuntu 16.04 LTS to Ubuntu 18.04 LTS, but the process is the same when upgrading other versions of Ubuntu.
 
 ## Install the upgrade
 Duration: 0:15
 
 After asking for your password, you will be presented with the *Release Notes* for the release you're about to upgrade to.
 
-A message will appear informing you of the availability of the new release. Click **Upgrade** and follow the on-screen instructions.
-
 ![Release notes for Bionic Beaver](https://assets.ubuntu.com/v1/7471791f-ubuntu-upgrade-beaver.png)
 
+Select the **Upgrade** button to start the initialisation process. A few moments later you'll be asked *Do you want to start the upgrade?* Press **Start Upgrade** to pass the point of no return and start the upgrade process.
+
+The upgrade will now proceed. The *Distribution Upgrade* pane will track the upgrade process and allow you to monitor progress. As the process is dependent on both your network connection and the performance of your computer, the upgrade could take anything from ten or 20 minutes to an hour or more.
+
+![Upgrade progress](https://assets.ubuntu.com/v1/9b7ca0ad-ubuntu-upgrade-process.png)
+
+After the new packages are installed, you may be asked whether you want to remove any *obsolete packages*. These are packages that were installed on your previous version of Ubuntu but are no longer required by the new one. You can safely select **Remove**. 
+
+![Upgrade complete](https://assets.ubuntu.com/v1/3b5f8552-ubuntu-upgrade-complete.png)
+
+Finally, you'll be asked to restart the system to complete the upgrade.
+
+Congratulations! You have successfully upgraded Ubuntu!
+
 ## Finding help
+Duration: 0:01
 
 If you get stuck, help is always at hand.
 
