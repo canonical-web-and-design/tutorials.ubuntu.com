@@ -14,7 +14,7 @@ author: Canonical Web Team <webteam@canonical.com>
 # Upgrade Ubuntu desktop
 
 ## Before you start
-Duration: 0:01
+Duration: 1:00
 
 positive
 : We recommend that you backup your existing Ubuntu installation before you update your computer.
@@ -28,7 +28,7 @@ If you are upgrading from a version released prior to Ubuntu 15.10, [please read
 For more recent versions, please read the release notes for [Ubuntu 18.10](https://wiki.ubuntu.com/BionicBeaver/ReleaseNotes).
 
 ## Launch the Software Updater
-Duration: 0:01
+Duration: 1:00
 
 Press the **Superkey (Windows key)** to launch the Dash and search for **Update Manager**.
 
@@ -37,7 +37,7 @@ As the application launches it will first check if there are any updates for you
 ![Software Updater from Dash](https://assets.ubuntu.com/v1/de3da8d8-download-desktop-upgrade-1.jpg)
 
 ## Check for updates
-Duration: 0:01
+Duration: 3:00
 
 *Update Manager* will open a window to inform you that your computer is up to date. Click on the **Settings** button to open the main user-interface.
 
@@ -55,7 +55,7 @@ positive
 : Our images show an upgrade from Ubuntu 16.04 LTS to Ubuntu 18.04 LTS, but the process is the same when upgrading other versions of Ubuntu.
 
 ## Install the upgrade
-Duration: 0:15
+Duration: 15:00
 
 After asking for your password, you will be presented with the *Release Notes* for the release you're about to upgrade to.
 
@@ -76,7 +76,7 @@ Finally, you'll be asked to restart the system to complete the upgrade.
 Congratulations! You have successfully upgraded Ubuntu!
 
 ## Finding help
-Duration: 0:01
+Duration: 1:00
 
 If you get stuck, help is always at hand.
 
