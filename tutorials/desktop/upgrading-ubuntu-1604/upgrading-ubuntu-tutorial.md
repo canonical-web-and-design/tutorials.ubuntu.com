@@ -5,7 +5,7 @@ categories: desktop
 tags: tutorial,installation,upgrade,ubuntu,desktop
 difficulty: 2
 status: published
-published: 2017-04-26
+published: 2018-04-16
 feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 author: Canonical Web Team <webteam@canonical.com>
 
