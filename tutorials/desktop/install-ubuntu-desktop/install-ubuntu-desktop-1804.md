@@ -18,7 +18,7 @@ Duration: 0:05
 
 The Ubuntu desktop is easy to use, easy to install and includes everything you need to run your organisation, school, home or enterprise. It's also open source, secure, accessible and free to download.
 
-![screenshot](https://assets.ubuntu.com/v1/8de0a986-ubuntu-desktop.png)
+![Bionic desktop](https://assets.ubuntu.com/v1/40f91c0b-bionic-desktop.png)
 
 In this tutorial, we're going to install Ubuntu desktop onto your computer, using either your computer's DVD drive or a USB flash drive.
 
@@ -28,11 +28,9 @@ Duration: 0:01
 You'll need to consider the following before starting the installation:
 
 * Connect your laptop to a power source.
-* Ensure you have at least 5GB of free storage space.
-* Have access to either a DVD or a USB flash drive containing the version of Ubuntu you want
-  to install.
-* Make sure you have a recent backup of your data. While it's unlikely that
-  anything will go wrong, you can never be too prepared.
+* Ensure you have at least 25GB of free storage space, or 5GB for a minimal installation.
+* Have access to either a DVD or a USB flash drive containing the version of Ubuntu you want to install.
+* Make sure you have a recent backup of your data. While it's unlikely that anything will go wrong, you can never be too prepared.
 
 See [Installation/System Requirements](https://help.ubuntu.com/community/Installation/SystemRequirements) for more specific details on hardware requirements. We also have [several tutorials](/) that explain how to create an Ubuntu DVD or USB flash drive.
 
@@ -44,7 +42,11 @@ It’s easy to install Ubuntu from a DVD. Here’s what you need to do:
 1. Put the Ubuntu DVD into your optical/DVD drive.
 1. Restart your computer.
 
-A few moments later, after the desktop has loaded, you'll see the welcome window. From here, you can select your language from a list on the left and choose between either installing Ubuntu directly, or trying the desktop first (if you like what you see, you can also install Ubuntu from this mode too).
+As soon as your computer boots you'll see a large language selection window. Use your mouse or cursor keys to select a language and you'll see a simple boot menu. Select the second option, 'Install Ubuntu', and press return to launch the desktop installer automatically. Alternatively, select the first option, 'Try Ubuntu without installing', to test Ubuntu (if you like what you see, you can also install Ubuntu from this mode too).
+
+![boot menu](https://assets.ubuntu.com/v1/eded96d1-bionic-boot-menu.png)
+
+A few moments later, after the desktop has loaded, you'll see the welcome window. From here, you can select your language from a list on the left and choose between either installing Ubuntu directly, or trying the desktop first.
 
 ![screenshot](https://assets.ubuntu.com/v1/dfc572f0-download-desktop-install-ubuntu-desktop_1.jpg)
 
@@ -63,23 +65,27 @@ positive
 ## Prepare to install Ubuntu
 Duration: 0:01
 
-After choosing to install Ubuntu from the welcome window, you will be asked about updates and third-party software.
+You will first be asked to select your keyboard layout. If the installer doesn't guess the default layout correctly, use the 'Detect Keyboard Layout' button to run through a brief configuration procedure. 
+
+After selecting *Continue* you will be asked *What apps would you like to install to start with?* The two options are 'Normal installation' and 'Minimal installation'. The first is the equivalent to the old default bundle of utilities, applications, games and media players - a great launchpad for any Linux installation. The second takes considerably less storage space and allows you to install only what you need.
+
+Beneath the installation-type question are two checkboxes; one to enable updates while installing and another to enable third-party software.
 
 - We advise enabling both `Download updates` and `Install third-party software`.
 - Stay connected to the internet so you can get the latest updates while you install Ubuntu.
 - If you are not connected to the internet, you will be asked to select a wireless network, if available. We advise you to connect during the installation so we can ensure your machine is up to date
 
-![screenshot](https://assets.ubuntu.com/v1/3bbb0e35-download-desktop-install-ubuntu-desktop_2.jpg)
+![Select install size, updates and third part software](https://assets.ubuntu.com/v1/a0969096-bionic-install-updates.png)
 
 ## Allocate drive space
 Duration: 0:01
 
-Use the checkboxes to choose whether you’d like to Install Ubuntu alongside another operating system, delete your existing operating system and replace it with Ubuntu, or — if you’re an advanced user — choose the ’**Something else**’ option.
+Use the checkboxes to choose whether you’d like to install Ubuntu alongside another operating system, delete your existing operating system and replace it with Ubuntu, or — if you’re an advanced user — choose the ’**Something else**’ option.
 
-![screenshot](https://assets.ubuntu.com/v1/e07b98b8-ubuntu-installation-type.png)
+![Set up storage configuration](https://assets.ubuntu.com/v1/63da6024-bionic-install-storage.png)
 
 positive
-: Ubuntu needs about 4.5 GB of space for a minimal installation. But you'll obviously need space for your own data and any extra applications you install.
+: Options related to side-by-side installation or erasing a previous installation are only offered when pre-existing installations are detected.
 
 ## Begin installation
 Duration: 0:01
@@ -88,7 +94,7 @@ After configuring storage, click on the 'Install Now' button. A small pane will 
 
 Click `Continue` to fix those changes in place and start the installation process.
 
-![screenshot](https://assets.ubuntu.com/v1/a76b68ce-ubuntu-verify-install.png)
+![Write changes to disks](https://assets.ubuntu.com/v1/1841ea5f-bionic-install-overwrite.png)
 
 ## Select your location
 Duration: 0:01
@@ -97,19 +103,10 @@ If you are connected to the internet, your location will be detected automatical
 
 If you’re unsure of your time zone, type the name of a local town or city or use the map to select your location.
 
-![screenshot](https://assets.ubuntu.com/v1/a942aa3d-download-desktop-install-ubuntu-desktop_6.jpg)
+![Where are you](https://assets.ubuntu.com/v1/a5274634-bionic-install-location.png)
 
 positive
 : If you’re having problems connecting to the Internet, use the menu in the top-right-hand corner to select a network.
-
-## Select your preferred keyboard layout
-Duration: 0:01
-
-To tell Ubuntu the layout of your keyboard, click on the language option you need followed by your keyboard's specific layout. If you’re not sure, click the ’**Detect Keyboard Layout**’ button for help.
-
-Keyboard layouts can always be changed, and supplementary layouts added, from the desktop after installation.
-
-![screenshot](https://assets.ubuntu.com/v1/310b5196-download-desktop-install-ubuntu-desktop_7.jpg)
 
 ## Login details
 Duration: 0:01
@@ -120,21 +117,21 @@ Next, enter a strong password. The installer will let you know if it's too weak.
 
 You can also choose to enable automatic login and home folder encryption. If your machine is portable, we recommend keeping automatic login disabled and enabling encryption. This should stop people accessing your personal files if the machine is lost or stolen.
 
-![screenshot](https://assets.ubuntu.com/v1/69d32ea7-download-desktop-install-ubuntu-desktop_8.jpg)
+![Username and password entry](https://assets.ubuntu.com/v1/abd7511b-bionic-install-password.png)
 
-: If enable home folder encryption and you forget your password, you won't be able to retrieve any personal data stored in your home folder.
+: If you enable home folder encryption and you forget your password, you won't be able to retrieve any personal data stored in your home folder.
 
 ## Background installation
 Duration: 0:20
 
 The installer will now complete in the background while the installation window teaches you a little about how awesome Ubuntu is. Depending on the speed of your machine and network connection, this should only take a few minutes.
 
-![screenshot](https://assets.ubuntu.com/v1/4e133117-download-desktop-install-ubuntu-desktop_9.jpg)
+![Installer running in the background](https://assets.ubuntu.com/v1/4e2f9df7-bionic-install-installation.png)
 
 ## Installation complete
 Duration: 0:01
 
-After everything has been installed and configured, a small window will appear asking you to restart your machine. Click on `Restart Now` and remove either the DVD or USB flash drive when prompted.
+After everything has been installed and configured, a small window will appear asking you to restart your machine. Click on `Restart Now` and remove either the DVD or USB flash drive when prompted. If you initiated the installation while testing the desktop, you also get the option to continue testing.
 
 ![screenshot](https://assets.ubuntu.com/v1/f4e2a592-download-desktop-install-ubuntu-desktop_10.jpg)
 
