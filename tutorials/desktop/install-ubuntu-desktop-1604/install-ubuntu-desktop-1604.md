@@ -16,9 +16,8 @@ feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 ## Overview
 Duration: 0:05
 
-
-warning
-: This tutorial covers the installation of the previous Ubuntu *Long Term Support* release. Jump to [Install Ubuntu 18.04 desktop](https://tutorials.ubuntu.com/tutorial/tutorial-install-ubuntu-desktop) if you wish to install the latest version. 
+negative
+: This tutorial covers the installation of a previous *Long Term Support* release (Ubuntu 16.04 LTS). Jump to [Install Ubuntu 18.04 desktop](https://tutorials.ubuntu.com/tutorial/tutorial-install-ubuntu-desktop) if you wish to install the latest version. 
 
 The Ubuntu desktop is easy to use, easy to install and includes everything you need to run your organisation, school, home or enterprise. It's also open source, secure, accessible and free to download.
 
