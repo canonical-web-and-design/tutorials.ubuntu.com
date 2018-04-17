@@ -1,6 +1,6 @@
 ---
-id: tutorial-install-ubuntu-desktop
-summary: Discover how easy it is to install Ubuntu desktop onto your laptop or PC computer, from either a DVD or a USB flash drive.
+id: tutorial-install-ubuntu-desktop-1604
+summary: Install Ubuntu 16.04 (Xenial) onto your laptop or PC computer, from either a DVD or a USB flash drive.
 categories: desktop
 tags: tutorial,installation,ubuntu,desktop,Ubuntu 16.04 LTS
 difficulty: 2
@@ -11,10 +11,14 @@ feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 
 ---
 
-# Install Ubuntu desktop
+# Install Ubuntu 16.04 desktop
 
 ## Overview
 Duration: 0:05
+
+
+warning
+: This tutorial covers the installation of the previous Ubuntu *Long Term Support* release. Jump to [Install Ubuntu 18.04 desktop](https://tutorials.ubuntu.com/tutorial/tutorial-install-ubuntu-desktop) if you wish to install the latest version. 
 
 The Ubuntu desktop is easy to use, easy to install and includes everything you need to run your organisation, school, home or enterprise. It's also open source, secure, accessible and free to download.
 
