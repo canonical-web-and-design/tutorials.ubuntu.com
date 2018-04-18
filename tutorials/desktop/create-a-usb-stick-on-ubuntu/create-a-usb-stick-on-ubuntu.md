@@ -27,7 +27,7 @@ Creating a bootable Ubuntu USB stick is very simple, especially from Ubuntu itse
 
 Alternatively, we also have tutorials to help you create a bootable USB stick from both [Microsoft Windows][usbwindows] and [Apple macOS][usbmacos].
 
-![image](https://assets.ubuntu.com/v1/0e7183ed-laptop-ubuntu.png)
+![Laptop Ubuntu desktop](https://assets.ubuntu.com/v1/27f94697-bionic-noqueen.png)
 
 ## Requirements
 Duration: 0:01
@@ -38,17 +38,19 @@ You will need:
 - Ubuntu Desktop 14.04 or later installed
 - An Ubuntu ISO file. See [Get Ubuntu][getubuntu] for download links
 
-![screenshot](https://assets.ubuntu.com/v1/bfb2d510-ubuntu-iso-download.png)
+![Download an Ubuntu ISO](https://assets.ubuntu.com/v1/647dd5d0-bionic-download.png)
 
 ## Launch Startup Disk Creator
 
 We're going to use an application called 'Startup Disk Creator' to write the ISO image to your USB stick. This is installed by default on Ubuntu, and can be launched as follows:
 
 1. Insert your USB stick (select 'Do nothing' if prompted by Ubuntu)
-1. Use the top left icon to open the dash and search for *Startup Disk Creator*
+1. On Ubuntu 18.04 and later, use the bottom left icon in Ubuntu 18.04 to open 'Show Applications'
+1. In older versions of Ubuntu, Use the top left icon to open the dash
+1. Use the search field to look for *Startup Disk Creator*
 1. Select **Startup Disk Creator** from the results to launch the application
 
-![screenshot](https://assets.ubuntu.com/v1/e069dea2-ubuntu-startup-launch.png)
+![Search for Startup Disk Creator](https://assets.ubuntu.com/v1/ed29b466-bionic-search-apps.png)
 
 ## ISO and USB selection
 Duration: 0:02
@@ -59,7 +61,7 @@ It's likely that both your Ubuntu ISO and the correct USB device will have been 
 
 Click **Make Startup Disk** to start the process.
 
-![screenshot](https://assets.ubuntu.com/v1/a03353ac-ubuntu-startup-options.png)
+![Make USB device](https://assets.ubuntu.com/v1/48c17275-bionic-make-startup-disk.png)
 
 ## Confirm USB device
 Duration: 0:03
@@ -68,7 +70,7 @@ Before making any permanent changes, you will be asked to confirm the USB device
 
 After confirming, the write process will start and a progress bar appears.
 
-![screenshot](https://assets.ubuntu.com/v1/dac30d7d-usb-1604-writing.png?w=550)
+![USB write progress](https://assets.ubuntu.com/v1/af6b2c2a-bionic-usb-progress.png)
 
 ## Installation complete
 Duration: 0:01
@@ -77,7 +79,7 @@ That's it! You now have Ubuntu on a USB stick, bootable and ready to go.
 
 If you want to install Ubuntu, take a look at our [install Ubuntu desktop tutorial][ubuntudesktop].
 
-![screenshot](https://assets.ubuntu.com/v1/e4bfc861-ubuntu-usb-installation-complete.png)
+![USB write complete](https://assets.ubuntu.com/v1/d4690a43-bionic-usb-complete.png)
 
 ### Finding help
 
