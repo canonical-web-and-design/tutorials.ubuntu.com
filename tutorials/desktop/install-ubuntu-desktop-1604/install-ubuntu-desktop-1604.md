@@ -125,7 +125,7 @@ You can also choose to enable automatic login and home folder encryption. If you
 
 ![screenshot](https://assets.ubuntu.com/v1/69d32ea7-download-desktop-install-ubuntu-desktop_8.jpg)
 
-: If enable home folder encryption and you forget your password, you won't be able to retrieve any personal data stored in your home folder.
+: If you enable home folder encryption and you forget your password, you won't be able to retrieve any personal data stored in your home folder.
 
 ## Background installation
 Duration: 0:20
