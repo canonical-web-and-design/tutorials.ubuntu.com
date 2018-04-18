@@ -42,15 +42,21 @@ It’s easy to install Ubuntu from a DVD. Here’s what you need to do:
 1. Put the Ubuntu DVD into your optical/DVD drive.
 1. Restart your computer.
 
-As soon as your computer boots you'll see a large language selection window. Use your mouse or cursor keys to select a language and you'll see a simple boot menu. Select the second option, 'Install Ubuntu', and press return to launch the desktop installer automatically. Alternatively, select the first option, 'Try Ubuntu without installing', to test Ubuntu (if you like what you see, you can also install Ubuntu from this mode too).
+As soon as your computer boots you'll see the welcome window.
+
+![Welcome window](https://assets.ubuntu.com/v1/3bab2654-ubuntu-install-try.png)
+
+From here, you can select your language from a list on the left and choose between either installing Ubuntu directly, or trying the desktop first (if you like what you see, you can also install Ubuntu from this mode too).
+
+Depending on your computer's configuration, you may instead see an alternative boot menu showing a large language selection pane. Use your mouse or cursor keys to select a language and you'll be presented with a simple menu. 
 
 ![boot menu](https://assets.ubuntu.com/v1/eded96d1-bionic-boot-menu.png)
 
+Select the second option, 'Install Ubuntu', and press return to launch the desktop installer automatically. Alternatively, select the first option, 'Try Ubuntu without installing', to test Ubuntu (as before, you can also install Ubuntu from this mode too).
+
 A few moments later, after the desktop has loaded, you'll see the welcome window. From here, you can select your language from a list on the left and choose between either installing Ubuntu directly, or trying the desktop first.
 
-![screenshot](https://assets.ubuntu.com/v1/dfc572f0-download-desktop-install-ubuntu-desktop_1.jpg)
-
-If you don’t get this menu, read the [booting from the DVD guide](https://help.ubuntu.com/community/BootFromCD?_ga=2.102380610.2115462233.1496186978-1155966827.1485186360) for more information.
+If you don’t get either menu, read the [booting from the DVD guide](https://help.ubuntu.com/community/BootFromCD?_ga=2.102380610.2115462233.1496186978-1155966827.1485186360) for more information.
 
 ## Boot from USB flash drive
 Duration: 0:02
