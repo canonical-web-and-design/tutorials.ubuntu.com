@@ -45,8 +45,8 @@ You will need:
 We're going to use an application called 'Startup Disk Creator' to write the ISO image to your USB stick. This is installed by default on Ubuntu, and can be launched as follows:
 
 1. Insert your USB stick (select 'Do nothing' if prompted by Ubuntu)
-1. On Ubuntu 18.04 and later, use the bottom left icon in Ubuntu 18.04 to open 'Show Applications'
-1. In older versions of Ubuntu, Use the top left icon to open the dash
+1. On Ubuntu 18.04 and later, use the bottom left icon to open 'Show Applications'
+1. In older versions of Ubuntu, use the top left icon to open the dash
 1. Use the search field to look for *Startup Disk Creator*
 1. Select **Startup Disk Creator** from the results to launch the application
 
