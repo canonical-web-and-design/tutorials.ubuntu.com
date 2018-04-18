@@ -5,7 +5,7 @@ categories: desktop
 tags: tutorial,installation,usb,ubuntu,desktop
 difficulty: 2
 status: published
-published: 2017-07-11
+published: 2018-04-18
 author: Canonical Web Team <webteam@canonical.com>
 feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 
