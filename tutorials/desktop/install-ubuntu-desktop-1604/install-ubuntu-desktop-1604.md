@@ -5,7 +5,7 @@ categories: desktop
 tags: tutorial,installation,ubuntu,desktop,Ubuntu 16.04 LTS
 difficulty: 2
 status: published
-published: 2017-07-06
+published: 2018-04-18
 author: Canonical Web Team <webteam@canonical.com>
 feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 
@@ -61,7 +61,7 @@ Most computers will boot from USB automatically. Simply insert the USB flash dri
 If your computer doesn't automatically boot from USB, try holding `F12` when your computer first starts. With most machines, this will allow you to select the USB device from a system-specific boot menu.
 
 positive
-: F12 is the most common key for bringing up your system's boot menu, but both Escape and F2 are common alternatives. If you're unsure, look for a brief message when your system starts - this will often inform you of which key to press to bring up the boot menu.
+: F12 is the most common key for bringing up your system's boot menu, but Escape, F2 and F10 are common alternatives. If you're unsure, look for a brief message when your system starts - this will often inform you of which key to press to bring up the boot menu.
 
 ## Prepare to install Ubuntu
 Duration: 0:01
@@ -130,7 +130,7 @@ You can also choose to enable automatic login and home folder encryption. If you
 ## Background installation
 Duration: 0:20
 
-The installer will now complete in the background while the installation window teaches you a little about how awesome Ubuntu is. Depending on the speed of your machine and network connection, this should only take a few minutes.
+The installer will now complete in the background while the installation window teaches you a little about how awesome Ubuntu is. Depending on the speed of your machine and network connection, installation should only take a few minutes.
 
 ![screenshot](https://assets.ubuntu.com/v1/4e133117-download-desktop-install-ubuntu-desktop_9.jpg)
 
