@@ -5,7 +5,7 @@ categories: server
 tags: tutorial,installation,ubuntu,server,18.04,LTS
 difficulty: 2
 status: published
-published: 2018-04-16
+published: 2018-04-19
 feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 author: Canonical Web Team <webteam@canonical.com>
 
@@ -24,7 +24,6 @@ This guide will provide an overview of the installation from either a DVD or a U
 
 For a more detailed guide on Ubuntu Server's capabilities and its configuration, take a look at our the [Community Ubuntu Server  documentation][docs-server].
 
-![screenshot][server-welcome]
 
 ## Requirements
 Duration: 0:01
@@ -36,11 +35,10 @@ You'll need to consider the following before starting the installation:
   to install.
 * If you're going to install Ubuntu Server alongside data you wish to keep, ensure you have a recent backup.
 
-See [Installation/System Requirements](https://help.ubuntu.com/community/Installation/SystemRequirements#Ubuntu_Server_.28CLI.29_Installation) for more specific details on hardware requirements. We also have [several tutorials](/) that explain how to create an Ubuntu DVD or USB flash drive.
+See the [server guide pages][sys-req] for more specific details on hardware requirements. We also have [several tutorials](/) that explain how to create an Ubuntu DVD or USB flash drive.
 
-
-## Boot from DVD
-Duration: 0:02
+## Boot from install media
+Duration: 2:00
 
 To trigger the installation process, perform the following:
 
@@ -110,7 +108,7 @@ The next step is to configure storage. The recommended install is to have an ent
 If you need to set up a more complicated system, the manual option will allow you to select and reorganise partitions on any connected drives.
 
 positive
-: Note that Ubuntu no longer requires a separate partition for swap space, nor will the automated install create one. 
+: Note that Ubuntu no longer *requires* a separate partition for swap space, nor will the automated install create one. 
 
 ## Select a device
 Duration: 2:00
@@ -147,51 +145,61 @@ negative
 ## Set up a Profile
 Duration: 2:00
 
+The software is now being installed on the disk, but there is some more information the installer needs. Ubuntu Server needs to have at least one known user for the system, and a hostname. The user also needs a password.
+
 ![screenshot][menu-profile]
+
+positive
+: There is also a field for importing SSH keys, either from Launchpad, Ubuntu One or Github. You simply need to enter the username and the installer will fetch the relevant keys and install them on the system ready for use (e.g. secure SSH login to the server).
 
 ## Install software
 Duration: 6:00
+
+Once you have finished entering the required information, the screen will now show the progress of the installer. Ubuntu Server now installs a concise set of useful software required for servers. This cuts down on the install and setup time dramatically. Of course, after the install is finished, you can install any additional software you may need.
 
 ![screenshot][menu-installing]
 
 ## Installation complete
 Duration: 1:00
 
+When the install is complete, you will see a message like this on the screen.
+
 ![screenshot][menu-complete]
 
-## Installation complete
+Remember to remove the install media, and then press enter to reboot and start the server. Welcome to Ubuntu!
+
+## What next?
 Duration: 2:00
 
-Congratulations! With the installation complete, you can now remove your installation media, restart your machine and begin enjoying Ubuntu Server.
+With Ubuntu Server installed, you can now carry on and build that file-server or multi-node cluster we mentioned! 
 
-If you're looking for a place to start with your new server, we'd recommend reading the [Server Guide](https://help.ubuntu.com/lts/serverguide/).
+If you are new to Ubuntu Server, we'd recommend reading the [Server Guide][docs-server].
 
-Alternatively, alongside its vast array of industry defining applications and services, use your fresh installation to take a look at some of [Canonical's](https://www.canonical.com/) most advanced technologies:
+You can also check out the latest on Ubuntu Server, and what others are using it for on the [Ubuntu Server pages][ubuntu-server].
 
-- [MAAS](https://maas.io/) - Metal as a Service, offers complete automation of your physical servers for amazing data centre operational efficiency.
+### Finding help
 
-- [Landscape](https://landscape.canonical.com/landscape-features), our cost-effective way to support and monitor large and growing networks of desktops, servers and clouds.
 
-![screenshot](https://assets.ubuntu.com/v1/dbd27849-server-complete.png)
+The Ubuntu community, for both desktop and server, is one of the friendliest and most well populated you can find. That means if you get stuck, someone has probably already seen and solved the same problem.
 
-## Finding help
-Duration: 0:02
+Try asking for help in one of the following places:
 
-The Ubuntu community, for both desktop and server, is one of the friendliest and most well populated you can find. That means if you get stuck, someone has most likely already been there and solved the same problem.
+* [Ask Ubuntu][ask-ubuntu]
+* [Ubuntu Forums][ubuntu-forums]
+* [IRC-based support][irc-channels]
 
-Try asking for help in one of the following:
+Alternatively, if you need commercial support for your server deployments, take a look at [Ubuntu Advantage][ubuntu-advantage].
 
-* [Ask Ubuntu](https://askubuntu.com/)
-* [Ubuntu Forums](https://ubuntuforums.org/)
-* [IRC-based support](https://wiki.ubuntu.com/IRC/ChannelList)
-
-Alternatively, if you need commercial support for your server deployments, take a look at [Ubuntu Advantage](https://www.ubuntu.com/support).
-
+[ask-ubuntu]: https://askubuntu.com/
+[ubuntu-forums]: https://ubuntuforums.org/
+[irc-channels]: https://wiki.ubuntu.com/IRC/ChannelList
+[ubuntu-advantage]: https://www.ubuntu.com/support
 [tut-desktop]: https://tutorials.ubuntu.com/tutorial/tutorial-install-ubuntu-desktop
 [docs-dvd]: https://help.ubuntu.com/community/BootFromCD
 [docs-server]: https://help.ubuntu.com/lts/serverguide/installation.html
-
-
+[docs-maas]: https://docs.maas.io
+[ubuntu-server]: https://www.ubuntu.com/server
+[sys-req]: https://help.ubuntu.com/lts/serverguide/preparing-to-install.html#system-requirements
 [login]: https://assets.ubuntu.com/v1/fcc62c28-server-welcome.png
 [first-boot]: https://assets.ubuntu.com/v1/cb8b8b52-subiquity-001.png
 [menu-language]: https://assets.ubuntu.com/v1/4204ca86-subiquity-002.png
