@@ -16,7 +16,7 @@ author: Canonical Web Team <webteam@canonical.com>
 ## Overview
 Duration: 0:01
 
-Ubuntu Server is a variant of the standard Ubuntu you already know, tailored for networks and services. It's just as capable of running a simple file server or operating within a 50,000 node cloud.
+Ubuntu Server is a variant of the standard Ubuntu you already know, tailored for networks and services. It's just as capable of running a simple file server as it is operating within a 50,000 node cloud.
 
 Unlike the installation of Ubuntu Desktop, Ubuntu Server does not include a graphical installation program. Instead, it uses a text menu-based process. If you'd rather install the desktop version, take a look at our [Install Ubuntu desktop][tut-desktop] tutorial.
 
@@ -53,9 +53,9 @@ Most computers will automatically boot from USB or DVD, though in some cases thi
 
 There should be an on-screen message when the computer starts telling you what key to press for settings or a boot menu. Depending on the manufacturer, this could be `Escape`, `F2`,`F10` or `F12`. Simply restart your computer and hold down this key until the boot menu appears, then select the drive with the Ubuntu install media.
 
-If you are still having problems, check out the [Ubuntu Community documentation on booting from CD/DVD][docs-dvd] page.
+If you are still having problems, check out the [Ubuntu Community documentation on booting from CD/DVD][docs-dvd].
 
-## Chose your language
+## Choose your language
 
 After the boot messages appear, a 'Language' menu will be displayed. 
 
@@ -84,7 +84,7 @@ Now we are ready to select what you want to install. There are three options in 
 
 ![screenshot][menu-install]
 
-The bottom two options are used for installing specific components of a Metal As A Service (MAAS) install. If you are installing MAAS, you should check out the [MAAS documentation][docs-maas] for more information on this! The rest of this tutorial assumes you select the first option, `Install Ubuntu`
+The bottom two options are used for installing specific components of a Metal As A Service (MAAS) install. If you are installing MAAS, you should check out the [MAAS documentation][docs-maas] for more information on this! The rest of this tutorial assumes you select the first option, `Install Ubuntu`.
 
 
 ## Networking
