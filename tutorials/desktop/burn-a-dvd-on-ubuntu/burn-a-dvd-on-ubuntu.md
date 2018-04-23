@@ -16,7 +16,7 @@ author: Canonical Web Team <webteam@canonical.com>
 ## Overview
 Duration: 1:00
 
-Burning a DVD is still a great way to install Ubuntu on devices with optical drive. In this tutorial we will show you how to download an Ubuntu ISO image, install the necessary software and then burn that image to a bootable DVD.
+Burning a DVD is still a great way to install Ubuntu on devices with an optical drive. In this tutorial we will show you how to download an Ubuntu ISO image, install the necessary software and then burn that image to a bootable DVD.
 
 ### What you'll learn
 - How to burn an install DVD for Ubuntu
@@ -24,7 +24,7 @@ Burning a DVD is still a great way to install Ubuntu on devices with optical dri
 ### What you'll need
 - A machine running Ubuntu 18.04 LTS
 - A DVD writer
-- An internet connection, or a pre-downloaded ISO image.
+- An internet connection, or a pre-downloaded ISO image
 
 
 ## Getting the ISO image
@@ -55,7 +55,7 @@ Since we know what software we want, the easiest way to install it is to click o
 
 ![screenshot][1804-activity]
 
-The search should result in a link to the Ubuntu Software installer. Click on this link to start the software installer, which will open with a summary for Brasero. Click on this to go to the main brasero listing. And from there, you can click on the `Install` button.
+The search should result in a link to the Ubuntu Software installer. Click on this link to start the software installer, which will open with a summary for Brasero. Click on this to go to the main Brasero listing. And from there, you can click on the `Install` button.
 
 ![screenshot][1804-install-brasero]
 
