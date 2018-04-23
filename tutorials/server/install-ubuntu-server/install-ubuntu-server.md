@@ -1,11 +1,11 @@
 ---
 id: tutorial-install-ubuntu-server
-summary: Turn your PC into a powerful server, capable of delivering anything from file sharing and local backup, to fully fledged web sites and beyond.
+summary: Turn your PC into a powerful server, capable of delivering anything from file sharing and local backup, to fully fledged web sites and beyond, using Ubuntu Server 18.04 LTS.
 categories: server
-tags: tutorial,installation,ubuntu,server,Ubuntu 16.04 LTS
+tags: tutorial,installation,ubuntu,server,18.04,LTS
 difficulty: 2
 status: published
-published: 2017-07-07
+published: 2018-04-19
 feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 author: Canonical Web Team <webteam@canonical.com>
 
@@ -16,14 +16,14 @@ author: Canonical Web Team <webteam@canonical.com>
 ## Overview
 Duration: 0:01
 
-Ubuntu Server is Ubuntu tailored for networks and services, and it's just as capable sharing files on your home network as it is running within a Hadoop cluster.
+Ubuntu Server is a variant of the standard Ubuntu you already know, tailored for networks and services. It's just as capable of running a simple file server as it is operating within a 50,000 node cloud.
 
-Unlike the installation of Ubuntu Desktop, Ubuntu Server does not include a graphical installation program. Instead, it uses a console menu-based process. If you'd rather install the desktop version, take a look at our [Install Ubuntu desktop](https://tutorials.ubuntu.com/tutorial/tutorial-install-ubuntu-desktop) tutorial.
+Unlike the installation of Ubuntu Desktop, Ubuntu Server does not include a graphical installation program. Instead, it uses a text menu-based process. If you'd rather install the desktop version, take a look at our [Install Ubuntu desktop][tut-desktop] tutorial.
 
-This guide will provide an overview of the installation from either a DVD or a USB flash drive, suitable for anyone with an interest in running their own server. For a more detailed guide on Ubuntu Server's capabilities and its configuration, take a look at our [Ubuntu Server help documentation](https://help.ubuntu.com/lts/serverguide/installation.html
-).
+This guide will provide an overview of the installation from either a DVD or a USB flash drive.
 
-![screenshot](https://assets.ubuntu.com/v1/fcc62c28-server-welcome.png)
+For a more detailed guide on Ubuntu Server's capabilities and its configuration, take a look at our the [Community Ubuntu Server  documentation][docs-server].
+
 
 ## Requirements
 Duration: 0:01
@@ -35,126 +35,182 @@ You'll need to consider the following before starting the installation:
   to install.
 * If you're going to install Ubuntu Server alongside data you wish to keep, ensure you have a recent backup.
 
-See [Installation/System Requirements](https://help.ubuntu.com/community/Installation/SystemRequirements#Ubuntu_Server_.28CLI.29_Installation) for more specific details on hardware requirements. We also have [several tutorials](/) that explain how to create an Ubuntu DVD or USB flash drive.
+See the [server guide pages][sys-req] for more specific details on hardware requirements. We also have [several tutorials](/) that explain how to create an Ubuntu DVD or USB flash drive.
 
-
-## Boot from DVD
-Duration: 0:02
+## Boot from install media
+Duration: 2:00
 
 To trigger the installation process, perform the following:
 
-1. Put the Ubuntu DVD into your DVD drive.
+1. Put the Ubuntu DVD into your DVD drive (or insert the USB stick or other install media).
 1. Restart your computer.
 
-A few moments later, a large 'Language' menu will appear and selecting your language will take you to the boot menu.
+After a few moments, you should see messages like those shown below on the screen...
 
-![screenshot](https://assets.ubuntu.com/v1/87351452-server-language-select.png)
+![screenshot][first-boot]
 
-If you don’t get this menu, read the [booting from the DVD guide](https://help.ubuntu.com/community/BootFromCD?_ga=2.102380610.2115462233.1496186978-1155966827.1485186360) for more information.
+Most computers will automatically boot from USB or DVD, though in some cases this is disabled to improve boot times. If you don't see the boot message and the "Welcome" screen which should appear after it, you will need to set your computer to boot from the install media.
 
-## Boot from USB flash drive
-Duration: 0:02
+There should be an on-screen message when the computer starts telling you what key to press for settings or a boot menu. Depending on the manufacturer, this could be `Escape`, `F2`,`F10` or `F12`. Simply restart your computer and hold down this key until the boot menu appears, then select the drive with the Ubuntu install media.
 
-Most computers will boot from USB automatically. Simply insert the USB flash drive and either power on your computer or restart it. You should see the same language menu we saw in the previous 'Install from DVD' step, followed by the boot menu.
+If you are still having problems, check out the [Ubuntu Community documentation on booting from CD/DVD][docs-dvd].
 
-If your computer doesn't automatically boot from USB, try holding `F12` when your computer first starts. With most machines, this will allow you to select the USB device from a system-specific boot menu.
+## Choose your language
 
-positive
-: F12 is the most common key for bringing up your system's boot menu, but Escape, F10 and F2 are common alternatives. If you're unsure, look for a brief message when your system starts - this will often inform you of which key to press to bring up the boot menu.
+After the boot messages appear, a 'Language' menu will be displayed. 
 
-## Boot options
-Duration: 0:20
+![screenshot][menu-language]
 
-The Ubuntu Server boot menu includes handy options for testing your system and for testing the validity of the install media and system disks.
+As the message suggests, use the `Up`, `Down` and `Enter` keys to navigate through the menu and select the language you wish to use.
 
-There are two options for installation, and you should select 'Install Ubuntu Server'.
 
-![screenshot](https://assets.ubuntu.com/v1/c08110df-server-boot-menu.png)
 
-## Network configuration
-Duration: 0:03
+## Choose the correct keyboard layout
+Duration: 1:00
 
-After selecting installation language, geographical location and keyboard layout, the installer will perform some background configuration and processing. In particular, the installer will attempt to automatically configure your network.
+Before you need to type anything in, the installer will next display a menu asking you to select your keyboard layout and, if applicable, the variant.
 
-If the installer successfully detects your network configuration, you'll be asked to enter a hostname, which can either be modified or left as the default 'ubuntu'.
+![screenshot][menu-layout]
 
-![screenshot](https://assets.ubuntu.com/v1/fc14d32b-server-network.png)
+If you don't know which particular variant you want, just go with the default - when Ubuntu Server has been installed you can test and change your preferences more easily if necessary.
 
-positive
-: If network autodetection fails, this will mostly likely be because your network isn't using DHCP or the DHCP server isn't accessible. You will see another menu offering you the option to configure the network manually or rerun the autodetection routine.
+![screenshot][menu-variant]
 
-## User configuration
-Duration: 0:03
 
-After networking, you'll be asked to enter your full name, username and password. As you're configuring a server that's likely to be accessible from the internet (if you choose), make sure your password is strong and difficult to guess.
+## Choose your install
+Duration: 1:00
 
-![screenshot](https://assets.ubuntu.com/v1/cfd45d64-server-password.png)
+Now we are ready to select what you want to install. There are three options in the menu:
 
-## Storage configuration
-Duration: 0:05
+![screenshot][menu-install]
 
-After answering a question about your time zone, you need to configure local storage.
+The bottom two options are used for installing specific components of a Metal As A Service (MAAS) install. If you are installing MAAS, you should check out the [MAAS documentation][docs-maas] for more information on this! The rest of this tutorial assumes you select the first option, `Install Ubuntu`.
 
-If the storage connected to your server is raw and unformatted, the installer will detect this and present a menu offering four options. The simplest is the second, 'Guided - use entire disk and set up LVM', and we'd recommend selecting this.
 
-Any of these options will obviously destroy any data currently on your partition(s), but resizing and creating new partitions are options available by selecting 'Manual'.
+## Networking
+Duration: 1:02
 
-![screenshot](https://assets.ubuntu.com/v1/bde68a78-server-partition-auto.png)
+The installer will automatically detect and try to configure any network connections via DHCP.
+
+![screenshot][menu-network]
+
+This is usually automatic and you will not have to enter anything on this screen, it is for information only.
 
 positive
-: If your server storage is already being used, or has been used prior to the installation, you will get a slightly different menu. Once again, the simplest option is to select 'Guided - use the entire disk and set up LVM', but you can also choose the specific partition if that's convenient.
+: If no network is found, the installer can continue anyway, it just won't be able to check for updates. You can always configure networking after installation.
 
-## Package retrieval
-Duration: 0:02
+## Configure storage
+Duration: 2:02
 
-After accepting the changes that are going to be made to your storage, the installer will determine the packages to be installed. This will take a few moments.
+The next step is to configure storage. The recommended install is to have an entire disk or partition set aside for running Ubuntu.
+![screenshot][menu-filesystem]
 
-You will then be asked to enter an HTTP proxy address. This can be ignored if you don't know whether you need one to access the internet from your server. You'll also be asked whether you require automatic updates. Selecting 'Install security updates automatically' is the safest default option.
+If you need to set up a more complicated system, the manual option will allow you to select and reorganise partitions on any connected drives.
 
-![screenshot](https://assets.ubuntu.com/v1/4f89d790-server-updates.png)
+positive
+: Note that Ubuntu no longer *requires* a separate partition for swap space, nor will the automated install create one. 
 
-## Software selection
-Duration: 0:01
+## Select a device
+Duration: 2:00
 
-The final step before installation starts requires you to select the software you want pre-installed on your server. You can select from a broad set of categories or manually choose the packages yourself. This option is purely for convenience, as you can easily install any additional software you need after installation has completed.
+This menu will allow you to select a disk from the ones detected on the system.
 
-We'd recommend selecting 'standard system utilities' and 'OpenSSH server' as a minimum so that your system is both fully functional and accessible from any SSH client on your local network.
+![screenshot][menu-disk]
 
-![screenshot](https://assets.ubuntu.com/v1/51cf4395-server-software.png)
+To help identification, the drives will be listed using their system ID. Use the arrow keys and enter to select the disk you wish to use.
 
-## Installation
-Duration: 0:02
+## Confirm partitions
+Duration: 2:00
 
-Ubuntu Server will now be installed. When complete, one final question asks for permission to install the GRUB boot loader. You should answer 'Yes'.
+With the target drive selected, the installer will calculate what partitions to create and present this information...
 
-The installer will finish up by installing the final packages and configuration files.
+![screenshot][menu-mount]
 
-![screenshot](https://assets.ubuntu.com/v1/a8d32900-server-grub.png)
+If this isn't what you expected to see (e.g., you have selected the wrong drive), you should use the arrow keys and enter to select `Back` from the options at the bottom of the screen. This will take you back to the previous menu where you can select a different drive.
+
+It is also possible to manually change the partitions here, by selecting `Edit Partitions`. Obviously you should only select this if you are familiar with how partitions work.
+
+When you are happy with the disk layout displayed, select `Done` to continue.
+
+## Confirm changes
+Duration: 1:00
+
+Before the installer makes any destructive changes, it will show this final confirmation step. Double check that everything looks good here and you aren't about to reformat the wrong device!
+
+![screenshot][menu-confirm]
+
+negative
+: There is no "Undo" for this step, once you confirm the changes, the indicated devices will be overwritten and any contents may be lost
+
+## Set up a Profile
+Duration: 2:00
+
+The software is now being installed on the disk, but there is some more information the installer needs. Ubuntu Server needs to have at least one known user for the system, and a hostname. The user also needs a password.
+
+![screenshot][menu-profile]
+
+positive
+: There is also a field for importing SSH keys, either from Launchpad, Ubuntu One or Github. You simply need to enter the username and the installer will fetch the relevant keys and install them on the system ready for use (e.g. secure SSH login to the server).
+
+## Install software
+Duration: 6:00
+
+Once you have finished entering the required information, the screen will now show the progress of the installer. Ubuntu Server now installs a concise set of useful software required for servers. This cuts down on the install and setup time dramatically. Of course, after the install is finished, you can install any additional software you may need.
+
+![screenshot][menu-installing]
 
 ## Installation complete
-Duration: 0:02
+Duration: 1:00
 
-Congratulations! With the installation complete, you can now remove your installation media, restart your machine and begin enjoying Ubuntu Server.
+When the install is complete, you will see a message like this on the screen.
 
-If you're looking for a place to start with your new server, we'd recommend reading the [Server Guide](https://help.ubuntu.com/lts/serverguide/).
+![screenshot][menu-complete]
 
-Alternatively, alongside its vast array of industry defining applications and services, use your fresh installation to take a look at some of [Canonical's](https://www.canonical.com/) most advanced technologies:
+Remember to remove the install media, and then press enter to reboot and start the server. Welcome to Ubuntu!
 
-- [MAAS](https://maas.io/) - Metal as a Service, offers complete automation of your physical servers for amazing data centre operational efficiency.
+## What next?
+Duration: 2:00
 
-- [Landscape](https://landscape.canonical.com/landscape-features), our cost-effective way to support and monitor large and growing networks of desktops, servers and clouds.
+With Ubuntu Server installed, you can now carry on and build that file-server or multi-node cluster we mentioned! 
 
-![screenshot](https://assets.ubuntu.com/v1/dbd27849-server-complete.png)
+If you are new to Ubuntu Server, we'd recommend reading the [Server Guide][docs-server].
 
-## Finding help
-Duration: 0:02
+You can also check out the latest on Ubuntu Server, and what others are using it for on the [Ubuntu Server pages][ubuntu-server].
 
-The Ubuntu community, for both desktop and server, is one of the friendliest and most well populated you can find. That means if you get stuck, someone has most likely already been there and solved the same problem.
+### Finding help
 
-Try asking for help in one of the following:
 
-* [Ask Ubuntu](https://askubuntu.com/)
-* [Ubuntu Forums](https://ubuntuforums.org/)
-* [IRC-based support](https://wiki.ubuntu.com/IRC/ChannelList)
+The Ubuntu community, for both desktop and server, is one of the friendliest and most well populated you can find. That means if you get stuck, someone has probably already seen and solved the same problem.
 
-Alternatively, if you need commercial support for your server deployments, take a look at [Ubuntu Advantage](https://www.ubuntu.com/support).
+Try asking for help in one of the following places:
+
+* [Ask Ubuntu][ask-ubuntu]
+* [Ubuntu Forums][ubuntu-forums]
+* [IRC-based support][irc-channels]
+
+Alternatively, if you need commercial support for your server deployments, take a look at [Ubuntu Advantage][ubuntu-advantage].
+
+[ask-ubuntu]: https://askubuntu.com/
+[ubuntu-forums]: https://ubuntuforums.org/
+[irc-channels]: https://wiki.ubuntu.com/IRC/ChannelList
+[ubuntu-advantage]: https://www.ubuntu.com/support
+[tut-desktop]: https://tutorials.ubuntu.com/tutorial/tutorial-install-ubuntu-desktop
+[docs-dvd]: https://help.ubuntu.com/community/BootFromCD
+[docs-server]: https://help.ubuntu.com/lts/serverguide/installation.html
+[docs-maas]: https://docs.maas.io
+[ubuntu-server]: https://www.ubuntu.com/server
+[sys-req]: https://help.ubuntu.com/lts/serverguide/preparing-to-install.html#system-requirements
+[login]: https://assets.ubuntu.com/v1/fcc62c28-server-welcome.png
+[first-boot]: https://assets.ubuntu.com/v1/cb8b8b52-subiquity-001.png
+[menu-language]: https://assets.ubuntu.com/v1/4204ca86-subiquity-002.png
+[menu-layout]: https://assets.ubuntu.com/v1/a5916085-subiquity-003.png
+[menu-variant]: https://assets.ubuntu.com/v1/cb6da5b2-subiquity-005.png
+[menu-install]: https://assets.ubuntu.com/v1/9e78e2a5-subiquity-006.png
+[menu-network]: https://assets.ubuntu.com/v1/4f5b1e6c-subiquity-007.png
+[menu-filesystem]: https://assets.ubuntu.com/v1/a0a317a2-subiquity-008.png
+[menu-disk]: https://assets.ubuntu.com/v1/a06039ce-subiquity-009.png
+[menu-mount]: https://assets.ubuntu.com/v1/64c29c92-subiquity-010.png
+[menu-confirm]: https://assets.ubuntu.com/v1/7a74972a-subiquity-011.png
+[menu-profile]: https://assets.ubuntu.com/v1/0958a436-subiquity-012.png
+[menu-installing]: https://assets.ubuntu.com/v1/cefe8947-subiquity-013.png
+[menu-complete]: https://assets.ubuntu.com/v1/9fa51259-subiquity-014.png
