@@ -25,16 +25,20 @@ Best of all, upgrading Ubuntu to the latest release is easy. As we'll demonstrat
 
 If you are upgrading from a version released prior to Ubuntu 15.10, [please read the upgrade notes for more information](https://help.ubuntu.com/community/UpgradeNotes).
 
-For more recent versions, please read the release notes for [Ubuntu 18.10](https://wiki.ubuntu.com/BionicBeaver/ReleaseNotes).
+For more recent versions, please read the release notes for [Ubuntu 18.04](https://wiki.ubuntu.com/BionicBeaver/ReleaseNotes).
 
 ## Launch the Software Updater
 Duration: 1:00
 
-Press the **Superkey (Windows key)** to launch the Dash and search for **Update Manager**.
-
-As the application launches it will first check if there are any updates for your current version of Ubuntu that need to be installed. If it does find any, install these first and run *Update Manager* again if you need to restart your machine.
+On versions of Ubuntu prior to 17.10, press the **Superkey (Windows key)** to launch the Dash and search for **Update Manager**.
 
 ![Software Updater from Dash](https://assets.ubuntu.com/v1/de3da8d8-download-desktop-upgrade-1.jpg)
+
+For Ubuntu 17.10, click on the **Show Applications** icon in the bottom left of the desktop and search for **Update Manager**.
+
+![Software Updater from Gnome](https://assets.ubuntu.com/v1/c1acb197-1710-update-manager.png)
+
+As the application launches it will first check if there are any updates for your current version of Ubuntu that need to be installed. If it does find any, install these first and run *Update Manager* again if you need to restart your machine.
 
 ## Check for updates
 Duration: 3:00
