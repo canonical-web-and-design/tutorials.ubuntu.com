@@ -65,7 +65,7 @@ You can check the commands work as expected by running the following:
 
 
 ```bash
-gpg --list keys
+gpg --list-keys
 ```
 
 If this is the first time you have run `gpg`, this will create a trust database for the current user.
