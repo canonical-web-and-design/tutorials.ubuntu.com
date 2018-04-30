@@ -55,6 +55,18 @@ We now need to open *Update Manager* one more time, only this time *Update Manag
 
 ![Software Updater new version discovered](https://assets.ubuntu.com/v1/dc25872f-ubuntu-upgrade-xenial.png)
 
+### If no up upgrade appears
+
+As mentioned in the [Ubuntu wiki](https://wiki.ubuntu.com/BionicBeaver/ReleaseNotes#Upgrading_from_Ubuntu_16.04_LTS_or_17.10), upgrades from 17.10 will not be enabled until a few days after the release of 18.04 and upgrades from 16.04 LTS will not be enabled until a few days after the release of 18.04.1, expected in late July 2018.
+
+You can force the upgrade, however, with the following steps:
+
+- close *Update Manager* if it's still running
+- open a terminal in the same way you opened *Update Manager*
+- type `update-manager -d` and press enter
+
+![Update manager forced update](https://assets.ubuntu.com/v1/e5578786-bionic-terminal-update.png) 
+
 positive
 : Our images show an upgrade from Ubuntu 16.04 LTS to Ubuntu 18.04 LTS, but the process is the same when upgrading other versions of Ubuntu.
 
@@ -87,3 +99,4 @@ If you get stuck, help is always at hand.
 * [Ask Ubuntu](https://askubuntu.com/)
 * [Ubuntu Forums](https://ubuntuforums.org/)
 * [IRC-based support](https://wiki.ubuntu.com/IRC/ChannelList)
+
