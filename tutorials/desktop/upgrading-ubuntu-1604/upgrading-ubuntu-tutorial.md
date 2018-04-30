@@ -55,7 +55,7 @@ We now need to open *Update Manager* one more time, only this time *Update Manag
 
 ![Software Updater new version discovered](https://assets.ubuntu.com/v1/dc25872f-ubuntu-upgrade-xenial.png)
 
-### If no up upgrade appears
+### If no upgrade appears
 
 As mentioned in the [Ubuntu wiki](https://wiki.ubuntu.com/BionicBeaver/ReleaseNotes#Upgrading_from_Ubuntu_16.04_LTS_or_17.10), upgrades from 17.10 will not be enabled until a few days after the release of 18.04 and upgrades from 16.04 LTS will not be enabled until a few days after the release of 18.04.1, expected in late July 2018.
 
