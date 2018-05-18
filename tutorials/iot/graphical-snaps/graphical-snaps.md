@@ -41,35 +41,32 @@ duration: 10:00
 
 * An Ubuntu desktop (Xenial or Bionic)
 
-* Snapcraft (version 2.41 or greater)
-
 * A Virtual Machine
 A good way to test graphical snaps on Ubuntu Core is to have a VM with Core installed and ready. This guide shows you how:
 [https://developer.ubuntu.com/core/get-started/kvm](https://developer.ubuntu.com/core/get-started/kvm).
 
-* A Device
+* Your Device
 Ubuntu core is available on a range of devices. This guide shows you how to set up an existing device: [https://developer.ubuntu.com/core/get-started/installation-medias](https://developer.ubuntu.com/core/get-started/installation-medias).
 
 If there's no supported image that fits your needs you can [create your own core image](https://tutorials.ubuntu.com/tutorial/create-your-own-core-image).
 
-### Ubuntu Core Setup
+### Snapcraft setup
 
-Once you have set up Ubuntu Core and logged in you need to enable the “layouts” feature, which is still experimental:
-
+Install snapcraft:
 ```bash
-sudo snap set core experimental.layouts=true
+sudo apt install snapcraft
 ```
 
-Then install the “mir-kiosk” snap.
-
+Install LXD :
 ```bash
-snap install --beta mir-kiosk
+snap install lxd && sudo lxd init
+```
+...just accept the defaults. And then:
+```bash
+sudo usermod -a -G lxd $USER
 ```
 
-Now you should have a black screen with a white mouse cursor.
-
-"mir-kiosk" provides the graphical environment needed for running a graphical snap.
-
+Then sign out and back in (or `newgrp lxd` in the shell you'll be using)
 
 ## Using Wayland
 duration: 3:00
@@ -92,7 +89,7 @@ Not all toolkits have native support for Wayland. So, depending on the graphical
 
 This is not an exhaustive list. There may be other toolkits that can work with Wayland but we know these work with Mir.
  
-Native support for Wayland the simplest case, as the application can talk to Mir directly. You can omit any Xwayland setup here and in the following sections.
+Native support for Wayland the simplest case, as the application can talk to Mir directly. You can omit the later sections that deal with Xwayland setup.
 
 ### No Wayland support
 
@@ -107,6 +104,8 @@ This is a more complex case, as the toolkits require the legacy X11 protocol to 
 To enable these applications we will introduce an intermediary “Xwayland” which translates X11 calls to Wayland ones. Each snapped X11 application should have its own X11 server (Xwayland) which then talks Wayland - a far more secure protocol.
 
 Xwayland will live in the application snap.
+
+We will first demonstrate how to get a native Wayland application snapped and working. This is all relevant to X11 applications, so please bear with us until we return to the subject of Xwayland.
 
 negative
 : To use fully confined snaps which use Xwayland internally, you will also need a custom build of snapd master with the following patch added:
@@ -199,6 +198,7 @@ Error: main: Could not initialize canvas
 We need to solve these.
 
 ## Files are not where they’re expected to be!
+duration: 5:00
 
 One important thing to remember about snaps is that all files are located in a subdirectory $SNAP which maps to /snap/<snap_name>/<version>. To prove this, try the following:
 ```bash
@@ -321,11 +321,13 @@ Error: main: Could not initialize canvas
 But if you “run --shell” into the snap environment, you’ll see that /usr/share/glmark2 now contains the resources glmark2 needs. One problem solved!
 
 ## Unable to connect to Wayland server
+duration 3:00
+
 ```
 Error: main: Could not initialize canvas
 ```
 
-The error message is not too helpful, but an important thing to check is if the Wayland socket can be found. If not, glmark2-wayland cannot create a surface/canvas.
+This error message is not too helpful, but an important thing to check is if the Wayland socket can be found. If not, glmark2-wayland cannot create a surface/canvas.
 
 The convention is that the Wayland socket directory is specified by the $XDG_RUNTIME_DIR environment variable. 
 
@@ -375,6 +377,7 @@ Error: main: Could not initialize canvas
 Courage! We’re almost done, there’s just one more thing to fix...
 
 ## GL drivers are not where they usually are
+duration 2:00
 
 This is another typical problem for snapping graphics applications: the GL drivers it needs are bundled inside the snap, but the application needs to be told the path to those drivers inside the snap.
 
@@ -390,6 +393,8 @@ XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR/.. \ $SNAP/command-glmark2-wayland.wrapper
 Which works! Woo! Finally! You deserve a nice cup of tea for that. Now we know what to fix, exit the snap environment with Ctrl+D.
 
 ## The final working YAML file
+duration: 5:00
+
 We need to set those two environment variables before executing the binary inside the snap. One option is a simple launching script:
 ```
 #!/bin/bash
@@ -413,8 +418,6 @@ apps:
       LIBGL_DRIVERS_PATH: $SNAP/usr/lib/x86_64-linux-gnu/dri
 ...
 ```
-
-Rebuild the snap and install it - “snap run glmark2-wayland” should work fine.
 
 The final YAML file:
 
@@ -448,10 +451,38 @@ passthrough:
       bind: $SNAP/usr/share/glmark2
 ```
 
-Let’s test it!
+Rebuild the snap and install it - “snap run glmark2-wayland” should work fine.
 
 ```bash
+snapcraft cleanbuild
 sudo snap install --dangerous ./glmark2-wayland_0.1_amd64.snap --devmode
 miral-kiosk&
 snap run glmark2-wayland
 ```
+
+Inside the Mir-on-X window, you should see the same graphical animations you saw earlier, and statistics printed to your console. The difference is that this time they are coming from a snap.
+
+All should be fine before proceeding.
+
+## UbuntuCore
+
+We now have a snap working with a desktop Wayland server. But our goal is to have it working on UbuntuCore on your chosen device.
+
+### Ubuntu Core Setup
+
+Once you have set up Ubuntu Core and logged in you will need to enable the experimental “layouts” feature as we did on desktop:
+
+```bash
+sudo snap set core experimental.layouts=true
+```
+
+Then install the “mir-kiosk” snap.
+
+```bash
+snap install --beta mir-kiosk
+```
+
+Now you should have a black screen with a white mouse cursor.
+
+"mir-kiosk" provides the graphical environment needed for running a graphical snap.
+
