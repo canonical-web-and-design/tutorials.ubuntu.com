@@ -388,3 +388,70 @@ XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR/.. \ $SNAP/command-glmark2-wayland.wrapper
 ```
 
 Which works! Woo! Finally! You deserve a nice cup of tea for that. Now we know what to fix, exit the snap environment with Ctrl+D.
+
+## The final working YAML file
+We need to set those two environment variables before executing the binary inside the snap. One option is a simple launching script:
+```
+#!/bin/bash
+LIBGL_DRIVERS_PATH=$SNAP/usr/lib/x86_64-linux-gnu/dri \
+XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR/.. \    
+$SNAP/usr/bin/glmark2-wayland
+```
+
+and point the “command:” in the snapcraft.yaml file to it (don’t forget to install it in the snap!!)
+
+Another option is to adjust the snapcraft file like this:
+```yaml
+...
+apps:
+  glmark2-wayland:
+    command: "bash -c 'XDG_RUNTIME_DIR=$(dirname $XDG_RUNTIME_DIR) $SNAP/usr/bin/glmark2-wayland --fullscreen'"
+    plugs:
+      - opengl
+      - wayland
+    environment:
+      LIBGL_DRIVERS_PATH: $SNAP/usr/lib/x86_64-linux-gnu/dri
+...
+```
+
+Rebuild the snap and install it - “snap run glmark2-wayland” should work fine.
+
+The final YAML file:
+
+```yaml
+name: glmark2-wayland
+version: 0.1
+summary: GLMark2 on Wayland
+description: |
+  GLMark2 on Wayland
+confinement: devmode
+grade: devel
+
+apps:
+  glmark2-wayland:
+    command: "bash -c 'XDG_RUNTIME_DIR=$(dirname $XDG_RUNTIME_DIR) $SNAP/usr/bin/glmark2-wayland --fullscreen'"
+    plugs:
+      - opengl
+      - wayland
+    environment:
+      LIBGL_DRIVERS_PATH: $SNAP/usr/lib/x86_64-linux-gnu/dri
+
+parts:
+  glmark2-wayland:
+    plugin: nil
+    stage-packages:
+      - glmark2-wayland
+
+passthrough:
+  layout:
+    /usr/share/glmark2:
+      bind: $SNAP/usr/share/glmark2
+```
+
+Let’s test it!
+
+```bash
+sudo snap install --dangerous ./glmark2-wayland_0.1_amd64.snap --devmode
+miral-kiosk&
+snap run glmark2-wayland
+```
