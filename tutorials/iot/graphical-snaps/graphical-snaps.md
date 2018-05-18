@@ -34,40 +34,6 @@ How to create graphical snaps for Ubuntu Core including the two main approaches 
 
 You can follow the steps in this tutorial on any current release of Ubuntu. You'll also need a device (or a VM) with Ubuntu core installed.
 
-## Preparation
-duration: 10:00
-
-### Requirements
-
-* An Ubuntu desktop (Xenial or Bionic)
-
-* A Virtual Machine
-A good way to test graphical snaps on Ubuntu Core is to have a VM with Core installed and ready. This guide shows you how:
-[https://developer.ubuntu.com/core/get-started/kvm](https://developer.ubuntu.com/core/get-started/kvm).
-
-* Your Device
-Ubuntu core is available on a range of devices. This guide shows you how to set up an existing device: [https://developer.ubuntu.com/core/get-started/installation-medias](https://developer.ubuntu.com/core/get-started/installation-medias).
-
-If there's no supported image that fits your needs you can [create your own core image](https://tutorials.ubuntu.com/tutorial/create-your-own-core-image).
-
-### Snapcraft setup
-
-Install snapcraft:
-```bash
-sudo apt install snapcraft
-```
-
-Install LXD :
-```bash
-snap install lxd && sudo lxd init
-```
-...just accept the defaults. And then:
-```bash
-sudo usermod -a -G lxd $USER
-```
-
-Then sign out and back in (or `newgrp lxd` in the shell you'll be using)
-
 ## Using Wayland
 duration: 3:00
 
@@ -111,6 +77,40 @@ negative
 : To use fully confined snaps which use Xwayland internally, you will also need a custom build of snapd master with the following patch added:
 https://github.com/snapcore/snapd/pull/4545  (allows Xwayland to work confined in a snap)
 For now this guide will proceed without application confinement.
+
+## Preparation
+duration: 10:00
+
+### Requirements
+
+* An Ubuntu desktop (Xenial or Bionic)
+
+* A Virtual Machine
+A good way to test graphical snaps on Ubuntu Core is to have a VM with Core installed and ready. This guide shows you how:
+[https://developer.ubuntu.com/core/get-started/kvm](https://developer.ubuntu.com/core/get-started/kvm).
+
+* Your Device
+Ubuntu core is available on a range of devices. This guide shows you how to set up an existing device: [https://developer.ubuntu.com/core/get-started/installation-medias](https://developer.ubuntu.com/core/get-started/installation-medias).
+
+If there's no supported image that fits your needs you can [create your own core image](https://tutorials.ubuntu.com/tutorial/create-your-own-core-image).
+
+### Snapcraft setup
+
+Install snapcraft:
+```bash
+sudo apt install snapcraft
+```
+
+Install LXD :
+```bash
+snap install lxd && sudo lxd init
+```
+...just accept the defaults. And then:
+```bash
+sudo usermod -a -G lxd $USER
+```
+
+Then sign out and back in (or `newgrp lxd` in the shell you'll be using)
 
 ## Introducing glmark2-wayland
 duration: 5:00
@@ -392,7 +392,12 @@ XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR/.. \ $SNAP/command-glmark2-wayland.wrapper
 
 Which works! Woo! Finally! You deserve a nice cup of tea for that. Now we know what to fix, exit the snap environment with Ctrl+D.
 
-## The final working YAML file
+negative
+: **Referring to “/usr/lib/x86_64-linux-gnu/dri” means the snap will only function on amd64 machines.**
+We will revisit this later to ensure the snap can be compiled to function on other architectures.
+
+
+## A working snap (on desktop)
 duration: 5:00
 
 We need to set those two environment variables before executing the binary inside the snap. One option is a simple launching script:
@@ -419,7 +424,7 @@ apps:
 ...
 ```
 
-The final YAML file:
+### The final YAML file:
 
 ```yaml
 name: glmark2-wayland
@@ -462,15 +467,25 @@ snap run glmark2-wayland
 
 Inside the Mir-on-X window, you should see the same graphical animations you saw earlier, and statistics printed to your console. The difference is that this time they are coming from a snap.
 
-All should be fine before proceeding.
+## Notes
+duration: 1:00
+
+### Why did we step through that process instead of simply presenting the working .yaml?
+
+Because snapping applications can reveal lots of hard-coded paths and assumptions that applications make, which snap confinement will break. It is good to understand the steps needed to debug and solve these problems.
+
+There can be many, many environment variables and support files that need to be set up inside snaps, for applications to run correctly. Much of this work has already been done and automated in the *snapcraft-desktop-helpers* project, we will be using this later.
+
+### We now have a snap working with a desktop Wayland server
+ 
+*But our goal is to have it working on UbuntuCore on your chosen device.*
 
 ## UbuntuCore
-
-We now have a snap working with a desktop Wayland server. But our goal is to have it working on UbuntuCore on your chosen device.
+duration: 5:00
 
 ### Ubuntu Core Setup
 
-Once you have set up Ubuntu Core and logged in you will need to enable the experimental “layouts” feature as we did on desktop:
+Once you have set up Ubuntu Core on your device or VM and logged in you will need to enable the experimental “layouts” feature as we did on desktop:
 
 ```bash
 sudo snap set core experimental.layouts=true
