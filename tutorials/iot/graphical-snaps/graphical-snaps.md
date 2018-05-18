@@ -197,7 +197,7 @@ Error: main: Could not initialize canvas
 ```
 We need to solve these.
 
-## Debugging: files not where they’re expected to be
+## Files are not where they’re expected to be!
 
 One important thing to remember about snaps is that all files are located in a subdirectory $SNAP which maps to /snap/<snap_name>/<version>. To prove this, try the following:
 ```bash
@@ -252,7 +252,7 @@ passthrough:
       bind: $SNAP/usr/share/glmark2
 ```
 
-## Using layouts for glmark2-wayland
+## Using layouts for hard-coded paths
 
 For this guide we are going to use “layouts” frequently whenever paths are hard-coded into binaries. So adding the snippet above, our YAML becomes
 
