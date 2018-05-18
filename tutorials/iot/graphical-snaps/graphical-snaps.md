@@ -184,6 +184,7 @@ You should be left with a “glmark2-wayland_0.1_amd64.snap” file.
 
 Let’s test it!
 ```bash
+miral-kiosk&
 sudo snap install --dangerous ./glmark2-wayland_0.1_amd64.snap --devmode
 snap run glmark2-wayland
 ```
@@ -318,3 +319,72 @@ Error: main: Could not initialize canvas
 ```
 
 But if you “run --shell” into the snap environment, you’ll see that /usr/share/glmark2 now contains the resources glmark2 needs. One problem solved!
+
+## Unable to connect to Wayland server
+```
+Error: main: Could not initialize canvas
+```
+
+The error message is not too helpful, but an important thing to check is if the Wayland socket can be found. If not, glmark2-wayland cannot create a surface/canvas.
+
+The convention is that the Wayland socket directory is specified by the $XDG_RUNTIME_DIR environment variable. 
+
+We need to see what $XDG_RUNTIME_DIR is set to both outside the snap environment where the server is running and inside the snap environment where glmark2-wayland is running.
+```bash
+echo $XDG_RUNTIME_DIR
+/run/user/1000/
+```
+Again, enter the snap environment, and a quick command later:
+```bash
+snap run --shell glmark2-wayland
+$ echo $XDG_RUNTIME_DIR
+/run/user/1000/snap.glmark2-wayland
+```
+This tells us that inside snaps, XDG_RUNTIME_DIR is a custom directory. We need to change this to the value of XDG_RUNTIME_DIR that we saw miral-kiosk has above: /run/user/1000 - we can use “$XDG_RUNTIME_DIR/..” instead. 
+
+Let’s test it:
+```bash
+$ XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR/.. \
+$SNAP/usr/bin/glmark2-wayland
+/snap/glmark2-wayland/x1/usr/bin/glmark2-wayland: error while loading shared libraries: libjpeg.so.8: cannot open shared object file: No such file or directory
+```
+Yikes! What’s happened?
+
+Once again: files are not where they're expected to be! All the libraries glmark2-wayland needs are not in the usual places - we need to tell it where. Snapcraft deals with this by putting a script in our snap that looks after this, have a look at
+```bash
+$ cat $SNAP/command-glmark2-wayland.wrapper
+#!/bin/sh
+export PATH="$SNAP/usr/sbin:$SNAP/usr/bin:$SNAP/sbin:$SNAP/bin:$PATH"
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$SNAP/lib:$SNAP/usr/lib:$SNAP/lib/x86_64-linux-gnu:$SNAP/usr/lib/x86_64-linux-gnu:$SNAP/usr/lib/x86_64-linux-gnu/mesa-egl:$SNAP/usr/lib/x86_64-linux-gnu/mesa"
+export LD_LIBRARY_PATH=$SNAP_LIBRARY_PATH:$LD_LIBRARY_PATH
+exec "$SNAP/usr/bin/glmark2-wayland" "$@"
+```
+
+The script sets the library load and executable paths to those inside the snap. It is this script which is called when you do “snap run …”. Let’s run this instead:
+```bash
+$ XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR/.. \
+$SNAP/command-glmark2-wayland.wrapper
+```
+
+Oh, still fails with a bunch of errors like
+```
+libEGL warning: DRI2: failed to open swrast (search paths /usr/lib/x86_64-linux-gnu/dri:${ORIGIN}/dri:/usr/lib/dri)
+Error: eglInitialize() failed with error: 0x3001
+Error: main: Could not initialize canvas
+```
+Courage! We’re almost done, there’s just one more thing to fix...
+
+## GL drivers are not where they usually are
+
+This is another typical problem for snapping graphics applications: the GL drivers it needs are bundled inside the snap, but the application needs to be told the path to those drivers inside the snap.
+
+Is this "files are not where they're expected to be" yet again? Yes, but here we are lucky, there’s an environment variable  LIBGL_DRIVERS_PATH we can use to point libGL to the correct location for the GL driver files it needs (you could use layouts too, but this is more efficient)
+
+So set LIBGL_DRIVERS_PATH=$SNAP/usr/lib/x86_64-linux-gnu/dri - and finally run
+
+```bash
+$ LIBGL_DRIVERS_PATH=$SNAP/usr/lib/x86_64-linux-gnu/dri \
+XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR/.. \ $SNAP/command-glmark2-wayland.wrapper
+```
+
+Which works! Woo! Finally! You deserve a nice cup of tea for that. Now we know what to fix, exit the snap environment with Ctrl+D.
