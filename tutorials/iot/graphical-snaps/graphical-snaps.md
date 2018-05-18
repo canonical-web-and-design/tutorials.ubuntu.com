@@ -141,7 +141,9 @@ miral-app -kiosk -launcher 'glmark2-wayland --fullscreen'
 
 Inside the Mir-on-X window, you should see various graphical animations, and statistics printed to your console. All should be fine before proceeding.
 
-## Snapping glmark2-wayland to run in DevMode on an Ubuntu desktop.
+## Snapping glmark2-wayland
+
+For our first pass we will snap glmark2-wayland and run in DevMode on our Ubuntu desktop.
 
 This guide assumes you are familiar with creating snaps. If not, please read [here](https://docs.snapcraft.io/build-snaps/) first. Create the snap directory by forking https://github.com/snapcrafters/fork-and-rename-me
 
@@ -195,3 +197,124 @@ Error: main: Could not initialize canvas
 ```
 We need to solve these.
 
+## Debugging: files not where they’re expected to be
+
+One important thing to remember about snaps is that all files are located in a subdirectory $SNAP which maps to /snap/<snap_name>/<version>. To prove this, try the following:
+```bash
+snap run --shell glmark2-wayland
+```
+This lands us inside a shell which exists inside the snap environment. A quick “ls” tells us our theory is correct:
+```
+gerry@ubuntu:/home/gerry/snaps/glmark2-wayland$ ls /usr/share/glmark2
+ls: cannot access '/usr/share/glmark2': No such file or directory
+```
+
+If binaries have paths to resources hard-coded in, then in a snap environment it will fail to locate those resources.
+
+Here glmark2-wayland is looking for files within /usr/share/glmark2, which in actuality are located in $SNAP/usr/share/glmark2:
+
+```
+gerry@ubuntu:/home/gerry/snaps/glmark2-wayland$ ls $SNAP/usr/share/glmark2
+models    shaders  textures
+```
+
+This is extremely common when snapping applications, therefore there are a few approaches to solving this:
+
+
+### Your application may read an environment variable
+Your application may read an environment variable that specifies where it should look for those resources. In that case, adjust your YAML file to add it like this:
+
+```yaml
+apps:
+  glmark2-wayland:
+  command: "usr/bin/glmark2-wayland"
+  environment:
+    RESOURCES_PATH: $SNAP/usr/share/glmark2
+```
+
+In our case, glmark2-wayland has the path “/usr/share/glmark2” hard-coded in, so this is not going to work for us.
+
+
+### Changing the application
+
+Sometimes you can edit/recompile the application to add the environment variable mentioned above. If it is your own code you are snapping, this is a good approach.
+
+We could do this, but glmark2-wayland is not our own code and this adds an unnecessary maintenance overhead. 
+
+### Using Use snapd’s experimental “layouts” feature
+
+This bind-mounts directories inside the snap into any location, so that the binaries’ hard-coded paths are correct. To use, add this to the YAML file:
+
+```yaml
+passthrough:
+  layout:
+    /usr/share/glmark2:
+      bind: $SNAP/usr/share/glmark2
+```
+
+## Using layouts for glmark2-wayland
+
+For this guide we are going to use “layouts” frequently whenever paths are hard-coded into binaries. So adding the snippet above, our YAML becomes
+
+```yaml
+name: glmark2-wayland
+version: 0.1
+summary: GLMark2 on Wayland
+description: |
+  GLMark2 on Wayland
+confinement: strict
+grade: devel
+
+apps:
+  glmark2-wayland:
+    command: "usr/bin/glmark2-wayland"
+    plugs:
+      - opengl
+      - wayland
+
+parts:
+  glmark2-wayland:
+    plugin: nil
+    stage-packages:
+      - glmark2-wayland
+
+passthrough:
+  layout:
+    /usr/share/glmark2:
+      bind: $SNAP/usr/share/glmark2
+```
+
+“snapcraft cleanbuild” this and install:
+
+```bash
+snapcraft cleanbuild
+sudo snap install --devmode ./glmark2-wayland_0.1_amd64.snap
+```
+This gets an error message:
+```
+error: cannot install snap file: cannot use experimental 'layouts' feature, set option
+       'experimental.layouts' to true and try again
+```
+This is snapd making sure you understand that layouts are an experimental feature. We have to tell snapd we know about that:
+
+```bash
+sudo snap set core experimental.layouts=true
+```
+
+and from now on, snapd will let us install snaps using layouts.
+
+positive
+: You may have noticed that snapcraft prints this scary message:
+The 'passthrough' property is being used to propagate experimental properties to snap.yaml that have not been validated. The snap cannot be released to the store.
+The policy on this has changed, these snaps can indeed be released to the store, but after manual verification.
+
+Now let’s run our snap:
+```bash
+snap run glmark2-wayland
+```
+Still not working:
+```
+Error: main: Could not initialize canvas
+```
+
+But if you “run --shell” into the snap environment, you’ll see that /usr/share/glmark2 now contains the resources glmark2 needs. One problem solved!
