@@ -392,6 +392,15 @@ XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR/.. \ $SNAP/command-glmark2-wayland.wrapper
 
 Which works! Woo! Finally! You deserve a nice cup of tea for that. Now we know what to fix, exit the snap environment with Ctrl+D.
 
+positive
+: **On a Desktop Environment that supports Wayland** you may find that glmark connects to that and not Mir.
+This is easy to work around: tell Mir and the snap how to connect to each other:
+```bash
+miral-kiosk --wayland-socket-name mir-kiosk&
+export WAYLAND_DISPLAY=mir-kiosk
+snap run glmark2-wayland
+```
+
 negative
 : **Referring to “/usr/lib/x86_64-linux-gnu/dri” means the snap will only function on amd64 machines.**
 We will revisit this later to ensure the snap can be compiled to function on other architectures.
