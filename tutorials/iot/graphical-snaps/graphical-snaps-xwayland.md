@@ -7,7 +7,7 @@ feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 tags: snap, digital-signage, kiosk, device, xwayland
 difficulty: 3
 published: 2018-05-21
-author: Mir Team <mir-devel@lists.launchpad.net>
+author: Gerry Boland <gerry.boland@canonical.com>, Alan Griffiths <alan.griffiths@canonical.com>,
 
 ---
 
