@@ -1,5 +1,5 @@
 ---
-id: grapical-snaps
+id: graphical-snaps
 summary: 
 categories: iot
 status: draft
@@ -7,7 +7,7 @@ feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 tags: snap, digital-signage, kiosk, device
 difficulty: 3
 published: 2018-05-17
-author: Alan Griffiths <alan.griffiths@canonical.com>
+author: Mir Team <mir-devel@lists.launchpad.net>
 
 ---
 
@@ -28,7 +28,7 @@ positive
 
 ### What you'll learn
 
-How to create graphical snaps for Ubuntu Core including the two main approaches for creating a graphical snap (depending on the graphical toolkit your application uses).
+How to create graphical snaps for Ubuntu Core using a toolkit that supports Wayland.
 
 ### What you'll need
 
@@ -55,7 +55,7 @@ Not all toolkits have native support for Wayland. So, depending on the graphical
 
 This is not an exhaustive list. There may be other toolkits that can work with Wayland but we know these work with Mir.
  
-Native support for Wayland the simplest case, as the application can talk to Mir directly. You can omit the later sections that deal with Xwayland setup.
+Native support for Wayland the simplest case, as the application can talk to Mir directly.
 
 ### No Wayland support
 
@@ -67,16 +67,10 @@ Native support for Wayland the simplest case, as the application can talk to Mir
 
 This is a more complex case, as the toolkits require the legacy X11 protocol to function.
 
-To enable these applications we will introduce an intermediary “Xwayland” which translates X11 calls to Wayland ones. Each snapped X11 application should have its own X11 server (Xwayland) which then talks Wayland - a far more secure protocol.
+To enable these applications needs an intermediary “Xwayland” which translates X11 calls to Wayland ones. Each snapped X11 application should have its own X11 server (Xwayland) which then talks Wayland - a far more secure protocol.
 
-Xwayland will live in the application snap.
-
-We will first demonstrate how to get a native Wayland application snapped and working. This is all relevant to X11 applications, so please bear with us until we return to the subject of Xwayland.
-
-negative
-: To use fully confined snaps which use Xwayland internally, you will also need a custom build of snapd master with the following patch added:
-https://github.com/snapcore/snapd/pull/4545  (allows Xwayland to work confined in a snap)
-For now this guide will proceed without application confinement.
+positive
+: The current tutorial covers the development of all IoT graphical snaps, it is a prerequsite to [Graphical Snaps: Using Xwayland](tutorial/graphical-snaps-xwayland)  which explains the additional steps needed to run Xwayland in your application snap.
 
 ## Preparation
 duration: 10:00
