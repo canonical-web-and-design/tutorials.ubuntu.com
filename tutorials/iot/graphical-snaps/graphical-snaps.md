@@ -79,10 +79,6 @@ duration: 10:00
 
 * An Ubuntu desktop (Xenial or Bionic)
 
-* A Virtual Machine
-A good way to test graphical snaps on Ubuntu Core is to have a VM with Core installed and ready. This guide shows you how:
-[https://developer.ubuntu.com/core/get-started/kvm](https://developer.ubuntu.com/core/get-started/kvm).
-
 * Your Device
 Ubuntu core is available on a range of devices. This guide shows you how to set up an existing device: [https://developer.ubuntu.com/core/get-started/installation-medias](https://developer.ubuntu.com/core/get-started/installation-medias).
 
@@ -380,8 +376,9 @@ Is this "files are not where they're expected to be" yet again? Yes, but here we
 So set LIBGL_DRIVERS_PATH=$SNAP/usr/lib/x86_64-linux-gnu/dri - and finally run
 
 ```bash
-$ LIBGL_DRIVERS_PATH=$SNAP/usr/lib/x86_64-linux-gnu/dri \
-XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR/.. \ $SNAP/command-glmark2-wayland.wrapper
+LIBGL_DRIVERS_PATH=$SNAP/usr/lib/x86_64-linux-gnu/dri \
+XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR/.. \
+$SNAP/command-glmark2-wayland.wrapper
 ```
 
 Which works! Woo! Finally! You deserve a nice cup of tea for that. Now we know what to fix, exit the snap environment with Ctrl+D.
@@ -413,21 +410,14 @@ $SNAP/usr/bin/glmark2-wayland
 
 and point the “command:” in the snapcraft.yaml file to it (don’t forget to install it in the snap!!)
 
-Another option is to adjust the snapcraft file like this:
+Another option (which we will use here) is to adjust the `command:` file like this:
 ```yaml
 ...
-apps:
-  glmark2-wayland:
-    command: "bash -c 'XDG_RUNTIME_DIR=$(dirname $XDG_RUNTIME_DIR) $SNAP/usr/bin/glmark2-wayland --fullscreen'"
-    plugs:
-      - opengl
-      - wayland
-    environment:
-      LIBGL_DRIVERS_PATH: $SNAP/usr/lib/x86_64-linux-gnu/dri
+    command: "bash -c 'XDG_RUNTIME_DIR=$(dirname $XDG_RUNTIME_DIR) LIBGL_DRIVERS_PATH=$(find $SNAP/usr/lib/ -name dri) $SNAP/usr/bin/glmark2-wayland --fullscreen'"
 ...
 ```
 
-### The final YAML file:
+### The working YAML file:
 
 ```yaml
 name: glmark2-wayland
@@ -440,12 +430,10 @@ grade: devel
 
 apps:
   glmark2-wayland:
-    command: "bash -c 'XDG_RUNTIME_DIR=$(dirname $XDG_RUNTIME_DIR) $SNAP/usr/bin/glmark2-wayland --fullscreen'"
+    command: "bash -c 'XDG_RUNTIME_DIR=$(dirname $XDG_RUNTIME_DIR) LIBGL_DRIVERS_PATH=$(find $SNAP/usr/lib/ -name dri) $SNAP/usr/bin/glmark2-wayland --fullscreen'"
     plugs:
       - opengl
       - wayland
-    environment:
-      LIBGL_DRIVERS_PATH: $SNAP/usr/lib/x86_64-linux-gnu/dri
 
 parts:
   glmark2-wayland:
@@ -488,13 +476,7 @@ duration: 5:00
 
 ### Ubuntu Core Setup
 
-Once you have set up Ubuntu Core on your device or VM and logged in you will need to enable the experimental “layouts” feature as we did on desktop:
-
-```bash
-sudo snap set core experimental.layouts=true
-```
-
-Then install the “mir-kiosk” snap.
+Once you have set up Ubuntu Core on your device and logged in install the “mir-kiosk” snap.
 
 ```bash
 snap install --beta mir-kiosk
@@ -504,3 +486,126 @@ Now you should have a black screen with a white mouse cursor.
 
 "mir-kiosk" provides the graphical environment needed for running a graphical snap.
 
+Next, you will need to enable the experimental “layouts” feature as we did on desktop:
+
+```bash
+sudo snap set core experimental.layouts=true
+```
+
+## Building for Ubuntu Core.
+
+Changing this snap .yaml from Classic to Core, requires one main alteration: Wayland is provided by another snap: mir-kiosk, so we need to get the Wayland socket from it somehow.
+    
+The mir-kiosk snap has a content interface called “wayland-socket-dir” to share the Wayland socket with application snaps. Use this by making the following alterations to the YAML file:
+
+Change `confinement` to "strict":
+```yaml
+...
+confinement: strict
+...
+```
+Set XDG_RUNTIME_DIR to "$SNAP_DATA/wayland":
+```yaml
+...
+    command: "bash -c 'XDG_RUNTIME_DIR=$SNAP_DATA/wayland LIBGL_DRIVERS_PATH=$(find $SNAP/usr/lib/ -name dri) $SNAP/usr/bin/glmark2-wayland --fullscreen'"
+...
+```
+
+Add a `plugs` stanza:
+```yaml
+...
+plugs:
+   wayland-socket-dir:
+    content: wayland-socket-dir
+    interface: content
+    target: $SNAP_DATA/wayland
+    default-provider: mir-kiosk
+...
+```
+   
+This additional snippet causes snapd to bind-mount the mir-kiosk Wayland socket directory into the glmark2-wayland’s namespace, in a location of its desire: $SNAP_DATA/wayland. Then we update the XDG_RUNTIME_DIR variable to match.
+
+### The full YAML file:
+
+```yaml
+name: glmark2-wayland
+version: 0.1
+summary: GLMark2 on Wayland
+description: |
+  GLMark2 on Wayland
+confinement: strict
+grade: devel
+
+apps:
+  glmark2-wayland:
+    command: "bash -c 'XDG_RUNTIME_DIR=$SNAP_DATA/wayland LIBGL_DRIVERS_PATH=$(find $SNAP/usr/lib/ -name dri) $SNAP/usr/bin/glmark2-wayland --fullscreen'"
+    plugs:
+      - opengl
+      - wayland
+
+parts:
+  glmark2-wayland:
+    plugin: nil
+    stage-packages:
+      - glmark2-wayland
+
+passthrough:
+  layout:
+    /usr/share/glmark2:
+      bind: $SNAP/usr/share/glmark2
+
+plugs:
+   wayland-socket-dir:
+    content: wayland-socket-dir
+    interface: content
+    target: $SNAP_DATA/wayland
+    default-provider: mir-kiosk
+```
+
+Check this builds locally:
+```bash
+snapcraft cleanbuild
+```
+## Building for Your Device
+
+One day, perhaps, snapcraft will fully support cross building with the `--target-arch` option. But getting that to work is beyond the scope of this tutorial. Instead we'll make use of Launchpad's builders to build the snap for all architectures (including the one your device provides).
+
+
+
+## **############ Unformed notes ############**
+
+
+Build this snap copy to the device:
+```bash
+snapcraft cleanbuild --target-arch=arm64
+scp glmark2-wayland_0.1_arm64.snap <your login>@<device address>:~
+```
+
+And, on your device:
+```bash
+snap install --dangerous ./glmark2-wayland_0.1_arm64.snap
+```
+*(Note, we actually could drop the “devmode” here, this app needs no more work to be fully confined. But other apps may not be so easy, see [guide] on how to fully confine)*
+    
+Run with the usual:
+```bash
+snap run glmark2-wayland
+```
+```
+Error: main: Could not initialize canvas
+```
+  
+What? This is something we saw before: it cannot connect to the Wayland server (do `snap run --shell glmark2-wayland` and `ls $SNAP_DATA/wayland` - the directory will be missing).
+
+You need to explicitly connect the wayland-socket-dir plug and slot with:
+```bash
+snap connect glmark2-wayland:wayland-socket-dir mir-kiosk:wayland-socket-dir
+```
+Now running `snap run glmark2-wayland` should show you the animations on your Ubuntu Core device’s display. Congrats! You deserve at least two biscuits with that tea!
+
+
+Actually...
+
+```bash
+
+```

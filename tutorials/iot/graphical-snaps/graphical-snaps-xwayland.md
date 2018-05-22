@@ -80,3 +80,5 @@ negative
 : To use fully confined snaps which use Xwayland internally, you will also need a custom build of snapd master with the following patch added:
 https://github.com/snapcore/snapd/pull/4545  (allows Xwayland to work confined in a snap)
 For now this guide will proceed without application confinement.
+
+## TODO
