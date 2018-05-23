@@ -528,7 +528,7 @@ This additional snippet causes snapd to bind-mount the mir-kiosk Wayland socket 
 ### The full YAML file:
 
 ```yaml
-name: glmark2-wayland
+name: iot-example-graphical-snap
 version: 0.1
 summary: GLMark2 on Wayland
 description: |
@@ -538,7 +538,7 @@ grade: devel
 
 apps:
   glmark2-wayland:
-    command: "bash -c 'XDG_RUNTIME_DIR=$SNAP_DATA/wayland LIBGL_DRIVERS_PATH=$(find $SNAP/usr/lib/ -name dri) $SNAP/usr/bin/glmark2-wayland --fullscreen'"
+    command: "bash -c 'XDG_RUNTIME_DIR=$SNAP_DATA/wayland LIBGL_DRIVERS_PATH=$(find $SNAP/usr/lib/ -name dri) $SNAP/usr/bin/glmark2-wayland'"
     plugs:
       - opengl
       - wayland
@@ -570,42 +570,31 @@ snapcraft cleanbuild
 
 One day, perhaps, snapcraft will fully support cross building with the `--target-arch` option. But getting that to work is beyond the scope of this tutorial. Instead we'll make use of Launchpad's builders to build the snap for all architectures (including the one your device provides).
 
-
-
-## **############ Unformed notes ############**
-
-
-Build this snap copy to the device:
-```bash
-snapcraft cleanbuild --target-arch=arm64
-scp glmark2-wayland_0.1_arm64.snap <your login>@<device address>:~
-```
-
-And, on your device:
-```bash
-snap install --dangerous ./glmark2-wayland_0.1_arm64.snap
-```
-*(Note, we actually could drop the “devmode” here, this app needs no more work to be fully confined. But other apps may not be so easy, see [guide] on how to fully confine)*
-    
-Run with the usual:
-```bash
-snap run glmark2-wayland
-```
-```
-Error: main: Could not initialize canvas
-```
-  
-What? This is something we saw before: it cannot connect to the Wayland server (do `snap run --shell glmark2-wayland` and `ls $SNAP_DATA/wayland` - the directory will be missing).
-
-You need to explicitly connect the wayland-socket-dir plug and slot with:
-```bash
-snap connect glmark2-wayland:wayland-socket-dir mir-kiosk:wayland-socket-dir
-```
-Now running `snap run glmark2-wayland` should show you the animations on your Ubuntu Core device’s display. Congrats! You deserve at least two biscuits with that tea!
-
-
-Actually...
+Create a github repository for your snap and push your changes to the snap project there:
 
 ```bash
-
+git commit -a
+git remote remove origin
+git remote add origin https://github.com/<project>/<repo>.git
+git push -u origin master
 ```
+
+Now [setup your build on Launchpad](https://docs.snapcraft.io/build-snaps/ci-integration). *Note that you will need to use the same snap name in the store as in name in `name:`, so chose something unique to make your life easier.*
+
+Don't bother with publishing to the store (yet) you can download the snap and deploy it as follows:
+
+On your desktop go to the snap webpage (e.g. https://code.launchpad.net/~alan-griffiths/+snap/iot-example-graphical-snap), find the build for your device architecture and download it and copy to your device. For example:
+```bash
+wget https://code.launchpad.net/~alan-griffiths/+snap/iot-example-graphical-snap/+build/226518/+files/iot-example-graphical-snap_0.1_arm64.snap
+scp iot-example-graphical-snap_0.1_arm64.snap   alan-griffiths@192.168.1.159:~
+```
+On your ssh session to your device:
+```bash
+snap install --dangerous ./iot-example-graphical-snap_0.1_arm64.snap 
+snap connect iot-example-graphical-snap:wayland-socket-dir  mir-kiosk:wayland-socket-dir
+sudo snap run iot-example-graphical-snap.glmark2-wayland
+```
+
+On your device, you should see the same graphical animations you saw earlier (and statistics printed to your console).
+
+Congratulations, you have created your first graphical snap for Ubuntu Core.
