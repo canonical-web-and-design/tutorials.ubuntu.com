@@ -81,4 +81,76 @@ negative
 https://github.com/snapcore/snapd/pull/4545  (allows Xwayland to work confined in a snap)
 For now this guide will proceed without application confinement.
 
-## TODO
+## Verify application runs on Xwayland
+
+A large fraction of applications are still written for X11 - there are those written with Qt4 and Gtk2, but also Java, Mono or Wine-based. We can snap these for a kiosk just fine, we just need to add some extra bits to the snap.
+   
+As before, we’ll take a trivial example to start with (glxgears), then address each toolkit and their quirks. glxgears is again a handy snap to have, as it will help prove OpenGL is working for X11 apps inside Ubuntu Core.
+   
+Install a few extra bits:
+```bash
+sudo apt install xwayland mesa-utils i3-wm
+```
+
+Now launch
+```bash
+miral-app -launcher 'Xwayland -wr :1'
+```
+(the -wr is optional, causes Xwayland to create a white window, so we see it is running in Mir-on-X, the “:1” specifies a local socket which won’t collide with your desktop’s X11 server which uses “:0”).
+
+If we run `glxgears` right now, it will appear on your desktop, not inside the Mir-on-X window. Mir doesn’t talk X11 itself, but it relies on an intermediary “Xwayland” to translate.
+and we now can launch glxgears and tell it to connect to Xwayland:
+```bash
+DISPLAY=:1 glxgears
+```
+You should see gear animation in the Mir-on-X window. 
+
+But it’s not perfect - why is it not fullscreen? The reason is that in the X11 world, a window manager is a separate process which takes the responsibility of sizing and positioning windows. Xwayland does not do this, so we need an additional process to manage this. We'll use the “i3” window manager, as it is simple to configure with a text file.
+
+i3 needs to be told what X11 window should be fullscreen. To do this, we need to identify a unique property of the window to be fullscreened. Run glxgears, this time on your desktop:
+```bash
+glxgears
+```
+and in a separate terminal, run
+```bash
+xprop
+```
+your cursor will change to a cross-hairs - click on the GlxGears window. You’ll see window metadata printed to your terminal like this:
+```
+_NET_WM_STATE(ATOM) = _NET_WM_STATE_FOCUSED
+WM_STATE(WM_STATE):
+       window state: Normal
+       icon window: 0x0
+_NET_WM_DESKTOP(CARDINAL) = 0
+_GTK_EDGE_CONSTRAINTS(CARDINAL) = 170
+_NET_FRAME_EXTENTS(CARDINAL) = 0, 0, 30, 0
+_NET_WM_ALLOWED_ACTIONS(ATOM) = _NET_WM_ACTION_MOVE, _NET_WM_ACTION_RESIZE, _NET_WM_ACTION_FULLSCREEN, _NET_WM_ACTION_MINIMIZE, _NET_WM_ACTION_SHADE, _NET_WM_ACTION_MAXIMIZE_HORZ, _NET_WM_ACTION_MAXIMIZE_VERT, _NET_WM_ACTION_CHANGE_DESKTOP, _NET_WM_ACTION_CLOSE, _NET_WM_ACTION_ABOVE, _NET_WM_ACTION_BELOW
+WM_ICON_NAME(STRING) = "glxgears"
+WM_NAME(STRING) = "glxgears"
+WM_NORMAL_HINTS(WM_SIZE_HINTS):
+       user specified location: 0, 0
+       user specified size: 300 by 300
+```
+We can use the “name” option above. Create a text file called “i3.conf” and insert the following:
+```
+# i3 config file (v4)
+font pango:monospace 8
+# always start in fullscreen
+for_window [title="glxgears"] fullscreen
+```
+
+See [https://i3wm.org/docs/userguide.html#configuring](https://i3wm.org/docs/userguide.html#configuring) for info on the syntax used. Start Mir-on-X again:
+```bash
+miral-app -launcher 'Xwayland -wr :1'
+```
+Then launch i3 with:
+```bash
+DISPLAY=:1 i3 -c i3.conf &
+```
+you won’t see any evidence of it running on screen though. But running
+```bash
+DISPLAY=:1 glxgears
+```
+you see that glxgears is now fullscreen.
+
+This is the basic setup that we’ll have in our snap. It seems like a lot of work, but there’s a helper that does it all automatically: xwayland-kiosk-helper! We’ll use that from now on.
