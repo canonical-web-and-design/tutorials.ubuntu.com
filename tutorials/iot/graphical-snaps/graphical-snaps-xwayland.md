@@ -81,7 +81,7 @@ negative
 https://github.com/snapcore/snapd/pull/4545  (allows Xwayland to work confined in a snap)
 For now this guide will proceed without application confinement.
 
-## Verify application runs on Xwayland
+## Introducing glxgears
 
 A large fraction of applications are still written for X11 - there are those written with Qt4 and Gtk2, but also Java, Mono or Wine-based. We can snap these for a kiosk just fine, we just need to add some extra bits to the snap.
    
@@ -154,3 +154,61 @@ DISPLAY=:1 glxgears
 you see that glxgears is now fullscreen.
 
 This is the basic setup that we’ll have in our snap. It seems like a lot of work, but there’s a helper that does it all automatically: xwayland-kiosk-helper! We’ll use that from now on.
+
+## Snapping glxgears
+
+For our first pass we will snap glxgears and run it in DevMode (i.e. unconfined) on our Ubuntu desktop. We use `xwayland-kiosk-helpers` to make life easier. xwayland-kiosk-helpers looks after running the commands we did above. Here is a suitable snapcraft.yaml:
+
+This guide assumes you are familiar with creating snaps. If not, please read here first. Create the snap directory by forking https://github.com/snapcrafters/fork-and-rename-me
+
+```bash
+git clone https://github.com/snapcrafters/fork-and-rename-me.git glxgears
+```
+Inside the glxgears directory edit the "snapcraft.yaml" file, and let's try the following:
+
+```yaml
+name: glxgears-kiosk
+version: 0.1
+summary: glxgears on XWayland
+description: |
+   glxgears on XWayland
+confinement: strict
+grade: devel
+
+apps:
+ glxgears-kiosk:
+   command: xwayland-kiosk-launch glxgears
+   environment:
+     XWAYLAND_FULLSCREEN_WINDOW_HINT: title="glxgears"
+     WAYLAND_SOCKET_DIR: /run/user/1000
+   plugs:
+     - opengl
+     - wayland
+
+parts:
+ glxgears:
+   plugin: nil
+   after: [ xwayland-kiosk-helper ]
+   stage-packages:
+     - mesa-utils
+```
+
+Create the snap by returning to the "glxgears" directory and running
+
+```bash
+snapcraft cleanbuild
+```
+You should be left with a "glxgears-kiosk_0.1_amd64.snap" file.
+
+Let's test it!
+
+```bash
+miral-kiosk&
+sudo snap install --dangerous ./glxgears-kiosk_0.1_amd64.snap --devmode
+sudo snap run glxgears-kiosk
+```
+
+You should see a fullscreen gear animation in the Mir-on-X window. 
+
+## Ubuntu Core
+
