@@ -187,7 +187,7 @@ Error: main: Could not initialize canvas
 ```
 We need to solve these.
 
-### Common Problem 1: Files are not where they’re expected to be!
+## Common Problem 1: Files are not where they’re expected to be!
 duration: 5:00
 
 One important thing to remember about snaps is that all files are located in a subdirectory $SNAP which maps to /snap/<snap_name>/<version>. To prove this, try the following:
@@ -212,7 +212,7 @@ models    shaders  textures
 This is extremely common when snapping applications, therefore there are a few approaches to solving this:
 
 
-#### Your application may read an environment variable
+### Your application may read an environment variable
 Your application may read an environment variable that specifies where it should look for those resources. In that case, adjust your YAML file to add it like this:
 
 ```yaml
@@ -226,13 +226,13 @@ apps:
 In our case, glmark2-wayland has the path “/usr/share/glmark2” hard-coded in, so this is not going to work for us.
 
 
-#### Changing the application
+### Changing the application
 
 Sometimes you can edit/recompile the application to add the environment variable mentioned above. If it is your own code you are snapping, this is a good approach.
 
 We could do this, but glmark2-wayland is not our own code and this adds an unnecessary maintenance overhead. 
 
-#### Using layouts for hard-coded paths
+### Using layouts for hard-coded paths
 
 This experimental snapd feature bind-mounts directories inside the snap into any location, so that the binaries’ hard-coded paths are correct. To use, add this to the YAML file:
 
