@@ -493,9 +493,9 @@ Next, you will need to enable the experimental “layouts” feature as we did o
 sudo snap set core experimental.layouts=true
 ```
 
-## Building for Ubuntu Core.
+## Snapping for Ubuntu Core
 
-Changing this snap .yaml from Classic to Core requires one main alteration: Wayland is provided by another snap: mir-kiosk, so we need to get the Wayland socket from it somehow.
+Changing this snap .yaml to work with Ubuntu Core requires one main alteration: Wayland is provided by another snap: mir-kiosk, so we need to get the Wayland socket from it somehow.
     
 The mir-kiosk snap has a content interface called “wayland-socket-dir” to share the Wayland socket with application snaps. Use this by making the following alterations to the YAML file:
 

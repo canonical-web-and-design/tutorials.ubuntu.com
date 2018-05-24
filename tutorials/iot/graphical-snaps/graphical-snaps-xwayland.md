@@ -82,6 +82,7 @@ https://github.com/snapcore/snapd/pull/4545  (allows Xwayland to work confined i
 For now this guide will proceed without application confinement.
 
 ## Introducing glxgears
+duration: 2:00
 
 A large fraction of applications are still written for X11 - there are those written with Qt4 and Gtk2, but also Java, Mono or Wine-based. We can snap these for a kiosk just fine, we just need to add some extra bits to the snap.
    
@@ -156,6 +157,7 @@ you see that glxgears is now fullscreen.
 This is the basic setup that we’ll have in our snap. It seems like a lot of work, but there’s a helper that does it all automatically: xwayland-kiosk-helper! We’ll use that from now on.
 
 ## Snapping glxgears
+duration: 5:00
 
 For our first pass we will snap glxgears and run it in DevMode (i.e. unconfined) on our Ubuntu desktop. We use `xwayland-kiosk-helpers` to make life easier. xwayland-kiosk-helpers looks after running the commands we did above. Here is a suitable snapcraft.yaml:
 
@@ -211,4 +213,91 @@ sudo snap run glxgears-kiosk
 You should see a fullscreen gear animation in the Mir-on-X window. 
 
 ## Ubuntu Core
+duration: 5:00
 
+### Ubuntu Core Setup
+
+Once you have set up Ubuntu Core on your device and logged in install the “mir-kiosk” snap.
+
+```bash
+snap install --beta mir-kiosk
+```
+
+Now you should have a black screen with a white mouse cursor.
+
+"mir-kiosk" provides the graphical environment needed for running a graphical snap.
+
+Next, you will need to enable the experimental “layouts” feature as we did on desktop:
+
+```bash
+sudo snap set core experimental.layouts=true
+```
+
+## Snapping for Ubuntu Core
+
+Changing this snap .yaml to work with Ubuntu Core requires one main alteration: Wayland is provided by another snap: mir-kiosk, so we need to get the Wayland socket from it somehow.
+    
+The mir-kiosk snap has a content interface called “wayland-socket-dir” to share the Wayland socket with application snaps. Use this by making the following alterations to the YAML file:
+
+Set WAYLAND_SOCKET_DIR to "$SNAP_DATA/wayland":
+```yaml
+...
+     WAYLAND_SOCKET_DIR: $SNAP_DATA/wayland
+...
+```
+
+Add a `plugs` stanza:
+```yaml
+...
+plugs:
+   wayland-socket-dir:
+    content: wayland-socket-dir
+    interface: content
+    target: $SNAP_DATA/wayland
+    default-provider: mir-kiosk
+...
+```
+   
+This additional snippet causes snapd to bind-mount the mir-kiosk Wayland socket directory into the glmark2-wayland’s namespace, in a location of its desire: $SNAP_DATA/wayland. Then we update the WAYLAND_SOCKET_DIR variable to match.
+
+### The full YAML file:
+
+```yaml
+name: iot-example-graphical-xwayland-snap
+version: 0.1
+summary: glxgears on XWayland
+description: |
+   glxgears on XWayland
+confinement: strict
+grade: devel
+
+apps:
+ glxgears-kiosk:
+   command: xwayland-kiosk-launch glxgears
+   environment:
+     XWAYLAND_FULLSCREEN_WINDOW_HINT: title="glxgears"
+     WAYLAND_SOCKET_DIR: $SNAP_DATA/wayland
+   plugs:
+     - opengl
+     - wayland
+
+parts:
+ glxgears:
+   plugin: nil
+   after: [ xwayland-kiosk-helper ]
+   stage-packages:
+     - mesa-utils
+
+plugs:
+   wayland-socket-dir:
+    content: wayland-socket-dir
+    interface: content
+    target: $SNAP_DATA/wayland
+    default-provider: mir-kiosk
+```
+
+Check this builds locally:
+```bash
+snapcraft cleanbuild
+```
+## Building for a Device with different architecture
