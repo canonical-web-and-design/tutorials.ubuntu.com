@@ -37,17 +37,17 @@ You can follow the steps in this tutorial on any current release of Ubuntu. You'
 ## Using Wayland
 duration: 3:00
 
-Graphics on UbuntuCore uses Wayland as the primary interface. Mir is a graphical display server that supports Wayland clients. Snapd supports Wayland as an interface, so confinement can be achieved.
+Graphics on Ubuntu Core uses Wayland as the primary protocol?. Mir is a graphical display server that supports Wayland clients. Snapd supports Wayland as an interface, so confinement can be achieved.
 
 positive
-: We do not support X11 directly on UbuntuCore with Mir.
+: We do not support X11 directly on Ubuntu Core with Mir.
 The primary reason for this is security: the X11 protocol was not designed with security in mind, a malicious application connected to an X11 server can obtain much information from the other running X11 applications.
 
-Not all toolkits have native support for Wayland. So, depending on the graphical toolkit your application uses, there may be some additional setup (for Xwayland) required.
+Beware that not all toolkits have native support for Wayland. So, depending on the graphical toolkit your application uses, there may be some additional setup (for Xwayland) required.
 
 ![graphical-snaps-with-mir](images/graphical-snaps-with-mir.png)
 
-### Native support for Wayland
+### Toolkits with Native support for Wayland
 
 * GTK3/4 
 * Qt5
@@ -57,7 +57,7 @@ This is not an exhaustive list. There may be other toolkits that can work with W
  
 Native support for Wayland the simplest case, as the application can talk to Mir directly.
 
-### No Wayland support
+### Toolkits with No Wayland support
 
 * GTK2
 * Qt4
@@ -67,10 +67,10 @@ Native support for Wayland the simplest case, as the application can talk to Mir
 
 This is a more complex case, as the toolkits require the legacy X11 protocol to function.
 
-To enable these applications needs an intermediary “Xwayland” which translates X11 calls to Wayland ones. Each snapped X11 application should have its own X11 server (Xwayland) which then talks Wayland - a far more secure protocol.
+To enable these applications we add an intermediary “Xwayland” which translates X11 calls to Wayland ones. Each snapped X11 application will have its own confined X11 server (Xwayland) which then talks Wayland - a far more secure protocol.
 
 positive
-: The current tutorial covers the development of all IoT graphical snaps, it is a prerequsite to [Graphical Snaps: Using Xwayland](tutorial/graphical-snaps-xwayland)  which explains the additional steps needed to run Xwayland in your application snap.
+: The current tutorial covers the development of all IoT graphical snaps. It is a prerequsite to [Graphical Snaps: Using Xwayland](tutorial/graphical-snaps-xwayland)  which explains the additional steps needed to run Xwayland in your application snap.
 
 ## Preparation
 duration: 10:00
@@ -80,7 +80,7 @@ duration: 10:00
 * An Ubuntu desktop (Xenial or Bionic)
 
 * Your Device
-Ubuntu core is available on a range of devices. This guide shows you how to set up an existing device: [https://developer.ubuntu.com/core/get-started/installation-medias](https://developer.ubuntu.com/core/get-started/installation-medias).
+Ubuntu Core is available on a range of devices. This guide shows you how to set up an existing device: [https://developer.ubuntu.com/core/get-started/installation-medias](https://developer.ubuntu.com/core/get-started/installation-medias).
 
 If there's no supported image that fits your needs you can [create your own core image](https://tutorials.ubuntu.com/tutorial/create-your-own-core-image).
 
@@ -132,7 +132,7 @@ Inside the Mir-on-X window, you should see various graphical animations, and sta
 
 ## Snapping glmark2-wayland
 
-For our first pass we will snap glmark2-wayland and run in DevMode on our Ubuntu desktop.
+For our first pass we will snap glmark2-wayland and run it in DevMode (i.e. unconfined) on our Ubuntu desktop.
 
 This guide assumes you are familiar with creating snaps. If not, please read [here](https://docs.snapcraft.io/build-snaps/) first. Create the snap directory by forking https://github.com/snapcrafters/fork-and-rename-me
 
@@ -187,7 +187,7 @@ Error: main: Could not initialize canvas
 ```
 We need to solve these.
 
-## Files are not where they’re expected to be!
+### Common Problem 1: Files are not where they’re expected to be!
 duration: 5:00
 
 One important thing to remember about snaps is that all files are located in a subdirectory $SNAP which maps to /snap/<snap_name>/<version>. To prove this, try the following:
@@ -212,7 +212,7 @@ models    shaders  textures
 This is extremely common when snapping applications, therefore there are a few approaches to solving this:
 
 
-### Your application may read an environment variable
+#### Your application may read an environment variable
 Your application may read an environment variable that specifies where it should look for those resources. In that case, adjust your YAML file to add it like this:
 
 ```yaml
@@ -226,15 +226,15 @@ apps:
 In our case, glmark2-wayland has the path “/usr/share/glmark2” hard-coded in, so this is not going to work for us.
 
 
-### Changing the application
+#### Changing the application
 
 Sometimes you can edit/recompile the application to add the environment variable mentioned above. If it is your own code you are snapping, this is a good approach.
 
 We could do this, but glmark2-wayland is not our own code and this adds an unnecessary maintenance overhead. 
 
-### Using Use snapd’s experimental “layouts” feature
+#### Using layouts for hard-coded paths
 
-This bind-mounts directories inside the snap into any location, so that the binaries’ hard-coded paths are correct. To use, add this to the YAML file:
+This experimental snapd feature bind-mounts directories inside the snap into any location, so that the binaries’ hard-coded paths are correct. To use, add this to the YAML file:
 
 ```yaml
 passthrough:
@@ -243,7 +243,7 @@ passthrough:
       bind: $SNAP/usr/share/glmark2
 ```
 
-## Using layouts for hard-coded paths
+## Snapping glmark2-wayland (continued)
 
 For this guide we are going to use “layouts” frequently whenever paths are hard-coded into binaries. So adding the snippet above, our YAML becomes
 
@@ -310,7 +310,7 @@ Error: main: Could not initialize canvas
 
 But if you “run --shell” into the snap environment, you’ll see that /usr/share/glmark2 now contains the resources glmark2 needs. One problem solved!
 
-## Unable to connect to Wayland server
+## Common Problem 2: Unable to connect to Wayland server
 duration 3:00
 
 ```
@@ -319,7 +319,7 @@ Error: main: Could not initialize canvas
 
 This error message is not too helpful, but an important thing to check is if the Wayland socket can be found. If not, glmark2-wayland cannot create a surface/canvas.
 
-The convention is that the Wayland socket directory is specified by the $XDG_RUNTIME_DIR environment variable. 
+The convention is that the Wayland socket directory is specified by the $XDG_RUNTIME_DIR environment variable. The default name for the socket is "wayland-0" but it can be different (specified by WAYLAND_DISPLAY).
 
 We need to see what $XDG_RUNTIME_DIR is set to both outside the snap environment where the server is running and inside the snap environment where glmark2-wayland is running.
 ```bash
@@ -366,7 +366,7 @@ Error: main: Could not initialize canvas
 ```
 Courage! We’re almost done, there’s just one more thing to fix...
 
-## GL drivers are not where they usually are
+### Common Problem 3: GL drivers are not where they usually are
 duration 2:00
 
 This is another typical problem for snapping graphics applications: the GL drivers it needs are bundled inside the snap, but the application needs to be told the path to those drivers inside the snap.
@@ -416,6 +416,7 @@ Another option (which we will use here) is to adjust the `command:` file like th
     command: "bash -c 'XDG_RUNTIME_DIR=$(dirname $XDG_RUNTIME_DIR) LIBGL_DRIVERS_PATH=$(find $SNAP/usr/lib/ -name dri) $SNAP/usr/bin/glmark2-wayland --fullscreen'"
 ...
 ```
+QN: Reminder - fix --fullscreen with Mir?
 
 ### The working YAML file:
 
@@ -465,13 +466,13 @@ duration: 1:00
 
 Because snapping applications can reveal lots of hard-coded paths and assumptions that applications make, which snap confinement will break. It is good to understand the steps needed to debug and solve these problems.
 
-There can be many, many environment variables and support files that need to be set up inside snaps, for applications to run correctly. Much of this work has already been done and automated in the *snapcraft-desktop-helpers* project, we will be using this later.
+There can be many, many environment variables and support files that need to be set up inside snaps, for applications to run correctly. Much of this work has already been done and automated in the *snapcraft-desktop-helpers* project, we will be using this in a follow-up tutorial.
 
 ### We now have a snap working with a desktop Wayland server
  
-*But our goal is to have it working on UbuntuCore on your chosen device.*
+*But our goal is to have it working on Ubuntu Core on your chosen device.*
 
-## UbuntuCore
+## Ubuntu Core
 duration: 5:00
 
 ### Ubuntu Core Setup
@@ -494,7 +495,7 @@ sudo snap set core experimental.layouts=true
 
 ## Building for Ubuntu Core.
 
-Changing this snap .yaml from Classic to Core, requires one main alteration: Wayland is provided by another snap: mir-kiosk, so we need to get the Wayland socket from it somehow.
+Changing this snap .yaml from Classic to Core requires one main alteration: Wayland is provided by another snap: mir-kiosk, so we need to get the Wayland socket from it somehow.
     
 The mir-kiosk snap has a content interface called “wayland-socket-dir” to share the Wayland socket with application snaps. Use this by making the following alterations to the YAML file:
 
@@ -566,7 +567,7 @@ Check this builds locally:
 ```bash
 snapcraft cleanbuild
 ```
-## Building for Your Device
+## Building for a Device with different architecture
 
 One day, perhaps, snapcraft will fully support cross building with the `--target-arch` option. But getting that to work is beyond the scope of this tutorial. Instead we'll make use of Launchpad's builders to build the snap for all architectures (including the one your device provides).
 
