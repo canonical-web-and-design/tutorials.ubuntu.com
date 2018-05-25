@@ -1,13 +1,13 @@
 ---
 id: graphical-snaps
-summary: 
+summary: A guide to creating graphical snaps for Ubuntu Core
 categories: iot
 status: draft
 feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 tags: snap, digital-signage, kiosk, device
 difficulty: 3
 published: 2018-05-17
-author: Gerry Boland <gerry.boland@canonical.com>, Alan Griffiths <alan.griffiths@canonical.com>,
+author: Gerry Boland <gerry.boland@canonical.com>
 
 ---
 
