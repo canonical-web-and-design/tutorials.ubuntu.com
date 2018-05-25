@@ -14,6 +14,7 @@ author: Gerry Boland <gerry.boland@canonical.com>, Alan Griffiths <alan.griffith
 # Graphical Snaps for UbuntuCore: Using Xwayland
 
 ## Overview
+duration: 1:00
 
 negative
 : Do not attempt this tutorial unless you are already familiar with the material in [Graphical Snaps for UbuntuCore](tutorial/graphical-snaps). This tutorial covers *only* the extra material needed when using toolkits that do not support Wayland directly.
@@ -156,7 +157,7 @@ you see that glxgears is now fullscreen.
 
 This is the basic setup that we’ll have in our snap. It seems like a lot of work, but there’s a helper that does it all automatically: xwayland-kiosk-helper! We’ll use that from now on.
 
-## Snapping glxgears
+## First Pass Snapping: Test on Desktop
 duration: 5:00
 
 For our first pass we will snap glxgears and run it in DevMode (i.e. unconfined) on our Ubuntu desktop. We use `xwayland-kiosk-helpers` to make life easier. xwayland-kiosk-helpers looks after running the commands we did above. Here is a suitable snapcraft.yaml:
@@ -212,7 +213,7 @@ sudo snap run glxgears-kiosk
 
 You should see a fullscreen gear animation in the Mir-on-X window. 
 
-## Ubuntu Core
+## Second Pass Snapping: Ubuntu Core
 duration: 5:00
 
 ### Ubuntu Core Setup
@@ -234,6 +235,7 @@ sudo snap set core experimental.layouts=true
 ```
 
 ## Snapping for Ubuntu Core
+duration: 3:00
 
 Changing this snap .yaml to work with Ubuntu Core requires one main alteration: Wayland is provided by another snap: mir-kiosk, so we need to get the Wayland socket from it somehow.
     
@@ -300,4 +302,44 @@ Check this builds locally:
 ```bash
 snapcraft cleanbuild
 ```
-## Building for a Device with different architecture
+
+## Building for different architectures
+duration: 10:00
+
+One day, perhaps, snapcraft will fully support cross building with the `--target-arch` option. But getting that to work is beyond the scope of this tutorial. Instead we'll make use of Launchpad's builders to build the snap for all architectures (including the one your device provides).
+
+Create a github repository for your snap and push your changes to the snap project there:
+
+```bash
+git commit -a
+git remote remove origin
+git remote add origin https://github.com/<project>/<repo>.git
+git push -u origin master
+```
+
+Now [setup your build on Launchpad](https://docs.snapcraft.io/build-snaps/ci-integration). *Note that you will need to use the same snap name in the store as in name in `name:`, so chose something unique to make your life easier.*
+
+Don't bother with publishing to the store (yet) you can download the snap and deploy it as follows:
+
+On your desktop go to the snap webpage (e.g. https://code.launchpad.net/~alan-griffiths/+snap/iot-example-graphical-xwayland-snap), find the build for your device architecture and download it and copy to your device. For example:
+```bash
+wget https://code.launchpad.net/~alan-griffiths/+snap/iot-example-graphical-xwayland-snap/+build/228782/+files/iot-example-graphical-xwayland-snap_0.1_arm64.snap
+scp iot-example-graphical-xwayland-snap_0.1_arm64.snap alan-griffiths@192.168.1.159:~
+```
+On your ssh session to your device:
+```bash
+snap install --dangerous iot-example-graphical-xwayland-snap_0.1_arm64.snap --devmode
+snap connect iot-example-graphical-xwayland-snap:wayland-socket-dir mir-kiosk:wayland-socket-dir
+sudo snap run iot-example-graphical-xwayland-snap.glxgears-kiosk
+```
+
+On your device, you should see the same graphical animation you saw earlier (and statistics printed to your console).
+
+negative
+: You will notice that this snap is installed with the `--devmode` option.
+To use fully confined snaps which use Xwayland internally, you will also need a custom build of snapd master with the following patch added: [interfaces/x11: allow X11 slot implementations](https://github.com/snapcore/snapd/pull/4545). (This allows Xwayland to work in a confined snap.)
+
+## Congratulations
+duration: 1:00
+
+Congratulations, you have created your first graphical snap using Xwayland for Ubuntu Core.
