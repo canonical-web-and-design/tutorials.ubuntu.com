@@ -11,21 +11,21 @@ author: Gerry Boland <gerry.boland@canonical.com>, Alan Griffiths <alan.griffith
 
 ---
 
-# Graphical Snaps for UbuntuCore: Using Xwayland
+# Graphical Snaps for Ubuntu Core: Using Xwayland
 
 ## Overview
 duration: 1:00
 
 negative
-: Do not attempt this tutorial unless you are already familiar with the material in [Graphical Snaps for UbuntuCore](tutorial/graphical-snaps). This tutorial covers *only* the extra material needed when using toolkits that do not support Wayland directly.
+: Do not attempt this tutorial unless you are already familiar with the material in [Graphical Snaps for Ubuntu Core](tutorial/graphical-snaps). This tutorial covers *only* the extra material needed when using toolkits that do not support Wayland directly.
  
-[Graphical Snaps for UbuntuCore](tutorial/graphical-snaps) is a guide on how to create graphical snaps for Ubuntu Core with a single GUI application running fullscreen on the display. This addresses situations like:
+[Graphical Snaps for Ubuntu Core](tutorial/graphical-snaps) is a guide on how to create graphical snaps for Ubuntu Core with a single GUI application running fullscreen on the display. This addresses situations like:
 * Digital signage
 * Web kiosk
 * Industrial machine User Interface
 
 positive
-: The combination of Snap, the "mir-kiosk" Wayland server and UbuntuCore ensures reliability and security of any graphical embedded device application.
+: The combination of Snap, the "mir-kiosk" Wayland server and Ubuntu Core ensures reliability and security of any graphical embedded device application.
 
 ### What you'll learn
 
@@ -38,10 +38,10 @@ You can follow the steps in this tutorial on any current release of Ubuntu. You'
 ## Using Wayland
 duration: 3:00
 
-Graphics on UbuntuCore uses Wayland as the primary interface. Mir is a graphical display server that supports Wayland clients. Snapd supports Wayland as an interface, so confinement can be achieved.
+Graphics on Ubuntu Core uses Wayland as the primary interface. Mir is a graphical display server that supports Wayland clients. Snapd supports Wayland as an interface, so confinement can be achieved.
 
 positive
-: We do not support X11 directly on UbuntuCore with Mir.
+: We do not support X11 directly on Ubuntu Core with Mir.
 The primary reason for this is security: the X11 protocol was not designed with security in mind, a malicious application connected to an X11 server can obtain much information from the other running X11 applications.
 
 Not all toolkits have native support for Wayland. So, depending on the graphical toolkit your application uses, there may be some additional setup (for Xwayland) required.
@@ -75,7 +75,7 @@ To enable these applications we will introduce an intermediary “Xwayland” wh
 
 Xwayland will live in the application snap.
 
-*If you are not familiar with the material in [Graphical Snaps for UbuntuCore](tutorial/graphical-snaps) please complete that first. This tutorial covers only the extra material needed when using toolkits that do not support Wayland directly.*
+*If you are not familiar with the material in [Graphical Snaps for Ubuntu Core](tutorial/graphical-snaps) please complete that first. This tutorial covers only the extra material needed when using toolkits that do not support Wayland directly.*
 
 ## Introducing glxgears
 duration: 2:00
