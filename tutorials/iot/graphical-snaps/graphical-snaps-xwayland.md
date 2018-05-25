@@ -77,17 +77,12 @@ Xwayland will live in the application snap.
 
 *If you are not familiar with the material in [Graphical Snaps for UbuntuCore](tutorial/graphical-snaps) please complete that first. This tutorial covers only the extra material needed when using toolkits that do not support Wayland directly.*
 
-negative
-: To use fully confined snaps which use Xwayland internally, you will also need a custom build of snapd master with the following patch added:
-https://github.com/snapcore/snapd/pull/4545  (allows Xwayland to work confined in a snap)
-For now this guide will proceed without application confinement.
-
 ## Introducing glxgears
 duration: 2:00
 
 A large fraction of applications are still written for X11 - there are those written with Qt4 and Gtk2, but also Java, Mono or Wine-based. We can snap these for a kiosk just fine, we just need to add some extra bits to the snap.
    
-As before, we’ll take a trivial example to start with (glxgears), then address each toolkit and their quirks. glxgears is again a handy snap to have, as it will help prove OpenGL is working for X11 apps inside Ubuntu Core.
+As before, we’ll take a trivial example to start with (glxgears). glxgears is again a handy snap to have, as it will help prove OpenGL is working for X11 apps inside Ubuntu Core.
    
 Install a few extra bits:
 ```bash
@@ -96,7 +91,7 @@ sudo apt install xwayland mesa-utils i3-wm
 
 Now launch
 ```bash
-miral-app -launcher 'Xwayland -wr :1'
+miral-app -kiosk -launcher 'Xwayland -wr :1'
 ```
 (the -wr is optional, causes Xwayland to create a white window, so we see it is running in Mir-on-X, the “:1” specifies a local socket which won’t collide with your desktop’s X11 server which uses “:0”).
 
@@ -160,7 +155,7 @@ This is the basic setup that we’ll have in our snap. It seems like a lot of wo
 ## First Pass Snapping: Test on Desktop
 duration: 5:00
 
-For our first pass we will snap glxgears and run it in DevMode (i.e. unconfined) on our Ubuntu desktop. We use `xwayland-kiosk-helpers` to make life easier. xwayland-kiosk-helpers looks after running the commands we did above. Here is a suitable snapcraft.yaml:
+For our first pass we will snap glxgears and run it in DevMode (i.e. unconfined) on our Ubuntu desktop. We use `xwayland-kiosk-helpers` to make life easier. xwayland-kiosk-helpers looks after running the commands we did above.
 
 This guide assumes you are familiar with creating snaps. If not, please read here first. Create the snap directory by forking https://github.com/snapcrafters/fork-and-rename-me
 
