@@ -14,6 +14,7 @@ author: Gerry Boland <gerry.boland@canonical.com>, Alan Griffiths <alan.griffith
 # Graphical Snaps for Ubuntu Core
 
 ## Overview
+duration: 1:00
 
 This is a guide on how to create graphical snaps for Ubuntu Core with a single GUI application running fullscreen on the display. This addresses situations like:
 * Digital signage
@@ -125,12 +126,13 @@ sudo apt install glmark2-wayland
 ```
 ### Verify glmark2-wayland runs on Mir
 ```bash
-miral-app -kiosk -launcher 'glmark2-wayland --fullscreen'
+miral-app -kiosk -launcher 'glmark2-wayland'
 ```
 
 Inside the Mir-on-X window, you should see various graphical animations, and statistics printed to your console. All should be fine before proceeding.
 
-## Snapping glmark2-wayland
+## First Pass Snapping: Test on Desktop
+duration: 5:00
 
 For our first pass we will snap glmark2-wayland and run it in DevMode (i.e. unconfined) on our Ubuntu desktop.
 
@@ -243,7 +245,8 @@ passthrough:
       bind: $SNAP/usr/share/glmark2
 ```
 
-## Snapping glmark2-wayland (continued)
+## First Pass Snapping (resumed)
+duration: 3:00
 
 For this guide we are going to use “layouts” frequently whenever paths are hard-coded into binaries. So adding the snippet above, our YAML becomes
 
@@ -397,8 +400,8 @@ negative
 We will revisit this later to ensure the snap can be compiled to function on other architectures.
 
 
-## A working snap (on desktop)
-duration: 5:00
+## First Pass Snapping: The Final Bits
+duration: 4:00
 
 We need to set those two environment variables before executing the binary inside the snap. One option is a simple launching script:
 ```
@@ -413,10 +416,9 @@ and point the “command:” in the snapcraft.yaml file to it (don’t forget to
 Another option (which we will use here) is to adjust the `command:` file like this:
 ```yaml
 ...
-    command: "bash -c 'XDG_RUNTIME_DIR=$(dirname $XDG_RUNTIME_DIR) LIBGL_DRIVERS_PATH=$(find $SNAP/usr/lib/ -name dri) $SNAP/usr/bin/glmark2-wayland --fullscreen'"
+    command: "bash -c 'XDG_RUNTIME_DIR=$(dirname $XDG_RUNTIME_DIR) LIBGL_DRIVERS_PATH=$(find $SNAP/usr/lib/ -name dri) $SNAP/usr/bin/glmark2-wayland'"
 ...
 ```
-QN: Reminder - fix --fullscreen with Mir?
 
 ### The working YAML file:
 
@@ -431,7 +433,7 @@ grade: devel
 
 apps:
   glmark2-wayland:
-    command: "bash -c 'XDG_RUNTIME_DIR=$(dirname $XDG_RUNTIME_DIR) LIBGL_DRIVERS_PATH=$(find $SNAP/usr/lib/ -name dri) $SNAP/usr/bin/glmark2-wayland --fullscreen'"
+    command: "bash -c 'XDG_RUNTIME_DIR=$(dirname $XDG_RUNTIME_DIR) LIBGL_DRIVERS_PATH=$(find $SNAP/usr/lib/ -name dri) $SNAP/usr/bin/glmark2-wayland'"
     plugs:
       - opengl
       - wayland
@@ -459,7 +461,7 @@ snap run glmark2-wayland
 
 Inside the Mir-on-X window, you should see the same graphical animations you saw earlier, and statistics printed to your console. The difference is that this time they are coming from a snap.
 
-## Notes
+## First Pass Snapping: Notes
 duration: 1:00
 
 ### Why did we step through that process instead of simply presenting the working .yaml?
@@ -472,7 +474,7 @@ There can be many, many environment variables and support files that need to be 
  
 *But our goal is to have it working on Ubuntu Core on your chosen device.*
 
-## Ubuntu Core
+## Second Pass Snapping: Ubuntu Core
 duration: 5:00
 
 ### Ubuntu Core Setup
@@ -494,6 +496,7 @@ sudo snap set core experimental.layouts=true
 ```
 
 ## Snapping for Ubuntu Core
+duration: 3:00
 
 Changing this snap .yaml to work with Ubuntu Core requires one main alteration: Wayland is provided by another snap: mir-kiosk, so we need to get the Wayland socket from it somehow.
     
@@ -508,7 +511,7 @@ confinement: strict
 Set XDG_RUNTIME_DIR to "$SNAP_DATA/wayland":
 ```yaml
 ...
-    command: "bash -c 'XDG_RUNTIME_DIR=$SNAP_DATA/wayland LIBGL_DRIVERS_PATH=$(find $SNAP/usr/lib/ -name dri) $SNAP/usr/bin/glmark2-wayland --fullscreen'"
+    command: "bash -c 'XDG_RUNTIME_DIR=$SNAP_DATA/wayland LIBGL_DRIVERS_PATH=$(find $SNAP/usr/lib/ -name dri) $SNAP/usr/bin/glmark2-wayland'"
 ...
 ```
 
@@ -567,7 +570,8 @@ Check this builds locally:
 ```bash
 snapcraft cleanbuild
 ```
-## Building for a Device with different architecture
+## Building for different architectures
+duration: 10:00
 
 One day, perhaps, snapcraft will fully support cross building with the `--target-arch` option. But getting that to work is beyond the scope of this tutorial. Instead we'll make use of Launchpad's builders to build the snap for all architectures (including the one your device provides).
 
@@ -597,5 +601,8 @@ sudo snap run iot-example-graphical-snap.glmark2-wayland
 ```
 
 On your device, you should see the same graphical animations you saw earlier (and statistics printed to your console).
+
+## Congratulations
+duration: 1:00
 
 Congratulations, you have created your first graphical snap for Ubuntu Core.
