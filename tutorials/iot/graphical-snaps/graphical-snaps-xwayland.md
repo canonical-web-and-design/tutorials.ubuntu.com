@@ -190,6 +190,7 @@ parts:
    stage-packages:
      - mesa-utils
 ```
+`xwayland-kiosk-helper` uses `XWAYLAND_FULLSCREEN_WINDOW_HINT` to set up the i3 configuration (as we did manually in the previous step) and `WAYLAND_SOCKET_DIR` to locate the Wayland socket.
 
 Create the snap by returning to the "glxgears" directory and running
 
