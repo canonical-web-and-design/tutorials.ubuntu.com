@@ -335,11 +335,11 @@ snap run --shell glmark2-wayland
 $ echo $XDG_RUNTIME_DIR
 /run/user/1000/snap.glmark2-wayland
 ```
-This tells us that inside snaps, XDG_RUNTIME_DIR is a custom directory. We need to change this to the value of XDG_RUNTIME_DIR that we saw miral-kiosk has above: /run/user/1000 - we can use “$XDG_RUNTIME_DIR/..” instead. 
+This tells us that inside snaps, XDG_RUNTIME_DIR is a custom directory. We need to change this to the value of XDG_RUNTIME_DIR that we saw miral-kiosk has above: /run/user/1000 - we can use “$(dirname $XDG_RUNTIME_DIR)” instead. 
 
 Let’s test it:
 ```bash
-$ XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR/.. \
+$ XDG_RUNTIME_DIR=$(dirname $XDG_RUNTIME_DIR) \
 $SNAP/usr/bin/glmark2-wayland
 /snap/glmark2-wayland/x1/usr/bin/glmark2-wayland: error while loading shared libraries: libjpeg.so.8: cannot open shared object file: No such file or directory
 ```
@@ -357,7 +357,7 @@ exec "$SNAP/usr/bin/glmark2-wayland" "$@"
 
 The script sets the library load and executable paths to those inside the snap. It is this script which is called when you do “snap run …”. Let’s run this instead:
 ```bash
-$ XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR/.. \
+$ XDG_RUNTIME_DIR=$(dirname $XDG_RUNTIME_DIR) \
 $SNAP/command-glmark2-wayland.wrapper
 ```
 
@@ -380,7 +380,7 @@ So set LIBGL_DRIVERS_PATH=$SNAP/usr/lib/x86_64-linux-gnu/dri - and finally run
 
 ```bash
 LIBGL_DRIVERS_PATH=$SNAP/usr/lib/x86_64-linux-gnu/dri \
-XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR/.. \
+XDG_RUNTIME_DIR=$(dirname $XDG_RUNTIME_DIR) \
 $SNAP/command-glmark2-wayland.wrapper
 ```
 
@@ -407,7 +407,7 @@ We need to set those two environment variables before executing the binary insid
 ```
 #!/bin/bash
 LIBGL_DRIVERS_PATH=$SNAP/usr/lib/x86_64-linux-gnu/dri \
-XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR/.. \    
+XDG_RUNTIME_DIR=$(dirname $XDG_RUNTIME_DIR) \    
 $SNAP/usr/bin/glmark2-wayland
 ```
 
