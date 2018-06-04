@@ -38,7 +38,7 @@ You can follow the steps in this tutorial on any current release of Ubuntu. You'
 ## Using Wayland
 duration: 3:00
 
-Graphics on Ubuntu Core uses Wayland as the primary protocol?. Mir is a graphical display server that supports Wayland clients. Snapd supports Wayland as an interface, so confinement can be achieved.
+Graphics on Ubuntu Core uses Wayland as the primary protocol. Mir is a graphical display server that supports Wayland clients. Snapd supports Wayland as an interface, so confinement can be achieved.
 
 positive
 : We do not support X11 directly on Ubuntu Core with Mir.
@@ -56,7 +56,7 @@ Beware that not all toolkits have native support for Wayland. So, depending on t
 
 This is not an exhaustive list. There may be other toolkits that can work with Wayland but we know these work with Mir.
  
-Native support for Wayland the simplest case, as the application can talk to Mir directly.
+Native support for Wayland is the simplest case, as the application can talk to Mir directly.
 
 ### Toolkits with No Wayland support
 
@@ -89,16 +89,13 @@ If there's no supported image that fits your needs you can [create your own core
 
 Install snapcraft:
 ```bash
-sudo apt install snapcraft
+snap install snapcraft --classic
 ```
 
 Install LXD :
 ```bash
-snap install lxd && sudo lxd init
-```
-...just accept the defaults. And then:
-```bash
-sudo usermod -a -G lxd $USER
+snap install lxd && sudo lxd init --auto
+sudo adduser $USER lxd
 ```
 
 Then sign out and back in (or `newgrp lxd` in the shell you'll be using)
@@ -112,8 +109,7 @@ Let’s begin with a trivial example: `glmark2-wayland` - it is a test applicati
 When creating a graphical snap it is useful to be able to experiment on the desktop. For this we need to install the latest Mir, which requires a PPA:
 
 ```bash
-sudo add-apt-repository ppa:mir-team/release
-sudo apt update
+sudo apt-add-repository --update ppa:mir-team/release
 sudo apt install mir-demos
 ```
 
@@ -145,7 +141,7 @@ git clone https://github.com/snapcrafters/fork-and-rename-me.git glmark2-wayland
 Inside the glmark2-wayland directory edit the “snapcraft.yaml” file, and let’s try the following (SPOILER, won’t work immediately, read on to troubleshoot):
 
 ```yaml
-name: glmark2-wayland
+name: iot-example-graphical-snap
 version: 0.1
 summary: GLMark2 on Wayland
 description: |
@@ -251,7 +247,7 @@ duration: 3:00
 For this guide we are going to use “layouts” frequently whenever paths are hard-coded into binaries. So adding the snippet above, our YAML becomes
 
 ```yaml
-name: glmark2-wayland
+name: iot-example-graphical-snap
 version: 0.1
 summary: GLMark2 on Wayland
 description: |
@@ -314,7 +310,7 @@ Error: main: Could not initialize canvas
 But if you “run --shell” into the snap environment, you’ll see that /usr/share/glmark2 now contains the resources glmark2 needs. One problem solved!
 
 ## Common Problem 2: Unable to connect to Wayland server
-duration 3:00
+duration: 3:00
 
 ```
 Error: main: Could not initialize canvas
@@ -370,7 +366,7 @@ Error: main: Could not initialize canvas
 Courage! We’re almost done, there’s just one more thing to fix...
 
 ### Common Problem 3: GL drivers are not where they usually are
-duration 2:00
+duration: 2:00
 
 This is another typical problem for snapping graphics applications: the GL drivers it needs are bundled inside the snap, but the application needs to be told the path to those drivers inside the snap.
 
@@ -423,7 +419,7 @@ Another option (which we will use here) is to adjust the `command:` file like th
 ### The working YAML file:
 
 ```yaml
-name: glmark2-wayland
+name: iot-example-graphical-snap
 version: 0.1
 summary: GLMark2 on Wayland
 description: |
@@ -492,13 +488,13 @@ Now you should have a black screen with a white mouse cursor.
 Next, you will need to enable the experimental “layouts” feature as we did on desktop:
 
 ```bash
-sudo snap set core experimental.layouts=true
+snap set core experimental.layouts=true
 ```
 
 ## Snapping for Ubuntu Core
 duration: 3:00
 
-Changing this snap .yaml to work with Ubuntu Core requires one main alteration: Wayland is provided by another snap: mir-kiosk, so we need to get the Wayland socket from it somehow.
+Changing this snapcraft.yaml to work with Ubuntu Core requires one main alteration: Wayland is provided by another snap: mir-kiosk, so we need to get the Wayland socket from it somehow.
     
 The mir-kiosk snap has a content interface called “wayland-socket-dir” to share the Wayland socket with application snaps. Use this by making the following alterations to the YAML file:
 
@@ -584,11 +580,11 @@ git remote add origin https://github.com/<project>/<repo>.git
 git push -u origin master
 ```
 
-Now [setup your build on Launchpad](https://docs.snapcraft.io/build-snaps/ci-integration). *Note that you will need to use the same snap name in the store as in name in `name:`, so chose something unique to make your life easier.*
+Now [set up your build on Launchpad](https://docs.snapcraft.io/build-snaps/ci-integration). *Note that you will need to use the same snap name in the store as in `name:`, so chose something unique to make your life easier.*
 
 Don't bother with publishing to the store (yet) you can download the snap and deploy it as follows:
 
-On your desktop go to the snap webpage (e.g. https://code.launchpad.net/~alan-griffiths/+snap/iot-example-graphical-snap), find the build for your device architecture and download it and copy to your device. For example:
+On your desktop go to the snap webpage (https://code.launchpad.net/~/+snaps), find the build for your device architecture and download it and copy to your device. For example:
 ```bash
 wget https://code.launchpad.net/~alan-griffiths/+snap/iot-example-graphical-snap/+build/226518/+files/iot-example-graphical-snap_0.1_arm64.snap
 scp iot-example-graphical-snap_0.1_arm64.snap   alan-griffiths@192.168.1.159:~

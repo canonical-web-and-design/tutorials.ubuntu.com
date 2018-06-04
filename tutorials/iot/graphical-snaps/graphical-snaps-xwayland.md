@@ -16,10 +16,7 @@ author: Gerry Boland <gerry.boland@canonical.com>
 ## Overview
 duration: 1:00
 
-negative
-: Do not attempt this tutorial unless you are already familiar with the material in [Graphical Snaps for Ubuntu Core](tutorial/graphical-snaps). This tutorial covers *only* the extra material needed when using toolkits that do not support Wayland directly.
- 
-[Graphical Snaps for Ubuntu Core](tutorial/graphical-snaps) is a guide on how to create graphical snaps for Ubuntu Core with a single GUI application running fullscreen on the display. This addresses situations like:
+This tutorial is a guide on how to *use Xwayland* to create graphical snaps for Ubuntu Core with a single GUI application running fullscreen on the display. This addresses situations like:
 * Digital signage
 * Web kiosk
 * Industrial machine User Interface
@@ -27,9 +24,12 @@ negative
 positive
 : The combination of Snap, the "mir-kiosk" Wayland server and Ubuntu Core ensures reliability and security of any graphical embedded device application.
 
+negative
+: This tutorial assumes you are familiar with the material in [Graphical Snaps for Ubuntu Core](tutorial/graphical-snaps). In particular, techniques for debugging problems in your snap are not covered.
+
 ### What you'll learn
 
-How to create graphical snaps for Ubuntu Core using a toolkit that requires Xwayland to supports Wayland.
+How to create graphical snaps for Ubuntu Core using a toolkit that requires Xwayland to support Wayland.
 
 ### What you'll need
 
@@ -37,6 +37,8 @@ You can follow the steps in this tutorial on any current release of Ubuntu. You'
 
 ## Using Wayland
 duration: 3:00
+
+*You may have seen this discussion in [Graphical Snaps for Ubuntu Core](tutorial/graphical-snaps), but it is repeated here as an introduction to the requirement for Xwayland.*
 
 Graphics on Ubuntu Core uses Wayland as the primary interface. Mir is a graphical display server that supports Wayland clients. Snapd supports Wayland as an interface, so confinement can be achieved.
 
@@ -56,7 +58,7 @@ Not all toolkits have native support for Wayland. So, depending on the graphical
 
 This is not an exhaustive list. There may be other toolkits that can work with Wayland but we know these work with Mir.
  
-Native support for Wayland the simplest case, as the application can talk to Mir directly.
+Native support for Wayland is the simplest case, as the application can talk to Mir directly.
 
 positive
 : You do not need this tutorial for these toolkits.
@@ -74,8 +76,6 @@ This is a more complex case, as the toolkits require the legacy X11 protocol to 
 To enable these applications we will introduce an intermediary “Xwayland” which translates X11 calls to Wayland ones. Each snapped X11 application should have its own X11 server (Xwayland) which then talks Wayland - a far more secure protocol.
 
 Xwayland will live in the application snap.
-
-*If you are not familiar with the material in [Graphical Snaps for Ubuntu Core](tutorial/graphical-snaps) please complete that first. This tutorial covers only the extra material needed when using toolkits that do not support Wayland directly.*
 
 ## Introducing glxgears
 duration: 2:00
@@ -162,7 +162,7 @@ This guide assumes you are familiar with creating snaps. If not, please read her
 ```bash
 git clone https://github.com/snapcrafters/fork-and-rename-me.git glxgears
 ```
-Inside the glxgears directory edit the "snapcraft.yaml" file, and let's try the following:
+Inside the glxgears directory edit the "snap/snapcraft.yaml" file, and let's try the following:
 
 ```yaml
 name: glxgears-kiosk
@@ -227,13 +227,13 @@ Now you should have a black screen with a white mouse cursor.
 Next, you will need to enable the experimental “layouts” feature as we did on desktop:
 
 ```bash
-sudo snap set core experimental.layouts=true
+snap set core experimental.layouts=true
 ```
 
 ## Snapping for Ubuntu Core
 duration: 3:00
 
-Changing this snap .yaml to work with Ubuntu Core requires one main alteration: Wayland is provided by another snap: mir-kiosk, so we need to get the Wayland socket from it somehow.
+Changing this snapcraft.yaml to work with Ubuntu Core requires one main alteration: Wayland is provided by another snap: mir-kiosk, so we need to get the Wayland socket from it somehow.
     
 The mir-kiosk snap has a content interface called “wayland-socket-dir” to share the Wayland socket with application snaps. Use this by making the following alterations to the YAML file:
 
@@ -317,7 +317,7 @@ Now [setup your build on Launchpad](https://docs.snapcraft.io/build-snaps/ci-int
 
 Don't bother with publishing to the store (yet) you can download the snap and deploy it as follows:
 
-On your desktop go to the snap webpage (e.g. https://code.launchpad.net/~alan-griffiths/+snap/iot-example-graphical-xwayland-snap), find the build for your device architecture and download it and copy to your device. For example:
+On your desktop go to the snaps webpage (e.g. https://code.launchpad.net/~/+snaps), find the build for your device architecture and download it and copy to your device. For example:
 ```bash
 wget https://code.launchpad.net/~alan-griffiths/+snap/iot-example-graphical-xwayland-snap/+build/228782/+files/iot-example-graphical-xwayland-snap_0.1_arm64.snap
 scp iot-example-graphical-xwayland-snap_0.1_arm64.snap alan-griffiths@192.168.1.159:~
@@ -333,7 +333,7 @@ On your device, you should see the same graphical animation you saw earlier (and
 
 negative
 : You will notice that this snap is installed with the `--devmode` option.
-To use fully confined snaps which use Xwayland internally, you will also need a custom build of snapd master with the following patch added: [interfaces/x11: allow X11 slot implementations](https://github.com/snapcore/snapd/pull/4545). (This allows Xwayland to work in a confined snap.)
+To use fully confined snaps which use Xwayland internally, you will also need a custom build of snapd master (which already has patch added: [interfaces/x11: allow X11 slot implementations](https://github.com/snapcore/snapd/pull/4545)). (This allows Xwayland to work in a confined snap.)
 
 ## Congratulations
 duration: 1:00
