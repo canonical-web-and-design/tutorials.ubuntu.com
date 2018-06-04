@@ -138,7 +138,7 @@ This guide assumes you are familiar with creating snaps. If not, please read [he
 git clone https://github.com/snapcrafters/fork-and-rename-me.git glmark2-wayland
 ```
 
-Inside the glmark2-wayland directory edit the “snapcraft.yaml” file, and let’s try the following (SPOILER, won’t work immediately, read on to troubleshoot):
+Inside the glmark2-wayland directory edit the “snap/snapcraft.yaml” file, and let’s try the following (SPOILER, won’t work immediately, read on to troubleshoot):
 
 ```yaml
 name: iot-example-graphical-snap
@@ -185,10 +185,12 @@ Error: main: Could not initialize canvas
 ```
 We need to solve these.
 
+*Leave `miral-kiosk` running while we work through the issues.*
+
 ## Common Problem 1: Files are not where they’re expected to be!
 duration: 5:00
 
-One important thing to remember about snaps is that all files are located in a subdirectory $SNAP which maps to /snap/<snap_name>/<version>. To prove this, try the following:
+One important thing to remember about snaps is that all files are located in a subdirectory $SNAP which maps to /snap/\<snap_name\>/\<version\>. To prove this, try the following:
 ```bash
 snap run --shell glmark2-wayland
 ```
@@ -293,11 +295,6 @@ sudo snap set core experimental.layouts=true
 
 and from now on, snapd will let us install snaps using layouts.
 
-positive
-: You may have noticed that snapcraft prints this scary message:
-The 'passthrough' property is being used to propagate experimental properties to snap.yaml that have not been validated. The snap cannot be released to the store.
-The policy on this has changed, these snaps can indeed be released to the store, but after manual verification.
-
 Now let’s run our snap:
 ```bash
 snap run glmark2-wayland
@@ -385,7 +382,7 @@ Which works! Woo! Finally! You deserve a nice cup of tea for that. Now we know w
 positive
 : **On a Desktop Environment that supports Wayland** you may find that glmark connects to that and not Mir.
 This is easy to work around: tell Mir and the snap how to connect to each other:
-```bash
+```
 miral-kiosk --wayland-socket-name mir-kiosk&
 export WAYLAND_DISPLAY=mir-kiosk
 snap run glmark2-wayland
@@ -451,7 +448,6 @@ Rebuild the snap and install it - “snap run glmark2-wayland” should work fin
 ```bash
 snapcraft cleanbuild
 sudo snap install --dangerous ./glmark2-wayland_0.1_amd64.snap --devmode
-miral-kiosk&
 snap run glmark2-wayland
 ```
 
