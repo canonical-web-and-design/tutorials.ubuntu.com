@@ -342,18 +342,9 @@ In your ssh session to your device:
 ```bash
 snap refresh core --edge
 ```
+This will take a while and cause your device to reboot. So leave that running and reconnect ssh once we've updated the snap.
 
-Then we need to update the "snap/snapcraft.yaml" file to add the X11 plug & slot. The new lines are:
-```yaml
-     - x11-plug
-   slots:
-     - x11
-
-plugs:
-  x11-plug: # because cannot have identical plug/slot name in same yaml.
-    interface: x11
-```
-The full file again:
+To update the snap to use the X11 interface we also need to update the "snap/snapcraft.yaml" file to add the X11 plug & slot. The full file again:
 ```yaml
 name: iot-example-graphical-xwayland-snap
 version: 0.1
@@ -394,6 +385,17 @@ plugs:
     target: $SNAP_DATA/wayland
     default-provider: mir-kiosk
 ```
+The new lines are just these:
+```yaml
+     - x11-plug
+   slots:
+     - x11
+
+plugs:
+  x11-plug: # because cannot have identical plug/slot name in same yaml.
+    interface: x11
+```
+
 Then we need to push the changes, import the changes to launchpad and rebuild.
 
 On your desktop go to the snaps webpage (e.g. https://code.launchpad.net/~/+snaps), find the build for your device architecture and download it and copy to your device. For example:
