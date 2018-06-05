@@ -331,9 +331,83 @@ sudo snap run iot-example-graphical-xwayland-snap.glxgears-kiosk
 
 On your device, you should see the same graphical animation you saw earlier (and statistics printed to your console).
 
-negative
-: You will notice that this snap is installed with the `--devmode` option.
-To use fully confined snaps which use Xwayland internally, you will also need a custom build of snapd master (which already has patch added: [interfaces/x11: allow X11 slot implementations](https://github.com/snapcore/snapd/pull/4545)). (This allows Xwayland to work in a confined snap.)
+## Confining Xwayland
+duration: 10:00
+
+One thing still needs to be resolved: this snap is installed with the `--devmode` option.
+
+To use fully confined snaps which use Xwayland internally, you will need a build of snapd that allows Xwayland to work in a confined snap. At the time of writing snapd "edge" already has [the necessary patch](https://github.com/snapcore/snapd/pull/4545). In the fullness of time this feature (to allow X11 slot implementations) will be be available on "stable", but for now we need to switch "core" to edge.
+
+In your ssh session to your device:
+```bash
+snap refresh core --edge
+```
+
+Then we need to update the "snap/snapcraft.yaml" file to add the X11 plug & slot. The new lines are:
+```yaml
+     - x11-plug
+   slots:
+     - x11
+
+plugs:
+  x11-plug: # because cannot have identical plug/slot name in same yaml.
+    interface: x11
+```
+The full file again:
+```yaml
+name: iot-example-graphical-xwayland-snap
+version: 0.1
+summary: glxgears on XWayland
+description: |
+   glxgears on XWayland
+confinement: strict
+grade: devel
+
+apps:
+ glxgears-kiosk:
+   command: xwayland-kiosk-launch glxgears
+   environment:
+     XWAYLAND_FULLSCREEN_WINDOW_HINT: title="glxgears"
+     WAYLAND_SOCKET_DIR: $SNAP_DATA/wayland
+   plugs:
+     - opengl
+     - wayland
+     - x11-plug
+   slots:
+     - x11
+
+plugs:
+  x11-plug: # because cannot have identical plug/slot name in same yaml.
+    interface: x11
+
+parts:
+ glxgears:
+   plugin: nil
+   after: [ xwayland-kiosk-helper ]
+   stage-packages:
+     - mesa-utils
+
+plugs:
+   wayland-socket-dir:
+    content: wayland-socket-dir
+    interface: content
+    target: $SNAP_DATA/wayland
+    default-provider: mir-kiosk
+```
+Then we need to push the changes, import the changes to launchpad and rebuild.
+
+On your desktop go to the snaps webpage (e.g. https://code.launchpad.net/~/+snaps), find the build for your device architecture and download it and copy to your device. For example:
+```bash
+wget https://code.launchpad.net/~alan-griffiths/+snap/iot-example-graphical-xwayland-snap/+build/238926/+files/iot-example-graphical-xwayland-snap_0.1_arm64.snap
+scp iot-example-graphical-xwayland-snap_0.1_arm64.snap alan-griffiths@192.168.1.159:~
+```
+On your ssh session to your device:
+```bash
+snap install --dangerous iot-example-graphical-xwayland-snap_0.1_arm64.snap
+snap connect iot-example-graphical-xwayland-snap:wayland-socket-dir mir-kiosk:wayland-socket-dir
+sudo snap run iot-example-graphical-xwayland-snap.glxgears-kiosk
+```
+On your device, you should see the same graphical animation you saw earlier (and statistics printed to your console).
 
 ## Congratulations
 duration: 1:00
