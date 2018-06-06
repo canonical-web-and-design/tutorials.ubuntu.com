@@ -367,10 +367,6 @@ apps:
    slots:
      - x11
 
-plugs:
-  x11-plug: # because cannot have identical plug/slot name in same yaml.
-    interface: x11
-
 parts:
  glxgears:
    plugin: nil
@@ -384,14 +380,15 @@ plugs:
     interface: content
     target: $SNAP_DATA/wayland
     default-provider: mir-kiosk
+  x11-plug: # because cannot have identical plug/slot name in same yaml.
+    interface: x11
 ```
 The new lines are just these:
 ```yaml
      - x11-plug
    slots:
      - x11
-
-plugs:
+...
   x11-plug: # because cannot have identical plug/slot name in same yaml.
     interface: x11
 ```
