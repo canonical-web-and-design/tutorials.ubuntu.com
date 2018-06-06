@@ -585,7 +585,7 @@ On your desktop go to the snap webpage (https://code.launchpad.net/~/+snaps), fi
 wget https://code.launchpad.net/~alan-griffiths/+snap/iot-example-graphical-snap/+build/226518/+files/iot-example-graphical-snap_0.1_arm64.snap
 scp iot-example-graphical-snap_0.1_arm64.snap   alan-griffiths@192.168.1.159:~
 ```
-On your ssh session to your device:
+We now have the .snap file on the device. We need to install the snap, configure it to talk Wayland to mir-kiosk and run the application. In your ssh session to your device:
 ```bash
 snap install --dangerous ./iot-example-graphical-snap_0.1_arm64.snap 
 snap connect iot-example-graphical-snap:wayland-socket-dir  mir-kiosk:wayland-socket-dir
