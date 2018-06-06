@@ -400,10 +400,11 @@ On your desktop go to the snaps webpage (e.g. https://code.launchpad.net/~/+snap
 wget https://code.launchpad.net/~alan-griffiths/+snap/iot-example-graphical-xwayland-snap/+build/238926/+files/iot-example-graphical-xwayland-snap_0.1_arm64.snap
 scp iot-example-graphical-xwayland-snap_0.1_arm64.snap alan-griffiths@192.168.1.159:~
 ```
-On your ssh session to your device:
+In your ssh session to your device *(note: in addition to the commands you've seen before we also "connect" X11)*:
 ```bash
 snap install --dangerous iot-example-graphical-xwayland-snap_0.1_arm64.snap
 snap connect iot-example-graphical-xwayland-snap:wayland-socket-dir mir-kiosk:wayland-socket-dir
+snap connect iot-example-graphical-xwayland-snap:x11-plug iot-example-graphical-xwayland-snap:x11
 sudo snap run iot-example-graphical-xwayland-snap.glxgears-kiosk
 ```
 On your device, you should see the same graphical animation you saw earlier (and statistics printed to your console).
