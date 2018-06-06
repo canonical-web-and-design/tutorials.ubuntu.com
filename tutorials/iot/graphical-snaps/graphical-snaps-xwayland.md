@@ -248,7 +248,7 @@ Add a `plugs` stanza:
 ```yaml
 ...
 plugs:
-   wayland-socket-dir:
+  wayland-socket-dir:
     content: wayland-socket-dir
     interface: content
     target: $SNAP_DATA/wayland
@@ -287,7 +287,7 @@ parts:
      - mesa-utils
 
 plugs:
-   wayland-socket-dir:
+  wayland-socket-dir:
     content: wayland-socket-dir
     interface: content
     target: $SNAP_DATA/wayland
@@ -379,7 +379,7 @@ parts:
      - mesa-utils
 
 plugs:
-   wayland-socket-dir:
+  wayland-socket-dir:
     content: wayland-socket-dir
     interface: content
     target: $SNAP_DATA/wayland
