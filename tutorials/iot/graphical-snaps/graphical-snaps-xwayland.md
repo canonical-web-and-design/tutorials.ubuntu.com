@@ -423,7 +423,7 @@ scp iot-example-graphical-xwayland-snap_0.1_arm64.snap alan-griffiths@192.168.1.
 ```
 In your ssh session to your device *(note: in addition to the commands you've seen before we also "connect" X11)*:
 ```bash
-snap install --dangerous iot-example-graphical-xwayland-snap_0.1_arm64.snap
+sudo snap install --dangerous iot-example-graphical-xwayland-snap_0.1_arm64.snap
 sudo snap connect iot-example-graphical-xwayland-snap:wayland-socket-dir mir-kiosk:wayland-socket-dir
 sudo snap connect iot-example-graphical-xwayland-snap:x11-plug iot-example-graphical-xwayland-snap:x11
 sudo snap run iot-example-graphical-xwayland-snap.glxgears-kiosk
