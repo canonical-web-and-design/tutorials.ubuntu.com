@@ -1,6 +1,6 @@
 ---
 id: graphical-snaps-xwayland
-summary: A guide to creating graphical snaps for Ubuntu Core
+summary: A guide to creating graphical snaps for Ubuntu IoT devices
 categories: iot
 status: draft
 feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
@@ -11,12 +11,12 @@ author: Gerry Boland <gerry.boland@canonical.com>
 
 ---
 
-# Graphical Snaps for Ubuntu Core: Using Xwayland
+# Graphical Snaps for Ubuntu IoT Devices: Using Xwayland
 
 ## Overview
 duration: 1:00
 
-This tutorial is a guide on how to *use Xwayland* to create graphical snaps for Ubuntu Core with a single GUI application running fullscreen on the display. This addresses situations like:
+This tutorial is a guide on how to *use Xwayland* to create graphical snaps for Ubuntu with a single GUI application running fullscreen on the display. This addresses situations like:
 * Digital signage
 * Web kiosk
 * Industrial machine User Interface
@@ -33,7 +33,29 @@ How to create graphical snaps for Ubuntu Core using a toolkit that requires Xway
 
 ### What you'll need
 
-You can follow the steps in this tutorial on any current release of Ubuntu. You'll also need a device (or a VM) with Ubuntu core installed.
+* An Ubuntu desktop running any current release of Ubuntu
+
+* Your Target Device
+ * Ubuntu Core is available on a range of devices.
+This guide shows you how to set up an existing device: [https://developer.ubuntu.com/core/get-started/installation-medias](https://developer.ubuntu.com/core/get-started/installation-medias). If there's no supported image that fits your needs you can [create your own core image](https://tutorials.ubuntu.com/tutorial/create-your-own-core-image).
+ * Using a VM
+You don't *have* to have a physical "Target Device", you can follow the tutorial with Ubuntu Core on a VM:
+```bash
+snap install --beta ubuntu-core-vm --devmode
+```
+For the first run, create a VM running the latest Core image:
+```bash
+sudo ubuntu-core-vm init edge
+```
+From then on, you can spin it up with:
+```bash
+sudo ubuntu-core-vm
+```
+ * Using Ubuntu Classic
+You don't *have* to use Ubuntu Core, you can use also a "Target Device" with Ubuntu Classic. You just need to install an SSH server on the device.
+```bash
+sudo apt install openssh-server
+```
 
 ## Using Wayland
 duration: 3:00
@@ -77,7 +99,7 @@ To enable these applications we will introduce an intermediary “Xwayland” wh
 
 Xwayland will live in the application snap.
 
-## Introducing glxgears
+## Introducing glxgears, Xwayland and i3 
 duration: 2:00
 
 A large fraction of applications are still written for X11 - there are those written with Qt4 and Gtk2, but also Java, Mono or Wine-based. We can snap these for a kiosk just fine, we just need to add some extra bits to the snap.
@@ -209,15 +231,14 @@ sudo snap run glxgears-kiosk
 
 You should see a fullscreen gear animation in the Mir-on-X window. 
 
-## Second Pass Snapping: Ubuntu Core
+## Second Pass Snapping: Your Device
 duration: 5:00
 
-### Ubuntu Core Setup
+### Device Setup
 
-Once you have set up Ubuntu Core on your device and logged in install the “mir-kiosk” snap.
-
+Open another terminal and ssh login to your device and logged in install the “mir-kiosk” snap.
 ```bash
-snap install --beta mir-kiosk
+sudo snap install --beta mir-kiosk
 ```
 
 Now you should have a black screen with a white mouse cursor.
@@ -227,13 +248,13 @@ Now you should have a black screen with a white mouse cursor.
 Next, you will need to enable the experimental “layouts” feature as we did on desktop:
 
 ```bash
-snap set core experimental.layouts=true
+sudo snap set core experimental.layouts=true
 ```
 
-## Snapping for Ubuntu Core
+## Snapping to use mir-kiosk
 duration: 3:00
 
-Changing this snapcraft.yaml to work with Ubuntu Core requires one main alteration: Wayland is provided by another snap: mir-kiosk, so we need to get the Wayland socket from it somehow.
+Changing this snapcraft.yaml to work with mir-kiosk requires one main alteration: Wayland is provided by another snap: mir-kiosk, so we need to get the Wayland socket from it somehow.
     
 The mir-kiosk snap has a content interface called “wayland-socket-dir” to share the Wayland socket with application snaps. Use this by making the following alterations to the YAML file:
 
@@ -324,8 +345,8 @@ scp iot-example-graphical-xwayland-snap_0.1_arm64.snap alan-griffiths@192.168.1.
 ```
 On your ssh session to your device:
 ```bash
-snap install --dangerous iot-example-graphical-xwayland-snap_0.1_arm64.snap --devmode
-snap connect iot-example-graphical-xwayland-snap:wayland-socket-dir mir-kiosk:wayland-socket-dir
+sudo snap install --dangerous iot-example-graphical-xwayland-snap_0.1_arm64.snap --devmode
+sudo snap connect iot-example-graphical-xwayland-snap:wayland-socket-dir mir-kiosk:wayland-socket-dir
 sudo snap run iot-example-graphical-xwayland-snap.glxgears-kiosk
 ```
 
@@ -340,7 +361,7 @@ To use fully confined snaps which use Xwayland internally, you will need a build
 
 In your ssh session to your device:
 ```bash
-snap refresh core --edge
+sudo snap refresh core --edge
 ```
 This will take a while and cause your device to reboot. So leave that running and reconnect ssh once we've updated the snap.
 
@@ -403,11 +424,13 @@ scp iot-example-graphical-xwayland-snap_0.1_arm64.snap alan-griffiths@192.168.1.
 In your ssh session to your device *(note: in addition to the commands you've seen before we also "connect" X11)*:
 ```bash
 snap install --dangerous iot-example-graphical-xwayland-snap_0.1_arm64.snap
-snap connect iot-example-graphical-xwayland-snap:wayland-socket-dir mir-kiosk:wayland-socket-dir
-snap connect iot-example-graphical-xwayland-snap:x11-plug iot-example-graphical-xwayland-snap:x11
+sudo snap connect iot-example-graphical-xwayland-snap:wayland-socket-dir mir-kiosk:wayland-socket-dir
+sudo snap connect iot-example-graphical-xwayland-snap:x11-plug iot-example-graphical-xwayland-snap:x11
 sudo snap run iot-example-graphical-xwayland-snap.glxgears-kiosk
 ```
 On your device, you should see the same graphical animation you saw earlier (and statistics printed to your console).
+
+Note: on *Ubuntu Classic*, at the time of writing, the above doesn't yet work correctly: you may find you still need to add `--devmode` to the install command.
 
 ## Congratulations
 duration: 1:00
