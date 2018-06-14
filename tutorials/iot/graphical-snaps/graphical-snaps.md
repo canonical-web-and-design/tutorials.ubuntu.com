@@ -1,6 +1,6 @@
 ---
 id: graphical-snaps
-summary: A guide to creating graphical snaps for Ubuntu Core
+summary: A guide to creating graphical snaps for Ubuntu IoT devices
 categories: iot
 status: draft
 feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
@@ -11,12 +11,12 @@ author: Gerry Boland <gerry.boland@canonical.com>
 
 ---
 
-# Graphical Snaps for Ubuntu Core
+# Graphical Snaps for Ubuntu IoT Devices
 
 ## Overview
 duration: 1:00
 
-This is a guide on how to create graphical snaps for Ubuntu Core with a single GUI application running fullscreen on the display. This addresses situations like:
+This is a guide on how to create graphical snaps for Ubuntu with a single GUI application running fullscreen on the display. This addresses situations like:
 * Digital signage
 * Web kiosk
 * Industrial machine User Interface
@@ -29,11 +29,34 @@ positive
 
 ### What you'll learn
 
-How to create graphical snaps for Ubuntu Core using a toolkit that supports Wayland.
+How to create graphical snaps for Ubuntu IoT devices using a toolkit that supports Wayland.
 
 ### What you'll need
 
-You can follow the steps in this tutorial on any current release of Ubuntu. You'll also need a device (or a VM) with Ubuntu core installed.
+* An Ubuntu desktop running any current release of Ubuntu
+
+* Your Target Device
+ * Ubuntu Core is available on a range of devices.
+This guide shows you how to set up an existing device: [https://developer.ubuntu.com/core/get-started/installation-medias](https://developer.ubuntu.com/core/get-started/installation-medias). If there's no supported image that fits your needs you can [create your own core image](https://tutorials.ubuntu.com/tutorial/create-your-own-core-image).
+ * Using a VM
+You don't *have* to have a physical "Target Device", you can follow the tutorial with Ubuntu Core on a VM:
+```bash
+snap install --beta ubuntu-core-vm --devmode
+```
+For the first run, create a VM running the latest Core image:
+```bash
+sudo ubuntu-core-vm init edge
+```
+From then on, you can spin it up with:
+```bash
+sudo ubuntu-core-vm
+```
+
+ * Using Ubuntu Classic
+You don't *have* to use Ubuntu Core, you can use also a "Target Device" with Ubuntu Classic. You just need to install an SSH server on the device.
+```bash
+sudo apt install openssh-server
+```
 
 ## Using Wayland
 duration: 3:00
@@ -50,7 +73,7 @@ Beware that not all toolkits have native support for Wayland. So, depending on t
 
 ### Toolkits with Native support for Wayland
 
-* GTK3/4 
+* GTK3/4
 * Qt5
 * SDL2
 
@@ -76,23 +99,14 @@ positive
 ## Preparation
 duration: 10:00
 
-### Requirements
-
-* An Ubuntu desktop (Xenial or Bionic)
-
-* Your Device
-Ubuntu Core is available on a range of devices. This guide shows you how to set up an existing device: [https://developer.ubuntu.com/core/get-started/installation-medias](https://developer.ubuntu.com/core/get-started/installation-medias).
-
-If there's no supported image that fits your needs you can [create your own core image](https://tutorials.ubuntu.com/tutorial/create-your-own-core-image).
-
 ### Snapcraft setup
 
-Install snapcraft:
+On your desktop install snapcraft:
 ```bash
 snap install snapcraft --classic
 ```
 
-Install LXD :
+On your desktop install LXD:
 ```bash
 snap install lxd && sudo lxd init --auto
 sudo adduser $USER lxd
@@ -211,7 +225,6 @@ models    shaders  textures
 
 This is extremely common when snapping applications, therefore there are a few approaches to solving this:
 
-
 ### Your application may read an environment variable
 Your application may read an environment variable that specifies where it should look for those resources. In that case, adjust your YAML file to add it like this:
 
@@ -224,7 +237,6 @@ apps:
 ```
 
 In our case, glmark2-wayland has the path “/usr/share/glmark2” hard-coded in, so this is not going to work for us.
-
 
 ### Changing the application
 
@@ -464,17 +476,17 @@ There can be many, many environment variables and support files that need to be 
 
 ### We now have a snap working with a desktop Wayland server
  
-*But our goal is to have it working on Ubuntu Core on your chosen device.*
+*But our goal is to have it working as a confined snap, with mir-kiosk on your chosen device.*
 
-## Second Pass Snapping: Ubuntu Core
+## Second Pass Snapping: Your Device
 duration: 5:00
 
-### Ubuntu Core Setup
+### Device Setup
 
-Once you have set up Ubuntu Core on your device and logged in install the “mir-kiosk” snap.
+Open another terminal and ssh login to your device and logged in install the “mir-kiosk” snap.
 
 ```bash
-snap install --beta mir-kiosk
+sudo snap install --beta mir-kiosk
 ```
 
 Now you should have a black screen with a white mouse cursor.
@@ -484,13 +496,13 @@ Now you should have a black screen with a white mouse cursor.
 Next, you will need to enable the experimental “layouts” feature as we did on desktop:
 
 ```bash
-snap set core experimental.layouts=true
+sudo snap set core experimental.layouts=true
 ```
 
-## Snapping for Ubuntu Core
+## Snapping to use mir-kiosk
 duration: 3:00
 
-Changing this snapcraft.yaml to work with Ubuntu Core requires one main alteration: Wayland is provided by another snap: mir-kiosk, so we need to get the Wayland socket from it somehow.
+Changing this snapcraft.yaml to work with mir-kiosk requires one main alteration: Wayland is provided by another snap: mir-kiosk, so we need to get the Wayland socket from it somehow.
     
 The mir-kiosk snap has a content interface called “wayland-socket-dir” to share the Wayland socket with application snaps. Use this by making the following alterations to the YAML file:
 
@@ -587,8 +599,8 @@ scp iot-example-graphical-snap_0.1_arm64.snap   alan-griffiths@192.168.1.159:~
 ```
 We now have the .snap file on the device. We need to install the snap, configure it to talk Wayland to mir-kiosk and run the application. In your ssh session to your device:
 ```bash
-snap install --dangerous ./iot-example-graphical-snap_0.1_arm64.snap 
-snap connect iot-example-graphical-snap:wayland-socket-dir  mir-kiosk:wayland-socket-dir
+sudo snap install --dangerous ./iot-example-graphical-snap_0.1_arm64.snap 
+sudo snap connect iot-example-graphical-snap:wayland-socket-dir  mir-kiosk:wayland-socket-dir
 sudo snap run iot-example-graphical-snap.glmark2-wayland
 ```
 
@@ -597,4 +609,4 @@ On your device, you should see the same graphical animations you saw earlier (an
 ## Congratulations
 duration: 1:00
 
-Congratulations, you have created your first graphical snap for Ubuntu Core.
+Congratulations, you have created your first graphical snap for Ubuntu.
