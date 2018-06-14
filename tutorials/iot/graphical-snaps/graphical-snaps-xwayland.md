@@ -122,7 +122,7 @@ and we now can launch glxgears and tell it to connect to Xwayland:
 ```bash
 DISPLAY=:1 glxgears
 ```
-You should see gear animation in the Mir-on-X window. 
+You should see the gear animation in the Mir-on-X window. 
 
 But it’s not perfect - why is it not fullscreen? The reason is that in the X11 world, a window manager is a separate process which takes the responsibility of sizing and positioning windows. Xwayland does not do this, so we need an additional process to manage this. We'll use the “i3” window manager, as it is simple to configure with a text file.
 
