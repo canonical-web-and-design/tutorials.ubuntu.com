@@ -40,21 +40,20 @@ How to create graphical snaps for Ubuntu IoT devices using a toolkit that suppor
 This guide shows you how to set up an existing device: [https://developer.ubuntu.com/core/get-started/installation-medias](https://developer.ubuntu.com/core/get-started/installation-medias). If there's no supported image that fits your needs you can [create your own core image](https://tutorials.ubuntu.com/tutorial/create-your-own-core-image).
  * Using a VM
 You don't *have* to have a physical "Target Device", you can follow the tutorial with Ubuntu Core on a VM:
-```bash
+```
 snap install --beta ubuntu-core-vm --devmode
 ```
 For the first run, create a VM running the latest Core image:
-```bash
+```
 sudo ubuntu-core-vm init edge
 ```
 From then on, you can spin it up with:
-```bash
+```
 sudo ubuntu-core-vm
 ```
-
  * Using Ubuntu Classic
 You don't *have* to use Ubuntu Core, you can use also a "Target Device" with Ubuntu Classic. You just need to install an SSH server on the device.
-```bash
+```
 sudo apt install openssh-server
 ```
 
