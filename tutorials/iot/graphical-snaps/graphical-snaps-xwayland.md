@@ -47,7 +47,7 @@ From then on, you can spin it up with:
 `sudo ubuntu-core-vm`
  * Using Ubuntu Classic
 You don't *have* to use Ubuntu Core, you can use also a "Target Device" with Ubuntu Classic. You just need to install an SSH server on the device.
-`sudo apt install openssh-server`
+`sudo apt install ssh`
 For IoT use you will want to make other changes (e.g. uninstalling the desktop), but that is outside the scope of the current tutorial.
 
 ## Using Wayland
