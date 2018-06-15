@@ -39,23 +39,16 @@ How to create graphical snaps for Ubuntu Core using a toolkit that requires Xway
  * Ubuntu Core is available on a range of devices.
 This guide shows you how to set up an existing device: [https://developer.ubuntu.com/core/get-started/installation-medias](https://developer.ubuntu.com/core/get-started/installation-medias). If there's no supported image that fits your needs you can [create your own core image](https://tutorials.ubuntu.com/tutorial/create-your-own-core-image).
  * Using a VM
-You don't *have* to have a physical "Target Device", you can follow the tutorial with Ubuntu Core on a VM:
-```
-snap install --beta ubuntu-core-vm --devmode
-```
+You don't *have* to have a physical "Target Device", you can follow the tutorial with Ubuntu Core in a VM. Install the ubuntu-core-vm snap:
+`snap install --beta ubuntu-core-vm --devmode`
 For the first run, create a VM running the latest Core image:
-```
-sudo ubuntu-core-vm init edge
-```
+`sudo ubuntu-core-vm init edge`
 From then on, you can spin it up with:
-```
-sudo ubuntu-core-vm
-```
+`sudo ubuntu-core-vm`
  * Using Ubuntu Classic
 You don't *have* to use Ubuntu Core, you can use also a "Target Device" with Ubuntu Classic. You just need to install an SSH server on the device.
-```
-sudo apt install openssh-server
-```
+`sudo apt install openssh-server`
+For IoT use you will want to make other changes (e.g. uninstalling the desktop), but that is outside the scope of the current tutorial.
 
 ## Using Wayland
 duration: 3:00
