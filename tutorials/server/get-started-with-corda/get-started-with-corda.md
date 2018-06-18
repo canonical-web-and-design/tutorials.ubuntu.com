@@ -13,3 +13,11 @@ author: Canonical Web Team <webteam@canonical.com>
 ---
 
 # Get started with Corda
+
+## This is the first step
+
+Step 1 information
+
+## This is the second step
+
+Step 2 information
