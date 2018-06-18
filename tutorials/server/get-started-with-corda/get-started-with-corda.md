@@ -2,22 +2,30 @@
 id: get-started-with-Corda
 summary: Learn how to get started with Corda
 categories: server
-tags: guidelines, guide, write, contribute
+tags: corda, blockchain, opensource
 difficulty: 2
 status: draft
 image: https://foo.png
 feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
-published: 2017-01-13
-author: Canonical Web Team <webteam@canonical.com>
+published: 2018-06-21
+author: R3 Education Team <education@r3.com>
 
 ---
 
 # Get started with Corda
 
-## This is the first step
+## Overview
 
-Step 1 information
+## Environment setup 
 
-## This is the second step
+### Installing the Java Development Kit (JDK)
+
+## Cloning example project
 
 Step 2 information
+
+## Running from terminal
+
+## Running from IntelliJ
+
+## Next steps
