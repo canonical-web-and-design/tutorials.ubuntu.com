@@ -84,10 +84,34 @@ git clone https://github.com/corda/cordapp-example.git
 
 ## Running from terminal
 
+In the same terminal, run the deploy nodes command 
+* To run the deploy node command, enter:
+```
+./gradlew deployNodes
+```
+Wait while the nodes are being configured.
 
+To start up the node network, enter the following command:
+```
+kotlin-source/build/nodes/runnodes
+```
+negative
+: **Warning** 
+If this command fails with error message `Exception in thread "main" java.io.IOException: Cannot run program "xterm"` you will need to install the xterm terminal. This can be done using apt, with the command 
+```
+sudo apt-get install xterm
+```
+Now, rerun the `runnodes` command. 
 
+Wait while seven additional terminal windows open. The start up process is finished when all the terminal windows display either “Webserver started up in XX.X sec” or “Node for “PartyX” started up and registered in XX.XX sec”. 
 
+Test that the CorDapp is running correctly by visiting PartyA's web front end at http://localhost:10009/web/example/
+* From this front end you can create IOUs and send them to other parties 
 
 ## Running from IntelliJ
+
+
+
+
 
 ## Next steps
