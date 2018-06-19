@@ -83,9 +83,10 @@ git clone https://github.com/corda/cordapp-example.git
 
 
 ## Running from terminal
-
+Duration: 5:00
 In the same terminal, run the deploy nodes command 
 * To run the deploy node command, enter:
+
 ```
 ./gradlew deployNodes
 ```
@@ -105,8 +106,8 @@ Now, rerun the `runnodes` command.
 
 Wait while seven additional terminal windows open. The start up process is finished when all the terminal windows display either “Webserver started up in XX.X sec” or “Node for “PartyX” started up and registered in XX.XX sec”. 
 
-Test that the CorDapp is running correctly by visiting PartyA's web front end at http://localhost:10009/web/example/
-* From this front end you can create IOUs and send them to other parties 
+Test that the CorDapp is running correctly by visiting PartyA's web front end at <http://localhost:10009/web/example/>
+* From this frontend you can create IOUs and send them to other parties 
 
 ## Running from IntelliJ
 
