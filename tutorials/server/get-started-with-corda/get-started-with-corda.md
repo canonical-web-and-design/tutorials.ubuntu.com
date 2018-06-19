@@ -106,13 +106,62 @@ Now, rerun the `runnodes` command.
 
 Wait while seven additional terminal windows open. The start up process is finished when all the terminal windows display either “Webserver started up in XX.X sec” or “Node for “PartyX” started up and registered in XX.XX sec”. 
 
-Test that the CorDapp is running correctly by visiting PartyA's web front end at <http://localhost:10009/web/example/>
-* From this frontend you can create IOUs and send them to other parties 
+Test that the CorDapp is running correctly by visiting PartyA's web frontend at <http://localhost:10009/web/example/>
+* From this frontend you can create IOUs and send them to other parties. 
 
 ## Running from IntelliJ
+### Setting up the project 
+To start IntelliJ, open a terminal and navigate to the extracted install location.
+* Run the command: 
+```
+bin/idea.sh
+```
+From the IntelliJ splash screen, click open and navigate to the directory where the CorDapp was cloned. Click `OK`. 
+Once the project is open click `File`, then `Project Structure` 
 
+Under `Project SDK` click `New`, then `JDK`. Select the location of the Oracle JDK. The default installation location is `/usr/lib/jvm/java-8-oracle` 
+Click `OK`
 
+Back in the project structure menu, click `Apply`. Select `Modules` from the left hand navigation pane. 
+Click the green plus button and select `Import Module`. The CorDapp installation location should be selected by default. If not, navigate to it and click `OK`. 
+Select `Import module from external module`, choosing Gradle and clicking `Next`. 
+Click `Finish`, leaving default settings. 
 
+Wait while Gradle builds and indexes the project. 
+
+### Running the project 
+Once indexing is finished, at the top-right of the screen, to the left of the green play arrow, click the dropdown and select `Run Example Cordapp - Kotlin`. Then click the green play arrow to start the network of nodes.
+
+Wait until the run windows displays the message `Webserver started up in XX.X sec`. 
+
+Test that the CorDapp is running correctly by visiting PartyA's web frontend at <http://localhost:10009/web/example/>
+* From this frontend, you can create IOUs and send them to other parties (as when running from terminal).  
 
 
 ## Next steps
+To learn more about Corda, or get support, check out the following resources: 
+
+### Corda source code
+The Corda platform source code is available here:
+
+https://github.com/corda/corda.git
+A CorDapp template that you can use as the basis for your own CorDapps is available in both Java and Kotlin versions:
+
+https://github.com/corda/cordapp-template-java.git
+
+https://github.com/corda/cordapp-template-kotlin.git
+
+And a list of simple sample CorDapps for you to explore basic concepts is available here:
+
+https://www.corda.net/samples/
+You can clone these repos to your local machine by running the command git clone [repo URL].
+
+### Next steps
+The best way to check that everything is working fine is by taking a deeper look at the example CorDapp.
+
+Next, you should read through Corda Key Concepts to understand how Corda works.
+
+By then, you’ll be ready to start writing your own CorDapps. Learn how to do this in the Hello, World tutorial. You may want to refer to the API documentation, the flow cookbook and the samples along the way.
+
+### Support
+If you encounter any issues, please see the Troubleshooting page, or ask on Stack Overflow or via our Slack channels.
