@@ -190,7 +190,7 @@ git clone [repo URL]
 ### Next steps
 The best way to check that everything is working fine is by taking a deeper look at the example CorDapp.
 
-Next, you should read through [Corda Key Concepts](https://docs.corda.net/key-concepts.html) to understand how Corda works.
+Next, you should read through the self-guided [Corda Key Concepts course](https://r3.lessonly.com/path/5150-corda-key-concepts/login?view=signup) to understand how Corda works.
 
 By then, you’ll be ready to start writing your own CorDapps. Learn how to do this in the [Hello, World tutorial](https://docs.corda.net/hello-world-introduction.html). You may want to refer to the [API documentation](https://docs.corda.net/api/kotlin/corda/index.html), [the flow cookbook](https://docs.corda.net/flow-cookbook.html) and [the samples](https://www.corda.net/samples/) along the way.
 
