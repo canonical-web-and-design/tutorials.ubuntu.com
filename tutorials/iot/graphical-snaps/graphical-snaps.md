@@ -116,13 +116,14 @@ When creating a graphical snap it is useful to be able to experiment on the desk
 
 ```bash
 sudo apt-add-repository --update ppa:mir-team/release
-sudo apt install mir-demos
+sudo apt install mir-demos mir-graphics-drivers-desktop
 ```
 
 ### Install glmark2-wayland
 
-Next install glmark2-wayland:
+Following the principle of detecting problems as early as possible we first prove our example works with Mir kiosk *before* snapping it.
 
+Install glmark2-wayland from the "deb" archive:
 ```bash
 sudo apt install glmark2-wayland
 ```
