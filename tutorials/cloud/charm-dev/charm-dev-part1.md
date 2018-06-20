@@ -1,17 +1,17 @@
 ---
 id: tutorial-charm-development-part1
-summary: Get started with charm development and learn how to create and deploy your first charm. 
+summary: Get started with Python 3 charm development with our guide to creating, building and deploying your first charm.
 categories: cloud, development
 tags: tutorial,juju,charm,development
 difficulty: 4
 status: draft
 published: 2018-06-20
-author: Erik Lönroth
+author: Erik Lönroth <webteam@canonical.com>
 feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 
 ---
 
-# Juju Charm development - part 1
+# Juju Charm development (part 1)
 Duration: 0:05
 
 ## What is a charm?
@@ -27,12 +27,12 @@ Duration: 05:00
 
 In this first charm development tutorial, we will cover:
 
-* Preparing and setup of a basic workbench.
-* Creating the example charm with "charm tools".
-* Understanding the anatomy of a charm (files and directories).
-* Validating and building the charm.
-* Adding functionality via a secondary layer (layer:apt).
-* Deploying the example charm with Juju.
+* Preparing and setup of a basic workbench
+* Creating the example charm with *charm tools*
+* Understanding the anatomy of a charm (files and directories)
+* Validating and building the charm
+* Adding functionality via a secondary layer (layer:apt)
+* Deploying the example charm with Juju
 
 positive
 : This guide is aimed at people running the latest [Ubuntu LTS][ubuntu-lts] release who are familiar with the Linux and Juju environments and are comfortable scripting or coding their own solutions.
@@ -40,11 +40,11 @@ positive
 ## Initial setup
 Duration: 2:00
 
-We're going to create a basic software stack we'll call a *workbench* to build charms. This is what a typical workbench looks like:
+We're going to create a basic software stack we'll call a *workbench* to build charms. This is what a typical workbench consists of:
 
 - **A Juju controller**: We'll use this to deploy developed charms to. See [Getting started with Juju][getting-started] for more details.
 - **Python 3.x**: We use python 3 in this tutorial to develop our charm.
-- **Charm Tools**: To create skeleton charms, build, fetch and test charms. [See the Charm Tools page][charm-tools] for installation instructions.
+- **Charm Tools**: Used to create skeleton charms and build, fetch and test charms. See the [Charm Tools page][charm-tools] for installation instructions.
 
 Start by creating three directories for our build environment:
 
@@ -206,7 +206,7 @@ Our example charm isn't really doing anything fun yet. Let's update it to instal
 
 Installing packages is a very common charm requirement and *[layer:apt]* has all the functionality we need for installing packages from *apt* repositories. We'll now use apt to install the [hello][hello-apt] package.
 
-Modify the '~/charms/layers/layer-example/layer.yaml' to look like this:
+Modify the **~/charms/layers/layer-example/layer.yaml** to look like this:
 
 ```yaml
 includes: 
@@ -254,7 +254,7 @@ charm build layer-example
 
 The charm will now be built and the final charm assembled, ending up in `~/charms/layers/trusty/examplee`.
 
-Now deploy it with Juju:
+We can now deploy it with Juju:
 
 ```bash
 juju deploy example
@@ -271,13 +271,13 @@ Duration: 05:00
 
 One way of thinking about layers in relation to charms, is in terms of libraries or modules. A compilation of layers results in a charm that can be deployed by the Juju engine.
 
-There are a lot of layers included in the charm tools, you can find them in the [layer index][layer-index] that we will cover in the next part of the tutorial.
+There are a lot of layers included in the charm tools and you can find them in the [layer index][layer-index] that we will cover in the next part of the tutorial.
 
 ### How to think about 'Reactive programming'
 
-Most programmers expect their applications to running from a clear *main()* starting point and to move on step-by-step towards an exit. Reactive programming is 'somewhat' different in how you plan the execution:
+Most programmers expect their applications to run from a clear *main()* starting point and to move on, step-by-step, towards an exit. Reactive programming is 'somewhat' different in how you plan the execution sequence.
 
-In reactive programming, a good way of thinking about your program is that has many *main()* entry points. Which of these is executed, and when, depends on how you act on the different states/flags communicated to you by the Juju engine. 
+In reactive programming, a good way of thinking about your program is that it has many *main()* entry points. Which of these is executed, and when, depends on how you act on the different states/flags communicated to you by the Juju engine. 
 
 The principle is that the Juju engine sends signals to your application, and you write code/functions to act on this information. Your code then raises new flags/states to communicate with the rest of the system.
 
@@ -289,6 +289,7 @@ This is what the `@when(some.flag.raised)` decorators are all about.
 [charm-postgres]: https://jujucharms.com/postgresql/175
 [charm-k8s]: https://jujucharms.com/canonical-kubernetes/bundle/206
 [charm-store]: https://jujucharms.com/q/?type=charm
+[charm-tools]: https://github.com/juju/charm-tools
 [ubuntu-lts]: https://wiki.ubuntu.com/LTS
 [getting-started]: https://docs.jujucharms.com/getting-started
 [layer-index]: https://github.com/juju/layer-index/
