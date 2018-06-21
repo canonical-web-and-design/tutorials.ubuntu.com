@@ -409,7 +409,7 @@ XDG_RUNTIME_DIR=$(dirname $XDG_RUNTIME_DIR) \
 $SNAP/usr/bin/glmark2-wayland
 ```
 
-and point the “command:” in the snapcraft.yaml file to it (don’t forget to install it in the snap!!)
+...and point the “command:” in the snapcraft.yaml file to it (don’t forget to install it in the snap!!)
 
 Another option (which we will use here) is to adjust the `command:` file like this:
 ```yaml
