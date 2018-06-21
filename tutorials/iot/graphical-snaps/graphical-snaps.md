@@ -1,6 +1,6 @@
 ---
 id: graphical-snaps
-summary: A guide to creating graphical snaps for Ubuntu IoT devices
+summary: A guide to creating graphical snaps for Ubuntu IoT devices. Learn how to build a digital signage app for kiosks, advertising screens and other embedded displays.
 categories: iot
 status: draft
 feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
@@ -25,7 +25,7 @@ negative
 : This approach can be expanded to create more complex user interfaces with multiple GUI applications. However, this will require more advanced window management and is considered outside the scope of this guide.
 
 positive
-: The combination of Snap, the "mir-kiosk" Wayland server and Ubuntu Core ensures reliability and security of any graphical embedded device application.
+: The combination of Snap, the "mir-kiosk" Wayland server and Ubuntu Core ensures the reliability and security of any graphical embedded device application.
 
 ### What you'll learn
 
@@ -35,9 +35,9 @@ How to create graphical snaps for Ubuntu IoT devices using a toolkit that suppor
 
 * An Ubuntu desktop running any current release of Ubuntu
 
-* Your Target Device
- * Ubuntu Core is available on a range of devices.
-This guide shows you how to set up an existing device: [https://developer.ubuntu.com/core/get-started/installation-medias](https://developer.ubuntu.com/core/get-started/installation-medias). If there's no supported image that fits your needs you can [create your own core image](https://tutorials.ubuntu.com/tutorial/create-your-own-core-image).
+* A 'Target Device' from one of the following:
+ * A device running [Ubuntu Core](https://www.ubuntu.com/core).
+This guide shows you how to set up a supported device: [https://developer.ubuntu.com/core/get-started/installation-medias](https://developer.ubuntu.com/core/get-started/installation-medias). If there's no supported image that fits your needs you can [create your own core image](https://tutorials.ubuntu.com/tutorial/create-your-own-core-image).
  * Using a VM
 You don't *have* to have a physical "Target Device", you can follow the tutorial with Ubuntu Core in a VM. Install the ubuntu-core-vm snap:
 `snap install --beta ubuntu-core-vm --devmode`
@@ -465,7 +465,7 @@ duration: 1:00
 
 Because snapping applications can reveal lots of hard-coded paths and assumptions that applications make, which snap confinement will break. It is good to understand the steps needed to debug and solve these problems.
 
-There can be many, many environment variables and support files that need to be set up inside snaps, for applications to run correctly. Much of this work has already been done and automated in the *snapcraft-desktop-helpers* project, we will be using this in a follow-up tutorial.
+There can be many, many environment variables and support files that need to be set up inside snaps, for applications to run correctly. Much of this work has already been done and automated in the *snapcraft-desktop-helpers* project, which we will be using in a follow-up tutorial.
 
 ### We now have a snap working with a desktop Wayland server
  
@@ -476,7 +476,7 @@ duration: 5:00
 
 ### Device Setup
 
-Open another terminal and ssh login to your device and logged in install the “mir-kiosk” snap.
+Open another terminal and ssh login to your device and from this login install the “mir-kiosk” snap.
 
 ```bash
 sudo snap install --beta mir-kiosk
@@ -495,7 +495,7 @@ sudo snap set core experimental.layouts=true
 ## Snapping to use mir-kiosk
 duration: 3:00
 
-Changing this snapcraft.yaml to work with mir-kiosk requires one main alteration: Wayland is provided by another snap: mir-kiosk, so we need to get the Wayland socket from it somehow.
+Changing this snapcraft.yaml to work with mir-kiosk requires one main alteration: Wayland is provided by another snap (mir-kiosk) so we need to get the Wayland socket from it somehow.
     
 The mir-kiosk snap has a content interface called “wayland-socket-dir” to share the Wayland socket with application snaps. Use this by making the following alterations to the YAML file:
 

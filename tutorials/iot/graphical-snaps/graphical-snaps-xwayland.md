@@ -1,6 +1,6 @@
 ---
 id: graphical-snaps-xwayland
-summary: A guide to creating graphical snaps for Ubuntu IoT devices
+summary: A guide to creating graphical snaps for Ubuntu IoT devices on top of an Xwayland stack. Learn how to build a digital signage app for kiosks, advertising screens and other embedded displays.
 categories: iot
 status: draft
 feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
@@ -22,10 +22,9 @@ This tutorial is a guide on how to *use Xwayland* to create graphical snaps for 
 * Industrial machine User Interface
 
 positive
-: The combination of Snap, the "mir-kiosk" Wayland server and Ubuntu Core ensures reliability and security of any graphical embedded device application.
+: The combination of Snap, the "mir-kiosk" Wayland server and Ubuntu Core ensures the reliability and security of any graphical embedded device application.
 
-negative
-: This tutorial assumes you are familiar with the material in [Graphical Snaps for Ubuntu Core](tutorial/graphical-snaps). In particular, techniques for debugging problems in your snap are not covered.
+This tutorial assumes you are familiar with the material in [Graphical Snaps for Ubuntu Core](tutorial/graphical-snaps). In particular, techniques for debugging problems in your snap are not covered.
 
 ### What you'll learn
 
@@ -35,9 +34,9 @@ How to create graphical snaps for Ubuntu Core using a toolkit that requires Xway
 
 * An Ubuntu desktop running any current release of Ubuntu
 
-* Your Target Device
- * Ubuntu Core is available on a range of devices.
-This guide shows you how to set up an existing device: [https://developer.ubuntu.com/core/get-started/installation-medias](https://developer.ubuntu.com/core/get-started/installation-medias). If there's no supported image that fits your needs you can [create your own core image](https://tutorials.ubuntu.com/tutorial/create-your-own-core-image).
+* A 'Target Device' from one of the following:
+ * A device running [Ubuntu Core](https://www.ubuntu.com/core).
+This guide shows you how to set up a supported device: [https://developer.ubuntu.com/core/get-started/installation-medias](https://developer.ubuntu.com/core/get-started/installation-medias). If there's no supported image that fits your needs you can [create your own core image](https://tutorials.ubuntu.com/tutorial/create-your-own-core-image).
  * Using a VM
 You don't *have* to have a physical "Target Device", you can follow the tutorial with Ubuntu Core in a VM. Install the ubuntu-core-vm snap:
 `snap install --beta ubuntu-core-vm --devmode`
@@ -229,7 +228,7 @@ duration: 5:00
 
 ### Device Setup
 
-Open another terminal and ssh login to your device and logged in install the “mir-kiosk” snap.
+Open another terminal and ssh login to your device and from this login install the “mir-kiosk” snap.
 ```bash
 sudo snap install --beta mir-kiosk
 ```
@@ -247,8 +246,8 @@ sudo snap set core experimental.layouts=true
 ## Snapping to use mir-kiosk
 duration: 3:00
 
-Changing this snapcraft.yaml to work with mir-kiosk requires one main alteration: Wayland is provided by another snap: mir-kiosk, so we need to get the Wayland socket from it somehow.
-    
+Changing this snapcraft.yaml to work with mir-kiosk requires one main alteration: Wayland is provided by another snap (mir-kiosk) so we need to get the Wayland socket from it somehow.
+
 The mir-kiosk snap has a content interface called “wayland-socket-dir” to share the Wayland socket with application snaps. Use this by making the following alterations to the YAML file:
 
 Set WAYLAND_SOCKET_DIR to "$SNAP_DATA/wayland":
