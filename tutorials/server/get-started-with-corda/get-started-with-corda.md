@@ -64,16 +64,14 @@ sudo apt-get install git
 
 ### Installing IntelliJ 
 
-To download IntelliJ from Jetbrains, navigate to [the download page](https://www.jetbrains.com/idea/download/#section=linux).
-* Select Community Edition
+Jetbrains offers a pre-built snap package that allows for easy, one-step installation of IntelliJ onto Ubuntu. To download the snap, navigate to <https://snapcraft.io/intellij-idea-community>. The snap can also be found directly by searching "IntelliJ Community" in the Ubuntu Software store.
 
-Extract the .tar file 
-* Open with archive manager 
-* Extract the archive to desired installation location 
+From Snapcraft.io
+* Click `Install`, then `View in Desktop Store`. Choose `Ubuntu Software` in the Launch Application window.
 
-Install IntelliJ
-* Open a terminal and navigate into the extracted directory  
-* Follow the installation instructions contained in `Install-Linux-tar.txt`
+From the IntelliJ Software Store page
+* Click `Install`
+* To open the application, click `Launch`.
 
 **Now that our environment is set up, we can start working with Corda**
 
