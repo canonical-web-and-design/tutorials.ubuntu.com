@@ -2,7 +2,7 @@
 id: graphical-snaps-xwayland
 summary: A guide to creating graphical snaps for Ubuntu IoT devices on top of an Xwayland stack. Learn how to build a digital signage app for kiosks, advertising screens and other embedded displays.
 categories: iot
-status: draft
+status: published
 feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 tags: snap, digital-signage, kiosk, device, xwayland
 difficulty: 3
