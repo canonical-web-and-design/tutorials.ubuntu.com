@@ -4,8 +4,8 @@ summary: Get started with Python 3 charm development with our guide to creating,
 categories: cloud, development
 tags: tutorial,juju,charm,development
 difficulty: 4
-status: draft
-published: 2018-06-20
+status: published
+published: 2018-06-22
 author: Erik Lönroth <webteam@canonical.com>
 feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 
@@ -15,6 +15,7 @@ feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 Duration: 0:05
 
 ## What is a charm?
+
 
 A *charm* is the user-installable component at the heart of [Juju][juju-link]. It contains a sets of scripts that simplify both the deployment and management of the charm's application within Juju. The [charm store][charm-store] lists hundreds of recommended charms, from [Postgresql][charm-postgres] to [Kubernetes][charm-k8s] alongside of hundreds more created by the community. 
 
