@@ -112,10 +112,75 @@ Now to apply that value to our heading. With the `<h2>` still selected in the DO
 
 If everything went well your website now looks something like this:
 
-![The web page after editing in the inspector](images/edited page.png)
+![The web page after editing in the inspector](images/edited_page.png)
 
 We're going to do one last thing in the inspector: delete something. Right-click on the `<h2>` element in the DOM list and select **Delete Node** from the menu. The element is immediately removed from the page. Have you ever been annoyed when printing a web page only to find that your toner or ink is wasted on advertisements, logos or other parts that weren't necessary. Now you know how to remove unwanted content from the page before you print.
 
 There's lots more that you can do in the inspector. If you're learning to write HTML it can be invaluable to help understand how other pages are put together, and if you're trying to design a page being able to see the effects of CSS changes immediately is a huge benefit. Play around and don't be afraid to break things — **F5** will soon get you back to the original page.
+
+
+## The console ##
+Duration: 5:00
+
+There are three main technologies that form the basis of most modern web sites: HTML, CSS and JavaScript. Whilst the inspector lets you play around with the HTML and CSS, the console is your playground for JavaScript. Make sure that the `<h1>` element on the page is selected in the inspector, then switch to the **Console** tab. If there is any content in there already, clear it out by clicking the small trash can icon at the top left of the panel.
+
+Compared with the inspector, the console may seem to be quite bare. That's a good thing, as this is where errors in your web page will be displayed, so the less you see in here the better! The bulk of the console is taken up by the output section in the middle. Below it is a command line, into which you can directly type JavaScript code. Let's give that a try by entering some simple maths into the command line, and pressing Enter to execute it:
+
+```JavaScript
+1+1
+```
+
+The code you type will appear in the output section, marked by a chevron at the left. The result will be printed on the line below, marked with a left-facing arrow.
+
+```JavaScript
+2
+```
+
+How about something a little more complicated?
+
+```JavaScript
+(5*10)/2 + 3
+```
+
+```JavaScript
+28
+```
+
+The command line can even handle multi-line input. Although you can force a line break by pressing Shift-Enter, it will switch to multi-line mode automatically if it detects that you've opened a block of code and haven't closed it. Type in the following to create a new function, pressing Enter after each line:
+
+```JavaScript
+function square(x) {
+return x*x;
+}
+```
+
+The console will show a result of `undefined`. That's nothing to worry about, it's just the default value that JavaScript uses when an instruction doesn't return anything more useful. Now that we've created a function, we can use it to calculate the square of a number:
+
+```JavaScript
+square(256)
+```
+
+```JavaScript
+65536
+```
+
+The console also integrates with the other developer tools. This can be particularly useful when working with the inspector. Whatever is selected in the DOM list will automatically be assigned to a special variable called `$0`. Try typing `$0` into the command line and pressing Enter. If the `<h1>` element was selected in the inspector, you should see this:
+
+![The $0 special variable in the console](images/dollar_zero.png)
+
+See the little triangle to the left of the result? You can click that to expand the output, showing all the JavaScript properties that are attached to the DOM element. Scroll down to the `textContent` property near the bottom, for example, and you'll see the string that appears as the header on the page. As well as viewing these properties, you can also change them. Type this into the command line to alter the heading once again:
+
+```JavaScript
+$0.textContent = "Do more with JavaScript!"
+```
+
+Type `$0` again, and this time move your mouse over the little square target icon to the right of the output. The `<h1>` is highlighted in the page, just as it was when you moved your mouse over the DOM entry in the inspector. Click on the icon and you'll be taken to the inspector and the element in question will be highlighted. This feature can be invaluable when the console contains multiple elements. Here's one way to find all the links in the page:
+
+```JavaScript
+document.querySelectorAll("a")
+```
+
+This time the output is a "NodeList" — a structure that is similar to an array, which contains DOM elements. The list will be truncated, but you can click on the triangle at the left if you really want to view all of them. Click on the square target button for any of them and you'll be taken to the inspector, with the link highlighted. Return to the console and you'll find that `$0` is no longer your `<h1>` element, but is now the link. Type `$0.href` and the console will print the URL that the link points to.
+
 
 
