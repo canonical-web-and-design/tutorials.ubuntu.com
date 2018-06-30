@@ -94,6 +94,7 @@ The inspector is divided into two main sections. The large area on the left show
 
 Without clicking any buttons, move your mouse up and down the DOM tree in the main section. Notice how the elements in the web page are highlighted as you move over the corresponding entry in the DOM. Clicking on a DOM entry will select it, updating the section on the right to show the CSS rules that now apply.
 
+### Your first page edit ###
 With the `<h1>` selected again, take a closer look at its entry in the DOM. Notice that the content of the heading is visible within the inspector. Double click on the content and you are able to edit it to say something different. Let's change it to read "Do more with the developer tools!", then press Enter to finish editing. Immediately the web page updates:
 
 ![After editing the heading](images/edited_h1.png)
@@ -114,6 +115,8 @@ If everything went well your website now looks something like this:
 
 ![The web page after editing in the inspector](images/edited_page.png)
 
+
+### Tidying a page for printing ###
 We're going to do one last thing in the inspector: delete something. Right-click on the `<h2>` element in the DOM list and select **Delete Node** from the menu. The element is immediately removed from the page. Have you ever been annoyed when printing a web page only to find that your toner or ink is wasted on advertisements, logos or other parts that weren't necessary. Now you know how to remove unwanted content from the page before you print.
 
 There's lots more that you can do in the inspector. If you're learning to write HTML it can be invaluable to help understand how other pages are put together, and if you're trying to design a page being able to see the effects of CSS changes immediately is a huge benefit. Play around and don't be afraid to break things — **F5** will soon get you back to the original page.
@@ -146,6 +149,8 @@ How about something a little more complicated?
 28
 ```
 
+Try some more maths. You can use the up and down arrow keys to step through your command history, so it's easy to pick a previous command, edit it, then press Enter to run the new version.
+
 The command line can even handle multi-line input. Although you can force a line break by pressing Shift-Enter, it will switch to multi-line mode automatically if it detects that you've opened a block of code and haven't closed it. Type in the following to create a new function, pressing Enter after each line:
 
 ```JavaScript
@@ -164,6 +169,7 @@ square(256)
 65536
 ```
 
+### From console to inspector and back ###
 The console also integrates with the other developer tools. This can be particularly useful when working with the inspector. Whatever is selected in the DOM list will automatically be assigned to a special variable called `$0`. Try typing `$0` into the command line and pressing Enter. If the `<h1>` element was selected in the inspector, you should see this:
 
 ![The $0 special variable in the console](images/dollar_zero.png)
@@ -182,5 +188,27 @@ document.querySelectorAll("a")
 
 This time the output is a "NodeList" — a structure that is similar to an array, which contains DOM elements. The list will be truncated, but you can click on the triangle at the left if you really want to view all of them. Click on the square target button for any of them and you'll be taken to the inspector, with the link highlighted. Return to the console and you'll find that `$0` is no longer your `<h1>` element, but is now the link. Type `$0.href` and the console will print the URL that the link points to.
 
+
+### Logging to the console ###
+Interactive use of the console is useful, but the browser also exposes a collection of console functions that can be called from within your own code. By far the most commonly used of these is `console.log()`, which is used to write to the console, even when the developer tools are closed.
+
+In the early days of web development it was common to use the `alert()` function to output debugging data to a dialog on screen. But `alert()` could only work with a single argument at a time, and anything you did pass would be converted to a string. Type these two lines into the command line to see how useless `alert()` is when passed a complex data type, such as an object:
+
+```JavaScript
+alert("Fred Flintstone")
+alert({firstName: "Fred", lastName: "Flintstone"})
+```
+
+Not terribly useful, right? Now let's try that second example using `console.log()` instead:
+
+```JavaScript
+console.log({firstName: "Fred", lastName: "Flintstone"})
+```
+
+Not only is the output far more useful, but there's no dialog to dismiss, and the execution of your program doesn't stop while it's waiting for you to click the OK button. As a last example, let's combine some of the commands we've used previously into one single `console.log()`:
+
+```JavaScript
+console.log("On this page there are ", document.querySelectorAll("a").length, " links. The currently selected element in the DOM tree is: ", $0)
+```
 
 
