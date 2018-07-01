@@ -82,7 +82,7 @@ As you can see, this method cuts right through the layers of HTML content to hig
 
 
 ## The inspector##
-Duration: 10:00
+Duration: 8:00
 
 All the tabs in the developer tools panel have their uses, but for beginners to web development — or anyone who is simply curious about how a web page works — you only really need to use the **Inspector** and the **Console**. This section and the next will describe them in a little more detail.
 
@@ -125,7 +125,7 @@ There's lots more that you can do in the inspector. If you're learning to write 
 
 
 ## The console ##
-Duration: 10:00
+Duration: 8:00
 
 There are three main technologies that form the basis of most modern web sites: HTML, CSS and JavaScript. Whilst the inspector lets you play around with the HTML and CSS, the console is your playground for JavaScript. Switch to the **Console** tab. If there is any content in there already, clear it out by clicking the small trash can icon at the top left of the panel.
 
@@ -213,7 +213,7 @@ In real code you would usually split your `console.log()` calls into separate, s
 
 
 ## Other tools ##
-Duration: 5:00
+Duration: 3:00
 
 For beginners the inspector and console are the most useful tools, but as you progress into more advanced web development you may find some of the other tools can also help you out. Here's a brief description of what each of them does.
 
@@ -236,7 +236,7 @@ This tab can actually be quite useful, as it shows you all of the different file
 You've doubtless heard of cookies, but did you know that there are numerous other ways that a web site can store data in your browser? This tab lets you explore all the data that a site is storing through a single interface. Be careful with this tab, as deleting or editing data in here could easily lead to problems with a web page that can't be fixed with a simple press of **F5**.
 
 ### Even more tools! ###
-If that's not enough tools for you, the small cog or gear button at the top right of the developer tools panel lets you change various settings — including enabling some more tools! Take a look at the list on the left to see what other tools are available:
+If that's not enough for you, the small cog or gear button at the top right of the developer tools panel lets you change various settings — including enabling some more tools! Take a look at the list on the left to see what other tools are available:
 
 ![The developer tools configuration page](images/developer_tool_options.png)
 
@@ -262,9 +262,39 @@ If you still want to proceed with installing the Developer Edition, read on…
 
 
 ### Downloading the program ###
-Firefox Developer Edition is available in a number of languages. This tutorial uses the British English version as an example, but the steps should be the same (apart from the language used) for any version. The first requirement is to download the program from the following site - you should download the **Linux 64-bit** version for your language, unless you're running an old 32-bit installation of Ubuntu:
+Firefox Developer Edition is available in a number of languages. This tutorial uses the British English version as an example, but the steps should be the same (apart from the language used) for any version. The first requirement is to download the program from the following site — you should download the **Linux 64-bit** version for your language, unless you're running an old 32-bit installation of Ubuntu:
 
 [Firefox Developer Edition downloads](https://www.mozilla.org/en-GB/firefox/developer/all/)
 
+Once the file has downloaded to your machine you can easily open the folder it's been saved to by clicking on the download indicator in the Firefox toolbar then clicking on the folder icon to the right of your downloaded file:
+
+![The downloads popup, showing the 'Open containing folder' button](images/downloads_popup.png)
+
+With the folder open, double-click on the downloaded file (it will be called something like "firefox-62.0b4.tar.bz2", where the numbers in the middle will reflect the current version). This will open it in the archive manager application — it's a big file, so will take a few seconds for the archive manager to load it.
+
+In the archive manager window you should now see a single folder named "firefox". Click the **Extract** button at the top left of the window and extract the folder to your home directory. This will take a few seconds to complete, after which you can close the archive manager.
+
+Back in the file manager, navigate to your home directory. You should see the new folder in there — it's probably a good idea to rename it to something like "Firefox_Developer" to make things a little clearer. Inside the directory is an icon simply labelled "firefox". Double-click it to launch the application. It will appear to do nothing for the first few seconds, so be patient, but very soon you'll be presented with the home page of your new browser. This will probably be different to your usual home page — remember, the Developer Edition uses a separate profile, so none of your existing settings, bookmarks or add-ons will be present in the new browser.
+
+The developer edition has a dark theme by default and uses a blue icon, rather than the usual orange shades of the standard release, so it's easy to tell which edition you're using.
+
+![The first run of Firefox Developer Edition](images/firefox_developer_edition.png)
+
+
+
+### Updates ###
+A major concern with any program that connects to the internet is ensuring it receives security updates promptly. Firefox Developer Edition gets its updates directly from Mozilla, and will check when you start the browser to see if there are any updates pending. You can also check manually by opening the main menu and selecting ***Help ‣ About Firefox***.
+
+
+## Start developing! ##
+Duration: 1:00
+
+In this tutorial you've learnt how to access the web developer tools that are built into every copy of Firefox. You've discovered how to work with the inspector and the console, and how they interact with each other. You've read a brief description of some of the other tools, and found out how to customise the developer tools panel to only show the items you need. Finally you've learnt how to install and run the Firefox Developer Edition — as well as the reasons why you may, or may not, want to do that in the first place.
+
+A tutorial like this can only scratch the surface of the developer tools. Even our tour of the inspector and the console hasn't come close to revealing all their features. And these tools are constantly evolving: each release of Firefox brings new capabilities and whole new tools. What we've covered here is enough for a beginner to get started, but if you're serious about web development it pays to understand as much as possible about the tools that are available to you, and the jumble of different languages you'll be using. Here are a few links to help you progress:
+
+* Visit [Mozilla's documentation hub for the developer tools](https://developer.mozilla.org/son/docs/Tools) to read more about the features and capabilities of each one
+* Read [Mozilla's web developer blog](https://hacks.mozilla.org/) and sign up for their newsletter to be kept up to date with the latest improvements to Firefox, as well as forthcoming changes that might affect your web pages
+* Use [MDN web docs](https://developer.mozilla.org/) as a one-stop reference to HTML, CSS, JavaScript and more, including compatibility tables to help you avoid using proprietary or poorly supported features.
 
 
