@@ -20,12 +20,12 @@ Duration: 1:00
 
 ![logo](images/containers.png)
 
-This tutorial will show how to create custom LXD image based on basic Debian (or Debian-based distribution like Ubuntu) installation, use locally or publish it.
+This tutorial will show how to create a custom LXD image based on a basic Debian (or Debian-based distribution like Ubuntu) installation, to use locally or to publish.
 
 ### Requirements
 
-  - A computer running Ubuntu 16.04 or newer
-  - You should know how to create and launch LXD container
+  - Ubuntu 16.04 or newer
+  - You should know how to create and launch an LXD/LXC container
 
 ## Install required packages
 Duration: 1:00
@@ -45,7 +45,7 @@ Duration: 5:00
 
 ### Installing Debian with debootstrap
 
-After installing debootstrap, we can create minimal installation of Debian in specified directory. We need to specify release in first argument and target in second argument. To install Debian Sid (unstable) in new temporary directory:
+After installing debootstrap, we can create a minimal installation of Debian in a specified directory. The command takes two arguments: the release to create and the target directory . To install Debian Sid (unstable) in new temporary directory:
 
 ```bash
 mkdir /tmp/sid-lxd
@@ -53,9 +53,9 @@ sudo debootstrap sid /tmp/sid-lxd
 ```
 
 positive
-: You can specify mirror as third argument to install other Debian-based distribution. For example, to install Ubuntu Artful, use `sudo debootstrap artful /tmp/somewhere http://archive.ubuntu.com/ubuntu/`.
+: You can specify a mirror as a third argument to install another Debian-based distribution. For example, to install Ubuntu Artful, use `sudo debootstrap artful /tmp/somewhere http://archive.ubuntu.com/ubuntu/`.
 
-Now, enter created chroot and make some changes, just to make our container different, not just plain Debian installation. For example, we can preconfigure repository for popular JavaScript runtime Node.js:
+Now, enter the created chroot and make some changes, just to make our container different. For example, we can preconfigure the repository for the popular JavaScript runtime, Node.js:
 
 ```bash
 sudo chroot /tmp/sid-lxd
@@ -67,16 +67,16 @@ exit
 
 ### Compressing system root directory in .tar.gz file.
 
-If everything worked fine, create compressed tarball of root directory of newly installed system:
+If everything worked fine, create a compressed tarball of the root directory of your newly installed system:
 
 ```bash
 sudo tar -cvzf rootfs.tar.gz -C /tmp/sid-lxd .
 ```
 
-## Creating metadata file
+## Creating a metadata file
 Duration: 2:00
 
-`medatata.yaml` file describes things like image creation date, its name, architecture and description. To create LXD image, we need to provide such a file. That’s the example of how simple metadata file should look:
+The `medatata.yaml` file describes things like image creation date, name, architecture and description. To create an LXD image, we need to provide such a file. Here's an example of how simple metadata file should look:
 
 ```
 architecture: "x86_64"
@@ -88,7 +88,7 @@ properties:
     release: "sid"
 ```
 
-### Creating tarball from metadata file
+### Creating a tarball from the metadata file
 
 After creating metadata file, we need to create tarball containing this file:
 
@@ -98,37 +98,37 @@ tar -cvzf metadata.tar.gz metadata.yaml
 
 Now, it’s time for importing our new LXD image!
 
-## Importing LXD image
+## Importing LXD images
 Duration: 2:00
 
-After creating them, let’s import our two tarballs as LXD image:
+After creating them, let’s import our two tarballs as LXD images:
 
 ```bash
 lxc image import metadata.tar.gz rootfs.tar.gz --alias sid-nodejs
 ```
 
-We can now create new container from this image:
+We can now create a new container from this image:
 
 ```bash
 lxc launch sid-nodejs tutorial
 lxc exec tutorial bash
-# You can verify whether our container uses Node.js repository with `sudo apt update && sudo apt-cache show nodejs`.
-# The `nodejs` package should contain `1nodesource1` in “Version”.
-exit
 ```
+
+You can verify whether our container uses Node.js repository with `sudo apt update && sudo apt-cache show nodejs`. The `nodejs` package should contain `1nodesource1` in “Version”.
+
 
 ## Making images public
 Duration: 3:00
 
-### Configuring LXD daemon
+### Configuring the LXD daemon
 
-LXD daemon works as image server. In order to use it, we have to make LXD listen to the network and tag our image as public:
+The LXD daemon works as an image server. In order to use it, we have to make LXD listen to the network and tag our image as public:
 
 ```bash
 lxc config set core.https_address "[::]:8443"
 ```
 
-Now, other users can add our server as public image server using:
+Now, other users can add our server as a public image server using:
 
 ```bash
 lxc remote add [name] [IP] --public
@@ -142,7 +142,7 @@ lxc launch [name]:[image-name]
 
 ### Making LXD images public
 
-To make our LXD image available for our server users, we have to modify its `public` parameter, it’s `false` by default:
+To make our LXD image available for our server users, we have to modify the `public` parameter, it’s `false` by default:
 
 ```bash
 lxc image edit sid-nodejs
