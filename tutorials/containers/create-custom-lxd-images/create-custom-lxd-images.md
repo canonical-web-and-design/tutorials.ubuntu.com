@@ -1,6 +1,6 @@
 ---
 id: create-custom-lxd-images
-summary: Create custom LXD image from basic Debian installation (Ubuntu might be used as well), publish it or use locally.
+summary: Create custom Ubuntu or Debian LXD images to use locally or publish
 categories: containers
 tags: tutorial,desktop,server,lxd,lxc,debian, gci
 difficulty: 3
