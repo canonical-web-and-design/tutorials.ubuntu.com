@@ -97,7 +97,7 @@ Begin by right-clicking on the "Do more with Ubuntu!" heading and selecting **In
 
 ![Inspecting the page heading](images/inspector.png)
 
-The inspector is divided into two main sections. The large area on the left shows the DOM as a tree structure. Each HTML element is represented as a line in the tree, indented to show it's position in the page structure. Container elements are marked with a triangle to the left which can be clicked to hide or reveal the child elements within them. The smaller section on the right contains further details about the CSS rules applied to the element that is currently highlighted. This section also has several tabs presenting different tools for working with the CSS rules.
+The inspector is divided into two main sections. The large area on the left shows the DOM as a tree structure. Each HTML element is represented as a line in the tree, indented to show its position in the page structure. Container elements are marked with a triangle to the left which can be clicked to hide or reveal the child elements within them. The smaller section on the right contains further details about the CSS rules applied to the element that is currently highlighted. This section also has several tabs presenting different tools for working with the CSS rules.
 
 Without clicking any buttons, move your mouse up and down the DOM tree in the main section. Notice how the elements in the web page are highlighted as you move over the corresponding entry in the DOM. Clicking on a DOM entry will select it, updating the section on the right to show the CSS rules that now apply.
 
