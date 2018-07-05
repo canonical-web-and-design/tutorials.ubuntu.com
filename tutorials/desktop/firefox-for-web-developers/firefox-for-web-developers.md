@@ -34,7 +34,11 @@ In this tutorial you will learn how to access the web development tools that are
 
 negative
 : **Breaking things is easy… but so is fixing them**
-Using the developer tools can render a web page unusable. Don't worry if you do break something, just refresh the browser by pressing **F5** to reload the page in its original state.
+When using the developer tools you can accidentally render a web page unusable in your browser. Don't worry if you do break something as it will only affect the copy of the page that's in your local machine's memory. Just refresh the browser by pressing **F5** to reload the page in its original state.
+
+positive
+: **No experience necessary**
+Even if you're new to web development you can still follow this tutorial to get a feel for the sort of tools that are available to help you out. If you want to learn more there are some useful links on the last page to help you take the next step.
 
 
 ## Opening the developer tools
@@ -75,7 +79,7 @@ The **Toggle Tools** entry has a shortcut of **Ctrl-Shift-I**. Go on, give it a 
 ### Using the context menu ###
 There is a third way to open the developer tools. This is not a toggle, as it always switches to a particular tab, but is a very common approach when you want to take a closer look at a specific element on the web page. If you right-click on something in the page to open the context menu, you'll find an entry labelled **Inspect Element** towards the bottom. You can select this to open the developer tools with the **Inspector** tab active and the element you clicked on already highlighted within the panel. Let's give it a try:
 
-1. Right click on the "Do more with Ubuntu!" heading near the top of the web page.
+1. Right click on the heading near the top of the web page (at the time of writing it says "Do more with Ubuntu!").
 2. Select **Inspect Element** from the context menu.
 3. The developer tools should open with the Inspector tab selected and the `<h1>` element highlighted.
 
@@ -93,7 +97,11 @@ The inspector lets you look at the details of the web page's "Document Object Mo
 
 Let's play around with the Ubuntu Tutorials page a little. Don't worry, nothing you do in the inspector can be saved back to the Ubuntu servers, so your changes will only last until you reload the page and won't affect anyone else. The same applies to any other page — the developer tools let you tweak your page interactively, but those changes won't stick unless they're also applied to the original source code on the server.
 
-Begin by right-clicking on the "Do more with Ubuntu!" heading and selecting **Inspect Element** from the context menu to highlight the `<h1>` element in the inspector (you might already be in this position from the previous section, but it won't hurt to do it again to be sure). As a reminder, here's how the developer tools should look at this point:
+At the time of writing, the Ubuntu Tutorials page looks like the image below. We're going to start by editing the page heading — the bit that says "Do more with Ubuntu!". It's possible that the heading might have changed by the time you read this, so just work with whatever text is there (we'll be changing it to say something else shortly anyway).
+
+![The unmodified Ubuntu tutorials page](images/original_page.png)
+
+Begin by right-clicking on the heading and selecting **Inspect Element** from the context menu to highlight the `<h1>` element in the inspector (you might already be in this position from the previous section, but it won't hurt to do it again to be sure). As a reminder, here's how the developer tools should look at this point:
 
 ![Inspecting the page heading](images/inspector.png)
 
@@ -102,7 +110,7 @@ The inspector is divided into two main sections. The large area on the left show
 Without clicking any buttons, move your mouse up and down the DOM tree in the main section. Notice how the elements in the web page are highlighted as you move over the corresponding entry in the DOM. Clicking on a DOM entry will select it, updating the section on the right to show the CSS rules that now apply.
 
 ### Your first page edit ###
-With the `<h1>` selected again, take a closer look at its entry in the DOM. Notice that the "Do more with ubuntu!" string is visible within the inspector. Double click on it and you are able to edit the value to say something different. Let's change it to read "Do more with the developer tools!", then press Enter to finish editing. Immediately the web page updates:
+With the `<h1>` selected again, take a closer look at its entry in the DOM. Notice that the text of the heading (the "Do more with ubuntu!" string) is visible within the inspector. Double click on it and you are able to edit the value to say something different. Let's change it to read "Do more with the developer tools!", then press Enter to finish editing. Immediately the web page updates:
 
 ![After editing the heading](images/edited_h1.png)
 
@@ -224,7 +232,7 @@ In real code you would usually split your `console.log()` calls into separate, s
 ## Other tools ##
 Duration: 3:00
 
-For beginners the inspector and console are the most useful tools, but as you progress into more advanced web development you may find some of the other tools can also help you out. Here's a brief description of what each of them does.
+For beginners the inspector and console are the most useful tools, but as you progress into more advanced web development you may find some of the other tools can also help you out. Here's a brief description of what each of them does, but if you want more details there's a link to the official documentation on the last page of this tutorial.
 
 ### Debugger ###
 This is used for more advanced JavaScript debugging. It allows you to set breakpoints which will stop the execution of your code so that you can take a look at the state of any variables at that point in time. Once the code has stopped you can also step through it one line at a time, making it easier to see exactly what's happening during the program's operation.
@@ -305,5 +313,10 @@ A tutorial like this can only scratch the surface of the developer tools. Even o
 * Visit [Mozilla's documentation hub for the developer tools](https://developer.mozilla.org/son/docs/Tools) to read more about the features and capabilities of each tab in the developer tools panel.
 * Read [Mozilla's web developer blog](https://hacks.mozilla.org/) and sign up for their newsletter to be kept up to date with the latest improvements to Firefox, as well as forthcoming changes that might affect your web pages.
 * Use [MDN web docs](https://developer.mozilla.org/) as a one-stop reference to HTML, CSS, JavaScript and more, including compatibility tables to help you avoid using proprietary or poorly supported features.
+ * If you're new to web development you might find the [getting started](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web) pages particularly helpful.
+ * If you already have a little experience, the [introduction to HTML](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML) and [introduction to CSS](https://developer.mozilla.org/en-US/docs/Learn/CSS/Introduction_to_CSS) pages might be more relevant.
+ * Once you're comfortable with the basics of HTML and CSS you can move on to scripting with the [JavaScript basics](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/JavaScript_basics) page.
+
+
 
 
