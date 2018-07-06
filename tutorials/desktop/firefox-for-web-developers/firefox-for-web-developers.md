@@ -31,14 +31,12 @@ In this tutorial you will learn how to access the web development tools that are
 * A computer running Ubuntu 16.04 or above
 * The Firefox web browser (installed by default in Ubuntu desktop systems)
 
+Although you don't need any experience in web development to follow this tutorial, a little knowledge of how a web page is written might make some things a little more understandable. There's a [getting started guide](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web) on Mozilla's web developer site, but if you're the sort of person that would rather just jump right in and get going you should still be able to complete this tutorial even without that background knowledge. Whichever approach you prefer, there are links on the last page that will help you take your web developer skills to the next level.
+
 
 negative
 : **Breaking things is easy… but so is fixing them**
 When using the developer tools you can accidentally render a web page unusable in your browser. Don't worry if you do break something as it will only affect the copy of the page that's in your local machine's memory. Just refresh the browser by pressing **F5** to reload the page in its original state.
-
-positive
-: **No experience necessary**
-Even if you're new to web development you can still follow this tutorial to get a feel for the sort of tools that are available to help you out. If you want to learn more there are some useful links on the last page to help you take the next step.
 
 
 ## Opening the developer tools
