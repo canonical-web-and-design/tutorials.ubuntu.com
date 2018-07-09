@@ -193,4 +193,4 @@ Next, you should read through the self-guided [Corda Key Concepts course](https:
 By then, you’ll be ready to start writing your own CorDapps. Learn how to do this in the [Hello, World tutorial](https://docs.corda.net/hello-world-introduction.html). You may want to refer to the [API documentation](https://docs.corda.net/api/kotlin/corda/index.html), [the flow cookbook](https://docs.corda.net/flow-cookbook.html) and [the samples](https://www.corda.net/samples/) along the way.
 
 ### Support
-If you encounter any issues, please see [the Troubleshooting page](https://docs.corda.net/troubleshooting.html), or ask on [Stack Overflow](https://stackoverflow.com/questions/tagged/corda) or via [our Slack channels](https://slack.corda.net).
+If you encounter any issues, please see [the Troubleshooting page](https://docs.corda.net/troubleshooting.html), or ask on [Stack Overflow](https://stackoverflow.com/questions/tagged/corda) or via [the Corda slack channels](https://slack.corda.net).
