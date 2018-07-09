@@ -21,6 +21,8 @@ Corda is a blockchain platform built for business. Corda removes costly friction
 
 Corda enables an interoperable, open network that empowers organisations to collaborate and transfer value directly with trust. Corda achieves this with complete privacy in a freely available open source software platform.
 
+![Corda Logo](images/logo.png)
+
 ### What you'll learn
 * How to set up your desktop environment for running and developing on the Corda Platform
 * How to install Corda Applications
@@ -116,8 +118,12 @@ When finished, rerun the `runnodes` command.
 
 Wait while seven additional terminal windows open. The start up process is finished when all the terminal windows display either “Webserver started up in XX.X sec” or “Node for “PartyX” started up and registered in XX.XX sec”. 
 
-Test that the CorDapp is running correctly by visiting PartyA's web frontend at <http://localhost:10009/web/example/>
-* From this frontend you can create IOUs and send them to other parties. 
+Test that the CorDapp is running correctly by visiting PartyA's web frontend at <http://localhost:10009/web/example/>. You should see a page like this:
+
+![Web frontend](images/web.png)
+
+From this frontend you can create IOUs and send them to other parties. 
+
 
 ## Running from IntelliJ
 Duration: 8:00
@@ -146,7 +152,9 @@ Click the green plus button and select `Import Module`. The CorDapp installation
 Select `Import module from external module`, choosing `Gradle` and clicking `Next`. 
 Click `Finish`, leaving default settings. 
 
-Wait while Gradle builds and indexes the project. 
+Wait while Gradle builds and indexes the project. Once finished, this is what the modules section of the Project Structure page should look like:
+
+![IntelliJ module page](images/intellij.png)
 
 ### Running the project 
 Once indexing is finished, at the top-right of the screen, to the left of the green play arrow, click the dropdown and select `Run Example Cordapp - Kotlin`. Then click the green play arrow to start the network of nodes.
