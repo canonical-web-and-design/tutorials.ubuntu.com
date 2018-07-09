@@ -45,12 +45,12 @@ In order to install the Oracle Java JDK, you must add their repository to your s
 
 ```
 sudo add-apt-repository ppa:webupd8team/java
-sudo apt-get update 
+sudo apt update 
 ```
 * Install the Oracle JDK 8
 
 ```
-sudo apt-get install oracle-java8-installer
+sudo apt install oracle-java8-installer
 ```
 * Verify that the JDK was installed correctly by typing `java -version`. You should see `Java version "1.8.xxx"` (where xxx is the minor version number)
 
@@ -58,7 +58,7 @@ sudo apt-get install oracle-java8-installer
 
 Git can be installed using apt with the command
 ```
-sudo apt-get install git
+sudo apt install git
 ``` 
 * Verify that the Git was installed correctly by typing `git --version`. You should see a version number. 
 
@@ -110,7 +110,7 @@ negative
 : **Warning** 
 If this command fails with error message `Exception in thread "main" java.io.IOException: Cannot run program "xterm"` you will need to install the xterm terminal. This can be done using apt, with the command 
 ```
-sudo apt-get install xterm
+sudo apt install xterm
 ```
 When finished, rerun the `runnodes` command. 
 
