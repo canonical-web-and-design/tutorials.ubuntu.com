@@ -94,7 +94,7 @@ git clone https://github.com/corda/cordapp-example.git
 ## Running from terminal
 Duration: 5:00
 
-To begin the setup process, start the deploy nodes Gradle task
+To begin the setup process, start the `deployNodes` Gradle task
 * In the same terminal (inside the cloned directory), run the following command:
 
 ```
