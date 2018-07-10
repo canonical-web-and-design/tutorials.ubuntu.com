@@ -82,10 +82,11 @@ sudo classic
 You will note that the shell is prepended with `(classic)` to remind us that we are running those
 commands inside the classic snap. You can exit the shell as normal by typing `exit`.
 
-We can now run commands and build a snap as if we were on a classic system.
-
 positive
 : Remember that when you run the `snap` command you need to be outside of the classic snap.
+
+**Unless explained otherwise, all commands shown in this rest of this tutorial will be assumed to
+be invoked from inside the chroot.**
 
 ### Installing dependencies
 
@@ -107,12 +108,19 @@ Duration: 4:00
 
 ### Starting the project
 
-As we are starting from scratch, the first steps are to create a directory and use a simple
-template for your snap definition. In the terminal, run:
+The first thing to do is to create a general snaps directory followed by a working directory for
+this specific snap project:
 
 ```bash
 mkdir -p ~/mysnaps/hello
 cd ~/mysnaps/hello
+```
+
+**It is from within this `hello` directory where we will invoke all subsequent commands.**
+
+Now initiate a simple template for your snap:
+
+```bash
 snapcraft init
 ```
 
@@ -123,9 +131,9 @@ Created snap/snapcraft.yaml.
 Edit the file to your liking or run `snapcraft` to get started
 ```
 
-snapcraft created a simple `snapcraft.yaml` file in the `snap/` directory, in which you declare how
-the snap is built and which properties it exposes to the user. We will obviously need to tweak a
-bit for the snap we want to build.
+The `snapcraft init` command created a simple `snapcraft.yaml` file in the `snap/` directory, in
+which you declare how the snap is built and which properties it exposes to the user. We will
+obviously need to tweak a bit for the snap we want to build.
 
 negative
 : Important: Here we created a general `mysnaps` directory in the user's home directory, and then a
@@ -229,7 +237,6 @@ command. Those maps popular build tools that projects could use.
 Now to the exciting part: let's build it! All you need to do here is:
 
 ```bash
-cd ~/mysnaps/hello
 snapcraft
 ```
 
@@ -269,7 +276,6 @@ quickly and can think about things like confinement in a later step.
 Let's try to execute it by typing `hello`:
 
 ```bash
-cd ~/mysnaps/hello
 hello
 ```
 
@@ -297,7 +303,6 @@ bash: /snap/bin/hello No such file
 On Ubuntu Core:
 
 ```bash
-cd ~/mysnaps/hello
 hello
 ```
 
@@ -360,7 +365,6 @@ Now that the command is defined let's rebuild the snap to see if it now works. I
 snapcraft, here's a technique to quickly iterate over your snap during development:
 
 ```bash
-cd ~/mysnaps/hello
 snapcraft prime
 ```
 
