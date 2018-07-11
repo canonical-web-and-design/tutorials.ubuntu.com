@@ -4,10 +4,10 @@ summary: Learn how to get started with Corda, an open source permissioned blockc
 categories: server
 tags: corda, blockchain, opensource
 difficulty: 3
-status: draft
+status: published
 image: https://www.corda.net/wp-content/uploads/2017/01/16-10-31_R3_Corda_Master-Logo-04-1-e1516308027926-1024x455.png
 feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
-published: 2018-06-19
+published: 2018-07-11
 author: Jonathan Sphar <Jonathan.Sphar@r3.com>
 
 ---
