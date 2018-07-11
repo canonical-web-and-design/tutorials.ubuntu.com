@@ -5,7 +5,7 @@ categories: packaging
 status: published
 tags: snapcraft, usage, build, beginner, idf-2016
 difficulty: 1
-published: 2016-08-31
+published: 2018-07-11
 feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 author: Canonical Web Team <webteam@canonical.com>
 
@@ -36,7 +36,7 @@ snap along the way.
   - Any supported snap GNU/Linux distribution.
   - Some very basic knowledge of command line use, know how to edit files.
   - We expect you to know how to install snaps, what they are, the store notions that we are going
-    to use. The “[basic snap usage]” tutorial is a good introduction to this.
+    to use. The "[basic snap usage]" tutorial is a good introduction to this.
 
 Survey
 : How will you use this tutorial?
@@ -50,16 +50,17 @@ Survey
 ## Getting started
 Duration: 1:00
 
-If you are on Ubuntu 16.04 LTS or Ubuntu 16.10, getting all the required tools is very easy.
+This tutorial is based on Ubuntu (16.04 LTS or greater) and the `snapcraft` APT package. It also
+provides instructions for those users wishing to use Ubuntu Core.
 
 positive
-: Note: other GNU/Linux distributions are currently in the process of building packages for
-snapcraft.
+: Note: The `snapcraft` package will soon be available on other GNU/Linux distributions.
 
-### Installing the Classic snap
+### For Ubuntu Core users
 
-You should be running Ubuntu Core for this. To develop and build a snap in such an environment we
-will use a special snap call the **classic** snap.
+To develop and build a snap on Ubuntu Core an extra step is required. It involves the use of a
+special snap called `classic`. If you're using vanilla Ubuntu, skip to the next step ("Installing
+dependencies").
 
 This snap will get us into a chroot, where traditional Ubuntu is running. There we can install
 packages, change files projects, and run `snapcraft` to build our snap. The **home** directory is
@@ -98,10 +99,7 @@ sudo apt update
 sudo apt install snapcraft build-essential
 ```
 
-As snapcraft uses a plugin architecture (to let you build snaps from all kinds of projects), some
-required build tools need to be installed separately. In our case, that's `build-essential`.
-
-We're all set now, let's get cracking and build our first snap!
+We're all set. Let's get cracking and build our first snap!
 
 ## Building a snap is easy
 Duration: 4:00
@@ -124,21 +122,20 @@ Now initiate a simple template for your snap:
 snapcraft init
 ```
 
-Output:
+This created a `snapcraft.yaml` in which you declare how the snap is built and which properties it
+exposes to the user. We will edit this later.
+
+The directory structure looks like this:
 
 ```no-highlight
-Created snap/snapcraft.yaml.
-Edit the file to your liking or run `snapcraft` to get started
+mysnaps/
+└── hello
+    └── snap
+        └── snapcraft.yaml
 ```
 
-The `snapcraft init` command created a simple `snapcraft.yaml` file in the `snap/` directory, in
-which you declare how the snap is built and which properties it exposes to the user. We will
-obviously need to tweak a bit for the snap we want to build.
-
-negative
-: Important: Here we created a general `mysnaps` directory in the user's home directory, and then a
-`hello` directory under that to contain the new snap we'll be creating. Any future snaps would be
-put in their own directory under `mysnaps`.
+positive
+: Note: Any future snap would be put in its own directory under `mysnaps`.
 
 ### Describing the snap
 
@@ -154,33 +151,36 @@ description: |
   most important story about your snap. Keep it under 100 words though,
   we live in tweetspace and your description wants to look good in the snap
   store.
+
 grade: devel # must be 'stable' to release into candidate/stable channels
 confinement: devmode # use 'strict' once you have the right plugs and slots
 ```
 
-This part of `snapcraft.yaml` is mandatory and describes the very basics of the snap metadata.
+This part of `snapcraft.yaml` is mandatory and is basic metadata for the snap.
 Let's go through this line by line:
 
-  - **name** describes the name of the snap.
-  - **version** is the current version of the snap. This is just a human
-    readable string. The ascii order doesn't matter: all snap uploads will get
-    an incremental snap **revision**, which is independent from the version.
-    It's separated so that you can upload multiple times the same snap for the
-    same architecture with the exact same version. See it as a string that
-    indicates to your user the current version, like “stable”, “2.0” and such.
-  - **summary** is a short, one-line summary or tag-line for your snap.
-  - **description** should provide the user with enough information to judge if
-    the snap is going to be useful to them. This description can span over
-    multiple lines if prefixed with **|**.
-  - **grade** can be used by the publisher to indicate the quality confidence
-    in the build. The store will prevent publishing "devel" grade builds to
-    stable channels.
-  - **confinement** can be either `devmode` or `strict`. We'll get to this bit
-    later on again. When starting out with a new snap, it's always a good idea
-    to leave it in `devmode`.
+  - **name**: The name of the snap.
 
-So much for the basics. Let's customise this for your very own snap. Change the top of the file to
-be:
+  - **version**: The current version of the snap. This is just a human readable string. All snap
+    uploads will get an incremental snap **revision**, which is independent from this version. It's
+    separated so that you can upload multiple times the same snap for the same architecture with
+    the same version. See it as a string that indicates to your user the current version, like
+    "stable", "2.0", etc.
+
+  - **summary**: A short, one-line summary or tag-line for your snap.
+
+  - **description**: A longer description of the snap. It can span over multiple lines if prefixed
+    with the '|' character.
+
+  - **grade**: Can be used by the publisher to indicate the quality confidence in the build. The
+    store will prevent publishing 'devel' grade builds to the 'stable' channel.
+
+  - **confinement**: Can be either 'devmode' or 'strict'. A newly-developed snap should start out
+    in `devmode`. Security requirements can get in the way during development and 'devmode' eases
+    these requirements. Security aspects like confinement can be addressed once the snap is
+    working.
+
+So much for the basics. Let's customise this for your own snap. Change the top of the file to be:
 
 ```no-highlight
 name: hello
@@ -195,7 +195,7 @@ confinement: devmode
 positive
 : The version is quoted ('`2.10`') because the version is a string, not a number. You could
 theoretically use a version string without numbers (like '`myfirstversion`'). This information is
-for user consumption only and doesn't require special ordering (e.g ver1 > ver2) for an update to
+for user consumption only and doesn't require special ordering (e.g. ver1 > ver2) for an update to
 reach the user.
 
 ### Adding a part
@@ -208,39 +208,38 @@ A snap can consist of multiple parts. Here are a few examples of this:
   - Snaps with parts which come from different locations.
   - Parts which are built in a different way.
 
-Our **hello** snap will be nice and simple. It will consist of only one part for now. In the
+Our `hello` snap will be nice and simple. It will consist of only one part for now. In the
 following pages we are going to gradually extend it.
 
-Two must-haves for every part are the **source** and **plugin** definition. Think of it as the
-"what" (source) and the "how" (plugin). As source you can, for example, pick a source repository
-(like **git**), a **tarball**, or a **local directory**. Snapcraft comes with a lot of plugins
-which can build almost any conceivable project type (e.g. autotools, cmake, go, maven, nodejs,
-python2, python3, etc).
+Two must-haves for every part are the 'source' and 'plugin' definition. Think of these as the
+"what" and the "how", respectively. As source you can, for example, pick a source repository (like
+`git`), a tarball, or a local directory. Snapcraft supports many plugins, allowing you to build
+a wide variety of project types (e.g. autotools, cmake, go, maven, nodejs, python2, python3).
 
-To build **hello**, add the following to your `snapcraft.yaml` file:
+To build `hello`, add the following 'parts' stanza to your `snapcraft.yaml` file (replace anything
+else that might be there):
 
 ```yaml
 parts:
   gnu-hello:
-	source: http://ftp.gnu.org/gnu/hello/hello-2.10.tar.gz
-	plugin: autotools
+    source: http://ftp.gnu.org/gnu/hello/hello-2.10.tar.gz
+    plugin: autotools
 ```
 
-In the list of parts, we add one called `gnu-hello` (the part name can take whatever identifier you
-like). As **source** we use a tarball from the GNU project's ftp server - snapcraft will download
-and extract it automatically. As plugin you pick **autotools** which uses the pretty common
-`./configure && make && make install` steps to build the part under the hood.
+So we have added a part called `gnu-hello` (its name is arbitrary). As 'source' we specified a
+tarball located on the GNU project's FTP server. As 'plugin' we've chosen `autotools` which uses
+the traditional `./configure && make && make install` build steps.
 
 You can get the exhaustive list of supported snapcraft plugins with `snapcraft list-plugins`
 command. Those maps popular build tools that projects could use.
 
-Now to the exciting part: let's build it! All you need to do here is:
+To build our snap all you need to do is:
 
 ```bash
 snapcraft
 ```
 
-Output:
+There will be much output but a successful build should end with:
 
 ```no-highlight
 [...]
@@ -250,36 +249,74 @@ Snapping 'hello' |
 Snapped hello_2.10_amd64.snap
 ```
 
-If your system is missing dependencies for this example (e.g. `autopoint` and `libtool`), snapcraft
-will prompt for the system password to install them.
+You will be prompted for the system password to install any missing dependencies.
 
-You just built your first snap! Congratulations! Let's install it now.
+The directory structure has now become:
+
+```no-highlight
+mysnaps/
+└── hello
+    ├── hello_2.10_amd64.snap
+    ├── parts
+    │   └── gnu-hello
+    │       ├── build
+    │       ├── install
+    │       ├── src
+    │       └── state
+    ├── prime
+    │   ├── bin
+    │   │   └── hello
+    │   ├── meta
+    │   │   └── snap.yaml
+    │   ├── share
+    │   │   ├── info
+    │   │   ├── locale
+    │   │   └── man
+    │   └── snap
+    ├── snap
+    │   └── snapcraft.yaml
+    └── stage
+        ├── bin
+        │   └── hello
+        └── share
+            ├── info
+            ├── locale
+            └── man
+```
+
+Congratulations! Your snap is now ready to be installed:
 
 ```bash
 sudo snap install --devmode hello_2.10_amd64.snap
 snap list
 ```
 
-Output:
+The output should declare:
 
 ```no-highlight
-Name             Version                           Rev  Developer   Notes
-hello            2.10                              x1               devmode
-ubuntu-core      16.04.1                           352  canonical   -
+hello 2.10 installed
 ```
 
-Using `--devmode` is generally a good idea, as it's best-practice when creating new snaps. When
-developing, security requirements can get in our way in the beginning. It's better to focus on
-getting the application ready first. This way you focus on the build first, get a snap working
-quickly and can think about things like confinement in a later step.
+To get some info on the installed snap:
 
-Let's try to execute it by typing `hello`:
+```bash
+snap list hello
+```
+
+Sample output:
+
+```no-highlight
+Name   Version  Rev  Tracking  Developer  Notes
+hello  2.10     x1   -         -          devmode
+```
+
+Let's try to execute it:
 
 ```bash
 hello
 ```
 
-On Ubuntu desktop, you will get:
+On traditional Ubuntu you will get:
 
 ```no-highlight
 The program 'hello' can be found in the following packages:
@@ -288,7 +325,7 @@ The program 'hello' can be found in the following packages:
 Try: sudo apt install <selected package>
 ```
 
-Or you might get another error if you previously installed the `hello` snap:
+Or you might get a different error if you previously installed the `hello` snap:
 
 ```bash
 hello
@@ -300,21 +337,15 @@ Output:
 bash: /snap/bin/hello No such file
 ```
 
-On Ubuntu Core:
-
-```bash
-hello
-```
-
-Output:
+On Ubuntu Core you may get:
 
 ```no-highlight
 hello: command not found
 ```
 
 The command doesn't exist despite being part of our snap and installed! Indeed, snaps don't expose
-anything to the user by default (command, services, etc.). We have to do this explicitly and
-that's exactly what you are going to tackle in the next step!
+anything to the user by default (command, services, etc.). We have to do this explicitly and that's
+exactly what you are going to tackle in the next step!
 
 negative
 : If it *does* work for you, you should verify that it's the correct `hello` command. Check the
@@ -334,10 +365,9 @@ In order for services and commands to be exposed to users, you need to specify t
 `snapcraft.yaml` of course! This will take care of a couple of things for you:
 
   - It will make sure that services are automatically started/stopped.
-  - All commands will be namespaced, so that you could for example install the same snap from
+  - All commands will be "namespaced", so that you could for example install the same snap from
     different publishers and still be able to run the snaps separately.
   - You can define which security permissions commands and services need.
-  - And more.
 
 Exposing the `hello` command is pretty painless, so let's do that first. All you need to do is to
 add the following declaration to your `snapcraft.yaml` file:
@@ -419,7 +449,7 @@ should give:
 Well done! You've just made your first working snap!
 
 negative
-: Important: If **hello** does not run and you get the error `cannot change current working
+: Important: If `hello` does not run and you get the error `cannot change current working
 directory to the original directory: No such file or directory` then most likely you are developing
 the snap in a directory other than your home directory. An example of a directory that would
 generate this error, is the `/tmp/` directory. Fixing it is possible by uninstalling the snap with
@@ -437,10 +467,10 @@ part:
 
 ```yaml
 parts:
-  […]
+  [...]
   gnu-bash:
-	source: http://ftp.gnu.org/gnu/bash/bash-4.3.tar.gz
-	plugin: autotools
+    source: http://ftp.gnu.org/gnu/bash/bash-4.3.tar.gz
+    plugin: autotools
 ```
 
 You will notice that this part (named `gnu-bash`) works very much like the `gnu-hello` part from
@@ -450,9 +480,9 @@ do this now. In the `apps` definition, add:
 
 ```yaml
 apps:
-  […]
+  [...]
   bash:
-	command: bash
+    command: bash
 ```
 
 This time the command name is different from the snap name. By default, all commands are exposed to
@@ -503,10 +533,12 @@ the info directory. Let's use `/var/bash/info`. All you need to do is make your 
 definition look like this:
 
 ```yaml
+parts:
+  [...]
   gnu-bash:
-	source: http://ftp.gnu.org/gnu/bash/bash-4.3.tar.gz
-	plugin: autotools
-	configflags: ["--infodir=/var/bash/info"]
+    source: http://ftp.gnu.org/gnu/bash/bash-4.3.tar.gz
+    plugin: autotools
+    configflags: ["--infodir=/var/bash/info"]
 ```
 
 This is how you tell snapcraft to pass `--infodir=/var/bash/info` as an argument to `./configure`
@@ -773,7 +805,7 @@ If you changed your snap name while registering, you need to rebuild this snap w
 
 ```yaml
 name: hello-didrocks
-[…]
+[...]
 ```
 
   - as we want to release it in the 'candidate' channel, we need to set its grade to 'stable':
