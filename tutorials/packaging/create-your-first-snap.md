@@ -5,7 +5,7 @@ categories: packaging
 status: published
 tags: snapcraft, usage, build, beginner, idf-2016
 difficulty: 1
-published: 2018-07-11
+published: 2018-07-12
 feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 author: Canonical Web Team <webteam@canonical.com>
 
@@ -16,9 +16,9 @@ author: Canonical Web Team <webteam@canonical.com>
 ## Overview
 Duration: 1:00
 
-`snapcraft` is our tool of choice to build snaps. It reads a simple, declarative file and runs the
-build for us. We will get to play with snapcraft, see how easy it is to use and create our first
-snap along the way.
+The `snapcraft` tool is the preferred way to build snaps. It reads a simple, declarative file and
+runs the build for us. We will get to play with snapcraft, see how easy it is to use and create our
+first snap along the way.
 
 ![IMAGE](https://assets.ubuntu.com/v1/074862f8-snaps-hero.png)
 
@@ -26,17 +26,17 @@ snap along the way.
 
   - How to install snapcraft.
   - How to create a new project.
-  - How to build a snap.
   - How to declare snap metadata.
-  - How app are made of parts.
-  - And more...
+  - How an app is made of parts.
+  - How to build a snap and to fix common build issues.
+  - How to upload a snap to the Snap Store.
 
 ### What you'll need
 
-  - Any supported snap GNU/Linux distribution.
-  - Some very basic knowledge of command line use, know how to edit files.
-  - We expect you to know how to install snaps, what they are, the store notions that we are going
-    to use. The "[basic snap usage]" tutorial is a good introduction to this.
+  - Ubuntu or Ubuntu Core.
+  - Some basic knowledge of command line use. To know how to edit a file.
+  - Rudimentary knowledge of snaps. Tutorial [Basic snap usage][tutorial_basic-snap-usage] is a
+    good introduction to snaps.
 
 Survey
 : How will you use this tutorial?
@@ -54,7 +54,8 @@ This tutorial is based on Ubuntu (16.04 LTS or greater) and the `snapcraft` APT 
 provides instructions for those users wishing to use Ubuntu Core.
 
 positive
-: Note: The `snapcraft` package will soon be available on other GNU/Linux distributions.
+: **Note:**
+The `snapcraft` package will soon be available on other GNU/Linux distributions.
 
 ### For Ubuntu Core users
 
@@ -84,7 +85,9 @@ You will note that the shell is prepended with `(classic)` to remind us that we 
 commands inside the classic snap. You can exit the shell as normal by typing `exit`.
 
 positive
-: Remember that when you run the `snap` command you need to be outside of the classic snap.
+: **Note:**
+Remember that whenever you run the `snap` command you will need to be outside of the classic snap's
+chroot.
 
 **Unless explained otherwise, all commands shown in this rest of this tutorial will be assumed to
 be invoked from inside the chroot.**
@@ -135,7 +138,8 @@ mysnaps/
 ```
 
 positive
-: Note: Any future snap would be put in its own directory under `mysnaps`.
+: **Note:**
+Any future snap would be put in its own directory under `mysnaps`.
 
 ### Describing the snap
 
@@ -152,7 +156,7 @@ description: |
   we live in tweetspace and your description wants to look good in the snap
   store.
 
-grade: devel # must be 'stable' to release into candidate/stable channels
+grade: devel # must be 'stable' to release into 'candidate' and 'stable' channels
 confinement: devmode # use 'strict' once you have the right plugs and slots
 ```
 
@@ -193,7 +197,8 @@ confinement: devmode
 ```
 
 positive
-: The version is quoted ('`2.10`') because the version is a string, not a number. You could
+: **Note:**
+The version is quoted ('`2.10`') because the version is a string, not a number. You could
 theoretically use a version string without numbers (like '`myfirstversion`'). This information is
 for user consumption only and doesn't require special ordering (e.g. ver1 > ver2) for an update to
 reach the user.
@@ -356,8 +361,8 @@ binary under the `/snap/bin` directory.
 Duration: 3:00
 
 positive
-: Lost or starting from here?
-Check or download [here][here4] to see what your current directory should look like.
+: *Lost or starting from here?*
+This [snapshot][step6] shows what your directory should look like at this point.
 
 ### Defining commands
 
@@ -434,10 +439,11 @@ So an unpacked snap was "installed" for testing purposes. Note that any non-meta
 take effect instantly, thereby expediting your testing.
 
 positive
-: Note: The different stages of snapcraft are: "pull" (download source for all parts), "build",
-"stage" (consolidate installed files of all parts), "prime" (distill down to just the desired
-files), and "snap" (create a snap out of the prime/ directory). Each step depends on the successful
-completion of the previous one.
+: **Note:**
+The different stages of snapcraft are: "pull" (download source for all parts), "build", "stage"
+(consolidate installed files of all parts), "prime" (distill down to just the desired files), and
+"snap" (create a snap out of the prime/ directory). Each step depends on the successful completion
+of the previous one.
 
 Things should be working now. Let's test:
 
@@ -465,18 +471,19 @@ should give:
 Well done! You've just made your first working snap!
 
 negative
-: Important: If `hello` does not run and you get the error `cannot change current working
-directory to the original directory: No such file or directory` then most likely you are developing
-the snap in a directory other than your home directory. An example of a directory that would
-generate this error, is the `/tmp/` directory. Fixing it is possible by uninstalling the snap with
-`sudo snap remove hello` and starting over.
+: **Important:**
+If `hello` does not run and you get the error `cannot change current working directory to the
+original directory: No such file or directory` then most likely you are developing the snap in a
+directory other than your home directory. An example of a directory that would generate this error,
+is the `/tmp/` directory. Fix it by uninstalling the snap with `sudo snap remove hello` and
+starting over.
 
 ## A snap is made of parts
 Duration: 3:00
 
 positive
-: Lost or starting from here?
-Check or download [here][here1] to see what your current directory should look like.
+: *Lost or starting from here?*
+This [snapshot][step3] shows what your directory should look like at this point.
 
 Let's add another part to make the snap a bit more interesting. In the 'parts' definition, make an
 addition:
@@ -609,8 +616,9 @@ bash-4.3$ exit
 ```
 
 positive
-: Note: You will see that the environment variables available from your snap are a little different
-from your user environment. Some additional variables are added like `$SNAP_` and some system
+: **Note:**
+You will see that the environment variables available from your snap are a little different from
+your user environment. Some additional variables are added like `$SNAP_` and some system
 environment variables have been altered to point to your snap directory, like `$PATH` or
 `$LD_LIBRARY_PATH`. Take the time to get familiar with them!
 
@@ -620,14 +628,15 @@ Excellent work! You have it all nice and working!
 Duration: 2:00
 
 positive
-: Lost or starting from here?
-Check or download [here][here2] to see what your current directory should look like.
+: *Lost or starting from here?*
+This [snapshot][step4] shows what your directory should look like at this point.
 
 One last thing you might want to do before the snap is ready for wider consumption is to remove the
 `devmode` status.
 
 negative
-: Users of snaps using `devmode`, will need to pass `--devmode` during the installation, so they
+: **Important:**
+Users of snaps using `devmode`, will need to pass `--devmode` during the installation, so they
 explicitly agree to trust you and your snap. Another benefit of removing `devmode` is that you will
 be able to ship your snap on the 'stable' or 'candidate' channels (you can only release to the
 other channels, like 'beta' or 'edge' as your snap is less trusted) and users will be able to
@@ -647,8 +656,10 @@ switch to really test it under confinement:
 snapcraft
 sudo snap install hello_2.10_amd64.snap
 ```
+
 positive
-: We got the snap package name from the last output line from the `snapcraft` command.
+: **Note:**
+We got the snap package name from the last output line from the `snapcraft` command.
 
 Yikes! This gives:
 
@@ -705,9 +716,10 @@ What's happening here? Your snap is not broken, it's just confined now and so it
 its own respective directories.
 
 positive
-: Note: For other snaps you might need to declare if commands or services need special permissions
-(e.g. access to the network or audio). A tutorial on "interfaces", "slots", and "plugs" will cover
-this very topic.
+: **Note:**
+For other snaps you might need to declare if commands or services need special permissions (e.g.
+access to the network or audio). A tutorial on "interfaces", "slots", and "plugs" will cover this
+very topic.
 
 You are done. This snap is ready for publication. Awesome!
 
@@ -715,8 +727,8 @@ You are done. This snap is ready for publication. Awesome!
 Duration: 5:00
 
 positive
-: Lost or starting from here?
-Check or download [here][here3] to see what your current directory should look like.
+: *Lost or starting from here?*
+This [snapshot][step5] shows what your directory should look like at this point.
 
 Applications are easily uploaded to the [Snap Store](https://snapcraft.io/discover/).
 Registering an account is easy, so let's do that first.
@@ -767,12 +779,12 @@ Login successful.
 
 You can log out any time with `snapcraft logout`.
 
-### Register a new snap name
+### Register a snap name
 
 Before being able to upload a snap, you will need to register (reserve) a name for it. This is
 done with `snapcraft register <some_name>`.
 
-Here, assuming *javier* is my store username established above, we'll do:
+Here, assuming *javier* is the store username established above, we'll do:
 
 ```bash
 snapcraft register hello-javier
@@ -798,85 +810,85 @@ Registering hello-javier.
 Congratulations! You're now the publisher for 'hello-javier'.
 ```
 
-Clearly, the Store prefers the name to be of the format '<local snap name>-<username>'.
+Clearly, the Store prefers the name to be of the format '<local snap name>-<store-username>'.
 
-If the name is already taken, you can either dispute that name or pick a new one.
+The snap name `hello-javier` is different from `hello` that we initially placed in our
+`snapcraft.yaml` file. We will need to edit that file accordingly and rebuild the snap. This is
+also an opportune time to change the 'grade' to 'stable'!
 
-If you changed your snap name while registering, you need to rebuild this snap with that new name:
-
-  - change your snap name in `snapcraft.yaml`:
-
-```yaml
-name: hello-didrocks
-[...]
-```
-
-  - as we want to release it in the 'candidate' channel, we need to set its grade to 'stable':
+The file should now include the following lines:
 
 ```yaml
+name: hello-javier
 grade: stable
 ```
-  - and rebuild your snap with:
+
+Rebuild:
 
 ```bash
 snapcraft
 ```
 
+You should now have a snap package called `hello_-javier_2.10_amd64.snap`.
+
+positive
+: **Note:**
+Recall that you already installed a snap package called `hello_2.10_amd64.snap`. Don't forget to
+uninstall it with `sudo snap remove hello`.
+
 ### Push and release your snap
 
-It's high time to make this snap available to the world!
+It's time to make this snap available to the world!
 
-Let's try to release it to the 'candidate' channel for now:
+Let's release it to the 'candidate' channel for now:
 
 ```bash
-snapcraft push hello-didrocks_2.10_amd64.snap --release=candidate
+snapcraft push hello-javier_2.10_amd64.snap --release=candidate
 ```
 
 Output:
 
 ```no-highlight
-Uploading hello-didrocks_2.10_amd64.snap.
-Uploading hello-didrocks_2.10_amd64.snap [================================] 100%
-Ready to release!|                                                              
-Revision 1 of 'hello-didrocks' created.
-The candidate channel is now open.
-
-Channel    Version    Revision
----------  ---------  ----------
-stable     -          -
-candidate  2.10       1
-beta       ^          ^
-edge       ^          ^
+Pushing hello-javier_2.10_amd64.snap
+After pushing, an attempt will be made to release to 'candidate'
+Preparing to push '/home/ubuntu/mysnaps/hello/hello-javier_2.10_amd64.snap' to the store.
+Pushing hello-javier_2.10_amd64.snap [=====================================================] 100%
+Processing...|                                                                                                                                                                                                      
+Ready to release!
+Revision 1 of 'hello-javier' created.
+Track    Arch    Channel    Version    Revision
+latest   amd64   stable     -          -
+                 candidate  2.10       1
+                 beta       ^          ^
+                 edge       ^          ^
+The 'candidate' channel is now open.
 ```
 
 You should receive an email informing you that your snap is pending review (automatic checking). If
-you are not using any reserved interfaces and security checks are passing, users can install it
-like so:
+you are not using any reserved interfaces and security checks are passing, users will be able to
+install it like so:
 
 ```bash
-sudo snap install hello-didrocks --channel=candidate
+sudo snap install hello-javier --channel=candidate
 ```
 
 negative
-: As you uploaded an amd64 binary, only people on 64-bit machines will get access to this snap. You
-can either focus on one architecture to support, manually build a binary for each architecture
-you wish to support, or use [build.snapcraft.io](https://build.snapcraft.io) to push your
+: **Important:**
+As we uploaded an amd64 binary, only people on 64-bit machines will get access to this snap. You
+can either focus on one architecture to support, manually build a binary for each architecture you
+wish to support, or use [build.snapcraft.io](https://build.snapcraft.io) to push your
 `snapcraft.yaml`, and get resulting snaps built on all architectures for you!
 
 From here, if you are happy with the testing of your snap, you can use the `snapcraft release`
 command to have fine-grained control over what you are releasing and where:
 
-The general syntax is:
+`snapcraft release <snap-name> <revision> <channel>`
+
+Therefore, to release `hello-javier` to the 'stable' channel, and make it immediately visible in
+the Store:
 
 ```bash
-snapcraft release <snap-name> <revision> <channel>
-```
-
-Therefore, to release `hello-didrocks` to the 'stable' channel, and make it immediately visible in
-the store:
-
-```bash
-snapcraft release hello-didrocks 1 stable
+snapcraft release hello-javier 1 stable
 ```
 
 Remember that snaps with `confinement: devmode` can't be released to the 'stable' or 'candidate'
@@ -892,47 +904,41 @@ Duration: 1:00
 
 Congratulations! You made it!
 
-positive
-: Final code: Your final code directory should now look like [this]. Do not hesitate to download
-and build your snap from it if you only read it through!
+By now you will have built your first snap, fixed build issues, exposed user commands, learned
+about uploading snaps to the Snap Store, and found out about a lot of other useful details
+(plugins, snapcraft help, channels, etc.).
 
-By now you should successfully have built your first snap, fixed build issues, exposed user
-commands, learned about uploading snaps to the store and found out about a lot of other useful
-details (plugins, snapcraft's help system, release channels in the store, etc.). Snapcraft is easy
-to use as it is declarative and uses but a few keywords.
+positive
+: **Final code:**
+Your final directory should now look like this [snapshot][final]. You can use it to build a snap
+if you only read through this tutorial!
 
 ### Next steps
 
-  - You can have a look at “[build a nodejs service]” which is the logical follow up of that
-    tutorial, bringing your some debugging techniques, more information on confinement and how to
-    package some snap application as a service.
-  - Learn some more advanced techniques on how to use your snap system looking for our others
-    tutorials!
-  - Join the snapcraft.io community on the [snapcraft forum].
+  - Take a look at tutorial [Build a nodejs service snap][tutorial_build-a-nodejs-service-snap].
+    It is the logical follow-up to this tutorial. It includes debugging techniques, more
+    information on confinement, and how to package a snap as a service.
+  - Learn some advanced snap coding techniques by looking at some of the other snap tutorials.
+  - Join the Snapcraft community on the [Snapcraft forum][snapcraft-forum].
 
 ### Further readings
 
-  - [Snapcraft.io documentation] is a good place to start reading the whole snap and snapcraft
-    documentation.
-  - Documentation on [interfaces].
-  - [Snapcraft syntax reference], covering various available options like the daemon ones.
-  - Check how you can [contact us and the broader community].
+  - See the [Snapcraft documentation][snapcraft-documentation] for the definitive snap and
+    snapcraft documentation.
+  - The [Snapcraft command reference][snapcraft-command-reference] covers all command syntax and
+    options, including those for the daemon.
 
 
 <!-- LINKS -->
 
-[basic snap usage]: https://tutorials.ubuntu.com/tutorial/basic-snap-usage
-[here1]: https://github.com/ubuntu/snap-tutorials-code/tree/master/create-your-first-snap/step3
-[here2]: https://github.com/ubuntu/snap-tutorials-code/tree/master/create-your-first-snap/step4
-[here3]: https://github.com/ubuntu/snap-tutorials-code/tree/master/create-your-first-snap/step5
-[here4]: https://github.com/ubuntu/snap-tutorials-code/tree/master/create-your-first-snap/step6
-[My Apps]: https://dashboard.snapcraft.io/dev/snaps/
-[available here]: https://docs.snapcraft.io/build-snaps/builders
-[this]: https://github.com/ubuntu/snap-tutorials-code/tree/master/create-your-first-snap/final
-[build a nodejs service]: https://tutorials.ubuntu.com/tutorial/build-a-nodejs-service
-[snapcraft forum]: https://forum.snapcraft.io/
-[Snapcraft.io documentation]: http://snapcraft.io/docs/
-[interfaces]: https://snapcraft.io/docs/core/interfaces
-[Snapcraft syntax reference]: http://snapcraft.io/docs/build-snaps/syntax
-[contact us and the broader community]: http://snapcraft.io/community/
+[tutorial_basic-snap-usage]: https://tutorials.ubuntu.com/tutorial/basic-snap-usage
+[step3]: https://github.com/ubuntu/snap-tutorials-code/tree/master/create-your-first-snap/step3
+[step4]: https://github.com/ubuntu/snap-tutorials-code/tree/master/create-your-first-snap/step4
+[step5]: https://github.com/ubuntu/snap-tutorials-code/tree/master/create-your-first-snap/step5
+[step6]: https://github.com/ubuntu/snap-tutorials-code/tree/master/create-your-first-snap/step6
+[final]: https://github.com/ubuntu/snap-tutorials-code/tree/master/create-your-first-snap/final
+[tutorial_build-a-nodejs-service-snap]: https://tutorials.ubuntu.com/tutorial/build-a-nodejs-service
+[snapcraft-forum]: https://forum.snapcraft.io/
+[snapcraft-documentation]: http://snapcraft.io/docs/
+[snapcraft-command-reference]: http://snapcraft.io/docs/build-snaps/syntax
 [snapcraft-dashboard]: https://dashboard.snapcraft.io/
