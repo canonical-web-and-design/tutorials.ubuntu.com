@@ -116,7 +116,7 @@ cd ~/mysnaps/hello
 
 **It is from within this `hello` directory where we will invoke all subsequent commands.**
 
-Now initiate a simple template for your snap:
+Get started by initialising your snap:
 
 ```bash
 snapcraft init
@@ -345,7 +345,7 @@ hello: command not found
 
 The command doesn't exist despite being part of our snap and installed! Indeed, snaps don't expose
 anything to the user by default (command, services, etc.). We have to do this explicitly and that's
-exactly what you are going to tackle in the next step!
+exactly what you are going to tackle next!
 
 negative
 : If it *does* work for you, you should verify that it's the correct `hello` command. Check the
@@ -367,10 +367,9 @@ In order for services and commands to be exposed to users, you need to specify t
   - It will make sure that services are automatically started/stopped.
   - All commands will be "namespaced", so that you could for example install the same snap from
     different publishers and still be able to run the snaps separately.
-  - You can define which security permissions commands and services need.
 
-Exposing the `hello` command is pretty painless, so let's do that first. All you need to do is to
-add the following declaration to your `snapcraft.yaml` file:
+Exposing the `hello` command is painless. All you need to do is add the following to your
+`snapcraft.yaml` file:
 
 ```yaml
 apps:
@@ -379,49 +378,66 @@ apps:
 ```
 
 This defines an app named `hello`, which points to the executable `bin/hello` in the directory
-structure shipped by the snap. This way, the `hello` command will be available to our users.
+structure shipped by the snap.
 
-We generally advise to put this stanza after the 'description' field (with name, version, grade,
-etc.) and before the 'parts' field. The order itself doesn't matter, but it makes your
-`snapcraft.yaml` more legible:
+We generally advise to put this stanza between the metadata fields and the 'parts' field.
+Technically the order doesn't matter, but it makes sense to place basic pieces before more complex
+ones.
 
-  - General snap info (name, version, grade, etc.)
-  - Commands that you expose (apps)
-  - Build recipes (parts)
+Our `snapcraft.yaml` file should now resemble this:
+
+```yaml
+name: hello
+version: '2.10'
+summary: GNU Hello, the "hello world" snap
+description: |
+  GNU hello prints a friendly greeting.
+grade: devel
+confinement: devmode
+
+apps:
+  hello:
+    command: bin/hello
+
+parts:
+  gnu-hello:
+    source: http://ftp.gnu.org/gnu/hello/hello-2.10.tar.gz
+    plugin: autotools command: bin/hello
+```
 
 ### Iterating over your snap
 
-Now that the command is defined let's rebuild the snap to see if it now works. Instead of running
-snapcraft, here's a technique to quickly iterate over your snap during development:
+Now that the command is defined let's rebuild the snap. Instead of running snapcraft, here's a
+technique to quickly iterate over your snap during development:
 
 ```bash
 snapcraft prime
 ```
 
-Output:
+What we did was tell snapcraft to run the build up until the "prime" stage. That is, we are
+omitting the "snap" stage (see lower down for an explanation of snapcraft stages). What this
+invocation gives therefore are the unpacked contents of a snap.
 
-```no-highlight
-Skipping pull gnu-hello (already ran)
-Skipping build gnu-hello (already ran)
-Skipping stage gnu-hello (already ran)
-Skipping prime gnu-hello (already ran)
-sudo snap try --devmode prime/
+We can then provide this content to `snap try`:
 
-hello 2.10 mounted from ~/hello/prime
+```bash
+sudo snap try --devmode prime
 ```
 
-In the steps above we first tell snapcraft to run the build up until the "prime" step. This is
-where all parts are built and assembled for snap creation. Think of it as the extracted contents of
-the snap package. These we can easily give to `snap try` which installs an unpacked snap into the
-system for testing purposes. The unpacked snap content continues to be used even after
-installation, so non-metadata changes (e.g. snap name, etc.) there go live instantly. This makes
-things a lot quicker and easier to test.
+This gives:
+
+```no-highlight
+hello 2.10 mounted from /home/ubuntu/mysnaps/hello/prime
+```
+
+So an unpacked snap was "installed" for testing purposes. Note that any non-metadata changes will
+take effect instantly, thereby expediting your testing.
 
 positive
-: Note: The different stages of snapcraft are: **pull** (download source for all parts), **build**,
-**stage** (consolidate installed files of all parts), **prime** (distill down to just the desired
-files), and **snap** (create a snap out of the prime/ directory). Each steps depends on the
-previous one to be completed.
+: Note: The different stages of snapcraft are: "pull" (download source for all parts), "build",
+"stage" (consolidate installed files of all parts), "prime" (distill down to just the desired
+files), and "snap" (create a snap out of the prime/ directory). Each step depends on the successful
+completion of the previous one.
 
 Things should be working now. Let's test:
 
@@ -453,7 +469,7 @@ negative
 directory to the original directory: No such file or directory` then most likely you are developing
 the snap in a directory other than your home directory. An example of a directory that would
 generate this error, is the `/tmp/` directory. Fixing it is possible by uninstalling the snap with
-`snap remove hello` and starting over.
+`sudo snap remove hello` and starting over.
 
 ## A snap is made of parts
 Duration: 3:00
@@ -462,8 +478,8 @@ positive
 : Lost or starting from here?
 Check or download [here][here1] to see what your current directory should look like.
 
-Let's add another part to make the snap a bit more interesting. In the parts definition, add a new
-part:
+Let's add another part to make the snap a bit more interesting. In the 'parts' definition, make an
+addition:
 
 ```yaml
 parts:
@@ -474,9 +490,10 @@ parts:
 ```
 
 You will notice that this part (named `gnu-bash`) works very much like the `gnu-hello` part from
-the steps before. It downloads a tarball too and builds it using the `autotools` plugin. You
-learned this during the step before, we still need to define the command we want to expose. Let's
-do this now. In the `apps` definition, add:
+before: it downloads a tarball and builds it using the `autotools` plugin.
+
+As we did before, we need to define the command we want to expose. Let's do this now. In the 'apps'
+definition, add:
 
 ```yaml
 apps:
@@ -488,49 +505,49 @@ apps:
 This time the command name is different from the snap name. By default, all commands are exposed to
 the user as `<snap-name>.<command-name>`. This binary will thus be `hello.bash`. That way we will
 avoid a clash with `/bin/bash` (system binaries trump binaries shipped by snaps) or any other snaps
-shipping a `bash` command. However, maybe you remember, the first binary is named `hello`. This is
+shipping a `bash` command. However, as you may remember, the first binary is named `hello`. This is
 due to the simplification when <command-name> equals <snap-name>. Instead of `hello.hello`, we
 have the command condensed to `hello`.
 
 Our snap will thus result in two binaries being shipped: `hello` and `hello.bash`.
 
-You will note that we set here `bash` as the command parameter, and not `bin/bash` relative to
-`$SNAP` as we did for `hello`. Both are totally valid. Why is that? `snapcraft` and `snapd` are
-creating a small wrapper around your executable command setting some environment variables for you,
-and overriding them. Technically, `$SNAP/bin` is prepending to your `$PATH` for this snap. And
-thus, the command is reachable, preventing the need to set the path explicitly. We will discuss
-more on those environment variables in the next sections, once we build our snap.
+Note that we set `bash` as the command parameter, and not `bin/bash` relative to the system snap
+directory (`$SNAP=/snap`) as we did for `hello`. Both are equally valid because `snapcraft` and
+`snapd` create a small wrapper around your executable command which sets some environment
+variables. Technically, `$SNAP/bin` will be prepended to your `$PATH` for this snap. This avoids
+the need to set the path explicitly. This topic will be touched upon in upcoming sections.
 
-Now execute the following to run the build:
+Now re-do the build using our previous trick:
 
 ```bash
 snapcraft prime
 ```
 
-Only the gnu-bash part needs to be built now (as nothing changed in the other part), which should
-be relatively quick.
+Only the `gnu-bash` part will be built now (as nothing changed in the other part). This makes
+things quicker but since Bash is itself a significant piece of software this command will still
+take quite some time to complete.
 
 ### Our first build failure
 
-Oh no! The build stops with:
+Oh nooo! The build stops with:
 
 ```no-highlight
-Parts 'gnu-bash' and 'gnu-hello' have the following file paths in common which
-have different contents: share/info/dir
+Failed to stage: Parts 'gnu-bash' and 'gnu-hello' have the following files, but with different contents:
+    share/info/dir
 ```
 
 What does this mean? Both our `gnu-hello` and `gnu-bash` parts want to ship a version of
-`share/info/dir` with differing contents. As this clashes, we have to solve this somehow. In
-general, there are two options in cases like this:
+`share/info/dir` with differing contents. The two most common ways to rectify this kind of problem
+are:
 
-  - Shipping only one from one of the two parts. If we find the file is not needed or they're
-    identical, we can tell snapcraft not to ship either using the `snap` and `stage` keywords.
-  - We move one of the files to a different location.
+  - Instruct only one of the two parts to place content in this directory. We can also tell both
+    to supress the content. Which solution depends on the necessity of said content. Either is
+    achieved by influencing the 'snap' and 'stage' stages.
+  - Change the directory location for one of the two parts.
 
 Luckily the second option is easy to implement and it's nice being able to ship both. The
-`./configure` script of bash comes with an `--infodir` option, which will set the new location of
-the info directory. Let's use `/var/bash/info`. All you need to do is make your gnu-bash
-definition look like this:
+`./configure` script of Bash comes with an `--infodir` option that does what we want. Let's use
+`/var/bash/info`:
 
 ```yaml
 parts:
@@ -541,8 +558,8 @@ parts:
     configflags: ["--infodir=/var/bash/info"]
 ```
 
-This is how you tell snapcraft to pass `--infodir=/var/bash/info` as an argument to `./configure`
-during the build.
+This will cause `--infodir=/var/bash/info` to be passed as an argument to `./configure` during the
+build.
 
 The `configflags` option is specific to the `autotools` plugin. Luckily `snapcraft` comes with a
 built-in help system. You can discover all the options by running:
@@ -559,8 +576,7 @@ snapcraft prime
 ```
 
 Here you clean just the build step of the `gnu-bash` part, so the source does not need to be
-re-downloaded. Then the build is run again and it passes! Now let's see if our new commands work
-fine:
+re-downloaded. Then the build is run again and it passes! Now let's see if both our commands work:
 
 ```bash
 sudo snap try --devmode prime
@@ -583,7 +599,7 @@ should yield:
 
 ```no-highlight
 bash-4.3$ env
-[ Environment variables list ]
+[ outputs a list of environment variables ]
 ```
 
 Now exit that Bash shell:
@@ -594,9 +610,9 @@ bash-4.3$ exit
 
 positive
 : Note: You will see that the environment variables available from your snap are a little different
-from your user environment: some additional variables are added like **$SNAP_** and some system
-environment variables have been altered to point to your snap directory, like **$PATH** or
-**$LD_LIBRARY_PATH**. Take the time to get familiar with them!
+from your user environment. Some additional variables are added like `$SNAP_` and some system
+environment variables have been altered to point to your snap directory, like `$PATH` or
+`$LD_LIBRARY_PATH`. Take the time to get familiar with them!
 
 Excellent work! You have it all nice and working!
 
@@ -612,63 +628,44 @@ One last thing you might want to do before the snap is ready for wider consumpti
 
 negative
 : Users of snaps using `devmode`, will need to pass `--devmode` during the installation, so they
-explicitly agree to trust you and your snap. Another benefit of removing devmode is that you will
-be able to ship your snap on the **stable** or **candidate** channels (you can only release to the
-other channels, like **beta** or **edge** as your snap is less trusted) and users will be able to
+explicitly agree to trust you and your snap. Another benefit of removing `devmode` is that you will
+be able to ship your snap on the 'stable' or 'candidate' channels (you can only release to the
+other channels, like 'beta' or 'edge' as your snap is less trusted) and users will be able to
 search for it using `snap find`.
 
-For this to be declared in your snap, let's set `confinement` to `strict` in your `snapcraft.yaml`:
+For this to be declared in your snap, let's set `confinement` to `strict` in `snapcraft.yaml`:
 
 ```yaml
 confinement: strict
 ```
 
-Now let's build the snap and install it! We are going to call `snapcraft` without `prime` this time
-and `snap install` (as opposed to `snap try` earlier) to try everything under normal conditions.
-You should also stop using the `--devmode` switch to really test it under confinement:
+Now let's build the snap and install it properly! That is, we are going to call `snapcraft` without
+`prime` and `snap install` (as opposed to `snap try`). You should also stop using the `--devmode`
+switch to really test it under confinement:
 
 ```bash
 snapcraft
-```
-
-Output:
-
-```no-highlight
-Skipping pull gnu-bash (already ran)
-Skipping pull gnu-hello (already ran)
-Skipping build gnu-bash (already ran)
-Skipping build gnu-hello (already ran)
-Skipping stage gnu-bash (already ran)
-Skipping stage gnu-hello (already ran)
-Skipping prime gnu-bash (already ran)
-Skipping prime gnu-hello (already ran)
-Snapping 'hello' -
-Snapped hello_2.10_amd64.snap
-```
-
-Let's try to install it!
-
-```bash
 sudo snap install hello_2.10_amd64.snap
 ```
+positive
+: We got the snap package name from the last output line from the `snapcraft` command.
 
-Yet this gives:
+Yikes! This gives:
 
 ```no-highlight
 error: cannot find signatures with metadata for snap "hello_2.10_amd64.snap"
 ```
 
-Oh, that didn't go well! Indeed, you are trying to install a snap which isn't signed by the store.
-Previously, we did local installations via **devmode** which implied (in addition to run without
-confinement) that unsigned local snap was OK to be installed on your system. Here, as we won't
-specify devmode any more, we need to be more explicit and indicate that it's OK to install this
-unsigned snap thanks to the **--dangerous** option:
+Indeed, we tried to install a snap that wasn't signed by the Snap Store. Previously, we performed
+local installations via `--devmode` which implied (in addition to being run without confinement)
+that an unsigned snap was OK to be installed. As this is not the case any more we need to indicate
+that it's OK to install an unsigned snap. This is done via the `--dangerous` option:
 
 ```bash
 sudo snap install hello_2.10_amd64.snap --dangerous
 ```
 
-To complete our tests, let's see if the command still works as expected:
+Test again!
 
 ```bash
 hello
@@ -686,16 +683,16 @@ Creating a new shell
 hello.bash
 ```
 
-and issuing a command there:
+and issue a command there:
 
 ```no-highlight
-bash-4.3$ ls /home
+bash-4.3$ ls
 ```
 
 now gives:
 
 ```no-highlight
-ls: cannot open directory '/home': Permission denied
+ls: cannot open directory '.': Permission denied
 ```
 
 Exit the shell for now:
@@ -704,15 +701,15 @@ Exit the shell for now:
 bash-4.3$ exit
 ```
 
-What's happening here? Your snap is not broken, it's confined now, so can only access its own
-respective directories.
+What's happening here? Your snap is not broken, it's just confined now and so it can only access
+its own respective directories.
 
 positive
 : Note: For other snaps you might need to declare if commands or services need special permissions
-(e.g. access to the network or audio). A tutorial on interfaces, slots, and plugs will cover
+(e.g. access to the network or audio). A tutorial on "interfaces", "slots", and "plugs" will cover
 this very topic.
 
-You are done. This snap is ready for publication!
+You are done. This snap is ready for publication. Awesome!
 
 ## Push to the store
 Duration: 5:00
@@ -721,32 +718,36 @@ positive
 : Lost or starting from here?
 Check or download [here][here3] to see what your current directory should look like.
 
-Applications can easily be uploaded to the [Snap Store](https://snapcraft.io/discover/).
+Applications are easily uploaded to the [Snap Store](https://snapcraft.io/discover/).
 Registering an account is easy, so let's do that first.
 
 ### Registering an account
 
-Open the [snapcraft dashboard](https://dashboard.snapcraft.io/dev/account/) in
-your browser and follow the instructions to register an account:
+Begin by going to the [Snapcraft dashboard][snapcraft-dashboard]:
 
+<!--
 ![IMAGE](https://assets.ubuntu.com/v1/3569be21-Screenshot-2017-12-8+Sign+in+to+see+your+snaps.png)
+-->
 
-Select "I am a new Ubuntu One user” and complete the needed data.
+Click the "Sign in or register" button in the top-right corner.
+
+If you do not already have an Ubuntu One (SSO) account then select "I am a new Ubuntu One user" and
+complete the needed data:
 
 ![IMAGE](https://assets.ubuntu.com/v1/47ddef27-Screenshot-2017-12-8+Log+in.png)
 
-Enter your email address, name and password, accept the terms of service and create the account.
-Remember as well to choose a "Snap store username", that will identify you as a developer, before
-registering your snap.
+Once logged into Ubuntu One you will see your name in the top-right corner. Click it to reveal a
+menu and then choose "Account details". Review the current settings (your "Snap store username" may
+be preset and non-editable). There are "Contact details" you may wish to fill out as well as a
+personal photo to upload.
+
+If you made any changes, press the green "Update my account" button.
 
 ### Command-line authentication
 
-It's time for you to get authenticated from snapcraft:
-
-To do so, use the `snapcraft login` command.
-
-If it is your first time you will get a message to enable multi-factor authentication and agree
-with the developer terms and conditions:
+We'll now log in with the snapcraft command using your new account. The first time you do so you
+will be asked to enable multi-factor authentication and agree with the developer terms &
+conditions:
 
 ```bash
 snapcraft login
@@ -768,36 +769,38 @@ You can log out any time with `snapcraft logout`.
 
 ### Register a new snap name
 
-Before being able to upload any snap, you need to register (meaning: reserving) a name. That way,
-this snap name is yours, and you will be able to upload snaps matching this name.
+Before being able to upload a snap, you will need to register (reserve) a name for it. This is
+done with `snapcraft register <some_name>`.
 
-To reserve a new name:
+Here, assuming *javier* is my store username established above, we'll do:
 
 ```bash
-snapcraft register hello-<yourname>
+snapcraft register hello-javier
 ```
 
 A sample session follows:
 
 ```no-highlight
-We always want to ensure that users get the software they expect for a
-particular name.
+We always want to ensure that users get the software they expect
+for a particular name.
 
-If needed, we will rename snaps to ensure that a particular name reflects the
-software most widely expected by our community.
+If needed, we will rename snaps to ensure that a particular name
+reflects the software most widely expected by our community.
 
-For example, most people would expect 'thunderbird' to be published by Mozilla.
-They would also expect to be able to get other snaps of Thunderbird as
-'thunderbird-$username'.
+For example, most people would expect 'thunderbird' to be published by
+Mozilla. They would also expect to be able to get other snaps of
+Thunderbird as 'thunderbird-$username'.
 
-Would you say that MOST users will expect 'hello-<yourname>' to come from you,
-and be the software you intend to publish there? [y/N]: y
+Would you say that MOST users will expect 'hello-javier' to come from
+You, and be the software you intend to publish there? [y/N]: y
 
-Registering hello-<yourname>.
-Congratulations! You're now the publisher for 'hello-<yourname>'.
+Registering hello-javier.
+Congratulations! You're now the publisher for 'hello-javier'.
 ```
 
-If the name is already reserved, you can either dispute that name or pick a new one.
+Clearly, the Store prefers the name to be of the format '<local snap name>-<username>'.
+
+If the name is already taken, you can either dispute that name or pick a new one.
 
 If you changed your snap name while registering, you need to rebuild this snap with that new name:
 
@@ -817,21 +820,6 @@ grade: stable
 
 ```bash
 snapcraft
-```
-
-Output:
-
-```no-highlight
-Skipping pull gnu-bash (already ran)
-Skipping pull gnu-hello (already ran)
-Skipping build gnu-bash (already ran)
-Skipping build gnu-hello (already ran)
-Skipping stage gnu-bash (already ran)
-Skipping stage gnu-hello (already ran)
-Skipping prime gnu-bash (already ran)
-Skipping prime gnu-hello (already ran)
-Snapping 'hello-didrocks' -                                      
-Snapped hello-didrocks_2.10_amd64.snap
 ```
 
 ### Push and release your snap
@@ -947,3 +935,4 @@ to use as it is declarative and uses but a few keywords.
 [interfaces]: https://snapcraft.io/docs/core/interfaces
 [Snapcraft syntax reference]: http://snapcraft.io/docs/build-snaps/syntax
 [contact us and the broader community]: http://snapcraft.io/community/
+[snapcraft-dashboard]: https://dashboard.snapcraft.io/
