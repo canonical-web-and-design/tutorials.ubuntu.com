@@ -24,7 +24,7 @@ first snap along the way.
 
 ### What you'll learn
 
-  - How to install snapcraft.
+  - How to install the snapcraft tool.
   - How to create a new project.
   - How to declare snap metadata.
   - How an app is made of parts.
@@ -730,28 +730,30 @@ positive
 : *Lost or starting from here?*
 This [snapshot][step5] shows what your directory should look like at this point.
 
-Applications are easily uploaded to the [Snap Store](https://snapcraft.io/discover/).
-Registering an account is easy, so let's do that first.
+Applications are easily uploaded to the [Snap Store](https://snapcraft.io/discover/). Registering
+an account is easy, so let's do that first.
 
 ### Registering an account
 
-Begin by going to the [Snapcraft dashboard][snapcraft-dashboard]:
+Begin by going to the [Snapcraft dashboard][snapcraft-dashboard] and clicking on the "Sign in or
+register" button in the top-right corner:
 
-<!--
-![IMAGE](https://assets.ubuntu.com/v1/3569be21-Screenshot-2017-12-8+Sign+in+to+see+your+snaps.png)
--->
-
-Click the "Sign in or register" button in the top-right corner.
+![IMAGE][asset_snapcraft-dashboard]
 
 If you do not already have an Ubuntu One (SSO) account then select "I am a new Ubuntu One user" and
 complete the needed data:
 
 ![IMAGE](https://assets.ubuntu.com/v1/47ddef27-Screenshot-2017-12-8+Log+in.png)
 
-Once logged into Ubuntu One you will see your name in the top-right corner. Click it to reveal a
-menu and then choose "Account details". Review the current settings (your "Snap store username" may
-be preset and non-editable). There are "Contact details" you may wish to fill out as well as a
-personal photo to upload.
+Once logged into Ubuntu One you will see your name in the top-right corner. Click your name to
+reveal a menu and then choose "Account details". You will need to agree to the Developer Terms and
+Conditions before clicking the green "Sign up" button:
+
+![IMAGE][asset_snapcraft-account-settings]
+
+Your current settings will be displayed. Review them. Your "Snap store username" may be preset and
+non-editable. There are "Contact details" you may wish to fill out as well as a personal photo to
+upload.
 
 If you made any changes, press the green "Update my account" button.
 
@@ -810,7 +812,7 @@ Registering hello-javier.
 Congratulations! You're now the publisher for 'hello-javier'.
 ```
 
-Clearly, the Store prefers the name to be of the format '<local snap name>-<store-username>'.
+Clearly, the Store prefers the name to be of the format `<local snap name>-<store-username>`.
 
 The snap name `hello-javier` is different from `hello` that we initially placed in our
 `snapcraft.yaml` file. We will need to edit that file accordingly and rebuild the snap. This is
@@ -942,3 +944,6 @@ if you only read through this tutorial!
 [snapcraft-documentation]: http://snapcraft.io/docs/
 [snapcraft-command-reference]: http://snapcraft.io/docs/build-snaps/syntax
 [snapcraft-dashboard]: https://dashboard.snapcraft.io/
+
+[asset_snapcraft-dashboard]: https://assets.ubuntu.com/v1/21aca2dd-snapcraft-dashboard.png
+[asset_snapcraft-account-settings]: https://assets.ubuntu.com/v1/4a0c07e0-snapcraft-account-settings.png
