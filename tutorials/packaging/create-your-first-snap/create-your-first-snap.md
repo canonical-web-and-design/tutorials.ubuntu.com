@@ -33,7 +33,7 @@ first snap along the way.
 
 ### What you'll need
 
-  - Ubuntu or Ubuntu Core.
+  - Ubuntu installed
   - Some basic knowledge of command line use. To know how to edit a file.
   - Rudimentary knowledge of snaps. Tutorial [Basic snap usage][tutorial_basic-snap-usage] is a
     good introduction to snaps.
@@ -50,47 +50,11 @@ Survey
 ## Getting started
 Duration: 1:00
 
-This tutorial is based on Ubuntu (16.04 LTS or greater) and the `snapcraft` APT package. It also
-provides instructions for those users wishing to use Ubuntu Core.
+This tutorial is based on Ubuntu (16.04 LTS or greater) and the `snapcraft` APT package.
 
 positive
 : **Note:**
 The `snapcraft` package will soon be available on other GNU/Linux distributions.
-
-### For Ubuntu Core users
-
-To develop and build a snap on Ubuntu Core an extra step is required. It involves the use of a
-special snap called `classic`. If you're using vanilla Ubuntu, skip to the next step ("Installing
-dependencies").
-
-This snap will get us into a chroot, where traditional Ubuntu is running. There we can install
-packages, change files projects, and run `snapcraft` to build our snap. The **home** directory is
-shared between the container and Ubuntu Core. We can then build a snap, and outside the classic
-snap environment install and test it.
-
-To install the classic snap:
-
-```bash
-sudo snap install classic --edge --devmode
-```
-
-Every time you want to install packages, build a snap and so on, just enter the chroot:
-
-```bash
-sudo classic
-(classic)foo@localhost:~$
-```
-
-You will note that the shell is prepended with `(classic)` to remind us that we are running those
-commands inside the classic snap. You can exit the shell as normal by typing `exit`.
-
-positive
-: **Note:**
-Remember that whenever you run the `snap` command you will need to be outside of the classic snap's
-chroot.
-
-**Unless explained otherwise, all commands shown in this rest of this tutorial will be assumed to
-be invoked from inside the chroot.**
 
 ### Installing dependencies
 
@@ -340,12 +304,6 @@ Output:
 
 ```no-highlight
 bash: /snap/bin/hello No such file
-```
-
-On Ubuntu Core you may get:
-
-```no-highlight
-hello: command not found
 ```
 
 The command doesn't exist despite being part of our snap and installed! Indeed, snaps don't expose
