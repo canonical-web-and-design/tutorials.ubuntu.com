@@ -40,7 +40,7 @@ You will need:
 - [Rufus][rufus], a free and open source USB stick writing tool
 - An Ubuntu ISO file. See [Get Ubuntu][getubuntu] for download links
 
-![screenshot](./images/ubuntu-download-18_04_1.png)
+![screenshot](./ubuntu-download-18_04_1.png)
 
 
 negative
@@ -56,7 +56,7 @@ Perform the following to configure your USB device in Rufus:
 1. Rufus will update to set the device within the **Device** field
 1. If the **Device** selected is incorrect (perhaps you have multiple USB storage devices), select the correct one from the device field's drop-down menu
 
-![screenshot](./images/windows-rufus3-usb.png)
+![screenshot](./windows-rufus3-usb.png)
 
 positive
 : You can avoid the hassle of selecting from a list of USB devices by ensuring no other devices are connected.
@@ -68,7 +68,7 @@ Now choose the Boot selection.  Choices will be *Non bootable* and *FreeDOS*.  S
 
 The default selections for Partition scheme (*MBR*) and Target system (*BIOS (or UEFI-CSM)*) are appropriate (and are the only options available).
 
-![screenshot](./images/windows-rufus3-select-usb.png)
+![screenshot](./windows-rufus3-select-usb.png)
 
 ## Select the Ubuntu ISO file
 Duration: 0:30
@@ -86,14 +86,14 @@ The *Volume label* will be updated to reflect the ISO selected.
 
 Leave all other parameters with their default values and click **START** to initiate the write process.
 
-![screenshot](./images/windows-rufus3-write-iso.png)
+![screenshot](./windows-rufus3-write-iso.png)
 
 ## Additional downloads
 Duration: 1:00
 
 You may be alerted that Refus requires additional files to complete writing the ISO.  If this dialog box appears, select **Yes** to continue.
 
-![screenshot](./images/windows-rufus3-additional-downloads.png)
+![screenshot](./windows-rufus3-additional-downloads.png)
 
 ## Write warnings
 Duration: 0:30
@@ -102,11 +102,11 @@ You will then be alerted that Rufus has detected that the Ubuntu ISO is an *ISOH
 
 Keep *Write in ISO Image mode* selected and click on **OK** to continue.
 
-![screenshot](./images/windows-rufus3-isohybrid-warning.png)
+![screenshot](./windows-rufus3-isohybrid-warning.png)
 
 Rufus will also warn you that all data on your selected USB device is about to be destroyed. This is a good moment to double check you've selected the correct device before clicking **OK** when you're confident you have.
 
-![screenshot](./images/windows-rufus3-write-warning.png)
+![screenshot](./windows-rufus3-write-warning.png)
 
 negative
 : If your USB stick contains multiple partitions Rufus will warn you in a separate pane that these will also be destroyed.
@@ -116,14 +116,14 @@ Duration: 10:00
 
 The ISO will now be written to your USB stick, and the progress bar in Rufus will give you some indication of where you are in the process. With a reasonably modern machine, this should take around 10 minutes.  Total elapsed time is shown in the lower right corner of the Rufus window.
 
-![screenshot](./images/windows-rufus3-write-progress.png)
+![screenshot](./windows-rufus3-write-progress.png)
 
 ## Installation complete
 Duration: 0:30
 
 When Rufus has finished writing the USB device, the Status bar will be green filled and the word **READY** will appear in the center.  Select **CLOSE** to complete the write process.
 
-![screenshot](./images/windows-rufus3-write-complete.png)
+![screenshot](./windows-rufus3-write-complete.png)
 
 Congratulations! You now have Ubuntu on a USB stick, bootable and ready to go.
 
