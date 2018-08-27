@@ -77,7 +77,7 @@ To select the Ubuntu ISO file you downloaded previously, click the **SELECT** to
 
 Select the appropriate ISO file and click on **Open**.
 
-![screenshot](./images/windows-rufus3-select-ubuntu_18_04_1.png)
+![screenshot](./windows-rufus3-select-ubuntu_18_04_1.png)
 
 ## Write the ISO
 Duration: 0:30
