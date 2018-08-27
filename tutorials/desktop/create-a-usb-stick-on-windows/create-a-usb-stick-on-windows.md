@@ -1,4 +1,4 @@
---
+---
 id: tutorial-create-a-usb-stick-on-windows
 summary: How to write a USB stick with Windows.
 categories: desktop
