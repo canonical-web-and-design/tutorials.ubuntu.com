@@ -28,7 +28,7 @@ positive
 This tutorial assumes you are familiar with the material in [Graphical Snaps for Ubuntu Core](https://github.com/canonical-websites/tutorials.ubuntu.com/blob/master/tutorials/iot/graphical-snaps/tutorial/graphical-snaps). In particular, techniques for debugging problems in your snap are not repeated here.
 
 negative
-: Depending on the toolkit your application is written in, it may work on the newer and more secure Wayland protocol. If so, the snapping process is simpler. To check, please read [this guide](tutorial/graphical-snaps#2).
+: Depending on the toolkit your application is written in, it may work on the newer and more secure Wayland protocol. If so, the snapping process is simpler. To check, please read [this guide](tutorial/graphical-snaps#3).
 
 
 ### What you'll need

@@ -65,19 +65,38 @@ positive
 negative
 : If your application does not use the above toolkits, or fails to run with Wayland, fret not! In [this tutorial we will describe how to snap X11-based applications](tutorial/graphical-snaps-xwayland).
 
-## Test your application supports Wayland
+## Preparation
 
 duration: 2:00
 
-On your Ubuntu desktop, install Mir:
+### Install Mir
 
+On your Ubuntu desktop, install Mir:
 ```bash
 sudo apt-add-repository --update ppa:mir-team/release
 sudo apt install mir-demos mir-graphics-drivers-desktop
 ```
 
-and run your application like this:
+### Snapcraft setup
 
+To build snaps, you need to install snapcraft:
+```bash
+snap install snapcraft --classic
+```
+and install LXD:
+```bash
+snap install lxd && sudo lxd init --auto
+sudo adduser $USER lxd
+```
+
+Then sign out and back in (or `newgrp lxd` in the shell you'll be using)
+
+
+## Test your application supports Wayland
+
+duration: 2:00
+
+Try to run your application like this:
 ```bash
 miral-app -kiosk -launcher '/path/to/my_application'
 ```
@@ -86,26 +105,7 @@ This command runs a Mir server, and executes your application in a Wayland envir
 
 You should see a window pop up - Mir is running in this window (Mir-on-X) - and if your application supports Wayland, your application should appear _inside_ this window.
 
-If your application fails to start, or appears outside the Mir window, it may require X11 after all. To snap it, [follow this guide instead](tutorial/graphical-snaps-xwayland).
-
-
-## Preparation
-duration: 1:00
-
-### Snapcraft setup
-
-On your desktop install snapcraft:
-```bash
-snap install snapcraft --classic
-```
-
-On your desktop install LXD:
-```bash
-snap install lxd && sudo lxd init --auto
-sudo adduser $USER lxd
-```
-
-Then sign out and back in (or `newgrp lxd` in the shell you'll be using)
+If your application fails to start, or appears outside the Mir window, it may require X11 after all. To snap it, [follow this guide instead](http://tutorial/graphical-snaps-xwayland).
 
 ## Introducing glmark2-wayland
 duration: 2:00
