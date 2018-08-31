@@ -244,7 +244,7 @@ duration: 5:00
 
 Open another terminal and ssh login to your device and from this login install the “mir-kiosk” snap.
 ```bash
-sudo snap install --beta mir-kiosk
+sudo snap install mir-kiosk
 ```
 
 Now you should have a black screen with a white mouse cursor.
