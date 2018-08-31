@@ -112,14 +112,6 @@ duration: 2:00
 
 Let’s begin with a trivial example: `glmark2-wayland` - it is a test application that uses OpenGL and Wayland. This is a useful snap for verifying that the graphics stack of your hardware is correctly set up.
 
-### Install mir-demos
-When creating a graphical snap it is useful to be able to experiment on the desktop. For this we need to install the latest Mir, which requires a PPA:
-
-```bash
-sudo apt-add-repository --update ppa:mir-team/release
-sudo apt install mir-demos mir-graphics-drivers-desktop
-```
-
 ### Install glmark2-wayland
 
 Following the principle of detecting problems as early as possible we first prove our example works with Mir kiosk *before* snapping it.
