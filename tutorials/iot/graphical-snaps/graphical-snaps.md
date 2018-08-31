@@ -527,7 +527,7 @@ duration: 3:00
 
 The goal here is to have our graphical snap running full-screen on your device.
 
-Before we proceed, you need to have Ubuntu Core already running on your device. If not, please visit [here](#what-youll-need) to find out how.
+Before we proceed, you need to have Ubuntu Core [already running on your device](tutorial/graphical-snaps#0).
 
 ### Device Setup
 
