@@ -314,7 +314,7 @@ git push -u origin master
 ```
 
 
-Now [setup your build on Launchpad](https://docs.snapcraft.io/build-snaps/ci-integration). _Note that you will need to use the same snap name in the store as in name in name:, so chose something unique to make your life easier._
+Now [setup your build on Launchpad](https://docs.snapcraft.io/build-snaps/ci-integration). Note that you will need to use the same snap name in the store as in `name:`, so choose something unique to make your life easier.
 
 Don't bother with publishing to the store (yet) you can download the snap and deploy it as follows:
 
