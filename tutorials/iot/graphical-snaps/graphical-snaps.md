@@ -105,7 +105,7 @@ This command runs a Mir server, and executes your application in a Wayland envir
 
 You should see a window pop up - Mir is running in this window (Mir-on-X) - and if your application supports Wayland, your application should appear _inside_ this window.
 
-If your application fails to start, or appears outside the Mir window, it may require X11 after all. To snap it, [follow this guide instead](http://tutorial/graphical-snaps-xwayland).
+If your application fails to start, or appears outside the Mir window, it may require X11 after all. To snap it, [follow this guide instead](tutorial/graphical-snaps-xwayland).
 
 ## Introducing glmark2-wayland
 duration: 2:00

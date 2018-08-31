@@ -18,14 +18,14 @@ duration: 1:00
 
 ### What you'll learn
 
-In this tutorial we will create a snap of an X11 application to act as the graphical user interface for an IoT or kiosk device. For the introduction to this tutorial series and the Mir display server please visit [here](http://tutorial/ubuntu-kiosk).
+In this tutorial we will create a snap of an X11 application to act as the graphical user interface for an IoT or kiosk device. For the introduction to this tutorial series and the Mir display server please visit [here](tutorial/ubuntu-kiosk).
 
 X11 is a legacy protocol, it is known to be insecure, so we need to take steps to ensure it is secured correctly. To do this we shall embed an intermediary Xwayland server in the application snap and use snapd's infrastructure to maintain security.
 
 positive
 : The combination of Snap, the "mir-kiosk" Wayland server and Ubuntu Core ensures the reliability and security of any graphical embedded device application. 
 
-This tutorial assumes you are familiar with the material in [Graphical Snaps for Ubuntu Core](https://github.com/canonical-websites/tutorials.ubuntu.com/blob/master/tutorials/iot/graphical-snaps/tutorial/graphical-snaps). In particular, techniques for debugging problems in your snap are not repeated here.
+This tutorial assumes you are familiar with the material in [Graphical Snaps for Ubuntu Core](tutorial/graphical-snaps). In particular, techniques for debugging problems in your snap are not repeated here.
 
 negative
 : Depending on the toolkit your application is written in, it may work on the newer and more secure Wayland protocol. If so, the snapping process is simpler. To check, please read [this guide](tutorial/graphical-snaps#3).
