@@ -103,36 +103,40 @@ Duration: 0:04
 Depending on your platform, you may or may not need to download the public key used to authenticate the checksum file (Ubuntu and most variants come with the relevant keys pre-installed). The easiest way to find out if you need the key is to run the authentication command:
 
 ```bash
-gpg --verify SHA256SUMS.gpg SHA256SUMS
+gpg --keyid-format long --verify SHA256SUMS.gpg SHA256SUMS
 ```
+
+We use GnuPG's “long” (64-bit) key IDs throughout this tutorial, since “short” (32-bit) key IDs are insecure.
 
 ### If you don't have the keys...
 
 If there is no public key for Ubuntu already present, you will get an error message similar to the following:
 
 ```bash
-gpg: Signature made Thu Apr  5 22:19:36 2018 EDT using DSA key ID FBB75451
+gpg: Signature made Thu Apr  5 22:19:36 2018 EDT
+                    using DSA key ID 46181433FBB75451
 gpg: Can't check signature: No public key
-gpg: Signature made Thu Apr  5 22:19:36 2018 EDT using RSA key ID EFE21092
+gpg: Signature made Thu Apr  5 22:19:36 2018 EDT
+                    using RSA key ID D94AA3F0EFE21092
 gpg: Can't check signature: No public key
 ```
 
-This is actually a really useful message, as it tells us which key or keys were used to generate the signature file. Knowing these ID numbers (FBB75451 and EFE21092 in the example), means we can request them from the Ubuntu key server.
+This is actually a really useful message, as it tells us which key or keys were used to generate the signature file. Knowing these ID numbers (46181433FBB75451 and D94AA3F0EFE21092 in the example), means we can request them from the Ubuntu key server.
 
 This is done with the following command. Note that the ID numbers are hexadecimal, so we prefix them with `0x`:
 
 ```no-highlight
-gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys 0xFBB75451 0xEFE21092
+gpg --keyid-format long --keyserver hkp://keyserver.ubuntu.com --recv-keys 0x46181433FBB75451 0xD94AA3F0EFE21092
 ```
 
 This command should retrieve the keys we want and add them to your keyring. You should see a message like this:
 
 ```bash
-gpg: requesting key FBB75451 from hkp server keyserver.ubuntu.com
-gpg: requesting key EFE21092 from hkp server keyserver.ubuntu.com
+gpg: requesting key 46181433FBB75451 from hkp server keyserver.ubuntu.com
+gpg: requesting key D94AA3F0EFE21092 from hkp server keyserver.ubuntu.com
 gpg: /root/.gnupg/trustdb.gpg: trustdb created
-gpg: key FBB75451: public key "Ubuntu CD Image Automatic Signing Key <cdimage@ubuntu.com>" imported
-gpg: key EFE21092: public key "Ubuntu CD Image Automatic Signing Key (2012) <cdimage@ubuntu.com>" imported
+gpg: key 46181433FBB75451: public key "Ubuntu CD Image Automatic Signing Key <cdimage@ubuntu.com>" imported
+gpg: key D94AA3F0EFE21092: public key "Ubuntu CD Image Automatic Signing Key (2012) <cdimage@ubuntu.com>" imported
 gpg: no ultimately trusted keys found
 gpg: Total number processed: 2
 gpg:               imported: 2  (RSA: 1)
@@ -141,17 +145,17 @@ gpg:               imported: 2  (RSA: 1)
 You can now inspect the key fingerprints by running:
 
 ```bash
-gpg --list-keys --with-fingerprint 0xFBB75451 0xEFE21092
+gpg --keyid-format long --list-keys --with-fingerprint 0x46181433FBB75451 0xD94AA3F0EFE21092
 ```
 
 ...which should produce the following output:
 
 ```bash
-pub   1024D/FBB75451 2004-12-30
+pub   dsa1024/46181433FBB75451 2004-12-30 [SC]
       Key fingerprint = C598 6B4F 1257 FFA8 6632  CBA7 4618 1433 FBB7 5451
 uid                  Ubuntu CD Image Automatic Signing Key <cdimage@ubuntu.com>
 
-pub   4096R/EFE21092 2012-05-11
+pub   rsa4096/D94AA3F0EFE21092 2012-05-11 [SC]
       Key fingerprint = 8439 38DF 228D 22F7 B374  2BC0 D94A A3F0 EFE2 1092
 uid                  Ubuntu CD Image Automatic Signing Key (2012) <cdimage@ubuntu.com>
 ```
@@ -163,18 +167,20 @@ Now you can verify the checksum file using the signature.
 
 
 ```bash
-gpg --verify SHA256SUMS.gpg SHA256SUMS
+gpg --keyid-format long --verify SHA256SUMS.gpg SHA256SUMS
 ```
 
 This time the command should return something like this:
 
 ```bash
-gpg: Signature made Fri 25 Mar 04:36:20 2016 GMT using DSA key ID FBB75451
+gpg: Signature made Fri 25 Mar 04:36:20 2016 GMT
+                    using DSA key ID 46181433FBB75451
 gpg: Good signature from "Ubuntu CD Image Automatic Signing Key <cdimage@ubuntu.com>" [unknown]
 gpg: WARNING: This key is not certified with a trusted signature!
 gpg:          There is no indication that the signature belongs to the owner.
 Primary key fingerprint: C598 6B4F 1257 FFA8 6632  CBA7 4618 1433 FBB7 5451
-gpg: Signature made Fri 25 Mar 04:36:20 2016 GMT using RSA key ID EFE21092
+gpg: Signature made Fri 25 Mar 04:36:20 2016 GMT
+                    using RSA key ID D94AA3F0EFE21092
 gpg: Good signature from "Ubuntu CD Image Automatic Signing Key (2012) <cdimage@ubuntu.com>" [unknown]
 gpg: WARNING: This key is not certified with a trusted signature!
 gpg:          There is no indication that the signature belongs to the owner.
