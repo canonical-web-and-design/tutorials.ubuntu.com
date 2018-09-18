@@ -1,19 +1,21 @@
 ---
-id: ubuntu-kiosk
-summary: A starting guide on building a kiosk or smart display on Ubuntu Core.
+id: secure-ubuntu-kiosk
+summary: A starting guide on building a kiosk or smart display on Ubuntu.
 categories: iot
 status: published
 feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 tags: snap, digital-signage, kiosk, device
-difficulty: 2
-published: 2018-07-30
-author: Gerry Boland <gerry.boland@canonical.com>
-
+difficulty: 1
+published: 2018-09-18
+author: Gerry Boland <[gerry.boland@canonical.com](mailto:gerry.boland@canonical.com)>
 ---
+
 
 # Make a secure Ubuntu kiosk
 
+
 ## Overview
+
 duration: 1:00
 
 A kiosk or smart display is a full-screen application running on a secure device, with the sole purpose of driving that display to provide specific information or a particular function at that location.
@@ -24,28 +26,34 @@ Since these devices are often left unattended for long periods of time, and run 
 
 You can also integrate touchscreen or keyboard capabilities, which enables this tutorial to serve for industrial control interfaces and any environment where user feedback is needed.
 
+
 ### What you'll learn
 
 How to create a graphical kiosk on Ubuntu Core running a single full-screen demonstration application. We'll also discuss the basic architecture and its security benefits.
 
+
 ### What you'll need
+
+
 
 *   An Ubuntu desktop running any current release of Ubuntu or an Ubuntu Virtual Machine on another OS.
 *   A 'Target Device' from one of the following:
-    *   **A device running [Ubuntu Core](https://www.ubuntu.com/core).**<br />
+    *   **A device running [Ubuntu Core](https://www.ubuntu.com/core).**
 [This guide](https://developer.ubuntu.com/core/get-started/installation-medias) shows you how to set up a supported device. If there's no supported image that fits your needs you can [create your own core image](https://tutorials.ubuntu.com/tutorial/create-your-own-core-image).
     *   **Using a Virtual Machine (VM)**
 You don't need to have a physical "Target Device", you can follow the tutorial with Ubuntu Core in a VM. Install the ubuntu-core-vm snap:
 `snap install --beta ubuntu-core-vm --devmode`
 For the first run, create a VM running the latest Core image:
-`sudo ubuntu-core-vm init edge`
+`sudo ubuntu-core-vm init`
 From then on, you can spin it up with:
-`sudo ubuntu-core-vm` 
-You should see a new window with Ubuntu Core running inside.
+`sudo ubuntu-core-vm`
+You should see a new window with Ubuntu Core running inside. Setting up Ubuntu Core on this VM is the same as for any other device or VM. See, for example, [https://developer.ubuntu.com/core/get-started/kvm](https://developer.ubuntu.com/core/get-started/kvm).
     *   **Using Ubuntu Classic (Desktop/Server)**
 You don't _have_ to use Ubuntu Core, you can use also a "Target Device" with Ubuntu Classic. You just need to install an SSH server on the device.
-`sudo apt install ssh` 
+`sudo apt install ssh`
 For IoT use you may want to make other changes (e.g. uninstalling the desktop), but that is outside the scope of the current tutorial.
+NB: On Classic snapd doesn't currently provide confinement for snapped wayland or x11 servers, so you'll need to use devmode still.
+
 
 ## Basic Infrastructure
 
@@ -57,18 +65,21 @@ For your display application you have a number of choices, it could be a simple 
 
 Your graphics approach largely depends on the toolkit your application uses:
 
+
+
 1.  GTK3/4 and Qt5 - have native support for Wayland
 This is the simplest case, as the application can talk Wayland to Mir directly.
-2.  GTK2, Qt4, Java - do not have Wayland support
+1.  GTK2, Qt4, Java - do not have Wayland support
 This is a more complex case, as the toolkits require a legacy X11 server to function. To enable these applications we will embed a tiny X11 server into your application package,  which translates X11 calls to Wayland ones.
-3.  Electron, HTML5, Chromium - do not have Wayland support
+1.  Electron, HTML5, Chromium - do not have Wayland support
 We will need to use the embedded browser together with a tiny embedded X11 server to handle the translation.
 
 Where we need an X11 server it is much more secure to embed it in the confined snap environment together with the application. The X11 protocol was not designed with security in mind and a malicious application connected to an X11 server can obtain information from other running X11 applications. For instance X11 servers do not protect sensitive information like keystrokes between applications using them.  To avoid this, each snapped X11 application should have its own embedded X11 server (Xwayland) which then talks Wayland - a far more secure protocol.
 
-![graphical-snaps-with-mir](images/graphical-snaps-with-mir.png)
+![mir-kiosk-architectures](images/mir-kiosk-architectures.png)
 
 One additional detail to note is how a Wayland client connects to a Wayland server. This is done via Wayland sockets, which need to be shared between client (your app) and server (mir-kiosk). Snapd has robust and secure ways to provide this kind of communication channel between two snap applications, called '[interfaces](https://docs.snapcraft.io/core/interfaces)'. 
+
 
 ### Snap Interfaces
 
@@ -79,6 +90,8 @@ Snapd provides a large number of [interfaces](https://docs.snapcraft.io/core/int
 You can use the `snap interfaces` command to list the interfaces available on your system, the slots providing them and the plugs consuming them.
 
 For our kiosk application, we will need to plug into at a very minimum the following interfaces:
+
+
 
 *   opengl - access to OpenGL hardware
 *   wayland - allows sharing Wayland sockets between server and client
@@ -94,35 +107,24 @@ This step assumes you have [Ubuntu Core installed and have SSHed into it](#what-
 
 Install the "mir-kiosk" snap:
 
+
 ```bash
 snap install mir-kiosk
 ```
 
+
 Now you should have a black screen with a white mouse cursor.
 
 Let's install a demo kiosk snap to try it out:
+
 
 ```bash
 snap install --beta chromium-mir-kiosk
 ```
 
 
-Before the snap will function, you may need to run these command:
+and you should see a fullscreen webpage in your VM! (There are some configuration options in the snap, to find out more about this snap's options, [click here](tutorial/ubuntu-web-kiosk)).
 
-```bash
-snap connect chromium-mir-kiosk:wayland mir-kiosk:wayland
-snap connect chromium-mir-kiosk:browser-sandbox :browser-support
-```
-
-
-This connects the two snaps allowing the Wayland socket provided by mir-kiosk to be accessed by the demo web-kiosk snap.
-
-Need to restart the daemon, this will do it:
-```bash
-snap restart chromium-mir-kiosk
-```
-
-and you should see a fullscreen webpage on your display! (There are some configuration options in the snap, to find out more about this snap's options, [click here](tutorial/ubuntu-web-kiosk).
 
 ## Building your own Kiosk Snap
 
@@ -131,6 +133,8 @@ duration: 2:00
 As mentioned above, the approach to building a kiosk snap from your application depends on whether your application has native support for Wayland (i.e. uses GTK3/4 or Qt5), is Electron/HTML5 based, or not (everything else).
 
 We have written up a series of tutorials to address each of these possibilities. We recommend working through the tutorials in order, as each builds upon the knowledge gained from the previous. But for the impatient you can jump directly to the materials that interests you here:
+
+
 
 1.  [Make a Wayland-native Kiosk Snap](tutorial/graphical-snaps)
 1.  [Make an X11-native Kiosk Snap](tutorial/graphical-snaps-xwayland)
