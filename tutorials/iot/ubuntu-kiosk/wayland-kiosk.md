@@ -8,6 +8,7 @@ tags: snap, digital-signage, kiosk, device, wayland, graphics
 difficulty: 3
 published: 2018-09-18
 author: Gerry Boland <gerry.boland@canonical.com>
+
 ---
 
 
@@ -21,7 +22,7 @@ duration: 1:00
 
 ### What you'll learn
 
-In this tutorial we will create a snap of a Wayland-native application to act as the graphical user interface for an IoT or kiosk device. For the introduction to this tutorial series and the Mir display server please visit [here](tutorial/ubuntu-kiosk).
+In this tutorial we will create a snap of a Wayland-native application to act as the graphical user interface for an IoT or kiosk device. For the introduction to this tutorial series and the Mir display server please visit [here](tutorial/secure-ubuntu-kiosk).
 
 We will walk through the process for a simple application, solving common problems along the way.
 
@@ -35,7 +36,7 @@ positive
 
 *   An Ubuntu desktop running any current release of Ubuntu or an Ubuntu Virtual Machine on another OS.
 *   A 'Target Device' from one of the following:
-    *   **A device running [Ubuntu Core](https://www.ubuntu.com/core).**
+    *   **A device running [Ubuntu Core](https://www.ubuntu.com/core).**<br />
 [This guide](https://developer.ubuntu.com/core/get-started/installation-medias) shows you how to set up a supported device. If there's no supported image that fits your needs you can [create your own core image](https://tutorials.ubuntu.com/tutorial/create-your-own-core-image).
     *   **Using a VM**
 You don't have to have a physical "Target Device", you can follow the tutorial with Ubuntu Core in a VM. Install the ubuntu-core-vm snap:
@@ -49,7 +50,7 @@ You should see a new window with Ubuntu Core running inside. Setting up Ubuntu C
 You don't _have_ to use Ubuntu Core, you can use also a "Target Device" with Ubuntu Classic. You just need to install an SSH server on the device.
 `sudo apt install ssh`
 For IoT use you will want to make other changes (e.g. uninstalling the desktop), but that is outside the scope of the current tutorial.
-NB: On Classic snapd doesn't currently provide confinement for snapped wayland servers, so you'll need to use devmode still.
+Note: On Classic snapd doesn't currently provide confinement for snapped wayland servers, so you'll need to use devmode.
 
 
 ## Using Wayland
@@ -74,7 +75,7 @@ positive
 : Native support for Wayland is the simplest case, as the application can talk to Mir directly.
 
 negative
-: If your application does not use the above toolkits, or fails to run with Wayland, fret not! In [this tutorial we will describe how to snap X11-based applications](tutorial/graphical-snaps-xwayland).
+: If your application does not use the above toolkits, or fails to run with Wayland, fret not! In [this tutorial we will describe how to snap X11-based applications](tutorial/x11-kiosk).
 
 
 ## Preparation
