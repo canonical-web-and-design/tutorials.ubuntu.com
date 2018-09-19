@@ -6,10 +6,11 @@ status: published
 feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 tags: snap, digital-signage, kiosk, device, web, html
 difficulty: 1
-published: 2018-09-01
+published: 2018-09-18
 author: Gerry Boland <gerry.boland@canonical.com>
 
 ---
+
 
 # Run a Web Kiosk/Web Display on Ubuntu Core
 
@@ -18,13 +19,13 @@ author: Gerry Boland <gerry.boland@canonical.com>
 
 duration: 1:00
 
-A web kiosk or web display is a full-screen web browser running on a secure device, with the sole purpose of driving that display to provide specific information or a particular function at that location.
-
-Ubuntu is popular for these applications thanks to its excellent security track record and widespread developer familiarity. We compiled this guide to enable anybody, anywhere to make a highly secure web kiosk displaying their website.
+A web kiosk or web display is a full-screen web browser running on a secure device, with the sole purpose of driving that display to provide specific information or a particular function at that location. Ubuntu is popular for these applications thanks to its excellent security track record and widespread developer familiarity.
 
 Since these devices are often left unattended for long periods of time, and run in sensitive environments like airports, we also want to raise the bar on security and update management. So this tutorial includes the option to use Ubuntu Core, which is a minimal, self-updating base OS snap and web browser snap combination.
 
 This can provide a tightly integrated solution for display signage purposes, or by integrating touchscreen or keyboard capabilities, serves as a secure interactive web kiosk.
+
+Note: `chromium-mir-kiosk` is provided as-is, as a Proof-of-Concept only, not meant for production use. For information on how to roll out your own kiosk application, please see [this guide](tutorial/secure-ubuntu-kiosk) and [talk to us](https://www.ubuntu.com/internet-of-things/contact-us)!
 
 
 ### What you'll learn
@@ -44,7 +45,7 @@ How to install a demo web kiosk or web display on Ubuntu Core, and configure it 
 You don't have to have a physical "Target Device", you can follow the tutorial with Ubuntu Core in a VM. Install the ubuntu-core-vm snap:
 `snap install --beta ubuntu-core-vm --devmode`
 For the first run, create a VM running the latest Core image:
-`sudo ubuntu-core-vm init edge`
+`sudo ubuntu-core-vm init`
 From then on, you can spin it up with:
 `sudo ubuntu-core-vm`
 You should see a new window with Ubuntu Core running inside.
@@ -52,6 +53,7 @@ You should see a new window with Ubuntu Core running inside.
 You don't _have_ to use Ubuntu Core, you can use also a "Target Device" with Ubuntu Classic. You just need to install an SSH server on the device.
 `sudo apt install ssh`
 For IoT use you will want to make other changes (e.g. uninstalling the desktop), but that is outside the scope of the current tutorial.
+NB: On Classic snapd doesn't currently provide confinement for snapped wayland or x11 servers, so you'll need to use devmode still.
 
 
 ## Basic Infrastructure
@@ -85,25 +87,6 @@ snap install --beta chromium-mir-kiosk
 ```
 
 
-Before the snap will function, you may need to run these commands to connect the required [interfaces](https://docs.snapcraft.io/reference/interfaces):
-
-
-```bash
-snap connect chromium-mir-kiosk:wayland mir-kiosk:wayland
-snap connect chromium-mir-kiosk:browser-sandbox :browser-support
-```
-
-
-The former connects the two snaps allowing the Wayland socket provided by mir-kiosk to be accessed by the demo kiosk snap, the latter allows a web browser engine to function.
-
-Need to restart the daemon, this will do it:
-
-
-```bash
-snap restart chromium-mir-kiosk
-```
-
-
 and you should see a fullscreen webpage in your display! 
 
 
@@ -111,13 +94,11 @@ and you should see a fullscreen webpage in your display!
 
 duration: 2:00
 
-The chromium-mir-kiosk comes with multiple configuration options to customise its behaviour to suit many use cases.
-
- 
+The "chromium-mir-kiosk" snap comes with multiple configuration options to customise its behaviour to suit many use cases.
 
 Snapd's configuration system maintains these settings across software updates, so your web kiosk will continue to operate as you have configured it.
 
-To view all the configuration options, run `snap set chromium-mir-kiosk`. Here are some of the most useful options:
+To view all the configuration options, run `snap get chromium-mir-kiosk`. Here are some of the most useful options:
 
 
 ### Set homepage
@@ -139,7 +120,7 @@ Having the Navigation bar hidden is ideal for purely informative web displays. H
 
 
 ```bash
-snap set chromium-mir-kiosk navbar=true
+snap set chromium-mir-kiosk shownav=true
 ```
 
 
@@ -147,7 +128,7 @@ To hide it again, do
 
 
 ```bash
-snap set chromium-mir-kiosk navbar=false
+snap set chromium-mir-kiosk shownav=false
 ```
 
 
@@ -203,7 +184,7 @@ Hide the Navigation bar and mouse cursor, and disable the auto-reset with:
 
 
 ```bash
-snap set chromium-mir-kiosk navbar=false hidecursor=true resettime=0
+snap set chromium-mir-kiosk shownav=false hidecursor=true resettime=0
 ```
 
 
@@ -224,7 +205,7 @@ Show the Navigation bar but disable mouse cursor, and enable the auto-reset with
 
 
 ```bash
-snap set chromium-mir-kiosk navbar=true hidecursor=true resettime=3
+snap set chromium-mir-kiosk shownav=true hidecursor=true resettime=3
 ```
 
 

@@ -1,16 +1,15 @@
 ---
-id: graphical-snaps-html5
+id: electron-kiosk
 summary: Build and deploy an Electron-based kiosk application as a snap.
 categories: iot
 status: published
 feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 tags: snap, digital-signage, kiosk, device, electron, html5
 difficulty: 3
-published: 2018-07-30
+published: 2018-09-18
 author: Gerry Boland <gerry.boland@canonical.com>
 
 ---
-
 
 
 # Make a HTML5/Electron-based Kiosk Snap
@@ -23,9 +22,9 @@ duration: 1:00
 
 ### What you'll learn
 
-In this tutorial we will create a snap of a HTML5/Electron application to act as the graphical user interface for an IoT or kiosk device. For the introduction to this tutorial series and the Mir display server, please visit [here](tutorial/ubuntu-kiosk).
+In this tutorial we will create a snap of a HTML5/Electron application to act as the graphical user interface for an IoT or kiosk device. For the introduction to this tutorial series and the Mir display server, please visit [here](tutorial/secure-ubuntu-kiosk).
 
-This tutorial assumes you are familiar with the material in [Graphical Snaps for Ubuntu Core](tutorial/graphical-snaps).
+This tutorial assumes you are familiar with the material in [Make an X11-based Kiosk Snap](tutorial/x11-kiosk).
 
 
 ### What you'll need
@@ -40,14 +39,15 @@ This tutorial assumes you are familiar with the material in [Graphical Snaps for
 You don't have to have a physical "Target Device", you can follow the tutorial with Ubuntu Core in a VM. Install the ubuntu-core-vm snap:
 `snap install --beta ubuntu-core-vm --devmode`
 For the first run, create a VM running the latest Core image:
-`sudo ubuntu-core-vm init edge`
+`sudo ubuntu-core-vm init`
 From then on, you can spin it up with:
 `sudo ubuntu-core-vm`
-You should see a new window with Ubuntu Core running inside.
+You should see a new window with Ubuntu Core running inside. Setting up Ubuntu Core on this VM is the same as for any other device or VM. See, for example, [https://developer.ubuntu.com/core/get-started/kvm](https://developer.ubuntu.com/core/get-started/kvm).
     *   **Using Ubuntu Classic**
 You don't _have_ to use Ubuntu Core, you can use also a "Target Device" with Ubuntu Classic. You just need to install an SSH server on the device.
 `sudo apt install ssh`
 For IoT use you will want to make other changes (e.g. uninstalling the desktop), but that is outside the scope of the current tutorial.
+Note: On Classic snapd doesn't currently provide confinement for snapped wayland or x11 servers, so you'll need to use devmode.
 
 
 ## Architecture of Electron snaps with Wayland
@@ -56,11 +56,13 @@ duration: 3:00
 
 We use Wayland as the primary display interface. We will use Mir to manage the display and support connections from Wayland clients and Snapd will confine the applications and enable Wayland protocol interactions through Mir, securely.
 
-Currently Electron does not have Wayland support, so we will use a tiny intermediary X11 server called Xwayland to act as intermediary. 
+Currently Electron does not have Wayland support, so we will use a tiny intermediary X11 server called Xwayland.
 
 ![electron-snap-architecture](images/electron-snap-architecture.png)
 
-[Click here](tutorial/graphical-snaps-xwayland) for more information on this architecture.
+
+[Click here](tutorial/x11-kiosk) for more information on this architecture.
+
 
 ## Snapping Electron apps
 
@@ -142,7 +144,7 @@ Build the snap with:
 
 
 ```bash
-    snapcraft cleanbuild
+snapcraft cleanbuild
 ```
 
 
@@ -150,9 +152,9 @@ and on your desktop, install, connect the required interface(s) and run:
 
 
 ```bash
-    sudo snap install --dangerous ./electron-hello-world-kiosk_0.1_amd64.snap
-    sudo snap connect electron-hello-world-kiosk:browser-sandbox :browser-support
-    snap run electron-hello-world-kiosk
+sudo snap install --dangerous ./electron-hello-world-kiosk_0.1_amd64.snap
+sudo snap connect electron-hello-world-kiosk:browser-sandbox :browser-support
+snap run electron-hello-world-kiosk
 ```
 
 
@@ -163,10 +165,13 @@ This should pop up a window with "Hello World" printed.
 
 duration: 5:00
 
-Once the snap is running on your Ubuntu desktop, we need to perform a few alterations to have it function as a kiosk app snap. We will follow the [xwayland-kiosk-helper documentation](https://github.com/gerboland/xwayland-kiosk-helper/blob/master/snapcraft.yaml#L4):
+Once the snap is running on your Ubuntu desktop, we need to perform a few alterations to have it function as a kiosk app snap. We will follow the [xwayland-kiosk-helper documentation](https://github.com/MirServer/xwayland-kiosk-helper/blob/master/snapcraft.yaml#L4):
+
+
 
 1.  add `xwayland-kiosk-helper` to the `after:` parts list
 1.  to the app `command:`, add `xwayland-kiosk-launch` after the `desktop-launch`
+1.  and make it a daemon by adding `daemon: simple `and` restart-condition: always`
 1.  set the `XWAYLAND_FULLSCREEN_WINDOW_HINT` environment variable to `window_role="browser-window"`
 1.  have `x11` be both a socket and a plug - involves creating a x11-plug to avoid duplicate names.
 
@@ -187,6 +192,7 @@ grade: devel
 apps:
   electron-hello-world-kiosk:
     daemon: simple
+    restart-condition: always
     command: desktop-launch xwayland-kiosk-launch "$SNAP/electron-helloworld/electron-quick-start"
     environment:
       XWAYLAND_FULLSCREEN_WINDOW_HINT: window_role="browser-window"
@@ -205,7 +211,7 @@ plugs:
     interface: browser-support
     allow-sandbox: true
   x11-plug: # because cannot have identical plug/slot name in same yaml.
-    interface: x11  
+    interface: x11
 
 parts:
   electron-helloworld:
@@ -229,7 +235,6 @@ parts:
     - libnss3
     - libxss1
     - libxtst6
-
 ```
 
 
@@ -237,11 +242,11 @@ Build as usual with
 
 
 ```bash
-    snapcraft cleanbuild
+snapcraft cleanbuild
 ```
 
 
-(for building for other architectures, [follow this guide](tutorial/graphical-snaps#13))
+(for building for other architectures, [follow this guide](tutorial/wayland-kiosk#building-for-different-architectures))
 
 
 ## Deploying on a Device
@@ -263,16 +268,12 @@ We now have the .snap file on the device in its home directory. We need to insta
 
 ```bash
 snap install --dangerous ./electron-hello-world-kiosk_0.1_arm64.snap 
-snap connect electron-hello-world-kiosk:wayland mir-kiosk:wayland
 snap connect electron-hello-world-kiosk:browser-sandbox :browser-support
 snap restart electron-hello-world-kiosk
 ```
 
 
 On your device, you should see the "Hello world" screen you saw earlier.
-
-positive
-: On your Desktop, the "wayland" and "browser-support" interfaces were auto-connected, but on Core they needs to be connected explicitly. Until they are connected, the snap will fail to start - so need to restart it.
 
 Your device is now a kiosk! Rebooting will restart mir-kiosk and electron-hello-world-kiosk automatically.
 
