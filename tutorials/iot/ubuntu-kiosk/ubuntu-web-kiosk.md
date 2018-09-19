@@ -119,7 +119,7 @@ Having the Navigation bar hidden is ideal for purely informative web displays. H
 
 
 ```bash
-snap set chromium-mir-kiosk navbar=true
+snap set chromium-mir-kiosk shownav=true
 ```
 
 
@@ -127,7 +127,7 @@ To hide it again, do
 
 
 ```bash
-snap set chromium-mir-kiosk navbar=false
+snap set chromium-mir-kiosk shownav=false
 ```
 
 
@@ -183,7 +183,7 @@ Hide the Navigation bar and mouse cursor, and disable the auto-reset with:
 
 
 ```bash
-snap set chromium-mir-kiosk navbar=false hidecursor=true resettime=0
+snap set chromium-mir-kiosk shownav=false hidecursor=true resettime=0
 ```
 
 
@@ -204,7 +204,7 @@ Show the Navigation bar but disable mouse cursor, and enable the auto-reset with
 
 
 ```bash
-snap set chromium-mir-kiosk navbar=true hidecursor=true resettime=3
+snap set chromium-mir-kiosk shownav=true hidecursor=true resettime=3
 ```
 
 
