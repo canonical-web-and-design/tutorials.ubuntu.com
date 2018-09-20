@@ -2746,6 +2746,10 @@ express-interceptor@^1.2.0:
   dependencies:
     debug "^2.2.0"
 
+express-simple-redirect@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/express-simple-redirect/-/express-simple-redirect-1.0.1.tgz#589176c6423d2acc08e9475225801c6bb1c99f31"
+
 express@^4.15.2, express@^4.15.3:
   version "4.16.2"
   resolved "https://registry.yarnpkg.com/express/-/express-4.16.2.tgz#e35c6dfe2d64b7dca0a5cd4f21781be3299e076c"

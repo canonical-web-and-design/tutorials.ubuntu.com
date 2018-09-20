@@ -1,0 +1,6 @@
+{
+  "/tutorial/graphical-snaps/": "/tutorial/secure-ubuntu-kiosk",
+  "/tutorial/graphical-snaps": "/tutorial/secure-ubuntu-kiosk",
+  "/tutorial/graphical-snaps-xwayland/": "/tutorial/x11-kiosk",
+  "/tutorial/graphical-snaps-xwayland": "/tutorial/x11-kiosk"
+}
