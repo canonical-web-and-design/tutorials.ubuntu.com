@@ -379,7 +379,7 @@ On your desktop go to the snaps webpage (e.g. [https://code.launchpad.net/~/+sna
 
 
 ```bash
-wget https://code.launchpad.net/~mir-team/+snap/glxgears-example/+build/228782/+files/glxgears-example_0.1_arm64.snap
+wget https://code.launchpad.net/~mir-team/+snap/glxgears-example/+build/337696/+files/glxgears-example_0.1_amd64.snap
 ```
 
 
