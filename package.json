@@ -49,6 +49,7 @@
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
     "express-interceptor": "^1.2.0",
+    "express-simple-redirect": "^1.0.1",
     "npm-run-all": "^4.0.2",
     "sitemap": "^1.13.0"
   }
