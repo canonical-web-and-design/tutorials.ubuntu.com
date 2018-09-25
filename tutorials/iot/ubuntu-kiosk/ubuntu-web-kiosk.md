@@ -25,7 +25,7 @@ Since these devices are often left unattended for long periods of time, and run 
 
 This can provide a tightly integrated solution for display signage purposes, or by integrating touchscreen or keyboard capabilities, serves as a secure interactive web kiosk.
 
-Note: `chromium-mir-kiosk` is provided as-is, as a Proof-of-Concept only, not meant for production use. For information on how to roll out your own kiosk application, please see [this guide](tutorial/secure-ubuntu-kiosk) and [talk to us](https://www.ubuntu.com/internet-of-things/contact-us)!
+Note: `chromium-mir-kiosk` is provided as-is, as a Proof-of-Concept only, not meant for production use. For information on how to roll out your own kiosk application, please see [this guide](/tutorial/secure-ubuntu-kiosk) and [talk to us](https://www.ubuntu.com/internet-of-things/contact-us)!
 
 
 ### What you'll learn
@@ -40,7 +40,7 @@ How to install a demo web kiosk or web display on Ubuntu Core, and configure it 
 *   An Ubuntu desktop running any current release of Ubuntu
 *   A 'Target Device' from one of the following:
     *   **A device running [Ubuntu Core](https://www.ubuntu.com/core).**<br />
-[This guide](https://developer.ubuntu.com/core/get-started/installation-medias) shows you how to set up a supported device. If there's no supported image that fits your needs you can [create your own core image](https://tutorials.ubuntu.com/tutorial/create-your-own-core-image).
+[This guide](https://developer.ubuntu.com/core/get-started/installation-medias) shows you how to set up a supported device. If there's no supported image that fits your needs you can [create your own core image](/tutorial/create-your-own-core-image).
     *   **Using a VM**
 You don't have to have a physical "Target Device", you can follow the tutorial with Ubuntu Core in a VM. Install the ubuntu-core-vm snap:
 `snap install --beta ubuntu-core-vm --devmode`

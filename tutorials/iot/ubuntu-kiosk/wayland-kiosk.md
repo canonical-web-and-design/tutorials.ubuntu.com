@@ -22,7 +22,7 @@ duration: 1:00
 
 ### What you'll learn
 
-In this tutorial we will create a snap of a Wayland-native application to act as the graphical user interface for an IoT or kiosk device. For the introduction to this tutorial series and the Mir display server please visit [here](tutorial/secure-ubuntu-kiosk).
+In this tutorial we will create a snap of a Wayland-native application to act as the graphical user interface for an IoT or kiosk device. For the introduction to this tutorial series and the Mir display server please visit [here](/tutorial/secure-ubuntu-kiosk).
 
 We will walk through the process for a simple application, solving common problems along the way.
 
@@ -37,7 +37,7 @@ positive
 *   An Ubuntu desktop running any current release of Ubuntu or an Ubuntu Virtual Machine on another OS.
 *   A 'Target Device' from one of the following:
     *   **A device running [Ubuntu Core](https://www.ubuntu.com/core).**<br />
-[This guide](https://developer.ubuntu.com/core/get-started/installation-medias) shows you how to set up a supported device. If there's no supported image that fits your needs you can [create your own core image](https://tutorials.ubuntu.com/tutorial/create-your-own-core-image).
+[This guide](https://developer.ubuntu.com/core/get-started/installation-medias) shows you how to set up a supported device. If there's no supported image that fits your needs you can [create your own core image](/tutorial/create-your-own-core-image).
     *   **Using a VM**
 You don't have to have a physical "Target Device", you can follow the tutorial with Ubuntu Core in a VM. Install the ubuntu-core-vm snap:
 `snap install --beta ubuntu-core-vm --devmode`
@@ -75,7 +75,7 @@ positive
 : Native support for Wayland is the simplest case, as the application can talk to Mir directly.
 
 negative
-: If your application does not use the above toolkits, or fails to run with Wayland, fret not! In [this tutorial we will describe how to snap X11-based applications](tutorial/x11-kiosk).
+: If your application does not use the above toolkits, or fails to run with Wayland, fret not! In [this tutorial we will describe how to snap X11-based applications](/tutorial/x11-kiosk).
 
 
 ## Preparation
@@ -133,7 +133,7 @@ This command runs a Mir server, and executes your application in a Wayland envir
 
 You should see a window pop up - Mir is running in this window (Mir-on-X) - and if your application supports Wayland, your application should appear _inside_ this window.
 
-If your application fails to start, or appears outside the Mir window, it may require X11 after all. To snap it, [follow this guide instead](tutorial/x11-kiosk).
+If your application fails to start, or appears outside the Mir window, it may require X11 after all. To snap it, [follow this guide instead](/tutorial/x11-kiosk).
 
 
 ## Introducing glmark2-wayland
@@ -668,7 +668,7 @@ duration: 3:00
 
 The goal here is to have our graphical snap running full-screen on your device.
 
-Before we proceed, you need to have Ubuntu Core [already running on your device](#what-youll-need).
+Before we proceed, you need to have Ubuntu Core [already running on your device](#0).
 
 
 ### Device Setup

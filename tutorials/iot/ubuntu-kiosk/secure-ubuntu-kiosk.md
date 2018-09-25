@@ -40,7 +40,7 @@ How to create a graphical kiosk on Ubuntu Core running a single full-screen demo
 *   An Ubuntu desktop running any current release of Ubuntu or an Ubuntu Virtual Machine on another OS.
 *   A 'Target Device' from one of the following:
     *   **A device running [Ubuntu Core](https://www.ubuntu.com/core).**<br />
-[This guide](https://developer.ubuntu.com/core/get-started/installation-medias) shows you how to set up a supported device. If there's no supported image that fits your needs you can [create your own core image](https://tutorials.ubuntu.com/tutorial/create-your-own-core-image).
+[This guide](https://developer.ubuntu.com/core/get-started/installation-medias) shows you how to set up a supported device. If there's no supported image that fits your needs you can [create your own core image](/tutorial/create-your-own-core-image).
     *   **Using a Virtual Machine (VM)**
 You don't need to have a physical "Target Device", you can follow the tutorial with Ubuntu Core in a VM. Install the ubuntu-core-vm snap:
 `snap install --beta ubuntu-core-vm --devmode`
@@ -104,7 +104,7 @@ Using snapd interfaces your app can securely connect to Mir using the Wayland pr
 
 duration: 5:00
 
-This step assumes you have [Ubuntu Core installed and have SSHed into it](#what-youll-need).
+This step assumes you have [Ubuntu Core installed and have SSHed into it](#0).
 
 Install the "mir-kiosk" snap:
 
@@ -124,7 +124,7 @@ snap install --beta chromium-mir-kiosk
 ```
 
 
-and you should see a fullscreen webpage in your VM! (There are some configuration options in the snap, to find out more about this snap's options, [click here](tutorial/ubuntu-web-kiosk)).
+and you should see a fullscreen webpage in your VM! (There are some configuration options in the snap, to find out more about this snap's options, [click here](/tutorial/ubuntu-web-kiosk)).
 
 
 ## Building your own Kiosk Snap
@@ -137,6 +137,6 @@ We have written up a series of tutorials to address each of these possibilities.
 
 
 
-1.  [Make a Wayland-native Kiosk Snap](tutorial/wayland-kiosk)
-1.  [Make an X11-native Kiosk Snap](tutorial/x11-kiosk)
-1.  [Make an HTML5/Electron-based Kiosk Snap](tutorial/electron-kiosk)
+1.  [Make a Wayland-native Kiosk Snap](/tutorial/wayland-kiosk)
+1.  [Make an X11-native Kiosk Snap](/tutorial/x11-kiosk)
+1.  [Make an HTML5/Electron-based Kiosk Snap](/tutorial/electron-kiosk)

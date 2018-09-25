@@ -12,7 +12,7 @@ author: Gerry Boland <gerry.boland@canonical.com>
 ---
 
 
-# Make an X11-based Kiosk Snap
+# Make a X11-based Kiosk Snap
 
 
 ## Overview
@@ -22,17 +22,17 @@ duration: 1:00
 
 ### What you'll learn
 
-In this tutorial we will create a snap of an X11 application to act as the graphical user interface for an IoT or kiosk device. For the introduction to this tutorial series and the Mir display server please visit [here](tutorial/secure-ubuntu-kiosk).
+In this tutorial we will create a snap of an X11 application to act as the graphical user interface for an IoT or kiosk device. For the introduction to this tutorial series and the Mir display server please visit [here](/tutorial/secure-ubuntu-kiosk).
 
 X11 is a legacy protocol, it is known to be insecure, so we need to take steps to ensure it is secured correctly. To do this we shall embed an intermediary Xwayland server in the application snap and use snapd's infrastructure to maintain security.
 
 positive
 : The combination of Snap, the "mir-kiosk" Wayland server and Ubuntu Core ensures the reliability and security of any graphical embedded device application. 
 
-This tutorial assumes you are familiar with the material in [Make a Wayland-native Kiosk snap](tutorial/wayland-kiosk). In particular, techniques for debugging problems in your snap are not repeated here.
+This tutorial assumes you are familiar with the material in [Make a Wayland-native Kiosk snap](/tutorial/wayland-kiosk). In particular, techniques for debugging problems in your snap are not repeated here.
 
 negative
-: Depending on the toolkit your application is written in, it may work on the newer and more secure Wayland protocol. If so, the snapping process is simpler. To check, please read [this guide](tutorial/wayland-kiosk).
+: Depending on the toolkit your application is written in, it may work on the newer and more secure Wayland protocol. If so, the snapping process is simpler. To check, please read [this guide](/tutorial/wayland-kiosk).
 
 
 ### What you'll need
@@ -42,7 +42,7 @@ negative
 *   An Ubuntu desktop running any current release of Ubuntu or an Ubuntu Virtual Machine on another OS.
 *   A 'Target Device' from one of the following:
     *   **A device running [Ubuntu Core](https://www.ubuntu.com/core).**<br />
-[This guide](https://developer.ubuntu.com/core/get-started/installation-medias) shows you how to set up a supported device. If there's no supported image that fits your needs you can [create your own core image](https://tutorials.ubuntu.com/tutorial/create-your-own-core-image).
+[This guide](https://developer.ubuntu.com/core/get-started/installation-medias) shows you how to set up a supported device. If there's no supported image that fits your needs you can [create your own core image](/tutorial/create-your-own-core-image).
     *   **Using a VM**
 You don't have to have a physical "Target Device", you can follow the tutorial with Ubuntu Core in a VM. Install the ubuntu-core-vm snap:
 `sudo snap install --beta ubuntu-core-vm --devmode`
@@ -90,7 +90,7 @@ The Snap security framework then ensures this X11 server is private to the appli
 It may also be your application is written using X11 calls directly, in which case this guide is for you.
 
 positive
-: If your application is written using GTK3/4, Qt5 or SDL2, or another toolkit with native Wayland support, you should follow [this guide](tutorial/wayland-kiosk).
+: If your application is written using GTK3/4, Qt5 or SDL2, or another toolkit with native Wayland support, you should follow [this guide](/tutorial/wayland-kiosk).
 
 
 ## Introducing glxgears, Xwayland and i3

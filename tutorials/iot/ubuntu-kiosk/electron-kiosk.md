@@ -22,9 +22,9 @@ duration: 1:00
 
 ### What you'll learn
 
-In this tutorial we will create a snap of a HTML5/Electron application to act as the graphical user interface for an IoT or kiosk device. For the introduction to this tutorial series and the Mir display server, please visit [here](tutorial/secure-ubuntu-kiosk).
+In this tutorial we will create a snap of a HTML5/Electron application to act as the graphical user interface for an IoT or kiosk device. For the introduction to this tutorial series and the Mir display server, please visit [here](/tutorial/secure-ubuntu-kiosk).
 
-This tutorial assumes you are familiar with the material in [Make an X11-based Kiosk Snap](tutorial/x11-kiosk).
+This tutorial assumes you are familiar with the material in [Make an X11-based Kiosk Snap](/tutorial/x11-kiosk).
 
 
 ### What you'll need
@@ -34,7 +34,7 @@ This tutorial assumes you are familiar with the material in [Make an X11-based K
 *   An Ubuntu desktop running any current release of Ubuntu or an Ubuntu Virtual Machine on another OS.
 *   A 'Target Device' from one of the following:
     *   **A device running [Ubuntu Core](https://www.ubuntu.com/core).**<br />
-[This guide](https://developer.ubuntu.com/core/get-started/installation-medias) shows you how to set up a supported device. If there's no supported image that fits your needs you can [create your own core image](https://tutorials.ubuntu.com/tutorial/create-your-own-core-image).
+[This guide](https://developer.ubuntu.com/core/get-started/installation-medias) shows you how to set up a supported device. If there's no supported image that fits your needs you can [create your own core image](/tutorial/create-your-own-core-image).
     *   **Using a VM**
 You don't have to have a physical "Target Device", you can follow the tutorial with Ubuntu Core in a VM. Install the ubuntu-core-vm snap:
 `snap install --beta ubuntu-core-vm --devmode`
@@ -61,7 +61,7 @@ Currently Electron does not have Wayland support, so we will use a tiny intermed
 ![electron-snap-architecture](images/electron-snap-architecture.png)
 
 
-[Click here](tutorial/x11-kiosk) for more information on this architecture.
+[Click here](/tutorial/x11-kiosk) for more information on this architecture.
 
 
 ## Snapping Electron apps
@@ -246,7 +246,7 @@ snapcraft cleanbuild
 ```
 
 
-(for building for other architectures, [follow this guide](tutorial/wayland-kiosk#building-for-different-architectures))
+(for building for other architectures, [follow this guide](/tutorial/wayland-kiosk#13))
 
 
 ## Deploying on a Device
