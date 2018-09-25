@@ -12,7 +12,7 @@ author: Gerry Boland <gerry.boland@canonical.com>
 ---
 
 
-# Make an X11-based Kiosk Snap
+# Make a X11-based Kiosk Snap
 
 
 ## Overview
