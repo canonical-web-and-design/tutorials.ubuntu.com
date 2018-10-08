@@ -137,7 +137,7 @@ snap set chromium-mir-kiosk shownav=false
 
 
 ```bash
-snap set chromium-mir-kiosk url=["http://www.canonical.com","https://www.ubuntu.com"]
+snap set chromium-mir-kiosk 'url=["http://www.canonical.com","https://www.ubuntu.com"]'
 ```
 
 
