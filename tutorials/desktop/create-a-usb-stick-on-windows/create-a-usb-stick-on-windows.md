@@ -91,7 +91,7 @@ Leave all other parameters with their default values and click **START** to init
 ## Additional downloads
 Duration: 1:00
 
-You may be alerted that Refus requires additional files to complete writing the ISO.  If this dialog box appears, select **Yes** to continue.
+You may be alerted that Rufus requires additional files to complete writing the ISO.  If this dialog box appears, select **Yes** to continue.
 
 ![screenshot](./windows-rufus3-additional-downloads.png)
 
