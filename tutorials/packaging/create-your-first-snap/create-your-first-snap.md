@@ -50,11 +50,17 @@ Survey
 ## Getting started
 Duration: 1:00
 
-This tutorial is based on Ubuntu (16.04 LTS or greater) and the `snapcraft` APT package.
+### Setup a development environment
+This tutorial requires an Ubuntu 16.04 based system, either:
 
-positive
-: **Note:**
-The `snapcraft` package will soon be available on other GNU/Linux distributions.
+* A native Ubuntu 16.04 installation
+* A derived GNU+Linux distribution with the same Ubuntu base(e.g. Linux Mint 18.X)
+* An Ubuntu 16.04 virtual machine
+* An Ubuntu 16.04 [LXD](https://linuxcontainers.org/lxd/getting-started-cli/) or [Docker](https://hub.docker.com/_/ubuntu/) container
+
+negative
+: **NOTE:**
+Only 16.04(codename xenial) and its point releases(16.04.X) are compatible, **not including its future major releases(like 16.10 or 18.04)** due to snap's runtime compatibiltiy reasons.
 
 ### Installing dependencies
 
