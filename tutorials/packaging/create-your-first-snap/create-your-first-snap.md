@@ -50,17 +50,16 @@ Survey
 ## Getting started
 Duration: 1:00
 
-### Setup a development environment
-This tutorial requires an Ubuntu 16.04 based system, either:
+This tutorial requires an Ubuntu 16.04 LTS (Xenial) based system, such as:
 
 * A native Ubuntu 16.04 installation
-* A derived GNU+Linux distribution with the same Ubuntu base(e.g. Linux Mint 18.X)
+* A GNU/Linux distribution derived from an Ubuntu 16.04 base (eg. Linux Mint 18.x)
 * An Ubuntu 16.04 virtual machine
 * An Ubuntu 16.04 [LXD](https://linuxcontainers.org/lxd/getting-started-cli/) or [Docker](https://hub.docker.com/_/ubuntu/) container
 
 negative
 : **NOTE:**
-Only 16.04(codename xenial) and its point releases(16.04.X) are compatible, **not including its future major releases(like 16.10 or 18.04)** due to snap's runtime compatibiltiy reasons.
+This tutorial has been written to work with Ubuntu 16.04 LTS (Xenial Xerus) and its point releases only, and may not work with later Ubuntu releases.
 
 ### Installing dependencies
 
