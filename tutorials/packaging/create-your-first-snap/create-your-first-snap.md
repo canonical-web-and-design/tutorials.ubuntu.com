@@ -50,11 +50,16 @@ Survey
 ## Getting started
 Duration: 1:00
 
-This tutorial is based on Ubuntu (16.04 LTS or greater) and the `snapcraft` APT package.
+This tutorial requires an Ubuntu 16.04 LTS (Xenial) based system, such as:
 
-positive
-: **Note:**
-The `snapcraft` package will soon be available on other GNU/Linux distributions.
+* A native Ubuntu 16.04 installation
+* A GNU/Linux distribution derived from an Ubuntu 16.04 base (eg. Linux Mint 18.x)
+* An Ubuntu 16.04 virtual machine
+* An Ubuntu 16.04 [LXD](https://linuxcontainers.org/lxd/getting-started-cli/) or [Docker](https://hub.docker.com/_/ubuntu/) container
+
+negative
+: **NOTE:**
+This tutorial has been written to work with Ubuntu 16.04 LTS (Xenial Xerus) and its point releases only, and may not work with later Ubuntu releases.
 
 ### Installing dependencies
 
