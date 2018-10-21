@@ -63,14 +63,22 @@ This tutorial has been written to work with Ubuntu 16.04 LTS (Xenial Xerus) and 
 
 ### Installing dependencies
 
-We will now update the APT database and install snapcraft and some additional build tools we are
-going to need:
+We will now update the APT database and install some additional build tools we are going to need:
 
 ```bash
 sudo apt update
-sudo apt install snapcraft build-essential
+sudo apt install build-essential
 ```
 
+We will now install snapcraft, the utility for building snaps:
+
+```bash
+sudo snap install --classic snapcraft
+```
+
+positive
+: **NOTE:**
+    * If the `snap` command is not available, install the `snapd` package via APT.
 We're all set. Let's get cracking and build our first snap!
 
 ## Building a snap is easy
