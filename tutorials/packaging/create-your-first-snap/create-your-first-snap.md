@@ -79,6 +79,8 @@ sudo snap install --classic snapcraft
 positive
 : **NOTE:**
     * If the `snap` command is not available, install the `snapd` package via APT.
+    * The `--classic` switch enables the installation of a snap that uses *classic confinement*.  We discuss snap security confinement in the following section.
+
 We're all set. Let's get cracking and build our first snap!
 
 ## Building a snap is easy
@@ -159,10 +161,12 @@ Let's go through this line by line:
   - **grade**: Can be used by the publisher to indicate the quality confidence in the build. The
     store will prevent publishing 'devel' grade builds to the 'stable' channel.
 
-  - **confinement**: Can be either 'devmode' or 'strict'. A newly-developed snap should start out
+  - **confinement**: Can be either 'devmode',  'strict', or 'classic'. A newly-developed snap should start out
     in `devmode`. Security requirements can get in the way during development and 'devmode' eases
     these requirements. Security aspects like confinement can be addressed once the snap is
-    working.
+    working.  If there are technical issues that obstruct the confinement of a snap, it may also be developed and released using `classic` confinement. *Classic* imposes no additional restrictions and effectively grants device ownership to the snap. Consequently, snaps using *classic* confinement require a manual review before being released to the store (see [Classic confinement review process](https://forum.snapcraft.io/t/process-for-reviewing-classic-confinement-snaps/1460) for further details).
+    
+    However, in this tutorial we will only focus on `devmode` and `strict` confinement.
 
 So much for the basics. Let's customise this for your own snap. Change the top of the file to be:
 
