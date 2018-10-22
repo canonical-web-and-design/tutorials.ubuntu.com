@@ -8,6 +8,7 @@ status: published
 published: 2018-10-05
 author: Stéphane Graber <stgraber@ubuntu.com>
 feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
+
 ---
 
 # Candid authentication for LXD
