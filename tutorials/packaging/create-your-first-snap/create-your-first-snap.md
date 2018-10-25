@@ -88,6 +88,9 @@ cd ~/mysnaps/hello
 
 **It is from within this `hello` directory where we will invoke all subsequent commands.**
 
+negative
+: **NOTE:** Due to the limitation of GNU Hello's build system, the path of the directory you put the `hello` directory in *shouldn't contain any spaces*.
+
 Get started by initialising your snap:
 
 ```bash
