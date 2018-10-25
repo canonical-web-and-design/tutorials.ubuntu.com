@@ -370,7 +370,7 @@ apps:
 parts:
   gnu-hello:
     source: http://ftp.gnu.org/gnu/hello/hello-2.10.tar.gz
-    plugin: autotools command: bin/hello
+    plugin: autotools
 ```
 
 ### Iterating over your snap
