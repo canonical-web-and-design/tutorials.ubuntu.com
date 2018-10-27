@@ -482,7 +482,7 @@ have the command condensed to `hello`.
 Our snap will thus result in two binaries being shipped: `hello` and `hello.bash`.
 
 Note that we set `bash` as the command parameter, and not `bin/bash` relative to the system snap
-directory (`$SNAP=/snap`) as we did for `hello`. Both are equally valid because `snapcraft` and
+directory (`$SNAP=/snap/hello/current`) as we did for `hello`. Both are equally valid because `snapcraft` and
 `snapd` create a small wrapper around your executable command which sets some environment
 variables. Technically, `$SNAP/bin` will be prepended to your `$PATH` for this snap. This avoids
 the need to set the path explicitly. This topic will be touched upon in upcoming sections.
