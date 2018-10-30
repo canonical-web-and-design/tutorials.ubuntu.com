@@ -169,7 +169,7 @@ If you are a command line user you can use the following commands:
 
 Once all the units are up and running we then need to configure them so they know what data to process.
 
-In the GUI, select the Kafka Flume charm and select the Configure option from the menu. Towards the bottom you'll see an entry for the kafka_topic. Set this to cpu-metrics.
+In the GUI, select the Kafka Flume charm and select the Configure option from the menu. Towards the bottom you'll see an entry for the kafka_topic. Set this to `cpu-metrics-topic`.
 
 Next we have to use the command line, if you've not installed the GUI, you can click the shell icon at the top of the Juju GUI and get a shell in your browser. If you're using the CLI you're all set.
 
@@ -183,7 +183,7 @@ You can check it runs by running:
 
     juju show-action-output <id> 
 
-where <id> is the output from the previous command.
+where `<id>` is the output from the previous command.
 
 You should see something like:
 
@@ -207,7 +207,7 @@ The easest was to do this is to run it directly on the Kakfa server to do that y
 
 juju ssh kafka/0
 
-Then you can either download [this]() jar file, or compile it from source like so:
+Then you can either download [this](https://www.dropbox.com/s/oczzh8iebo0u7sn/kafka-cpu-metrics-producer.jar?dl=1) jar file, or compile it from source like so:
  
     git clone https://github.com/buggtb/kafka-streams-example
     sudo apt install maven
@@ -217,7 +217,7 @@ Then you can either download [this]() jar file, or compile it from source like s
 
 Next we can start the generator:
 
-    java -jar <>
+    java -jar kafka-cpu-metrics-producer.jar
 
 You should see it starting to write a stream of data to the screen. This data is also being ingested into Kafka. In the next section we'll find out how to interrogate it.
 
@@ -264,18 +264,18 @@ Duration: 2:00
 
 Because we related Apache Drill to Kafka, Juju will have automatically configured our DFS and Kafka datasources. If you navigate to Apache Drill in a browser you can see both configured in the Sources tab, for example a Kafka data source should look similar to:
 
-{
-  "type": "kafka",
-  "kafkaConsumerProps": {
-    "bootstrap.servers": "10.142.0.10:9092",
-    "group.id": "drill-consumer"
-  },
-  "enabled": true
-}
+    {
+      "type": "kafka",
+      "kafkaConsumerProps": {
+        "bootstrap.servers": "10.142.0.10:9092",
+        "group.id": "drill-consumer"
+      },
+      "enabled": true
+    }
 
 This means we should then be able to query the stream. In the query tab, paste the following query:
 
-select * from kafka.`cpu-metrics-topic`  limit 10
+    select * from kafka.`cpu-metrics-topic`  limit 10
 
 If all is well you should see a table of 10 rows of data returned from the Kafka stream. This is SQL live over stream data!
 
@@ -284,7 +284,8 @@ Duration: 2:00
 
 
 You can also query the files being written by Flume into the HDFS cluster. To do this paste the following query:
- "flume": {
+
+    "flume": {
       "location": "/user/flume/flume-kafka",
       "writable": true,
       "defaultInputFormat": null,
@@ -301,7 +302,7 @@ You can also query the files being written by Flume into the HDFS cluster. To do
     },
 
 
-select * from `juju_hdfs_plugin`.`flume`.`2018-10-29`
+    select * from `juju_hdfs_plugin`.`flume`.`2018-10-29`
 
 This data is processed from the log files written by Flume into HDFS and eventually could be many Terabytes worth of data. The great thing about Apache Drill is the fact that it'll piece together multiple files in a directory into a single table, so although Flume is writing individual files over time, Drill will treat them all as one.
 
@@ -328,7 +329,7 @@ Finally for this tutorial, now we're writing out Parquet files, you need to be a
 
 Drill has written this one to the Hadoop temporary location where it has write access. To read it you can run queries like the following:
 
-select * from dfs.tmp.sampleparquet
+    select * from dfs.tmp.sampleparquet
 
 This allows you to run an SQL query directly over a Parquet table structure.
 
