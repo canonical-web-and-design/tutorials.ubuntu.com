@@ -205,7 +205,7 @@ Next we are going to stream some data into Kafka. For this we need a little scri
 
 The easest was to do this is to run it directly on the Kakfa server to do that you need to SSH into the server:
 
-juju ssh kafka/0
+    juju ssh kafka/0
 
 Then you can either download [this](https://www.dropbox.com/s/oczzh8iebo0u7sn/kafka-cpu-metrics-producer.jar?dl=1) jar file, or compile it from source like so:
  
@@ -283,7 +283,11 @@ If all is well you should see a table of 10 rows of data returned from the Kafka
 Duration: 2:00
 
 
-You can also query the files being written by Flume into the HDFS cluster. To do this paste the following query:
+You can also query the files being written by Flume into the HDFS cluster. 
+
+So that Drill understands the files being written by Flume and also their location, you need to make a couple of minor tweaks to the juju_hadoop_plugin data source in Apache Drill.
+
+Firstly: 
 
     "flume": {
       "location": "/user/flume/flume-kafka",
@@ -292,6 +296,7 @@ You can also query the files being written by Flume into the HDFS cluster. To do
       "allowAccessOutsideWorkspace": true
     }
 
+Then:
 
     "json": {
       "type": "json",
@@ -301,6 +306,9 @@ You can also query the files being written by Flume into the HDFS cluster. To do
       ]
     },
 
+Once you've updated the data source, click on the Query tab.
+
+Then you can run the following query:
 
     select * from `juju_hdfs_plugin`.`flume`.`2018-10-29`
 
