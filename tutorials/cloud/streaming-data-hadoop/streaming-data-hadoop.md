@@ -120,7 +120,7 @@ First you need to add a model:
 
     juju add-model streaming <cloud name>
 
-More details can be found [here]()
+More details can be found [here](https://docs.jujucharms.com/2.4/en/jaas-cli#create-and-deploy-a-model)
 
 Then you can deploy the model:
 
