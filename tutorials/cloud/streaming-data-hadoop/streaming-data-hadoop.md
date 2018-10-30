@@ -95,6 +95,8 @@ Go to jujucharms.com and in the search the store box on the toolbar, enter the p
 
 Once added to a new model, you can see the charms laid out on the canvas. You can see that it consists of 5 applications and by default 5 machines are used to deploy it.
 
+![](images/hadoopbundle.png)
+
 The applications are the Namenode, Resource Manager, Workers, Client and Plugin. This is a fully working Hadoop stack and so once deployed will spin up 3 workers to distirbute the processing load, but as we're just testing here, we can keep costs down and reduce this to 1. To do this click on the Worker charm, this is the left hand most icon, and then in the top left you should see some details.
 
 Click on Units, check 2 of the checkboxes and click the remove button.
