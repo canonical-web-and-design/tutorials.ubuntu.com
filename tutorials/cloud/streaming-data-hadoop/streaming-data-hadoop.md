@@ -30,6 +30,9 @@ Juju allows users to spin up complex applications onto different platforms and r
 * LXD containers
 * MAAS
 
+![](images/overview.png)
+
+
 ### In this tutorial you will learn how to....
 
 * Launch a Hadoop cluster
@@ -147,6 +150,8 @@ Then search for apache flume and add both the HDFS and Kafka flume charms to the
 
 Finally we need to create relations, so join Kafka to the Apache Flume Kafka charm and that charm to the Apache Flume HDFS charm. Once thats done connect the Apache Flume HDFS charm to the Hadoop Plugin charm. 
 
+![](images/kafkadeploy.png)
+
 To make Kafka work, we also need a zookeeper so add that to the canvas and connect it to Kafka.
 
 Next click the Deploy button, this will spin up the relevant machines and install the required software.
@@ -170,6 +175,8 @@ If you are a command line user you can use the following commands:
 Once all the units are up and running we then need to configure them so they know what data to process.
 
 In the GUI, select the Kafka Flume charm and select the Configure option from the menu. Towards the bottom you'll see an entry for the kafka_topic. Set this to `cpu-metrics-topic`.
+
+![](images/kafkaconfig.png)
 
 Next we have to use the command line, if you've not installed the GUI, you can click the shell icon at the top of the Juju GUI and get a shell in your browser. If you're using the CLI you're all set.
 
