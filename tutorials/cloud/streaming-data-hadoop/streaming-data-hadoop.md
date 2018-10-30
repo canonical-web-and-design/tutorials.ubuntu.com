@@ -229,6 +229,8 @@ Next we can start the generator:
 
 You should see it starting to write a stream of data to the screen. This data is also being ingested into Kafka. In the next section we'll find out how to interrogate it.
 
+![](images/streamdata.png)
+
 
 ## Watching the data
 Duration: 2:00
@@ -244,6 +246,9 @@ You should see a date stamped folder. You can then run
 
 to see the individual files in the kafka output.
 
+![](images/hdfsls.png)
+
+
 This data could then be processed in a range of ways. MapReduce, Spark, Pig etc or in our case Apache Drill. 
 Find out how to use SQL to process this data on the next page.
 
@@ -254,6 +259,8 @@ Duration: 5:00
 Apache Drill allows users to run SQL queries over NoSQL data sources. Out of the box it has support for HDFS, standard filesystems, MongoDB, Kudu, Kafka and others.
 
 To deploy it you can search for Apache Drill in the charm store. Add it to the canvas and relate it to the Zookeeper charm, Kafka charm and finally connect it to the Hadoop plugin charm and press the deploy button. 
+
+![](images/deploydrill.png)
 
 As this is a GUI based tool, we're also going to expose it. Select the charm, click on the Expose menu button, then expose the app. Make sure you press the Deploy Changes button afterwards.
 
@@ -287,6 +294,9 @@ This means we should then be able to query the stream. In the query tab, paste t
 
 If all is well you should see a table of 10 rows of data returned from the Kafka stream. This is SQL live over stream data!
 
+![](images/streamsql.png)
+
+
 ## SQL over Hadoop HDFS
 Duration: 2:00
 
@@ -315,6 +325,8 @@ Then:
     },
 
 Once you've updated the data source, click on the Query tab.
+
+![](images/hdfsconfig.png)
 
 Then you can run the following query:
 
