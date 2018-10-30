@@ -21,7 +21,7 @@ Duration: 2:00
 Welcome to the first tutorial in this Anssr.io Getting Started with Data Processing series. 
 Anssr.io is a data processing and analytics platform built on top of Juju from Canonical.
 
-Streaming data processing is becoming more and more popular aided by faster computers, cheaper storage and open source projects like Apache Kafka which can deal with data streams at very high scale. Being able to process data in real time can both reduce the need for batch processing over much larger data sets and also give stateholders quicker access to data that may otherwise take time to reach their computers.
+Streaming data processing is becoming more and more popular aided by faster computers, cheaper storage and open source projects like Apache Kafka which can deal with data streams at very high scale. Being able to process data in real time can both reduce the need for batch processing over much larger data sets and also give stakeholders quicker access to data that may otherwise take time to reach their computers.
 
 Juju allows users to spin up complex applications onto different platforms and run the same code in each location. Whilst this tutorial is focussed on AWS, Azure or GCP, you could also run it on:
 
@@ -85,7 +85,7 @@ To watch continuously, in colour, run:
 ## Deploying Hadoop with JAAS
 Duration: 10:00
 
-So in this tutorial we are going to be streaming Kafka data, but we need somewhere to store it. This could be local files, another database or S3 to name a few. But in this case we're going to persist the data into an HDFS cluster.
+So in this tutorial we are going to be streaming Kafka data, but we need somewhere to store it. This could be local files, another database or S3 to name a few. But in this case we're going to persist the data into a HDFS cluster.
 
 ### Deploy via the Juju GUI
 
@@ -109,7 +109,7 @@ Next you will be asked where you want to deploy your Hadoop cluster. Depending o
 
 From there you then need to click the Deploy button.
 
-As machines get started and applications deployed. The charms on the canvas should get different coloured outlines to indicate their status. You can also find out more about their current state by clicking on the Status tab. When finished all the charms should be in the Active state with a ready status message.
+As machines get started and applications deployed, the charms on the canvas should get different coloured outlines to indicate their status. You can also find out more about their current state by clicking on the Status tab. When finished all the charms should be in the Active state with a ready status message.
 
 
 ### Deploy via CLI
@@ -145,9 +145,9 @@ Search the charm store for Kafka and add it to the canvas.
 
 Then search for apache flume and add both the HDFS and Kafka flume charms to the canvas.
 
-Finally we need to create relations, so join Kafka to the Apache Flume Kafka charm and that charm to the Apache Flume HDFS charm. Once thats done connect the Apache Flume HDFS charm to the Hadoop Plugin charm. 
+Finally we need to create relations, so join Kafka to the Apache Flume Kafka charm and that charm to the Apache Flume HDFS charm. Once that's done connect the Apache Flume HDFS charm to the Hadoop Plugin charm. 
 
-To make Kafka work, we also need a zookeeper so add that to the canvas and connect it to Kafka.
+To make Kafka work, we also need a zookeeper charm so add that to the canvas and connect it to Kafka.
 
 Next click the Deploy button, this will spin up the relevant machines and install the required software.
 
@@ -171,7 +171,7 @@ Once all the units are up and running we then need to configure them so they kno
 
 In the GUI, select the Kafka Flume charm and select the Configure option from the menu. Towards the bottom you'll see an entry for the kafka_topic. Set this to `cpu-metrics-topic`.
 
-Next we have to use the command line, if you've not installed the GUI, you can click the shell icon at the top of the Juju GUI and get a shell in your browser. If you're using the CLI you're all set.
+Next we have to use the command line, if you've not installed the CLI, you can click the shell icon at the top of the Juju GUI and get a shell in your browser. If you're using the CLI you're all set.
 
 We create a Kafka topic running the following command:
 
@@ -203,7 +203,7 @@ Duration: 5:00
 
 Next we are going to stream some data into Kafka. For this we need a little script to generate some data. 
 
-The easest was to do this is to run it directly on the Kakfa server to do that you need to SSH into the server:
+The easiest way to do this is to run it directly on the Kakfa server. To do that you need to SSH into the server:
 
     juju ssh kafka/0
 
@@ -262,7 +262,7 @@ Once its deployed you're then you're ready to run some SQL goodness!
 ## Running SQL over a live stream
 Duration: 2:00
 
-Because we related Apache Drill to Kafka, Juju will have automatically configured our DFS and Kafka datasources. If you navigate to Apache Drill in a browser you can see both configured in the Sources tab, for example a Kafka data source should look similar to:
+Because we related Apache Drill to Kafka, Juju will have automatically configured our DFS and Kafka datasources. If you navigate to Apache Drill in a browser you can see both are configured in the Sources tab, for example a Kafka data source should look similar to:
 
     {
       "type": "kafka",
@@ -354,7 +354,7 @@ Then you
 
 * Ran SQL queries over flat files
 * Ran SQL queries over Kafka streams
-* Generated and queries Parquet files
+* Generated and queried Parquet files
 
 Not bad considering how little command line interaction is required. This demonstrates just some of the flexibility of the Anssr platform.
 
