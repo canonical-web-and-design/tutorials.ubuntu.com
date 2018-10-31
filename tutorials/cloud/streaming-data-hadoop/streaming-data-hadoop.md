@@ -281,7 +281,7 @@ Once its deployed you're then you're ready to run some SQL goodness!
 ## Running SQL over a live stream
 Duration: 5:00
 
-To navigate to drill, find the IP in the Status tab and in a browser navigate to http://<ip>:8090. If it doesn't load ensure you "exposed" the service.
+To navigate to drill, find the IP in the Status tab and in a browser navigate to http://<ip>:8047. If it doesn't load ensure you "exposed" the service.
     
 Because we related Apache Drill to Kafka, Juju will have automatically configured our DFS and Kafka datasources. If you navigate to Apache Drill in a browser you can see both are configured in the Sources tab, for example a Kafka data source should look similar to:
 
