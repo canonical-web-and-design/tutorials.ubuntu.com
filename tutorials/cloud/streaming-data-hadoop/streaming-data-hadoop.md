@@ -281,7 +281,7 @@ Once its deployed you're then you're ready to run some SQL goodness!
 ## Running SQL over a live stream
 Duration: 5:00
 
-Because we related Apache Drill to Kafka, Juju will have automatically configured our DFS and Kafka datasources. If you navigate to Apache Drill in a browser you can see both are configured in the Sources tab, for example a Kafka data source should look similar to:
+Because we related Apache Drill to Kafka, Juju will have automatically configured our DFS and Kafka datasources. If you navigate to Apache Drill in a browser you can see both are configured in the Storage tab, for example a Kafka data source should look similar to:
 
     {
       "type": "kafka",
