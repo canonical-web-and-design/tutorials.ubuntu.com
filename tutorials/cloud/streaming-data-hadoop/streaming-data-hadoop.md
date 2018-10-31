@@ -146,7 +146,7 @@ Once we have a Hadoop cluster up and running it's time to spin up our streaming 
 
 Search the charm store for Kafka and add it to the canvas.
 
-Then search for apache flume and add both the HDFS and Kafka flume charms to the canvas.
+Then search for apache flume and add both the HDFS and Flume Kafka charms to the canvas.
 
 Finally we need to create relations, so join Kafka to the Apache Flume Kafka charm and that charm to the Apache Flume HDFS charm. Once that's done connect the Apache Flume HDFS charm to the Hadoop Plugin charm. 
 
@@ -175,7 +175,7 @@ If you are a command line user you can use the following commands:
 
 Once all the units are up and running we then need to configure them so they know what data to process.
 
-In the GUI, select the Kafka Flume charm and select the Configure option from the menu. Towards the bottom you'll see an entry for the kafka_topic. Set this to `cpu-metrics-topic` and then commit changes.
+In the GUI, select the Flume Kafka charm and select the Configure option from the menu. Towards the bottom you'll see an entry for the kafka_topic. Set this to `cpu-metrics-topic` and then commit changes.
 
 ![](images/kafkaconfig.png)
 
