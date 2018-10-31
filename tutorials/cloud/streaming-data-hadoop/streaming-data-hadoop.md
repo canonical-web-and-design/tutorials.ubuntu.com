@@ -215,7 +215,11 @@ The easiest way to do this is to run it directly on the Kakfa server. To do that
 
     juju ssh kafka/0
 
-Then you can either download [this](https://www.dropbox.com/s/oczzh8iebo0u7sn/kafka-cpu-metrics-producer.jar?dl=1) jar file, or compile it from source like so:
+Then you can either download this jar file,
+
+    wget -O kafka-cpu-metrics-producer.jar https://www.dropbox.com/s/oczzh8iebo0u7sn/kafka-cpu-metrics-producer.jar?dl=1 
+
+or compile it from source like so:
  
     git clone https://github.com/buggtb/kafka-streams-example
     sudo apt install maven
