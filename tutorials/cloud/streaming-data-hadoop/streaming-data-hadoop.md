@@ -104,13 +104,13 @@ The applications are the Namenode, Resource Manager, Workers, Client and Plugin.
 
 Click on Units, check 2 of the checkboxes and click the remove button.
 
-Once you've done this click Deploy changes.
+Once you've done this click Commit changes.
 
 If you've not logged into the charm store at this point you will be asked to Login or Sign up to Juju, this uses Ubuntu One, so if you've already got an account you can enter it here.
 
 Next you will be asked where you want to deploy your Hadoop cluster. Depending on your cloud choices you can then select from AWS, Azure or GCP. You will need to enter your cloud credentials and its advised you upload your SSH key using the manual SSH key entry or use the Github or Launchpad key installers. Make sure you click the Add key button before moving on.
 
-From there you then need to click the Deploy button.
+From there you then need to click the Commit button.
 
 As machines get started and applications deployed, the charms on the canvas should get different coloured outlines to indicate their status. You can also find out more about their current state by clicking on the Status tab. When finished all the charms should be in the Active state with a ready status message.
 
@@ -262,7 +262,7 @@ Duration: 5:00
 
 Apache Drill allows users to run SQL queries over NoSQL data sources. Out of the box it has support for HDFS, standard filesystems, MongoDB, Kudu, Kafka and others.
 
-To deploy it you can search for Apache Drill in the charm store. Add it to the canvas and relate it to the Zookeeper charm, Kafka charm and finally connect it to the Hadoop plugin charm and press the deploy button. 
+To deploy it you can search for Apache Drill in the charm store. Add it to the canvas and relate it to the Zookeeper charm, Kafka charm and finally connect it to the Hadoop plugin charm and press the commit button. 
 
 ![](images/deploydrill.png)
 
@@ -281,8 +281,6 @@ Once its deployed you're then you're ready to run some SQL goodness!
 ## Running SQL over a live stream
 Duration: 5:00
 
-To navigate to drill, find the IP in the Status tab and in a browser navigate to http://<ip>:8047. If it doesn't load ensure you "exposed" the service.
-    
 Because we related Apache Drill to Kafka, Juju will have automatically configured our DFS and Kafka datasources. If you navigate to Apache Drill in a browser you can see both are configured in the Sources tab, for example a Kafka data source should look similar to:
 
     {
