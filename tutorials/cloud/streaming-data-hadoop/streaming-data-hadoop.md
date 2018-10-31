@@ -86,7 +86,7 @@ To watch continuously, in colour, run:
     $ watch -c juju status --color
 
 ## Deploying Hadoop with JAAS
-Duration: 10:00
+Duration: 30:00
 
 So in this tutorial we are going to be streaming Kafka data, but we need somewhere to store it. This could be local files, another database or S3 to name a few. But in this case we're going to persist the data into a HDFS cluster.
 
@@ -138,7 +138,7 @@ To keep an eye on whats going on run:
     juju status
 
 ## Adding Kafka and Flume
-Duration: 2:00
+Duration: 10:00
 
 Once we have a Hadoop cluster up and running it's time to spin up our streaming pipeline. For this we will use a combination of Kafka and Flume.
 
@@ -275,7 +275,7 @@ Or if you are a CLI user run:
 Once its deployed you're then you're ready to run some SQL goodness!
 
 ## Running SQL over a live stream
-Duration: 2:00
+Duration: 5:00
 
 Because we related Apache Drill to Kafka, Juju will have automatically configured our DFS and Kafka datasources. If you navigate to Apache Drill in a browser you can see both are configured in the Sources tab, for example a Kafka data source should look similar to:
 
@@ -298,7 +298,7 @@ If all is well you should see a table of 10 rows of data returned from the Kafka
 
 
 ## SQL over Hadoop HDFS
-Duration: 2:00
+Duration: 5:00
 
 
 You can also query the files being written by Flume into the HDFS cluster. 
@@ -335,7 +335,7 @@ Then you can run the following query:
 This data is processed from the log files written by Flume into HDFS and eventually could be many Terabytes worth of data. The great thing about Apache Drill is the fact that it'll piece together multiple files in a directory into a single table, so although Flume is writing individual files over time, Drill will treat them all as one.
 
 ## Writing your data to a Parquet file
-Duration: 1:00
+Duration: 3:00
 
 Executing complex SQL queries over JSON files can be pretty slow as the data scales. So how can we speed this up? 
 
@@ -353,7 +353,7 @@ This runs a CREATE TABLE statement from a SQL Select statement and will write th
 Find out how to query it next!
 
 ## Extended data analysis
-Duration: 1:00
+Duration: 5:00
 
 Finally for this tutorial, now we're writing out Parquet files, you need to be able to query them, right?
 
