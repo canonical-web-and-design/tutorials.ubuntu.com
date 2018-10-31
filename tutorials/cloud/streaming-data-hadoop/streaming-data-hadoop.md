@@ -175,7 +175,7 @@ If you are a command line user you can use the following commands:
 
 Once all the units are up and running we then need to configure them so they know what data to process.
 
-In the GUI, select the Kafka Flume charm and select the Configure option from the menu. Towards the bottom you'll see an entry for the kafka_topic. Set this to `cpu-metrics-topic`.
+In the GUI, select the Kafka Flume charm and select the Configure option from the menu. Towards the bottom you'll see an entry for the kafka_topic. Set this to `cpu-metrics-topic` and then commit changes.
 
 ![](images/kafkaconfig.png)
 
