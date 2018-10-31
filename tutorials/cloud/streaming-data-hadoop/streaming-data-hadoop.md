@@ -290,7 +290,7 @@ Because we related Apache Drill to Kafka, Juju will have automatically configure
 
 This means we should then be able to query the stream. In the query tab, paste the following query:
 
-    select * from kafka.`cpu-metrics-topic`  limit 10
+    select * from juju_kafka.`cpu-metrics-topic`  limit 10
 
 If all is well you should see a table of 10 rows of data returned from the Kafka stream. This is SQL live over stream data!
 
