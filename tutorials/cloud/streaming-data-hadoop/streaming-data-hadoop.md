@@ -11,7 +11,7 @@ author: Tom Barber <tom@spicule.co.uk>
 
 ---
 
-# Streaming Data Analysis with Apache Hadoop
+# Streaming Data Analytics with Apache Hadoop
 
 ## Overview
 Duration: 2:00
