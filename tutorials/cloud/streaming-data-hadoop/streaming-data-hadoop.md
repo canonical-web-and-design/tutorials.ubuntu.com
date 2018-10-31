@@ -354,8 +354,9 @@ Apache Drill can query Parquet files, which is cool. But it can also create Parq
 Execute the following query: 
 
     CREATE TABLE dfs.tmp.sampleparquet AS 
-    (select machine, cast(cpu as double) cpu, cast(memory as double) memory, status from `juju_hdfs_namenode`.`flume`.`2018-10-18`)
+    (select machine, cast(cpu as double) cpu, cast(memory as double) memory, status from `juju_hdfs_namenode`.`flume`.`yyyy-MM-dd`)
 
+Where yyyy-MM-dd is the current date.
 This runs a CREATE TABLE statement from a SQL Select statement and will write the output as a Parquet file. The CREATE TABLE statement is pretty flexible and allows you to create table structures in a range of data formats. You could also extend this to enrich your data by combining multiple queries or datasources in your query to enable greater visibility of your data.
 
 Find out how to query it next!
