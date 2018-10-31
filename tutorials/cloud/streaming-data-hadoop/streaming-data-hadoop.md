@@ -266,7 +266,7 @@ To deploy it you can search for Apache Drill in the charm store. Add it to the c
 
 ![](images/deploydrill.png)
 
-As this is a GUI based tool, we're also going to expose it. Select the charm, click on the Expose menu button, then expose the app. Make sure you press the Deploy Changes button afterwards.
+As this is a GUI based tool, we're also going to expose it. Select the charm, click on the Expose menu button, then expose the app. Make sure you press the Commit changes button afterwards.
 
 Or if you are a CLI user run:
     
@@ -309,16 +309,16 @@ You can also query the files being written by Flume into the HDFS cluster.
 
 So that Drill understands the files being written by Flume and also their location, you need to make a couple of minor tweaks to the juju_hadoop_plugin data source in Apache Drill.
 
-Firstly in the top block below where it says root add: 
+Firstly: 
 
-    ,"flume": {
+    "flume": {
       "location": "/user/flume/flume-kafka",
       "writable": true,
       "defaultInputFormat": null,
       "allowAccessOutsideWorkspace": true
     }
 
-Then ammend the JSON block:
+Then:
 
     "json": {
       "type": "json",
