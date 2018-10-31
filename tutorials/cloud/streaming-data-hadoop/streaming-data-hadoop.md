@@ -309,16 +309,16 @@ You can also query the files being written by Flume into the HDFS cluster.
 
 So that Drill understands the files being written by Flume and also their location, you need to make a couple of minor tweaks to the juju_hadoop_plugin data source in Apache Drill.
 
-Firstly: 
+Firstly in the top block below where it says root add: 
 
-    "flume": {
+    ,"flume": {
       "location": "/user/flume/flume-kafka",
       "writable": true,
       "defaultInputFormat": null,
       "allowAccessOutsideWorkspace": true
     }
 
-Then:
+Then ammend the JSON block:
 
     "json": {
       "type": "json",
