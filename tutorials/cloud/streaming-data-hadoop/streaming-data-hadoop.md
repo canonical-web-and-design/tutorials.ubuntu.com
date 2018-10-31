@@ -337,7 +337,9 @@ This data is processed from the log files written by Flume into HDFS and eventua
 ## Writing your data to a Parquet file
 Duration: 1:00
 
-Executing complex SQL queries over JSON files can be pretty slow as the data scales. So how can we speed this up? Parquet is a binary based file format that allows you to create column store data structures. Column store databases have been used for decades to speed up query times in reporting databases, they are generally quicker as the database doesn't have to consume an entire row when crunching its data. 
+Executing complex SQL queries over JSON files can be pretty slow as the data scales. So how can we speed this up? 
+
+Parquet is a binary based file format that allows you to create column store data structures. Column store databases have been used for decades to speed up query times in reporting databases, they are generally quicker as the database doesn't have to consume an entire row when crunching its data. 
 
 Apache Drill can query Parquet files, which is cool. But it can also create Parquet files. Which is even cooler. Lets give it a go!
 
@@ -346,7 +348,7 @@ Execute the following query:
     CREATE TABLE dfs.tmp.sampleparquet AS 
     (select machine, cast(cpu as double) cpu, cast(memory as double) memory, status from `juju_hdfs_namenode`.`flume`.`2018-10-18`)
 
-This runs a Create Table statement from a SQL Select statement and will write the output as a Parquet file. 
+This runs a CREATE TABLE statement from a SQL Select statement and will write the output as a Parquet file. The CREATE TABLE statement is pretty flexible and allows you to create table structures in a range of data formats. You could also extend this to enrich your data by combining multiple queries or datasources in your query to enable greater visibility of your data.
 
 Find out how to query it next!
 
@@ -359,12 +361,14 @@ Drill has written this one to the Hadoop temporary location where it has write a
 
     select * from dfs.tmp.sampleparquet
 
-This allows you to run an SQL query directly over a Parquet table structure.
+This allows you to run an SQL query directly over a Parquet table structure. Because Parquet is a binary format, you can't just go and look in the file, you need an application to process that data, Druid does this for you. But Druid also knows how to structure the query in such a way that the data is returned in the fastest way possible.
 
 ## Where next?!
 Duration: 2:00
 
-So in this tutorial you've,
+Hopefully you've enjoyed this tutorial about the Anssr platform and how to get more out of your data.
+
+In this tutorial you've,
 
 * Deployed a Hadoop cluster
 * Wired up Apache Drill
@@ -379,3 +383,5 @@ Then you
 Not bad considering how little command line interaction is required. This demonstrates just some of the flexibility of the Anssr platform.
 
 What next? How about Machine Learning? Complex Event Processing? Streaming Analytics? All can be achieved using Anssr and the Juju engine.
+
+If you have any more comments or questions, you can find more help and support on the [Juju forums](http://discourse.jujucharms.com/). Or via the Spicule [Juju Expert Partners](https://jujucharms.com/experts/spicule) page.
