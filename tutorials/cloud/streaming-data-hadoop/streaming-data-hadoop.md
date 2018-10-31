@@ -334,7 +334,9 @@ Once you've updated the data source, click on the Query tab.
 
 Then you can run the following query:
 
-    select * from `juju_hdfs_plugin`.`flume`.`2018-10-29`
+    select * from `juju_hdfs_plugin`.`flume`.`[yyyy-MM-dd]`
+    
+Where yyyy-MM-dd is the current date.
 
 This data is processed from the log files written by Flume into HDFS and eventually could be many Terabytes worth of data. The great thing about Apache Drill is the fact that it'll piece together multiple files in a directory into a single table, so although Flume is writing individual files over time, Drill will treat them all as one.
 
