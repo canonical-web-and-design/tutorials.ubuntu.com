@@ -336,7 +336,7 @@ Once you've updated the data source, click on the Query tab.
 
 Then you can run the following query:
 
-    select * from `juju_hdfs_plugin`.`flume`.`[yyyy-MM-dd]`
+    select * from `juju_hdfs_plugin`.`flume`.`yyyy-MM-dd`
     
 Where yyyy-MM-dd is the current date.
 
