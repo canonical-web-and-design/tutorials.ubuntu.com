@@ -11,7 +11,7 @@ author: Tom Barber <tom@spicule.co.uk>
 
 ---
 
-# Streaming Data Analysis with Apache Hadoop
+# Streaming Data Analytics with Apache Hadoop
 
 ## Overview
 Duration: 2:00
@@ -104,13 +104,13 @@ The applications are the Namenode, Resource Manager, Workers, Client and Plugin.
 
 Click on Units, check 2 of the checkboxes and click the remove button.
 
-Once you've done this click Deploy changes.
+Once you've done this click Commit changes in the bottom right of the screen.
 
 If you've not logged into the charm store at this point you will be asked to Login or Sign up to Juju, this uses Ubuntu One, so if you've already got an account you can enter it here.
 
 Next you will be asked where you want to deploy your Hadoop cluster. Depending on your cloud choices you can then select from AWS, Azure or GCP. You will need to enter your cloud credentials and its advised you upload your SSH key using the manual SSH key entry or use the Github or Launchpad key installers. Make sure you click the Add key button before moving on.
 
-From there you then need to click the Deploy button.
+From there you then need to click the Commit button.
 
 As machines get started and applications deployed, the charms on the canvas should get different coloured outlines to indicate their status. You can also find out more about their current state by clicking on the Status tab. When finished all the charms should be in the Active state with a ready status message.
 
@@ -146,7 +146,7 @@ Once we have a Hadoop cluster up and running it's time to spin up our streaming 
 
 Search the charm store for Kafka and add it to the canvas.
 
-Then search for apache flume and add both the HDFS and Kafka flume charms to the canvas.
+Then search for Apache Flume and add both the Flume HDFS and Flume Kafka charms to the canvas.
 
 Finally we need to create relations, so join Kafka to the Apache Flume Kafka charm and that charm to the Apache Flume HDFS charm. Once that's done connect the Apache Flume HDFS charm to the Hadoop Plugin charm. 
 
@@ -155,7 +155,7 @@ Finally we need to create relations, so join Kafka to the Apache Flume Kafka cha
 
 To make Kafka work, we also need a zookeeper charm so add that to the canvas and connect it to Kafka.
 
-Next click the Deploy button, this will spin up the relevant machines and install the required software.
+Next click the Commit changes button, this will spin up the relevant machines and install the required software.
 
 ### Deploy via CLI
 
@@ -175,7 +175,7 @@ If you are a command line user you can use the following commands:
 
 Once all the units are up and running we then need to configure them so they know what data to process.
 
-In the GUI, select the Kafka Flume charm and select the Configure option from the menu. Towards the bottom you'll see an entry for the kafka_topic. Set this to `cpu-metrics-topic`.
+In the GUI, select the Flume Kafka charm and select the Configure option from the menu. Towards the bottom you'll see an entry for the kafka_topic. Set this to `cpu-metrics-topic` and then commit changes.
 
 ![](images/kafkaconfig.png)
 
@@ -215,7 +215,11 @@ The easiest way to do this is to run it directly on the Kakfa server. To do that
 
     juju ssh kafka/0
 
-Then you can either download [this](https://www.dropbox.com/s/oczzh8iebo0u7sn/kafka-cpu-metrics-producer.jar?dl=1) jar file, or compile it from source like so:
+Then you can either download this jar file,
+
+    wget -O kafka-cpu-metrics-producer.jar https://www.dropbox.com/s/oczzh8iebo0u7sn/kafka-cpu-metrics-producer.jar?dl=1 
+
+or compile it from source like so:
  
     git clone https://github.com/buggtb/kafka-streams-example
     sudo apt install maven
@@ -258,11 +262,11 @@ Duration: 5:00
 
 Apache Drill allows users to run SQL queries over NoSQL data sources. Out of the box it has support for HDFS, standard filesystems, MongoDB, Kudu, Kafka and others.
 
-To deploy it you can search for Apache Drill in the charm store. Add it to the canvas and relate it to the Zookeeper charm, Kafka charm and finally connect it to the Hadoop plugin charm and press the deploy button. 
+To deploy it you can search for Apache Drill in the charm store. Add it to the canvas and relate it to the Zookeeper charm, Kafka charm and finally connect it to the Hadoop plugin charm and press the commit button. 
 
 ![](images/deploydrill.png)
 
-As this is a GUI based tool, we're also going to expose it. Select the charm, click on the Expose menu button, then expose the app. Make sure you press the Deploy Changes button afterwards.
+As this is a GUI based tool, we're also going to expose it. Select the charm, click on the Expose menu button, then expose the app. Make sure you press the Commit changes button afterwards.
 
 Or if you are a CLI user run:
     
@@ -277,7 +281,9 @@ Once its deployed you're then you're ready to run some SQL goodness!
 ## Running SQL over a live stream
 Duration: 5:00
 
-Because we related Apache Drill to Kafka, Juju will have automatically configured our DFS and Kafka datasources. If you navigate to Apache Drill in a browser you can see both are configured in the Sources tab, for example a Kafka data source should look similar to:
+To navigate to drill, find the IP in the Status tab and in a browser navigate to http://<ip>:8047. If it doesn't load ensure you "exposed" the service.
+    
+Because we related Apache Drill to Kafka, Juju will have automatically configured our DFS and Kafka datasources. If you navigate to Apache Drill in a browser you can see both are configured in the Storage tab, for example a Kafka data source should look similar to:
 
     {
       "type": "kafka",
@@ -305,7 +311,7 @@ You can also query the files being written by Flume into the HDFS cluster.
 
 So that Drill understands the files being written by Flume and also their location, you need to make a couple of minor tweaks to the juju_hadoop_plugin data source in Apache Drill.
 
-Firstly: 
+Firstly in the top block below where it says root add: 
 
     "flume": {
       "location": "/user/flume/flume-kafka",
@@ -314,7 +320,7 @@ Firstly:
       "allowAccessOutsideWorkspace": true
     }
 
-Then:
+Then amend the JSON block:
 
     "json": {
       "type": "json",
@@ -330,7 +336,9 @@ Once you've updated the data source, click on the Query tab.
 
 Then you can run the following query:
 
-    select * from `juju_hdfs_plugin`.`flume`.`2018-10-29`
+    select * from `juju_hdfs_plugin`.`flume`.`[yyyy-MM-dd]`
+    
+Where yyyy-MM-dd is the current date.
 
 This data is processed from the log files written by Flume into HDFS and eventually could be many Terabytes worth of data. The great thing about Apache Drill is the fact that it'll piece together multiple files in a directory into a single table, so although Flume is writing individual files over time, Drill will treat them all as one.
 
@@ -346,8 +354,9 @@ Apache Drill can query Parquet files, which is cool. But it can also create Parq
 Execute the following query: 
 
     CREATE TABLE dfs.tmp.sampleparquet AS 
-    (select machine, cast(cpu as double) cpu, cast(memory as double) memory, status from `juju_hdfs_namenode`.`flume`.`2018-10-18`)
+    (select machine, cast(cpu as double) cpu, cast(memory as double) memory, status from `juju_hdfs_namenode`.`flume`.`yyyy-MM-dd`)
 
+Where yyyy-MM-dd is the current date.
 This runs a CREATE TABLE statement from a SQL Select statement and will write the output as a Parquet file. The CREATE TABLE statement is pretty flexible and allows you to create table structures in a range of data formats. You could also extend this to enrich your data by combining multiple queries or datasources in your query to enable greater visibility of your data.
 
 Find out how to query it next!
