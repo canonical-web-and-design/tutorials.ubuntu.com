@@ -104,7 +104,7 @@ The applications are the Namenode, Resource Manager, Workers, Client and Plugin.
 
 Click on Units, check 2 of the checkboxes and click the remove button.
 
-Once you've done this click Commit changes.
+Once you've done this click Commit changes in the bottom right of the screen.
 
 If you've not logged into the charm store at this point you will be asked to Login or Sign up to Juju, this uses Ubuntu One, so if you've already got an account you can enter it here.
 
@@ -146,7 +146,7 @@ Once we have a Hadoop cluster up and running it's time to spin up our streaming 
 
 Search the charm store for Kafka and add it to the canvas.
 
-Then search for apache flume and add both the HDFS and Flume Kafka charms to the canvas.
+Then search for Apache Flume and add both the Flume HDFS and Flume Kafka charms to the canvas.
 
 Finally we need to create relations, so join Kafka to the Apache Flume Kafka charm and that charm to the Apache Flume HDFS charm. Once that's done connect the Apache Flume HDFS charm to the Hadoop Plugin charm. 
 
@@ -155,7 +155,7 @@ Finally we need to create relations, so join Kafka to the Apache Flume Kafka cha
 
 To make Kafka work, we also need a zookeeper charm so add that to the canvas and connect it to Kafka.
 
-Next click the Deploy button, this will spin up the relevant machines and install the required software.
+Next click the Commit changes button, this will spin up the relevant machines and install the required software.
 
 ### Deploy via CLI
 
