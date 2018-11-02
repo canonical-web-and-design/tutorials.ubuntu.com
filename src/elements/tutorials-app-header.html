@@ -53,6 +53,12 @@
         color: #fff;
         text-decoration: none;
       }
+      
+      .search {
+        display: flex;
+        flex-direction: row;
+        align-content: flex;
+      }
 
       paper-input {
         --paper-input-container-focus-color: white;
@@ -66,6 +72,10 @@
               <a href="/">
                 <tutorials-app-logo></tutorials-app-logo>
               </a>
+            </div>
+            <div>
+                <codelabs-index></codelabs-index>
+                <input id="edit-keys" type="search" placeholder="Search tutorials" is="iron-input" class="style-scope codelabs-index">
             </div>
           </app-toolbar>
         </app-header>
