@@ -74,16 +74,10 @@ Duration: 2:00
 To connect to JAAS from the command line you'll need to register with the JAAS controller. You will be required to do this just the first time.
     $ juju register jimm.jujucharms.com
 
-This command will open a new window in your default web browser. Use Ubuntu SSO to login and authorise your account.
-You will then be asked to enter a descriptive name for the JAAS controller. We suggest using jaas.
-JAAS users with existing models, might first need to switch to the relevant model:
-    $ juju switch <model-name>
+You can check connectivity with:
 
-Your Hadoop Spark cluster is managed as a model by Juju. View the model's status with:
-    $ juju status
+    juju list-models
 
-To watch continuously, in colour, run:
-    $ watch -c juju status --color
 
 ## Deploying Hadoop with JAAS
 Duration: 30:00
