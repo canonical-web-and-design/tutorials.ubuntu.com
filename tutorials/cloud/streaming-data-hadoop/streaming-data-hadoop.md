@@ -68,7 +68,7 @@ Verify you can run Juju. You will see a summary and a list of common commands.
 You're all set!
 
 
-## Connecting to Jaas
+## Connecting to JAAS
 Duration: 2:00
 
 To connect to JAAS from the command line you'll need to register with the JAAS controller. You will be required to do this just the first time.
