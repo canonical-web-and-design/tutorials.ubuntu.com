@@ -4,7 +4,7 @@ summary: Get started with Hadoop on JAAS with this streaming data example. We wi
 categories: community
 tags: beginner, hadoop, data, kafka
 difficulty: 3
-status: draft
+status: published
 feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 published: 2018-10-18
 author: Tom Barber <tom@spicule.co.uk>
