@@ -1,8 +1,8 @@
 ---
 id: streaming-hadoop-analysis
 summary: Get started with Hadoop on JAAS with this streaming data example. We will use JAAS to deploy a fully supported Hadoop stack and then stream data into the platform for interactive SQL based Analysis.
-categories: community
-tags: beginner, hadoop, data, kafka
+categories: cloud
+tags: beginner, hadoop, data, kafka, jaas, juju, aws, azure, compute
 difficulty: 3
 status: published
 feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
