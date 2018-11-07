@@ -382,9 +382,9 @@ technique to quickly iterate over your snap during development:
 snapcraft prime
 ```
 
-What we did was tell snapcraft to run the build up until the "prime" stage. That is, we are
-omitting the "snap" stage (see lower down for an explanation of snapcraft stages). What this
-invocation gives therefore are the unpacked contents of a snap.
+What we did was tell snapcraft to run the build up until the "prime" step. That is, we are
+omitting the "pack" step (see lower down for an explanation of each step in a snapcraft
+lifecycle). What this invocation gives therefore are the unpacked contents of a snap.
 
 We can then provide this content to `snap try`:
 
@@ -403,9 +403,9 @@ take effect instantly, thereby expediting your testing.
 
 positive
 : **Note:**
-The different stages of snapcraft are: "pull" (download source for all parts), "build", "stage"
+The different steps of [the snapcraft lifecycle](https://docs.snapcraft.io/snapcraft-lifecycle/5123) are: "pull" (download source for all parts), "build", "stage"
 (consolidate installed files of all parts), "prime" (distill down to just the desired files), and
-"snap" (create a snap out of the prime/ directory). Each step depends on the successful completion
+"pack" (create a snap out of the prime/ directory). Each step depends on the successful completion
 of the previous one.
 
 Things should be working now. Let's test:
@@ -512,7 +512,7 @@ are:
 
   - Instruct only one of the two parts to place content in this directory. We can also tell both
     to supress the content. Which solution depends on the necessity of said content. Either is
-    achieved by influencing the 'snap' and 'stage' stages.
+    achieved by influencing the 'snap' and 'stage' steps.
   - Change the directory location for one of the two parts.
 
 Luckily the second option is easy to implement and it's nice being able to ship both. The
