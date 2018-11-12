@@ -170,10 +170,7 @@ confinement: devmode
 
 positive
 : **Note:**
-The version is quoted ('`2.10`') because the version is a string, not a number. You could
-theoretically use a version string without numbers (like '`myfirstversion`'). This information is
-for user consumption only and doesn't require special ordering (e.g. ver1 > ver2) for an update to
-reach the user.
+Version information is for snap user consumption only, and has no effect on snap updates. It's defined within quotes, (`'2.10'`), because it needs to be a [YAML string](http://yaml.org/type/str.html) rather than a floating-point number. Using a string allows for non-numeric version details, such as '`myfirstversion`' or '`2.3-git`'.
 
 ### Adding a part
 
