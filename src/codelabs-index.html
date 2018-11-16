@@ -25,7 +25,7 @@
         --paper-tab-ink: var(--app-primary-color);
       }
 
-      input[type='search'] {
+      .navbar-search__input {
         background-color: white;
         border: 1px solid var(--color-mid-light);
         border-radius: 0;
@@ -47,12 +47,58 @@
       }
 
       @media only screen and (min-width: 769px) {
-        input[type='search'] {
-          width: 480px;
+        .navbar-search {
+          left: calc(70%);
+          padding: 0;
+          position: fixed;
+          top: -20px;
+          z-index: 9999;
+        }
+
+        .navbar-search__input {
+          height: 40px;
+          width: 200px;
+        }
+
+        paper-icon-button.search {
+          position: absolute;
+          right: -50px;
+          top: 25px;
         }
       }
 
-      input[type='search']:focus {
+      @media only screen and (min-width: 600px) and (max-width: 768px) {
+        .navbar-search {
+          padding: 0;
+          position: fixed;
+          right: 20px;
+          top: -20px;
+          z-index: 9999;
+        }
+
+        .navbar-search__input {
+          height: 40px;
+          width: 182px;
+        }
+      }
+
+      @media only screen and (max-width: 599px) {
+        .navbar-search {
+          left: 20px;
+          padding: 0;
+          position: fixed;
+          top: 32px;
+          width: 100%;
+          z-index: 9999;
+        }
+
+        .navbar-search__input {
+          height: 40px;
+          width: calc(100% - 40px);
+        }
+      }
+
+      .navbar-search__input[type='search']:focus {
         border-color: var(--tertiary-text-color);
         color: var(--tertiary-text-color);
       }
@@ -110,7 +156,7 @@
         font-family: 'Ubuntu', Helvetica, Arial;
         height: 100%;
         overflow: hidden;
-        padding: 0 10px 10px;
+        padding: 10px;
         position: relative;
         width: 100%;
       }
@@ -146,17 +192,21 @@
       }
 
       .heading-results {
+        margin: 0;
+      }
+
+      .heading-results__header {
         margin-bottom: 1em;
       }
 
       @media only screen and (min-width: 769px) {
-        .heading-results {
+        .heading-results__header {
           margin-bottom: 1.75em;
         }
       }
 
       @media only screen and (min-width: 769px) {
-        .heading-results {
+        .heading-results__header {
           margin-bottom: 2em;
         }
       }
@@ -303,12 +353,14 @@
               <a href='https://github.com/canonical-websites/tutorials.ubuntu.com/issues?q=is%3Aopen+is%3Aissue+label%3A"Type%3A+Tutorial+Request"' class="external">
                 let us know</a>.</p>
 
-            <div>
+            <div class="navbar-search">
               <label class="accessibility-aid" for="edit-keys" hidden="hidden">Search</label>
-              <input id="edit-keys" type="search" placeholder="Search tutorials" is="iron-input" bind-value="{{filterSearch}}" />
+              <input id="edit-keys" type="search" placeholder="Search tutorials" is="iron-input" bind-value="{{filterSearch}}" class="navbar-search__input"/>
               <paper-icon-button class="search" icon="search"></paper-icon-button>
+            </div>
+            <div class="heading-results">
               <template is="dom-if" if="[[filterSearch]]">
-                <h2 class="heading-results">
+                <h2 class="heading-results__header">
                   <span class="heading-results__highlight">[[searchResultCount]]</span> search results for <span class="heading-results__highlight">[[filterSearch]]</span>
                 </h2>
               </template>
