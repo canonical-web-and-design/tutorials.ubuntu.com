@@ -142,11 +142,22 @@
       :focus:-moz-placeholder { /* Firefox 18- */
         color: var(--tertiary-text-color);
       }
+      
+      .container {
+        background: white;
+        padding-bottom: 2rem;
+      }
 
-      .content {
+      .container__content {
         margin: 0 auto;
         max-width: 980px;
         padding: 10px;
+      }
+      
+      @media only screen and (max-width: 768px) {
+        .container--margin-top {
+          margin-top: 56px;
+        }
       }
 
       .intro {
@@ -200,13 +211,7 @@
       }
 
       @media only screen and (min-width: 769px) {
-        .heading-results__header {
-          margin-bottom: 1.75em;
-        }
-      }
-
-      @media only screen and (min-width: 769px) {
-        .heading-results__header {
+        .heading-results {
           margin-bottom: 2em;
         }
       }
@@ -273,7 +278,6 @@
         border-top: 1px solid #cdcdcd;
         font-size: 0.875rem;
         line-height: 1.5;
-        margin-top: 2rem;
         padding: 1rem 0 2rem;
       }
 
@@ -321,10 +325,7 @@
       }
     </style>
 
-    <app-route
-      route="{{route}}"
-      pattern="/:event"
-      data="{{routeData}}"></app-route>
+    <app-route route="{{route}}" pattern="/:event" data="{{routeData}}"></app-route>
 
     <div class="layout vertical">
       <tutorials-app-header></tutorials-app-header>
@@ -336,86 +337,74 @@
               <h1>{{currentEvent.name}}</h1>
               <p>{{currentEvent.description}}</p>
             </div>
-          </div>
-        </template>
-        <div class="content">
-          <div class="wrap intro">
-            <h1>Do more with Ubuntu!</h1>
-            <p>Ubuntu Tutorials are project-based, step-by-step guides to 
-              doing amazing things with Ubuntu. From installing the OS in 
-              the first place to packaging your first snap, we're here to
-              help you on your way.</p>
-            <p>This site is open source and open to contributions from the
-              Linux community, if you have a knack for writing and sharing
-              your knowledge, you can <a href="/tutorial/tutorial-guidelines">
-                read our guide</a> to get started.</p>
-            <p>If you'd like to see a tutorial written on a specific topic,
-              <a href='https://github.com/canonical-websites/tutorials.ubuntu.com/issues?q=is%3Aopen+is%3Aissue+label%3A"Type%3A+Tutorial+Request"' class="external">
-                let us know</a>.</p>
-
-            <div class="navbar-search">
-              <label class="accessibility-aid" for="edit-keys" hidden="hidden">Search</label>
-              <input id="edit-keys" type="search" placeholder="Search tutorials" is="iron-input" bind-value="{{filterSearch}}" class="navbar-search__input"/>
-              <paper-icon-button class="search" icon="search"></paper-icon-button>
-            </div>
-            <div class="heading-results">
-              <template is="dom-if" if="[[filterSearch]]">
-                <h2 class="heading-results__header">
-                  <span class="heading-results__highlight">[[searchResultCount]]</span> search results for <span class="heading-results__highlight">[[filterSearch]]</span>
-                </h2>
-              </template>
-            </div>
-            <div>
-              <tutorials-filters
-                selected-category="{{filterCategory}}"
-                selected-sort="{{filterSort}}"
-                selected-user="{{filterUser}}"
-                >
-              </tutorials-filters>
-            </div>
-          </div>
-
-          <div class="horizontal layout end">
-            <div class="flex"></div>
-          </div>
-          <div class="horizontal layout wrap">
-            <template is="dom-repeat" items="[[filteredTutorials]]" sort="[[_getSortFunction(filterSort)]]">
-              <codelabs-card heading="[[item.title]]" summary="[[item.summary]]" category="[[item.category]]"
-                            difficulty="[[item.difficulty]]" duration="[[item.duration}}" tags="[[item.tags]]"
-                            published="[[item.published]]" url="[[item.url]]"
-                            ></codelabs-card>
-            </template>
-            <template is="dom-if" if="[[isEmpty]]">
-              <div class="no-results">
-                <h2>Why not try widening your search?</h2>
-                <h3>You can do this by:</h3>
-                <ul>
-                  <li>Removing any filters</li>
-                  <li>Using individual words instead of phrases</li>
-                  <li>Trying a different spelling</li>
-                </ul>
-              </div>
-            </template>
-          </div>
-        </div>
-        <footer class="footer">
-          <p>© 2018 Canonical Ltd. Ubuntu and Canonical are registered trademarks of Canonical Ltd.</p>
-          <nav class="footer__nav">
-            <ul class="footer__links">
-              <li class="footer__item">
-                <a class="footer__link" href="https://www.ubuntu.com/legal">Legal Information</a>
-              </li>
-              <li class="footer__item">
-                <a class="footer__link" href="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy">Cookie policy</a>
-              </li>
-              <li class="footer__item">
-                <a class="footer__link" href="https://github.com/canonical-websites/tutorials.ubuntu.com/issues/new">Report a bug on this site</a>
-              </li>
-            </ul>
-          </nav>
-        </footer>
+      </div>
+  </template>
+  <div class="container container--margin-top">
+    <div class="container__content">
+      <div class="wrap intro">
+        <h1>Innovation. Education.</h1>
+        <p>Ubuntu Tutorials provide a step by step process to doing development and dev-ops activities on Ubuntu
+          machines, servers and devices.</p>
       </div>
     </div>
+  </div>
+  <div class="container">
+    <div class="container__content">
+      <div class="navbar-search">
+        <label class="accessibility-aid" for="edit-keys" hidden="hidden">Search</label>
+        <input id="edit-keys" type="search" placeholder="Search tutorials" is="iron-input" bind-value="{{filterSearch}}" />
+        <paper-icon-button class="search" icon="search"></paper-icon-button>
+        <template is="dom-if" if="[[filterSearch]]">
+          <h2 class="heading-results">
+            <span class="heading-results__highlight">[[searchResultCount]]</span> search results for <span class="heading-results__highlight">[[filterSearch]]</span>
+          </h2>
+        </template>
+      </div>
+      <div>
+        <tutorials-filters selected-category="{{filterCategory}}" selected-sort="{{filterSort}}" selected-user="{{filterUser}}">
+        </tutorials-filters>
+      </div>
+      <div class="horizontal layout end">
+        <div class="flex"></div>
+      </div>
+      <div class="horizontal layout wrap">
+        <template is="dom-repeat" items="[[filteredTutorials]]" sort="[[_getSortFunction(filterSort)]]">
+          <codelabs-card heading="[[item.title]]" summary="[[item.summary]]" category="[[item.category]]" difficulty="[[item.difficulty]]"
+            duration="[[item.duration}}" tags="[[item.tags]]" published="[[item.published]]" url="[[item.url]]"></codelabs-card>
+        </template>
+        <template is="dom-if" if="[[isEmpty]]">
+          <div class="no-results">
+            <h2>Why not try widening your search?</h2>
+            <h3>You can do this by:</h3>
+            <ul>
+              <li>Removing any filters</li>
+              <li>Using individual words instead of phrases</li>
+              <li>Trying a different spelling</li>
+            </ul>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+  <footer class="footer">
+    <p>© 2018 Canonical Ltd. Ubuntu and Canonical are registered trademarks of Canonical Ltd.</p>
+    <nav class="footer__nav">
+      <ul class="footer__links">
+        <li class="footer__item">
+          <a class="footer__link" href="https://www.ubuntu.com/legal">Legal Information</a>
+        </li>
+        <li class="footer__item">
+          <a class="footer__link" href="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy">Cookie policy</a>
+        </li>
+        <li class="footer__item">
+          <a class="footer__link" href="https://github.com/canonical-websites/tutorials.ubuntu.com/issues/new">Report a
+            bug on this site</a>
+        </li>
+      </ul>
+    </nav>
+  </footer>
+  </div>
+  </div>
   </template>
 
   <script>
@@ -506,7 +495,7 @@
       },
 
       _getSortFunction: function(sortOption) {
-        switch(sortOption) {
+        switch (sortOption) {
           case 'published-asc':
             return function(a, b) {
               return (a.published > b.published ? 1 : -1);
