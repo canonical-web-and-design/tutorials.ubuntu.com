@@ -17,12 +17,12 @@ feedback_url: https://github.com/ubuntu/microk8s/issues/
 
 ### What is Kubernetes
 
-[Kubernetes][kubernetes] clusters host containarised application in a reliable and scalable way. Having devops in mind, Kubernetes makes maitenance tasks such as upgrades dead simple.
+[Kubernetes][kubernetes] clusters host containerised applications in a reliable and scalable way. Having devops in mind, Kubernetes makes maintenance tasks such as upgrades dead simple.
 
 
 ### What is microk8s
 
-[Microk8s][microk8s] is a [CNCF certified][cncf-cert] upstream kubernetes deployment that runs entirely in your workstation. Being a [snap][snap] it runs all Kubernetes services natively (i.e. no virtual machines) while packing the entire set of libraries and binaries needed. Installation is limited by how fast you can download a couple of hundred megabytes and the removal of microk8s leaves nothing behind. 
+[Microk8s][microk8s] is a [CNCF certified][cncf-cert] upstream Kubernetes deployment that runs entirely in your workstation. Being a [snap][snap] it runs all Kubernetes services natively (i.e. no virtual machines) while packing the entire set of libraries and binaries needed. Installation is limited by how fast you can download a couple of hundred megabytes and the removal of microk8s leaves nothing behind.
 
 ### In this tutorial you’ll learn how to...
 
@@ -45,14 +45,37 @@ The quickest way to get started is to install microk8s directly from the [snap s
 Using the command line, we can install microk8s and let it update to the latest stable upstream Kubernetes release with:
 
 ```bash
-snap install microk8s --classic
+sudo snap install microk8s --classic
 ```
 
-[Microk8s][microk8s] is a snap and as such it is frequently updated to each release of Kubernetes. To follow a specific upstream release series we can select a channel during installation. For example, to follow the v1.12 series:
+[Microk8s][microk8s] is a snap and as such it is frequently updated to each release of Kubernetes. To follow a specific upstream release series we can select a [channel][snap-channels] during installation. For example, to follow the v1.12 series:
 
 ```bash
-snap install microk8s --classic --channel=1.12/stable
+sudo snap install microk8s --classic --channel=1.12/stable
 ```
+
+Channels are made up of a track and an expected level of microk8s' stability. Try `snap info microk8s` to see what versions are currently published. At the time of this writing we have:
+```bash
+channels:
+  stable:         v1.12.2  (266) 224MB classic
+  candidate:      v1.12.2  (266) 224MB classic
+  beta:           v1.12.2  (266) 224MB classic
+  edge:           v1.12.2  (309) 224MB classic
+  1.12/stable:    v1.12.2  (267) 224MB classic
+  1.12/candidate: v1.12.2  (267) 224MB classic
+  1.12/beta:      v1.12.2  (267) 224MB classic
+  1.12/edge:      v1.12.2  (310) 224MB classic
+  1.11/stable:    v1.11.4  (255) 219MB classic
+  1.11/candidate: v1.11.4  (255) 219MB classic
+  1.11/beta:      v1.11.4  (255) 219MB classic
+  1.11/edge:      v1.11.4  (292) 219MB classic
+  1.10/stable:    v1.10.9  (245) 175MB classic
+  1.10/candidate: v1.10.10 (285) 175MB classic
+  1.10/beta:      v1.10.10 (285) 175MB classic
+  1.10/edge:      v1.10.10 (291) 175MB classic
+
+```
+
 
 positive
 : You may need to configure your firewall to allow pod-to-pod and pod-to-internet communication:
@@ -90,12 +113,7 @@ With `microk8s.status` you can see the list of available addons and the ones cur
 ## Accessing the Kubernetes and grafana dashboards
 Duration: 8:00
 
-We have already seen how to enable the dns and the dashboard addons:
-```bash
-microk8s.enable dns dashboard
-```
-
-We can check the deployment progress of our addons with `microk8s.kubectl get all --all-namespaces`. After a few minutes we should get all our pods in the "Running" state:
+Now that we have enabled the dns and dashboard addons we can access the available dashboard. To do so we first check the deployment progress of our addons with `microk8s.kubectl get all --all-namespaces`. It only takes a few minutes to get all pods in the "Running" state:
 ```
 > microk8s.kubectl get all --all-namespaces
 NAMESPACE     NAME                                                  READY   STATUS    RESTARTS   AGE
@@ -135,7 +153,7 @@ As we see above the kubernetes-dashboard service in the kube-system namespace ha
 
 ### Grafana dashboard
 
-Let's see an alternative approach in accessing hosted services. The API server proxies our services, here is how to get to them:
+Let's use an alternative approach to access hosted services. The API server proxies our services, here is how to get to them:
 ```bash
 > microk8s.kubectl cluster-info
 Kubernetes master is running at http://127.0.0.1:8080
@@ -153,12 +171,12 @@ We only need to point our browser to (http://127.0.0.1:8080/api/v1/namespaces/ku
 ## Host your first service in Kubernetes
 Duration: 7:00
 
-As we are introducing microk8s we do not use yaml manifests, instead we create a deployment of microbot with two pods via the cli:
+We start by creating a microbot deployment with two pods via the kubectl cli:
 ```bash
 microk8s.kubectl run microbot --image=dontrebootme/microbot:v1 --replicas=2
 ```
 
-To expose our deployment we create a service:
+To expose our deployment we need to create a service:
 ```bash
 microk8s.kubectl expose deployment microbot --type=NodePort --port=80 --name=microbot-service
 ```
@@ -200,7 +218,7 @@ kube-system   replicaset.apps/kubernetes-dashboard-67d4c89764             1     
 kube-system   replicaset.apps/monitoring-influxdb-grafana-v4-8467db6558   1         1         1       51m
 ```
 
-At the very top we have our microbot pods, `service/microbot-service` is the second in the services list. Our service has a ClusterIP through which we can access it. Notice however that our service is of type [NodePort][nodeport]. This means that our deployment is also available on a port on the host machine; that port is randomly selected and in this case it happens to be `32648`. All we need is to point our browser to http://localhost:32648
+At the very top we have the microbot pods, `service/microbot-service` is the second in the services list. Our service has a ClusterIP through which we can access it. Notice however that our service is of type [NodePort][nodeport]. This means that our deployment is also available on a port on the host machine; that port is randomly selected and in this case it happens to be `32648`. All we need to do is to point our browser to `http://localhost:32648`.
 
 ![Microbot](images/microbot.png)
 
@@ -208,7 +226,7 @@ At the very top we have our microbot pods, `service/microbot-service` is the sec
 ## Integrated commands
 Duration: 5:00
 
-There are a few commands that come along with microk8s some of them are essential in interacting with the cluster others are here just for your convenience:
+There are many commands that ship with microk8s. We've only seen the essential ones in this tutorial. Explore the others at your own convenience:
 
  - microk8s.status: Provides an overview of the microk8s state (running/not running) as well as the set of enabled addons
  - microk8s.enable: Enables an addon
@@ -248,3 +266,4 @@ microk8s.stop
 [snap]: https://snapcraft.io
 [microk8s-snap]: https://snapcraft.io/microk8s
 [nodeport]: https://kubernetes.io/docs/concepts/services-networking/service/#nodeport
+[snap-channels]: https://docs.snapcraft.io/channels/551
