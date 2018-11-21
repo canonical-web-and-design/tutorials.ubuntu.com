@@ -1,5 +1,5 @@
 ---
-id: introducing-microk8s
+id: install-a-local-kubernetes-with-microk8s
 summary: Get a local Kubernetes on your workstation with microk8s. Possibly the fastest path to this great open-source orchestration system, Kubernetes.
 categories: containers
 tags: kubernetes, beginner, container, microk8s
@@ -11,7 +11,7 @@ feedback_url: https://github.com/ubuntu/microk8s/issues/
 
 ---
 
-# Introducing microk8s
+# Install a local Kubernetes with microk8s
 
 ## Overview
 
