@@ -76,16 +76,16 @@ sudo tar -cvzf rootfs.tar.gz -C /tmp/sid-lxd .
 ## Creating a metadata file
 Duration: 2:00
 
-The `medatata.yaml` file describes things like image creation date, name, architecture and description. To create an LXD image, we need to provide such a file. Here's an example of how simple metadata file should look:
+The `metadata.yaml` file describes things like image creation date, name, architecture and description. To create an LXD image, we need to provide such a file. Here's an example of how simple metadata file should look:
 
 ```
 architecture: "x86_64"
 creation_date: 1458040200 # To get current date in Unix time, use `date +%s` command
 properties:
- architecture: "x86_64"
-  description: "Debian Unstable (sid) with preconfigured Node.js repository (20171227)"
-   os: "debian"
-    release: "sid"
+architecture: "x86_64"
+description: "Debian Unstable (sid) with preconfigured Node.js repository (20171227)"
+os: "debian"
+release: "sid"
 ```
 
 ### Creating a tarball from the metadata file
