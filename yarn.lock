@@ -1634,7 +1634,7 @@ check-error@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/check-error/-/check-error-1.0.2.tgz#574d312edd88bb5dd8912e9286dd6c0aed4aac82"
 
-cheerio@^1.0.0-rc.2:
+cheerio@1.0.0-rc.2:
   version "1.0.0-rc.2"
   resolved "https://registry.yarnpkg.com/cheerio/-/cheerio-1.0.0-rc.2.tgz#4b9f53a81b27e4d5dac31c0ffd0cfa03cc6830db"
   dependencies:
@@ -2561,17 +2561,17 @@ escope@^3.6.0:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
 
-eslint-config-google@^0.7.1:
+eslint-config-google@0.7.1:
   version "0.7.1"
   resolved "https://registry.yarnpkg.com/eslint-config-google/-/eslint-config-google-0.7.1.tgz#5598f8498e9e078420f34b80495b8d959f651fb2"
 
-eslint-plugin-html@^2.0.0:
+eslint-plugin-html@2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/eslint-plugin-html/-/eslint-plugin-html-2.0.3.tgz#7c89883ab0c85fa5d28b666a14a4e906aa90b897"
   dependencies:
     htmlparser2 "^3.8.2"
 
-eslint@^3.14.1:
+eslint@3.19.0:
   version "3.19.0"
   resolved "https://registry.yarnpkg.com/eslint/-/eslint-3.19.0.tgz#c8fc6201c7f40dd08941b87c085767386a679acc"
   dependencies:
@@ -2740,13 +2740,13 @@ expand-tilde@^1.2.2:
   dependencies:
     os-homedir "^1.0.1"
 
-express-interceptor@^1.2.0:
+express-interceptor@1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/express-interceptor/-/express-interceptor-1.2.0.tgz#33460a8e11dce7e5a022caf555d377e45ddb822a"
   dependencies:
     debug "^2.2.0"
 
-express-redirect@^1.2.2:
+express-redirect@1.2.2:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/express-redirect/-/express-redirect-1.2.2.tgz#6df98e99ee16ca2a1a7d6e4bb663dd6bf87e599c"
   dependencies:
@@ -2965,7 +2965,7 @@ find-up@^2.0.0, find-up@^2.1.0:
   dependencies:
     locate-path "^2.0.0"
 
-find@^0.2.7:
+find@0.2.7:
   version "0.2.7"
   resolved "https://registry.yarnpkg.com/find/-/find-0.2.7.tgz#7afbd00f8f08c5b622f97cda6f714173d547bb3f"
   dependencies:
@@ -3353,7 +3353,7 @@ graceful-fs@^4.0.0, graceful-fs@^4.1.0, graceful-fs@^4.1.11, graceful-fs@^4.1.2,
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/graceful-readlink/-/graceful-readlink-1.0.1.tgz#4cafad76bc62f02fa039b2f94e9a3dd3a391a725"
 
-gray-matter@^3.1.1:
+gray-matter@3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/gray-matter/-/gray-matter-3.1.1.tgz#101f80d9e69eeca6765cdce437705b18f40876ac"
   dependencies:
@@ -4444,9 +4444,24 @@ mkdirp@0.5.1, mkdirp@^0.5.0, mkdirp@^0.5.1:
   dependencies:
     minimist "0.0.8"
 
-mocha-minimalist-reporter@^1.1.0:
+mocha-minimalist-reporter@1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/mocha-minimalist-reporter/-/mocha-minimalist-reporter-1.1.0.tgz#94c5aafbd1a224f583dafe52d407804ab9e9410e"
+
+mocha@4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/mocha/-/mocha-4.0.1.tgz#0aee5a95cf69a4618820f5e51fa31717117daf1b"
+  dependencies:
+    browser-stdout "1.3.0"
+    commander "2.11.0"
+    debug "3.1.0"
+    diff "3.3.1"
+    escape-string-regexp "1.0.5"
+    glob "7.1.2"
+    growl "1.10.3"
+    he "1.1.1"
+    mkdirp "0.5.1"
+    supports-color "4.4.0"
 
 mocha@^3.4.2:
   version "3.5.3"
@@ -4464,21 +4479,6 @@ mocha@^3.4.2:
     lodash.create "3.1.1"
     mkdirp "0.5.1"
     supports-color "3.1.2"
-
-mocha@^4.0.1:
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/mocha/-/mocha-4.0.1.tgz#0aee5a95cf69a4618820f5e51fa31717117daf1b"
-  dependencies:
-    browser-stdout "1.3.0"
-    commander "2.11.0"
-    debug "3.1.0"
-    diff "3.3.1"
-    escape-string-regexp "1.0.5"
-    glob "7.1.2"
-    growl "1.10.3"
-    he "1.1.1"
-    mkdirp "0.5.1"
-    supports-color "4.4.0"
 
 ms@0.7.0:
   version "0.7.0"
@@ -4619,7 +4619,7 @@ normalize-selector@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/normalize-selector/-/normalize-selector-0.2.0.tgz#d0b145eb691189c63a78d201dc4fdb1293ef0c03"
 
-npm-run-all@^4.0.2:
+npm-run-all@4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/npm-run-all/-/npm-run-all-4.0.2.tgz#a84669348e6db6ccbe052200b4cdb6bfe034a4fe"
   dependencies:
@@ -5065,7 +5065,7 @@ polymer-bundler@^3.1.1:
     polymer-analyzer "^2.3.0"
     source-map "^0.5.6"
 
-polymer-cli@^1.5.7:
+polymer-cli@1.5.7:
   version "1.5.7"
   resolved "https://registry.yarnpkg.com/polymer-cli/-/polymer-cli-1.5.7.tgz#d282b478fd13f209fcb41e563573c410fac3ea67"
   dependencies:
@@ -5320,7 +5320,7 @@ proxy-addr@~2.0.2:
     forwarded "~0.1.2"
     ipaddr.js "1.5.2"
 
-prpl-server@^1.0.0:
+prpl-server@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/prpl-server/-/prpl-server-1.0.0.tgz#316555a503bed68f370ddd23c38e1de608fbd985"
   dependencies:
@@ -5975,7 +5975,7 @@ sinon@^2.3.5:
     text-encoding "0.6.4"
     type-detect "^4.0.0"
 
-sitemap@^1.13.0:
+sitemap@1.13.0:
   version "1.13.0"
   resolved "https://registry.yarnpkg.com/sitemap/-/sitemap-1.13.0.tgz#569cbe2180202926a62a266cd3de09c9ceb43f83"
   dependencies:
@@ -6312,11 +6312,11 @@ stylehacks@^2.3.2:
     text-table "^0.2.0"
     write-file-stdout "0.0.2"
 
-stylelint-config-polymer@^0.0.1:
+stylelint-config-polymer@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/stylelint-config-polymer/-/stylelint-config-polymer-0.0.1.tgz#7db0683fc0d2477c7b7ce5cf3a3ac3d3df79d3c4"
 
-stylelint-processor-html@^1.0.0:
+stylelint-processor-html@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/stylelint-processor-html/-/stylelint-processor-html-1.0.0.tgz#6892b6b2855a45f0291cd845191d6908130a2918"
   dependencies:
