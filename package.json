@@ -37,7 +37,7 @@
     "eslint-config-google": "0.7.1",
     "eslint-plugin-html": "2.0.3",
     "find": "0.2.7",
-    "gray-matter": "3.1.1",
+    "gray-matter": "4.0.2",
     "mocha": "4.0.1",
     "mocha-minimalist-reporter": "1.1.0",
     "polymer-cli": "1.5.7",
