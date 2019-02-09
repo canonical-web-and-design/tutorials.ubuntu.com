@@ -3003,11 +3003,11 @@ eslint-config-google@0.12.0:
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/eslint-config-google/-/eslint-config-google-0.12.0.tgz#b9bcc52d0f24cf946e862fe8b09c773ad21e511b"
 
-eslint-plugin-html@2.0.3:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-html/-/eslint-plugin-html-2.0.3.tgz#7c89883ab0c85fa5d28b666a14a4e906aa90b897"
+eslint-plugin-html@5.0.3:
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-html/-/eslint-plugin-html-5.0.3.tgz#3db133995e49a73596f6a473c16a1b83634deffd"
   dependencies:
-    htmlparser2 "^3.8.2"
+    htmlparser2 "^3.10.0"
 
 eslint-scope@^4.0.0:
   version "4.0.3"
@@ -4252,7 +4252,7 @@ htmlparser2@^3.10.0:
     inherits "^2.0.1"
     readable-stream "^3.0.6"
 
-htmlparser2@^3.8.2, htmlparser2@^3.9.1:
+htmlparser2@^3.9.1:
   version "3.9.2"
   resolved "https://registry.yarnpkg.com/htmlparser2/-/htmlparser2-3.9.2.tgz#1bdf87acca0f3f9e53fa4fcceb0f4b4cbb00b338"
   dependencies:
