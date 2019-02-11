@@ -67,7 +67,7 @@ jobs:
           command: bower --allow-root install
       - run:
           name: Lint polymer
-          command: polymer lint -i src/*.html -i src/elements/*
+          command: ./bin/polymer lint -i src/*.html -i src/elements/*
 
 workflows:
   version: 2
