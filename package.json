@@ -51,6 +51,6 @@
     "express-interceptor": "1.2.0",
     "express-redirect": "1.2.2",
     "npm-run-all": "4.0.2",
-    "sitemap": "1.13.0"
+    "sitemap": "2.1.0"
   }
 }
