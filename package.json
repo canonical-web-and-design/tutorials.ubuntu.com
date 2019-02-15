@@ -19,7 +19,7 @@
     "lint-js": "eslint 'src/**/*.html'",
     "lint-polymer": "polymer lint -i src/*.html -i src/elements/*",
     "lint-style": "npm-run-all lint-style-*",
-    "lint-style-html": "stylelint 'src/**/*.html' --extract",
+    "lint-style-html": "stylelint 'src/**/*.html'",
     "lint-content": "mocha -R mocha-minimalist-reporter",
     "polymer": "./bin/polymer",
     "polymer-build": "npm-run-all 'polymer build {@}' --",
@@ -42,7 +42,7 @@
     "mocha-minimalist-reporter": "1.1.0",
     "polymer-cli": "1.5.7",
     "prpl-server": "1.0.0",
-    "stylelint": "7.13.0",
+    "stylelint": "9.10.1",
     "stylelint-config-polymer": "0.0.1",
     "stylelint-processor-html": "1.0.0"
   },
