@@ -92,7 +92,7 @@ cd /etc/apache2/sites-available/
 ```
 Since Apache came with a default VirtualHost file, let's use that as a base. (`gci.conf` is used here to match our subdomain name):
 ```bash
-sudo cp 000-defualt.conf gci.conf
+sudo cp 000-default.conf gci.conf
 ```
 Now edit the configuration file:
 ```bash

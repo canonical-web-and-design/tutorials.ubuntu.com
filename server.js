@@ -32,8 +32,11 @@ const commandLineUsage = require('command-line-usage');
 const ansi = require('ansi-escape-sequences');
 const cheerio     = require('cheerio');
 const interceptor = require('express-interceptor');
+const redirect = require('express-redirect');
 const rendertron = require('rendertron-middleware');
 const sitemap = require('sitemap');
+
+const redirectsConfig = require('./redirects.json');
 
 const argDefs = [
   {
@@ -289,6 +292,17 @@ app.use(compression());
 
 // Add the interceptor middleware
 app.use(applyMetadata);
+
+// Handle redirects
+redirect(app);
+
+Object.keys(redirectsConfig).forEach(function (key) {
+  app.redirect(
+    key,
+    redirectsConfig[key],
+    302, true
+  );
+});
 
 if (args['bot-proxy']) {
   console.info(`Proxying bots to "${args['bot-proxy']}".`);
