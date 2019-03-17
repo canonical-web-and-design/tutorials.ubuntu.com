@@ -15,12 +15,13 @@
   "extraDependencies": [
     "api/**/*",
     "bower_components/webcomponentsjs/webcomponents-lite.min.js",
-    "manifest.json"
+    "manifest.json",
+    "robots.txt"
   ],
   "builds": [{
     "name": "bundled",
     "bundle": true,
-    "js": {"minify": true},
+    "js": {"minify": true, "compile": true},
     "css": {"minify": true},
     "html": {"minify": true},
     "addServiceWorker": true,
