@@ -90,8 +90,7 @@ sudo lxd init
 
 which asks a series of questions on how to configure the daemon.
 
-We can just go with the default answer (by pressing Enter) for most of them. You can pick the size of the loop device for the ZFS pool based on your
-available disk space.
+We can just go with the default answer (by pressing Enter) for most of them. You can pick the size of the loop device for the ZFS pool based on your available disk space.
 
 ![screenshot](images/lxd-init-1.png)
 

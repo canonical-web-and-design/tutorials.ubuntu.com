@@ -99,6 +99,17 @@
         el.addEventListener('iron-ajax-error', function(error) {
           this._loadErrorPage();
         });
+
+        this.tabIndex = 0;
+
+        this.addEventListener('focus', function() {
+          let mainContainer = document.getElementById('mainContainer');
+
+          if (mainContainer) {
+            mainContainer.setAttribute('tabindex', 0);
+            mainContainer.focus();
+          }
+        });
       },
 
       _loadPage: function _loadPage(page) {
@@ -124,6 +135,16 @@
             let currentPage = this.$.pages.selectedItem;
             if (currentPage.updateMetadata) {
               currentPage.updateMetadata();
+            }
+            // We don't currently manage canonical URLs and the may be set
+            // from server. This will remove them for now on page changes.
+            const canonicalTag = document.querySelectorAll(
+              'link[rel="canonical"]'
+            );
+            if (canonicalTag.length > 0) {
+              canonicalTag.forEach((node) => {
+                node.parentNode.removeChild(node);
+              });
             }
           },
           function onImportError(event) {

@@ -2,10 +2,9 @@
 id: install-and-configure-apache
 summary: This tutorial covers the installation and configuration of an Apache web server
 categories: server
-tags: ubuntu-server, apache, web server, hidden
+tags: ubuntu-server, apache, web server, gci
 difficulty: 3
 status: draft
-feedback-url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 published: 2017-11-30
 author: Aden Padilla <adenpadilla@gmail.com>
 feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
@@ -93,7 +92,7 @@ cd /etc/apache2/sites-available/
 ```
 Since Apache came with a default VirtualHost file, let's use that as a base. (`gci.conf` is used here to match our subdomain name):
 ```bash
-sudo cp 000-defualt.conf gci.conf
+sudo cp 000-default.conf gci.conf
 ```
 Now edit the configuration file:
 ```bash
@@ -147,4 +146,4 @@ Hooray!
 
 positive
 : **Further reading:**
-https://httpd.apache.org/docs/2.4/vhosts/examples.html
+ - [VirtualHost examples](https://httpd.apache.org/docs/2.4/vhosts/examples.html)

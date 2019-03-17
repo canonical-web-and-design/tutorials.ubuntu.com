@@ -211,13 +211,64 @@
         text-decoration: underline;
       }
 
-    .external {
+      .external {
         background-image: url('https://assets.ubuntu.com/v1/f24a8aa0-external-link-orange.svg');
         background-position: 100% top;
         background-repeat: no-repeat;
         background-size: 0.7em 0.7em;
         padding-right: 0.9em;
-    }
+      }
+
+      .footer {
+        border-top: 1px solid #cdcdcd;
+        font-size: 0.875rem;
+        line-height: 1.5;
+        margin-top: 2rem;
+        padding: 1rem 0 2rem;
+      }
+
+      .footer > p {
+        box-sizing: border-box;
+        margin: 2rem auto;
+        max-width: 1000px;
+        padding: 0 20px;
+      }
+
+      .footer__nav {
+        box-sizing: border-box;
+        margin: 1rem auto;
+        max-width: 1000px;
+        padding: 0 20px;
+      }
+
+      .footer__links {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      .footer__item {
+        display: inline-block;
+        margin-right: 0.5rem;
+      }
+
+      .footer__item::after {
+        content: '\00b7';
+        display: inline-block;
+        font-size: 1em;
+        margin-left: 0.5rem;
+      }
+
+      .footer__item:last-child::after {
+        display: none;
+      }
+
+      .footer__link {
+        color: #000;
+      }
+
+      .footer__link:visited {
+        color: #000;
+      }
     </style>
 
     <app-route
@@ -239,10 +290,18 @@
         </template>
         <div class="content">
           <div class="wrap intro">
-            <h1>Let's get coding!</h1>
-            <p>Ubuntu Tutorials are just like learning from pair programming except you can do it on your own. They provide a step-by-step process to doing development and devops activities on Ubuntu machines, servers or devices.</p>
-
-            <p>For now, the tutorials focus mainly on building and using snaps and Ubuntu Core.<br /><a href="https://github.com/ubuntudesign/tutorials.ubuntu.com/issues/new" class="external">If you'd like to see tutorials cover more topics, let us know</a></p>
+            <h1>Do more with Ubuntu!</h1>
+            <p>Ubuntu Tutorials are project-based, step-by-step guides to 
+              doing amazing things with Ubuntu. From installing the OS in 
+              the first place to packaging your first snap, we're here to
+              help you on your way.</p>
+            <p>This site is open source and open to contributions from the
+              Linux community, if you have a knack for writing and sharing
+              your knowledge, you can <a href="/tutorial/tutorial-guidelines">
+                read our guide</a> to get started.</p>
+            <p>If you'd like to see a tutorial written on a specific topic,
+              <a href='https://github.com/canonical-websites/tutorials.ubuntu.com/issues?q=is%3Aopen+is%3Aissue+label%3A"Type%3A+Tutorial+Request"' class="external">
+                let us know</a>.</p>
 
             <div>
               <label class="accessibility-aid" for="edit-keys" hidden="hidden">Search</label>
@@ -268,13 +327,11 @@
             <div class="flex"></div>
           </div>
           <div class="horizontal layout wrap">
-            <template is="dom-if" if="[[!isEmpty]]">
-              <template is="dom-repeat" items="[[filteredTutorials]]" sort="[[_getSortFunction(filterSort)]]">
-                <codelabs-card heading="[[item.title]]" summary="[[item.summary]]" category="[[item.category]]"
-                              difficulty="[[item.difficulty]]" duration="[[item.duration}}" tags="[[item.tags]]"
-                              published="[[item.published]]" url="[[item.url]]" currenturl="[[route.prefix]][[route.path]]"
-                              ></codelabs-card>
-              </template>
+            <template is="dom-repeat" items="[[filteredTutorials]]" sort="[[_getSortFunction(filterSort)]]">
+              <codelabs-card heading="[[item.title]]" summary="[[item.summary]]" category="[[item.category]]"
+                            difficulty="[[item.difficulty]]" duration="[[item.duration}}" tags="[[item.tags]]"
+                            published="[[item.published]]" url="[[item.url]]"
+                            ></codelabs-card>
             </template>
             <template is="dom-if" if="[[isEmpty]]">
               <div class="no-results">
@@ -289,6 +346,22 @@
             </template>
           </div>
         </div>
+        <footer class="footer">
+          <p>© 2018 Canonical Ltd. Ubuntu and Canonical are registered trademarks of Canonical Ltd.</p>
+          <nav class="footer__nav">
+            <ul class="footer__links">
+              <li class="footer__item">
+                <a class="footer__link" href="https://www.ubuntu.com/legal">Legal Information</a>
+              </li>
+              <li class="footer__item">
+                <a class="footer__link" href="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy">Cookie policy</a>
+              </li>
+              <li class="footer__item">
+                <a class="footer__link" href="https://github.com/canonical-websites/tutorials.ubuntu.com/issues/new">Report a bug on this site</a>
+              </li>
+            </ul>
+          </nav>
+        </footer>
       </div>
     </div>
   </template>
@@ -367,10 +440,16 @@
         this.updateMetadata();
       },
 
+      ready: function() {
+        if (this.route.__queryParams['q']) {
+          this.filterSearch = this.route.__queryParams['q'];
+        }
+      },
+
       updateMetadata: function() {
         this.fire('app-metadata', {
           title: 'Ubuntu tutorials',
-          description: `Ubuntu Tutorials are just like learning from pair programming except you can do it on your own. They provide a step-by-step process to doing development and devops activities on Ubuntu machines, servers or devices.`, // eslint-disable-line
+          description: `Ubuntu Tutorials are project-based, step-by-step guides to doing amazing things with Ubuntu. From installing the OS in the first place to packaging your first snap, we're here to help you on your way.`, // eslint-disable-line
         });
       },
 
