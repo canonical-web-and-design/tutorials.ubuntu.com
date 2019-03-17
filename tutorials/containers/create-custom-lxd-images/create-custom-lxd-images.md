@@ -38,7 +38,7 @@ To create minimal Debian system in specified directory from existing Linux insta
 sudo apt install debootstrap
 ```
 
-We assume that you have already installed and configured LXD. If not, complete the [“Setting up LXD on Ubuntu 16.04”](tutorial/tutorial-setting-up-lxd-1604) tutorial.
+We assume that you have already installed and configured LXD. If not, complete the [“Setting up LXD on Ubuntu 16.04”](/tutorial/tutorial-setting-up-lxd-1604) tutorial.
 
 ## Creating basic system installation
 Duration: 5:00
