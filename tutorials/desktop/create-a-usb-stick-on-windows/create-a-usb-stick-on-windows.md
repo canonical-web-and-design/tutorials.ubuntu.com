@@ -4,8 +4,8 @@ summary: How to write a USB stick with Windows.
 categories: desktop
 tags: tutorial,installation,usb,windows,ubuntu,desktop
 difficulty: 2
-status: published
-published: 2017-07-18
+status: draft
+published: 2018-08-27
 author: Canonical Web Team <webteam@canonical.com>
 feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 
@@ -35,12 +35,12 @@ Duration: 1:00
 
 You will need:
 
-- A 2GB or larger USB stick/flash drive
+- A 4GB or larger USB stick/flash drive
 - Microsoft Windows XP or later
 - [Rufus][rufus], a free and open source USB stick writing tool
 - An Ubuntu ISO file. See [Get Ubuntu][getubuntu] for download links
 
-![screenshot](https://assets.ubuntu.com/v1/5b12fa72-windows-ubuntu-download.png)
+![screenshot](./ubuntu-download-18_04_1.png)
 
 
 negative
@@ -54,49 +54,76 @@ Perform the following to configure your USB device in Rufus:
 1. Launch Rufus
 1. Insert your USB stick
 1. Rufus will update to set the device within the **Device** field
-1. If the **Device** is incorrect, select the correct one from the device field's drop-down menu
+1. If the **Device** selected is incorrect (perhaps you have multiple USB storage devices), select the correct one from the device field's drop-down menu
 
-![screenshot](https://assets.ubuntu.com/v1/05ce99d3-windows-rufus-usb.png)
+![screenshot](./windows-rufus3-usb.png)
 
 positive
 : You can avoid the hassle of selecting from a list of USB devices by ensuring no other devices are connected.
 
-## Partition scheme and ISO selection
+## Boot selection and Partition scheme
 Duration: 0:30
 
-For best compatibility with newer hardware, keep the *Partition scheme and target system type* set as **MBR partition scheme for UEFI**. However, if you need to use the USB stick with older hardware, change this to **MBR Partition Scheme for BIOS or UEFI**.
+Now choose the Boot selection.  Choices will be *Non bootable* and *FreeDOS*.  Since you are creating a bootable Ubuntu device select **FreeDOS**.
 
-To select the Ubuntu ISO file, click the optical drive icon alongside the enabled *Create a bootable disk using* field. This will open a file requester from which you can navigate to, and select, the ISO file.
+The default selections for Partition scheme (*MBR*) and Target system (*BIOS (or UEFI-CSM)*) are appropriate (and are the only options available).
 
-![screenshot](https://assets.ubuntu.com/v1/bf445ed7-windows-usb-iso.png)
+![screenshot](./windows-rufus3-select-usb.png)
 
-## Hybrid image confirmation
+## Select the Ubuntu ISO file
 Duration: 0:30
 
-Leave all other parameters with their default values and click **Start** to initiate the write process.
+To select the Ubuntu ISO file you downloaded previously, click the **SELECT** to the right of "Boot selection".  If this is the only ISO file present in the Downloads folder you will only see one file listed.
+
+Select the appropriate ISO file and click on **Open**.
+
+![screenshot](./windows-rufus3-select-ubuntu_18_04_1.png)
+
+## Write the ISO
+Duration: 0:30
+
+The *Volume label* will be updated to reflect the ISO selected.
+
+Leave all other parameters with their default values and click **START** to initiate the write process.
+
+![screenshot](./windows-rufus3-write-iso.png)
+
+## Additional downloads
+Duration: 1:00
+
+You may be alerted that Rufus requires additional files to complete writing the ISO.  If this dialog box appears, select **Yes** to continue.
+
+![screenshot](./windows-rufus3-additional-downloads.png)
+
+## Write warnings
+Duration: 0:30
 
 You will then be alerted that Rufus has detected that the Ubuntu ISO is an *ISOHybrid image*. This means the same image file can be used as the source for both a DVD and a USB stick without requiring conversion.
 
 Keep *Write in ISO Image mode* selected and click on **OK** to continue.
 
-![screenshot](https://assets.ubuntu.com/v1/9ae6e41c-windows-usb-hybrid.png)
+![screenshot](./windows-rufus3-isohybrid-warning.png)
 
-Rufus will warn that all data on your selected USB device is about to be destroyed. This is a good moment to double check you've selected the correct device before clicking **OK** when you're confident you have.
+Rufus will also warn you that all data on your selected USB device is about to be destroyed. This is a good moment to double check you've selected the correct device before clicking **OK** when you're confident you have.
+
+![screenshot](./windows-rufus3-write-warning.png)
 
 negative
 : If your USB stick contains multiple partitions Rufus will warn you in a separate pane that these will also be destroyed.
 
-## Write the ISO
-Duration: 3:00
+## Writing the ISO
+Duration: 10:00
 
-The ISO will now be written to your USB stick, and the progress bar in Rufus will give you some indication of how long this will take. With a reasonably modern machine, this should take around 3 minutes.
+The ISO will now be written to your USB stick, and the progress bar in Rufus will give you some indication of where you are in the process. With a reasonably modern machine, this should take around 10 minutes.  Total elapsed time is shown in the lower right corner of the Rufus window.
 
-![screenshot](https://assets.ubuntu.com/v1/2a4834f4-windows-rufus-progress.png)
+![screenshot](./windows-rufus3-write-progress.png)
 
 ## Installation complete
-Duration: 1:00
+Duration: 0:30
 
-Rufus will complete the write process and silently drop-back to its default window.
+When Rufus has finished writing the USB device, the Status bar will be green filled and the word **READY** will appear in the center.  Select **CLOSE** to complete the write process.
+
+![screenshot](./windows-rufus3-write-complete.png)
 
 Congratulations! You now have Ubuntu on a USB stick, bootable and ready to go.
 

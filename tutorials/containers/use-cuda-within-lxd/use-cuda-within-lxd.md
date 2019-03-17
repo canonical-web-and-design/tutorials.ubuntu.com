@@ -1,54 +1,77 @@
 ---
 id: gpu-data-processing-inside-lxd
-summary: Accelerate data processing within LXD containers by enabling direct access to your Nvidia GPU's CUDA engine.
+summary: Accelerate data processing within LXD containers by enabling direct access to your NVIDIA GPU's CUDA engine.
 categories: containers
 tags: lxd, cuda, nvidia, gpu, big data, lxc
 difficulty: 4
 status: published
-published: 2017-07-12
+published: 2018-10-15
 author: Graham Morrison <graham.morrison@canonical.com>
 feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 
 ---
 
 # GPU data processing inside LXD
-
 ## Overview
 Duration: 3:00
 
-Hugely parallelised GPU data processing, using either [CUDA][nvidiacuda] or [OpenCL][opencl], is changing the shape of data science. It even has its own snappy acronym - GPGPU - General-purpose computing on graphics processing units.  It's no surprise, then, that flexible, scalable access to these GPU resources is becoming a key requirement in many cloud deployments (see the Canonical Distribution of [Kubernetes][kubernetes] for a good example). But it's not always easy, nor cheap, to get started. Unless you use [LXD][lxd].
+Hugely parallelised GPU data processing, using either [CUDA][nvidiacuda] or [OpenCL][opencl], is changing the shape of data science.
+It even has its own snappy acronym - GPGPU - General-purpose computing on graphics processing units.
 
-LXD's unrivalled density in real-world cloud deployments, and its ability to run locally, make it a game-game changing tool for experimenting with cloud-like GPU data processing. It enables you to create local scalable deployments using nothing more than a PC with a GPU or two. As we'll now demonstrate.
+It's no surprise, then, that flexible, scalable access to these GPU resources is becoming a key requirement
+in many cloud deployments (see the Canonical Distribution of [Kubernetes][kubernetes] for a good example).
+But it's not always easy, nor cheap, to get started. Unless you use [LXD][lxd].
 
-## Requirements
-Duration: 2:00
+![cuda-lxd-logos](https://assets.ubuntu.com/v1/8546712c-rect5436.png)
 
+LXD's unrivalled density in real-world cloud deployments, and its ability to run locally,
+make it a game-changing tool for experimenting with cloud-like GPU data processing.
+
+It enables you to create local scalable deployments using nothing more than a PC with a GPU or two.
+As we'll now demonstrate.
+
+### What you'll learn
+- How to replace default NVIDIA drivers with the latest ones
+- How to install the CUDA toolkit
+- How to configure LXD to use NVIDIA GPUs and CUDA
+
+### What you'll need
 Our configuration is going to be based on the following:
-- 1 or more Nvidia GPUs
-- [Ubuntu 16.04 LTS][xenial] (Xenial)
-- LXD version 2.5 or higher (2.13 is the current Xenial version)
+- 1 or more NVIDIA GPUs
+- [Ubuntu 18.04 LTS][bionic] (Bionic Beaver)
+- [LXD][getstarted] version 3.0 or higher
 
 positive
-: LXD versioning is incremental, which means version 2.13 is more recent than version 2.5.
+: LXD versioning is incremental, which means version 3.1 is more recent than version 3.0.1.
 
-We'll be using Nvidia hardware alongside Nvidia's proprietary CUDA, as these currently constitute the most widely used GPGPU platform.
+We'll be using NVIDIA hardware alongside NVIDIA's proprietary CUDA, as these
+currently constitute the most widely used GPGPU platform.
 
-However, LXD's hardware passthrough enables any GPU to appear natively to any deployment, which means that using different GPUs or drivers with OpenCL should be possible.
+However, LXD's hardware passthrough enables any GPU to appear natively to any
+deployment, which means that using different GPUs or drivers with OpenCL should
+be possible.
 
-As both Nvidia's drivers and CUDA are constantly in a rapid state of development, we're going to install and use the latest versions we can get hold of. This will mean using packages separate from those supplied by the distribution, which we'll cover in the next step.
+As both NVIDIA's drivers and CUDA are constantly in a rapid state of development,
+we're going to install and use the latest versions we can get hold of.
+This will mean using packages separate from those supplied by the distribution,
+which we'll cover in the next step.
 
-## Remove Nvidia drivers
-Duration: 10:00
+## Remove NVIDIA drivers
+Duration: 13:00
 
-With either a new or old Ubuntu 16.04 installation, it's likely that you'll have Nvidia drivers of one sort or another on your system. We need to make sure these are fully removed before attempting to install a new set.
+With either a new or old Ubuntu 18.04 installation, it's likely that you'll
+have NVIDIA drivers of one sort or another on your system. We need to make sure
+these are fully removed before attempting to install a new set.
 
-When working with graphics drivers, it's best to quit from the *X.org* graphical environment and work on the command line. This can be done by entering the following into a terminal:
+When working with graphics drivers, it's best to quit from the *X.org*
+graphical environment and work on the command line. This can be done by
+entering the following into a terminal:
 
 ```bash
 sudo systemctl isolate multi-user.target
 ```
 
-To remove your current Nvidia or open source Nouveau drivers, enter the following:
+To remove your current NVIDIA or open source Nouveau drivers, enter the following:
 
 ```bash
 sudo apt remove --purge nvidia*
@@ -57,15 +80,17 @@ sudo apt remove --purge nvidia*
 It's safer to reboot your machine at this point, although this isn't strictly necessary.
 
 ### Remove Nouveau drivers
-Duration: 3:00
-
-The *nouveau* driver, installed by default when you elect not to add Nvidia's proprietary drivers, may refuse to remove itself. You can check with the following command:
+The *nouveau* driver, installed by default when you elect not to add NVIDIA's
+proprietary drivers, may refuse to remove itself. You can check with the
+following command:
 
 ```bash
 lsmod | grep nouveau
 ```
 
-If the output includes the `nouveau` module, you will need to blacklist this module to stop it loading in future. You can do this by adding the following to `/etc/modprobe.d/blacklist.conf` as root with your favourite text editor:
+If the output includes the `nouveau` module, you will need to blacklist this
+module to stop it loading in future. You can do this by adding the following to
+`/etc/modprobe.d/blacklist.conf` as root with your favourite text editor:
 
 ```no-highlight
 blacklist amd76x_edac #this might not be required for x86 32 bit users.
@@ -76,34 +101,33 @@ blacklist nvidiafb
 blacklist rivatv
 ```
 
-## Install proprietary Nvidia drivers
+## Install proprietary NVIDIA drivers
 Duration: 5:00
 
-With LXD, the host machine handles the drivers and passes the resultant device nodes to the container. But CUDA still expects a local driver installation, and this means we need to install identical versions of both the drivers and CUDA on the host and any LXD containers we deploy.
+With LXD, the host machine handles the drivers and passes the resultant device
+nodes to the container. But CUDA still expects a local driver installation, and
+this means we need to have identical versions of both the drivers and CUDA
+on the host and any LXD containers we deploy.
 
-For this reason, we've opted to use a PPA ([https://launchpad.net/~graphics-drivers/+archive/ubuntu/ppa][ppa]) for the drivers. This simplifies installation across both the host and any container instances you deploy. The alternative is to manually build the drivers directly from Nvidia's website, but this takes more effort and is harder to maintain across multiple deployments.
-
-To add the PPA and update your local package database, enter the following:
-
-```bash
-sudo add-apt-repository --update ppa:graphics-drivers/ppa
-```
+Thankfully LXD 3.0 has a way to keep the two in sync without requiring
+installation of all the NVIDIA packages in both host and container.
 
 You can now use `apt` to install the latest version of the drivers, for example:
 
 ```bash
-apt install nvidia-381
+apt install nvidia-390
 ```
 
-positive
-: Take a look at the PPA, or use `apt search nvidia`, to find the version number of the latest drivers.
+You'll need to reboot your machine after installing the NVIDIA drivers, after
+which you can use the `nvidia-smi` command to check that the driver is
+installed and operating correctly.
 
-You'll need to reboot your machine after installing the Nvidia drivers, after which you can use the `nvidia-smi` command to check that the driver is installed and operating correctly. The output will include details similar to the following:
+The output will include details similar to the following:
 
 ```no-highlight
 Thu May 25 13:32:33 2017
 +-----------------------------------------------------------------------------+
-| NVIDIA-SMI 381.22                 Driver Version: 381.22                    |
+| NVIDIA-SMI 390.77                 Driver Version: 390.77                    |
 |-------------------------------+----------------------+----------------------+
 | GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
 | Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
@@ -116,42 +140,41 @@ Thu May 25 13:32:33 2017
 ## Install the CUDA toolkit
 Duration: 8:00
 
-With the drivers installed, the next step is to grab CUDA itself. While there are Ubuntu packages available, we've found the most reliable option is to download the latest version of CUDA directly from Nvidia's developer website:
+With the drivers installed, the next step is to grab CUDA itself.
+While there are Ubuntu packages available, we've found the most reliable option is to
+download the latest version of CUDA directly from NVIDIA's developer website:
 
 [https://developer.nvidia.com/cuda-downloads](https://developer.nvidia.com/cuda-downloads)
 
-To get to the download, select 'Linux', select your architecture, choose 'Ubuntu', '16.04' and finally the 'runfile (local)' installer type. You will then be able to download the base installer. In our example, this file is called `cuda_8.0.61_375.26_linux.run`.
+To get to the download, select 'Linux', select your architecture, choose 'Ubuntu', '18.04'
+and finally the 'deb (network)' installer type. You will then be able to download the base installer.
+In our example, this file is called `cuda-repo-ubuntu1804_10.0.130-1_amd64.deb`.
 
-This file will need to be made executable and run with administrator privileges:
-
-```bash
-chmod +x cuda_8.0.61_375.26_linux.run
-sudo ./cuda_8.0.61_375.26_linux.run
-```
-
-The installer will ask a few questions.
-
-Accept the licence but answer `n` when asked whether you want to install the Nvidia accelerated driver. This is because the installer typically bundles an older version of the driver, such as 375.26 with our example, and you don't want this installed on-top of the driver we already have. All further questions can be answered `y` to accept their default values.
-
-To add CUDA to your path, add the following to your bash configuration file, eg. `~/.bashrc`, and either re-source the file or log out and back in again:
+This package then needs to be installed with:
 
 ```bash
-export PATH=/usr/local/cuda-8.0/bin:$PATH
-export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64:$LD_LIBRARY_PATH
+sudo apt install ./cuda-repo-ubuntu1804_10.0.130-1_amd64.deb
+sudo apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
+sudo apt update
+sudo apt install cuda nvidia-cuda-toolkit
 ```
 
-Alternatively, add `/usr/local/cuda-8.0/lib64` to `/etc/ld.so.conf` and run 'sudo ldconfig'.
+And then you'll need to reboot your system again as installing `cuda` will most
+likely bring a different set of drivers for your system.
 
-You can check CUDA is installed correctly by running `nvcc -V`, which produces output similar to the following:
+You can then check CUDA is installed correctly by running `/usr/local/cuda-10.0/bin/nvcc -V`,
+which produces output similar to the following:
 
 ```no-highlight
 nvcc: NVIDIA (R) Cuda compiler driver
-Copyright (c) 2005-2016 NVIDIA Corporation
-Built on Tue_Jan_10_13:22:03_CST_2017
-Cuda compilation tools, release 8.0, V8.0.61
+Copyright (c) 2005-2018 NVIDIA Corporation
+Built on Sat_Aug_25_21:08:01_CDT_2018
+Cuda compilation tools, release 10.0, V10.0.130
 ```
 
-Being correctly installed doesn't necessarily mean CUDA is correctly linked to the Nvidia driver. To make sure this is working, use the `bandwidthTest` utility from CUDA's demo_suite folder, usually found in '/usr/local/cuda-8.0/extras/demo_suite/'.
+Being correctly installed doesn't necessarily mean CUDA is correctly linked to the NVIDIA driver.
+To make sure this is working, use the `bandwidthTest` utility from CUDA's demo\_suite folder,
+usually found in '/usr/local/cuda-10.0/extras/demo\_suite/'.
 
 If everything is working correctly, you should see `Result = PASS` at the end of the output.
 
@@ -162,15 +185,18 @@ With the host now correctly configured and ready to go, it's time to launch LXD.
 
 If this is the first time you've used LXD, see our [setting up tutorial][getstarted] for a few pointers.
 
-In particular, you will need to have a network and a storage pool defined. The `lxd init` command will step you through the process if you've not done this already.
+In particular, you will need to have a network and a storage pool defined.
+The `lxd init` command will step you through the process if you've not done this already.
 
-You can then launch a fresh deployment of Ubuntu 16.04 with the following command:
+You can then launch a fresh deployment of Ubuntu 18.04 with the following command:
 
 ```bash
-lxc launch ubuntu:16.04 cuda
+lxc launch ubuntu:18.04 cuda -c nvidia.runtime=true
 ```
 
-We've given this new instance the name of 'cuda'. If this is the first time you've deployed an LXD instance with 'ubuntu:16.04', its image will be retrieved as part of the creation process.
+We've given this new instance the name of 'cuda'. If this is the first time
+you've deployed an LXD instance with 'ubuntu:18.04', its image will be
+retrieved as part of the creation process.
 
 ```
 Creating cuda
@@ -178,76 +204,53 @@ Retrieving image: rootfs: 21% (5.98MB/s)
 Starting cuda
 ```
 
-Our 'cuda' instance is now running!
+The `nvidia.runtime=true` has LXD setup passthrough for the NVIDIA libraries,
+driver utilities and CUDA library. This ensures the container and host always
+run the same version of the NVIDIA drivers and greatly reduces the amount of
+duplicated binaries between host and container.
 
-## Add drivers to LXD
-Duration: 5:00
+## Add your GPU to the container
+Duration: 1:00
 
-We're now going install CUDA onto our LXD instance and configure it to talk to our Nvidia hardware.
-
-There are two ways of easily executing commands on the instance. The first is to launch bash as root on the container and run commands directly:
-
-```bash
-lxc exec cuda -- /bin/bash
-```
-
-The second is to run each command using the `lxc exec cuda -- new-command` syntax. We're going to opt for the former.
-
-We now need to go through the same series of steps to install the drivers and CUDA in LXD as we did for the host machine. This is because CUDA needs the drivers and the drivers within LXD need to correlate with those of the host.
-
-Let's start with the Nvidia driver:
+Now let's make all GPUs available to the container with:
 
 ```bash
-sudo add-apt-repository --update ppa:graphics-drivers/ppa
-sudo apt install nvidia-381
+lxc config device add cuda gpu gpu
 ```
 
-After the above driver installation has completed, you may notice that you can't check the driver in the same way we did earlier. The output from running `nvidia-smi`, for example, will show a failure to communicate with the driver:
-
+At which point you can run `nvidia-smi` inside your container with:
 
 ```bash
-NVIDIA-SMI has failed because it could not communicate with the NVIDIA driver.
-Make sure that the latest NVIDIA driver is installed and running.
+lxc exec cuda -- nvidia-smi
 ```
 
-For this to work, we need to push our Nvidia hardware from the host environment into LXD.
-
-This can be done with the following command:
-
-```bash
-lxc config device add cuda gpu gpu id=0
-```
-
-Omitting `id-0` from the end of this command will allow LXD to access all GPUs, rather than the one with the first id.
-
-Running `nvidia-smi` within the LXD environment should now produce the same output we retrieved from the host environment, showing that your Nvidia hardware is now correctly configured for use within LXD.  
+And should get an output matching that from before.
 
 ## Add CUDA to LXD
-Duration: 5:00
+Duration: 10:00
 
-With the proprietary Nvidia drivers installed on both the host and LXD, and with LXD seeing the Nvidia hardware, we now need to step through the same CUDA install process we did for the host machine:
+The `nvidia.runtime` property in LXD exposes both the NVIDIA utilities like
+`nvidia-smi` but also the various libraries needed to run CUDA binaries.
 
-You can avoid the download step by using SFTP to copy the CUDA installer to the LXD instance:
+It however doesn't expose the compiler, C headers or any of the other bits of the CUDA SDK.
 
-```bash
-sftp username@192.168.1.124:/path/to/cuda_8.0.61_375.26_linux.run .
-```
-
-Now install CUDA and answer the same installation questions from earlier:
-
-```bash
-chmod +x cuda_8.0.61_375.26_linux.run
-sudo ./cuda_8.0.61_375.26_linux.run
-```
-
-Don't forget to make sure the CUDA libraries and binaries are in your path.
+If you want to build CUDA code inside the container, you should follow the CUDA
+installation instructions again, this time running them in the container.
 
 ## Test CUDA within LXD
 Duration: 3:00
 
-With everything installed and configured, it's now time to test CUDA from within LXD.
+Whether you chose to install the CUDA SDK in the container or not, you should
+be able to run CUDA binaries.
 
-Running `bandwidthTest`, for example should produce output like this:
+So let's transfer the `bandwidthTest` binary from earlier and run it inside the container.
+
+```bash
+lxc file push /usr/local/cuda-10.0/extras/demo_suite/bandwidthTest cuda/root/
+lxc exec cuda -- /root/bandwidthTest
+```
+
+This should produce output like this:
 
 ```no-highlight
  Bandwidth Test] - Starting...
@@ -277,17 +280,19 @@ NOTE: The CUDA Samples are not meant for performance measurements. Results may
 vary when GPU Boost is enabled.
 ```
 
-If you see output similar to the above - congratulations! You can now start using CUDA at scale with your LXD deployment.
+If you see output similar to the above - congratulations!
+You can now start using CUDA at scale with your LXD deployment.
 
 ## Further reading
 Duration: 1:00
 
-If you're looking for inspiration on how to take your CUDA and LXD configuration further, we'd recommend starting with Nvidia's [CUDA Toolkit Documentation][cudadocs] and the [LXD documentation][lxd].
+If you're looking for inspiration on how to take your CUDA and LXD configuration further,
+we'd recommend starting with NVIDIA's [CUDA Toolkit Documentation][cudadocs] and the [LXD documentation][lxd].
 
-If your requirements outgrow your local LXD deployment, take a look using [GPUs with Kubernetes][cudakuber] for deep learning - a solution that uses some of Canonical's best technologies.
+If your requirements outgrow your local LXD deployment, take a look using [GPUs with Kubernetes][cudakuber]
+for deep learning - a solution that uses some of Canonical's best technologies.
 
 ### Finding help
-
 Finally, if you get stuck, the Ubuntu community is always willing to help, even when dealing with complex issues like CUDA.
 
 * [Ask Ubuntu](https://askubuntu.com/)
@@ -297,7 +302,7 @@ Finally, if you get stuck, the Ubuntu community is always willing to help, even 
 
 <!-- LINKS -->
 [lxd]: https://www.ubuntu.com/containers/lxd
-[xenial]: http://releases.ubuntu.com/16.04/
+[bionic]: http://releases.ubuntu.com/18.04/
 [nvidiacuda]: http://www.nvidia.com/object/cuda_home_new.html
 [opencl]: https://www.khronos.org/opencl/
 [kubernetes]: https://insights.ubuntu.com/2017/04/12/general-availability-of-kubernetes-1-6-on-ubuntu/

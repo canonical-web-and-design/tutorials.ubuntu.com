@@ -45,11 +45,11 @@ To ensure maximum compatibility with Apple hardware, we're going to first blank 
 
 - Launch *Disk Utility* from Applications>Utilities or Spotlight search
 - Insert your USB stick and observe the new device added to Disk Utility
-- Select the USB stick device and select `Erase` from the tool bar (or right-click menu)
+- Select the USB stick device (you may need to enable the option View>Show All Devices) and select `Erase` from the tool bar (or right-click menu)
 - Set the format to `MS-DOS (FAT)` and the scheme to `GUID Partition Map`
 - Check you've chosen the correct device and click `Erase`
 
-![screenshot](https://assets.ubuntu.com/v1/b50caa3d-macos-usb-format.png)
+![screenshot](https://assets.ubuntu.com/v1/e0915a12-36187570-fdfeafae-10fa-11e8-8b51-c9377a9b60de.png)
 
 negative
 : **Warning:** Disk Utility needs to be used with caution as selecting the wrong device or partition can result in data loss.

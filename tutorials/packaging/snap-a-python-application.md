@@ -537,7 +537,7 @@ We are almost there, but as you saw, this didn’t work! Indeed, the snap does n
 
 negative
 : Important: The error message was curl error: `curl: (6) Couldn't resolve host 'www.ubuntu.com'`. When trying to make an Internet connection, an app needs to first _resolve_ the name of the server into the IP address. When there is no access to the Internet, the `resolve` (the first step towards a network connection) will not work, thus this error. A snap with `confinement: strict` does not have any access to the Internet, unless explicitly allowed.
-```
+
 ### Enabling access to network
 
 To allow networking access to a snap, we need to specify that networking is OK for this snap. `network` is an **interface** in snaps and it is one of the many supported interfaces for snaps. There is the notion of `plugs` (provider of resource) and `slots` (consumer of resource). For most cases, like this one here, we need a plug, a plug for network.
