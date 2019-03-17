@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+sitemap: https://tutorials.ubuntu.com/sitemap.xml

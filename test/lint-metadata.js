@@ -12,10 +12,36 @@ var required_keys = [ 'id',
                  'published',
                  'author']
 
+var common_mistakes = ['feedback_link',
+                      'feedback-link',
+                      'feedback link',
+                      'feedback-url',
+                      'feedback url']
+
 var files = find.fileSync(/\.md$/,"tutorials");
+var tutorial_ids = []
 for(var i=0, len=files.length; i < len; i++){
   var f = gm.read(files[i]);
   validate(f, files[i]);
+  tutorial_ids.push(f.data.id)
+}
+duplicates_check(tutorial_ids);
+
+// Checks for duplicates in tutorials ids
+function duplicates_check(array) {
+  describe('The list of tutorials', function(){
+    it('doesn\'t contain duplicated IDs', function(done){
+      var sorted_arr = array.slice().sort();
+      var duplicates = [];
+      for (var i = 0; i < sorted_arr.length - 1; i++) {
+          if (sorted_arr[i + 1] == sorted_arr[i]) {
+              duplicates.push(sorted_arr[i]);
+          }
+      }
+      assert(duplicates.length == 0, `duplicates found: ${duplicates}`);
+      done();
+    });
+  });
 }
 
 // Validates metadata for each tutorial
@@ -25,6 +51,13 @@ function validate(f, fn) {
       required_keys.forEach(contains)
       function contains(item){
         assert(Object.keys(f.data).includes(item), `does not contain "${item}"`);
+      }
+      done();
+    });
+    it('doesn\'t contain common mistakes', function(done) {
+      common_mistakes.forEach(notcontains)
+      function notcontains(item){
+        assert(!Object.keys(f.data).includes(item), `contains "${item}"`);
       }
       done();
     });

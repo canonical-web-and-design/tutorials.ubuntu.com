@@ -2,7 +2,7 @@
 id: install-and-configure-samba
 summary: Install and configure Samba to share files across a network.
 categories: server
-tags: tutorial,installation,ubuntu,file server,samba, hidden
+tags: tutorial,installation,ubuntu,file server,samba, gci
 difficulty: 1
 status: published
 published: 2017-12-01
@@ -76,7 +76,7 @@ Then press `Ctrl-O` to save and `Ctrl-X` to exit from the *nano* text editor.
 - comment: A brief description of the share.
 - path: The directory of our share.
 - read only: Permission to modify the contents of the share folder is only granted when the value of this directive is `no`.
-- browsable: When set to `yes`, file managers such as Ubuntu's default file manager will list this share under "Network".
+- browsable: When set to `yes`, file managers such as Ubuntu's default file manager will list this share under "Network" (it could also appear as browseable).
 
 Now that we have our new share configured, save it and restart Samba for it to take effect:
 ```bash

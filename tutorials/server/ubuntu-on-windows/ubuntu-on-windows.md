@@ -5,7 +5,7 @@ categories: server
 tags: tutorial,installation,windows,ubuntu,terminal
 difficulty: 2
 status: published
-published: 2017-08-29
+published: 2018-01-05
 author: Graham Morrison <graham.morrison@canonical.com>
 feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 
@@ -27,80 +27,42 @@ The Ubuntu terminal for Windows has many of the same features you'll find using 
 - Run native tools such as SSH, git, apt and dpkg directly from your Windows computer
 - A huge community of friendly, approachable users
 
-positive
-: Currently, applications that require a graphical interface will not work from the Ubuntu terminal.
-
-![screenshot](https://assets.ubuntu.com/v1/86b2a146-win10-ubuntu-startmenu.png)
+![screenshot](https://assets.ubuntu.com/v1/00e5322f-win10-ubuntu-trusted-app.png)
 
 ## Requirements
 Duration: 1:00
 
 You will need a x86 PC running Windows 10.
 
-More importantly, the Ubuntu terminal for Windows 10 is currently only available as part of Microsoft's free [Windows Insider Program][windowsinsider]. This lets you test pre-release software and upcoming versions of Windows while potentially allowing Microsoft to collect usage information.
+Windows 10 needs to be updated to include the [Windows 10 Fall Creator update][win10fall], released October 2017. This update includes the **Windows Subsystem for Linux** which is needed to run the Ubuntu terminal.
 
-If stability and privacy are essential for your installation, consider waiting for the [Windows 10 Fall Creator update][win10fall], due October 2017. With this release, installing the Ubuntu terminal won't require Windows Insider membership.
-
-![screenshot](https://assets.ubuntu.com/v1/da4c0355-win10-ubuntu-insider.png)
-
-## Join Windows Insider
-Duration: 3:00
-
-If you're already a member of the Windows Insider Program, skip to the next step. If not, open the following link in your favourite web browser:
-
-[https://insider.windows.com/en-us/getting-started/](https://insider.windows.com/en-us/getting-started/)
-
-To enrol, sign in using the same Microsoft personal account you use for Windows 10 and follow the *Register your personal account* link from the Insider Program getting started page. Accept the terms and conditions to complete the registration.
-
-You now need to open Windows 10 *Settings* from the Start menu, select 'Updates & Security' followed by 'Windows Insider Program' from the menu on the left.
-
-![screenshot](https://assets.ubuntu.com/v1/c4ad72ed-win10-ubuntu-settings.png)
-
-If necessary, click on the 'Fix me' button if Windows complains that 'Your Windows Insider Program account needs attention'.
-
-## Windows Insider content
-Duration: 1:00
-
-From the Windows Insider Program pane, select 'Get Started'. If your Microsoft account isn't linked to your Windows 10 installation, sign in when prompted and select the account you want to link to your installation.
-
-You will now be able to select what kind of content you'd like to receive from the Windows Insider Program. The least disruptive is the default option, *Just fixes, apps and drivers*. Select *Confirm* (twice) and allow Windows to restart your machine. After booting, it's likely you'll need to wait for your machine to install a variety of updates before you can move on to the next step.
-
-![screenshot](https://assets.ubuntu.com/v1/35588b47-win10-ubuntu-content.png)
-
-## Activate the Windows Subsystem for Linux
-Duration: 2:00
-
-While Ubuntu does appear when searched for within the Windows Store, it currently needs to be installed and activated separately, starting with the Windows Subsystem for Linux:
-
-1. Search the Start menu for 'Windows features' and select the resultant control panel
-1. Scroll through the *Windows Features* pane and enable **Windows Subsystem for Linux (Beta)**
-1. Press OK to activate the changed configuration
-
-When prompted, restart your machine.
-
-![screenshot](https://assets.ubuntu.com/v1/c18526f7-win10-ubuntu-features.png)
-
-## Enable Developer Mode
-Duration: 2:00
-
-After your PC has restarted, one final step is required before we can install Ubuntu for Windows, and that's enabling Developer Mode. Enabling this allows you to install and run apps from outside the Windows Store:
-
-1. Open the *Settings* pane from the Start menu
-1. Select *Update & security* and then *For developers* from the left-hand menu
-1. Enable the *Developer mode* toggle and accept the warning
-
-![screenshot](https://assets.ubuntu.com/v1/89947730-win10-ubuntu-devmode.png)
+![screenshot](https://assets.ubuntu.com/v1/dbc96044-win10-ubuntu-fall-update.png)
 
 ## Install Ubuntu for Windows 10
 Duration: 2:00
 
-Open the Windows Command Prompt. The easiest way to do this is to type **cmd** into the Start menu and run the default result.
+Ubuntu can be installed from the Microsoft Store:
 
-When the command prompt appears, type **bash**. The output from this command will announce that Ubuntu for Windows is about to be installed. Type **y** to continue. The package will now be downloaded and installed - you may also be asked whether to install packages for your specific locality/region.
+1. Use the Start menu to launch the Microsoft Store application. 
+1. Search for *Ubuntu* and select the first result, 'Ubuntu', published by Canonical Group Limited.
+1. Click on the *Install* button.
 
-Finally, you'll be asked for a username and password specific to your Ubuntu installation. These don't need to be the same as your Windows 10 credentials. With this step complete, you'll find yourself at the Ubuntu bash command line.
+Ubuntu will be downloaded and installed automatically. Progress will be reported within the Microsoft Store application. 
 
-![screenshot](https://assets.ubuntu.com/v1/05a35ed8-win10-ubuntu-bash-complete.png)
+![screenshot](https://assets.ubuntu.com/v1/13ab8b2c-win10-ubuntu-store.png)
+
+## Launch Ubuntu on Windows 10
+Duration: 2:00
+
+Ubuntu can now be launched in the same way as any other Windows 10 application, such as searching for and selecting Ubuntu in the Start menu.
+
+### First launch
+
+When launched for the first time, Ubuntu will inform you that it's 'Installing' and you'll need to wait a few moments.
+
+When complete, you'll be asked for a username and password specific to your Ubuntu installation. These don't need to be the same as your Windows 10 credentials. With this step complete, you'll find yourself at the Ubuntu bash command line.
+
+![screenshot](https://assets.ubuntu.com/v1/2d30f071-win10-ubuntu-first-run.png)
 
 Congratulations! You have successfully installed and activated the Ubuntu terminal on Windows 10. You now have all the power of the command line at your fingertips.
 
@@ -116,9 +78,8 @@ If you need some guidance getting started with the Ubuntu terminal, take a look 
 <!-- LINKS -->
 [msubuntu]: https://www.microsoft.com/en-us/store/p/ubuntu/9nblggh4msv6
 [getstartedcli]: https://help.ubuntu.com/community/UsingTheTerminal
-[windowsinsider]: https://insider.windows.com/en-us/
 [storelink]: ms-windows-store://pdp/?productid=9NBLGGH4MSV6&referrer=unistoreweb&scenario=click&webig=11a9a85f-44f0-4cf5-ac1f-d9e148f2c23b&muid=01A3F9D8DEC2605B1426F331DF03617B
-[win10fall]: https://www.microsoft.com/en-us/windows/upcoming-features
+[win10fall]:https://support.microsoft.com/en-gb/help/4028685/windows-10-get-the-fall-creators-update
 [commdocs]: https://help.ubuntu.com/community/UsingTheTerminal
 [askubuntu]: https://askubuntu.com/
 [forums]: https://ubuntuforums.org/

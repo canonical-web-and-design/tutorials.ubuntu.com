@@ -1,5 +1,5 @@
 ---
-id: tutorial-install-ubuntu-desktop
+id: tutorial-install-ubuntu-desktop-id
 summary: Temukan betapa mudahnya menginstal desktop Ubuntu ke komputer laptop atau PC Anda, dari DVD atau flash drive USB.
 categories: desktop
 tags: tutorial,installation,ubuntu,desktop,Ubuntu 16.04 LTS, hidden
