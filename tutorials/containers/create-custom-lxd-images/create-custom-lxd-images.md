@@ -35,7 +35,7 @@ Duration: 1:00
 To create minimal Debian system in specified directory from existing Linux installation, we will use debootstrap. Install it using:
 
 ```bash
-sudo apt install deboostrap
+sudo apt install debootstrap
 ```
 
 We assume that you have already installed and configured LXD. If not, complete the [“Setting up LXD on Ubuntu 16.04”](tutorial/tutorial-setting-up-lxd-1604) tutorial.
@@ -76,16 +76,16 @@ sudo tar -cvzf rootfs.tar.gz -C /tmp/sid-lxd .
 ## Creating a metadata file
 Duration: 2:00
 
-The `medatata.yaml` file describes things like image creation date, name, architecture and description. To create an LXD image, we need to provide such a file. Here's an example of how simple metadata file should look:
+The `metadata.yaml` file describes things like image creation date, name, architecture and description. To create an LXD image, we need to provide such a file. Here's an example of how simple metadata file should look:
 
 ```
 architecture: "x86_64"
 creation_date: 1458040200 # To get current date in Unix time, use `date +%s` command
 properties:
- architecture: "x86_64"
-  description: "Debian Unstable (sid) with preconfigured Node.js repository (20171227)"
-   os: "debian"
-    release: "sid"
+architecture: "x86_64"
+description: "Debian Unstable (sid) with preconfigured Node.js repository (20171227)"
+os: "debian"
+release: "sid"
 ```
 
 ### Creating a tarball from the metadata file
