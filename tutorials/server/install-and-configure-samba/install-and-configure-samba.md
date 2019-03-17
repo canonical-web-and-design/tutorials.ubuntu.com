@@ -83,6 +83,11 @@ Now that we have our new share configured, save it and restart Samba for it to t
 sudo service smbd restart
 ```
 
+Update the firewall rules to allow Samba traffic:
+```bash
+sudo ufw allow samba
+```
+
 ## Setting up User Accounts and Connecting to Share
 Duration: 1:00
 
