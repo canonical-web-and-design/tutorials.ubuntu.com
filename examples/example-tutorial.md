@@ -76,6 +76,7 @@ categories: community
 tags: guidelines, guide, write, contribute
 difficulty: 2
 status: published
+image: https://foo.png
 feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 published: 2017-01-13
 author: Canonical Web Team <webteam@canonical.com>
@@ -98,6 +99,7 @@ Let's have a look at each field:
      * **5**: Ubuntu sysadmin/developer- very familiar with most aspects of the operating system and can be expected to know details about its inner workings
 
  * **status**: `draft` or `published`
+ * **image** (optional): an absolute link to an image that will be used when sharing the tutorial on social networks. Preferred dimensions: width should be over 1000px with a 16:9 or 16:10 ratio.
  * **feedback_url**: where to report bugs and give feedback about this tutorial. Unless you have very specific requirements, this should be: `https://github.com/canonical-websites/tutorials.ubuntu.com/issues`.
  * **author**: the name and email address between brackets of the author of the tutorial. If you don't intend to maintain this tutorial after publication, please use `Canonical Web Team <webteam@canonical.com>`
  * **published**: a date in YYYY-MM-DD format, to be updated after any major change to the tutorial

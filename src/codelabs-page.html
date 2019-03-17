@@ -1,7 +1,10 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/app-route/app-route.html">
+<link rel="import" href="../bower_components/app-route/app-route-converter.html">
 <link rel="import" href="../bower_components/codelab-components/google-codelab-elements.html">
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../bower_components/iron-location/iron-location.html">
+<link rel="import" href="../bower_components/iron-location/iron-query-params.html">
 
 <link rel="import" href="elements/tutorial-feedback.html">
 
@@ -86,8 +89,25 @@
         /*  Override images being forced at 100% width  */
         width: auto;
       }
+
+      #contentContainer google-codelab aside.label {
+        border: 1px solid #2397f3;
+        background: #f1f8ff;
+      }
+
+      #contentContainer google-codelab aside .label-img {
+        width: 100px;
+        float: left;
+        margin-top: 10px;
+        margin-right: 14px;
+      }
     </style>
 
+    <iron-location query="{{query}}"></iron-location>
+    <iron-query-params
+        params-string="{{query}}"
+        params-object="{{queryParams}}">
+    </iron-query-params>
     <app-route
       route="{{route}}"
       pattern="/:codelab"
@@ -133,22 +153,23 @@
           type: String,
           value: '/',
         },
+        queryParams: {
+          type: Object,
+          value: {},
+        },
       },
 
       observers: [
         '_handleLoading(loading, url)',
         '_onPageChange(routeData.codelab)',
+        '_updateMetadata(routeData.codelab, codelabs)',
       ],
 
       ready: function() {
-        // If client linked here AND referral wasn't within host, change backURL
-        if (document.referrer &&
-            document.referrer.indexOf(window.location.hostname) === -1) {
-          this.backURL = document.referrer;
-        }
         let el = document.querySelector('ubuntu-tutorials-app');
         el.addEventListener('google-codelab-ready', function(error) {
           this._attachFeedbackForm();
+          this._addLabelNote();
 
           // Set an empty title on the first child element of the codelab
           // Firefox picks up Codelab's title attribute and makes a tooltip
@@ -162,12 +183,64 @@
         }
       },
 
+      _extractRootDomain: function(url) {
+        let domain;
+        if (url.indexOf('://') > -1) {
+          domain = url.split('/')[2];
+        } else {
+          domain = url.split('/')[0];
+        }
+        // Strip port and params
+        domain = domain.split(':')[0];
+        domain = domain.split('?')[0];
+
+        splitArr = domain.split('.');
+        arrLen = splitArr.length;
+        domain = domain.split('.').reverse();
+        let root = domain[1] + '.' + domain[0];
+        return root;
+      },
+
       _goToHome: function() {
-        if (history.pushState) {
-          window.history.pushState({}, null, this.backURL);
+        let backURL = this.backURL;
+        if (this.queryParams.backURL !== undefined) {
+          backURL = this.queryParams.backURL;
+        }
+
+        const isExternalURLRegex = new RegExp('^(?:[a-z]+:)?//', 'i');
+        const domainsWhitelist =
+          ['ubuntu.com',
+            'snapcraft.io',
+            'jujucharms.com',
+            'maas.io',
+            'conjure-up.io',
+            'netplan.io',
+            'canonical.com',
+            'launchpad.net',
+            'linuxcontainers.org',
+            'cloud-init.io',
+            'vanillaframework.io',
+            'github.com'];
+
+        // Join the array in '(a)|(b)|(c)' format
+        let whitelistStr = domainsWhitelist.map((i) => '(' + i + ')').join('|');
+        const isWhitelisted = new RegExp('(' + whitelistStr + ')');
+
+        let isExternalURL = false;
+        if (backURL && isExternalURLRegex.test(backURL)) {
+          isExternalURL = true;
+        }
+
+        if (history.pushState && !isExternalURL) {
+          window.history.pushState({}, null, backURL);
           window.dispatchEvent(new CustomEvent('location-changed'));
         } else {
-          window.location.href = this.backURL;
+          let rootDomain = this._extractRootDomain(backURL);
+          if (isWhitelisted.test(rootDomain)) {
+            window.location.href = backURL;
+          } else {
+            window.location.href = '/';
+          }
         }
       },
 
@@ -179,7 +252,7 @@
       },
 
       _updateMetadata: function() {
-        if (!this.codelabs) {
+        if (!this.codelabs || !this.routeData || !this.routeData.codelab) {
           return;
         }
         let currentUrl = this.routeData.codelab;
@@ -188,25 +261,17 @@
         })[0];
         if (metadata !== undefined) {
           this.fire('app-metadata', {
-            title: metadata.title + ' | Ubuntu tutorials',
-            description: metadata.summary,
+            'title': metadata.title + ' | Ubuntu tutorials',
+            'description': metadata.summary,
+            'author': metadata.author || '',
+            'og:description': metadata.summary || '',
+            'og:image': metadata.image || '',
+            'og:title': metadata.title + ' | Ubuntu tutorials',
+            'og:type': 'article',
+            'article:author': metadata.author || '',
+            'article:published_time': metadata.published || '',
           });
         }
-      },
-
-      _codelabsInfoHandler: function(event) {
-        this.categoriesmap = event.detail.response['categories'];
-        this.eventsmap = event.detail.response['events'];
-        event.detail.response['codelabs'].forEach(function(codelab) {
-          this.push('codelabs', codelab);
-        }, this);
-
-        // Force a binding update. Officially recommended, really!
-        // https://www.polymer-project.org/1.0/docs/devguide/model-data#override-dirty-check
-        let codelabs = this.codelabs;
-        this.codelabs = [];
-        this.codelabs = codelabs;
-        this._updateMetadata();
       },
 
       _loadTutorial: function(e, url) {
@@ -233,6 +298,32 @@
         let tutorialFeedback = document.createElement('tutorial-feedback');
         tutorialFeedback.title = metadata.title;
         lastPage.appendChild(tutorialFeedback);
+      },
+
+      _addLabelNote: function(tags) {
+        let currentUrl = this.routeData.codelab;
+        let metadata = this.codelabs.filter(function(metadata) {
+          return metadata.url === currentUrl;
+        })[0];
+
+        if (metadata.tags.includes('gci')) {
+          let contentContainer = Polymer.dom(this.$.contentContainer);
+          let steps = contentContainer.querySelectorAll('google-codelab-step');
+          let lastPage = steps[0].querySelector('p');
+          content = '<aside class="label special style-scope codelabs-page">';
+          content += '<img class="label-img style-scope codelabs-page" src=';
+          content += '"https://assets.ubuntu.com/v1/b652d02e-label-gci-text.png"';
+          content += ' alt="Google Code-in">';
+          content += 'Canonical and the Ubuntu community are proud to ';
+          content += 'participate in <a href="https://codein.withgoogle.com/">';
+          content += 'the Google Code-in contest</a>.';
+          content += '<br>This tutorial was written by a participating student,';
+          content += ' not a professional writer, ';
+          content += 'so if you have any comments or suggestions, ';
+          content += 'please leave some feedback - the community ';
+          content += '(and the student!) will greatly appreciate it.</p>';
+          lastPage.insertAdjacentHTML('beforeBegin', content);
+        };
       },
 
       _codelaburl: function(codelabpath) {

@@ -380,7 +380,7 @@ parts:
 
 #### Even more dependencies
 
-Snapcraft allows users to share parts with other projects via a common parts repository. We are going to use it to pull a second part called `desktop-glib-only`, that provides a desktop launcher script that ensures Desktop apps are working correctly inside snap confinement and integrates seamlessly with Desktop notifications and global sound controls for example.
+Snapcraft allows users to share parts with other projects via a common parts repository. We are going to use it to pull a second part called `desktop-gtk2`, which provides a desktop launcher script that ensures Desktop apps are working correctly inside snap confinement and integrates seamlessly with Desktop notifications, input methods and global sound controls for example.
 
 ```yaml
 parts:
@@ -400,10 +400,10 @@ parts:
       - pulseaudio
 
     after:
-      - desktop-glib-only
+      - desktop-gtk2
 ```
 
-The `after` field indicates that our "`electron-app`" part will only be built "after" the: `desktop-glib-only` part.
+The `after` field indicates that our "`electron-app`" part will only be built "after" the: `desktop-gtk2` part.
 
 #### Build and post-build instructions
 
@@ -451,7 +451,7 @@ parts:
       - pulseaudio
 
     after:
-      - desktop-glib-only
+      - desktop-gtk2
 
     build: node_modules/.bin/electron-builder
     install: |
@@ -493,7 +493,7 @@ apps:
 
 The `command` field requires an explanation:
  * since we are launching the snap within a confined space with restricted write access, we need to tell the executable where some things are: in this case `TMPDIR`, a standard temporary directory, that we are assigning to `$XDG_RUNTIME_DIR` since it's writable by snaps.
- * The `desktop-launch` part is a helper script (coming from the `desktop-glib-only` part) that sets other environment variables for the snap to work seamlessly with the desktop.
+ * The `desktop-launch` part is a helper script (coming from the `desktop-gtk2` part) that sets other environment variables for the snap to work seamlessly with the desktop.
  * `$SNAP` is an environment variable containing the install path of the snap.
 
 This list of "`plugs`", which are permissions that connect into similarly named "`slots`" on the user system, is more or less what any desktop application would need.
@@ -530,7 +530,7 @@ parts:
       - pulseaudio
 
     after:
-      - desktop-glib-only
+      - desktop-gtk2
 
     build: node_modules/.bin/electron-builder
     install: |

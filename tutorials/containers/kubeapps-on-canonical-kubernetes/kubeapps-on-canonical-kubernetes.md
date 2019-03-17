@@ -16,7 +16,7 @@ feedback_url: https://github.com/kubeapps/kubeapps/issues
 ## Overview
 Duration: 1
 
-This tutorial will guide you through the installation of Kubeapps on the Canonical Distribution of Kubernetes.
+This tutorial will guide you through the installation of Kubeapps on the Canonical Distribution of Kubernetes®*.
 
 ### Kubeapps
 
@@ -34,6 +34,8 @@ This tutorial will guide you through the installation of Kubeapps on the Canonic
 - A Linux system with [snapd](https://snapcraft.io/docs/core/install) installed
 - Account [credentials](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html) for AWS
 
+_* Kubernetes® is a registered trademark of The Linux Foundation in the United States and other countries, and is used pursuant to a license from The Linux Foundation_
+
 ## Create your cluster
 Duration: 5:00
 
@@ -46,11 +48,8 @@ sudo snap install conjure-up --classic
 Install the Canonical Distribution of Kubernetes using `conjure-up`.
 
 ```bash
-conjure-up canonical-kubernetes --channel edge
+conjure-up canonical-kubernetes
 ```
-
-positive
-: The `--channel edge` argument is a temporary workaround for the issue described [here](https://github.com/juju-solutions/bundle-canonical-kubernetes/issues/451) and will not be required in future stable releases of Kubernetes.
 
 Follow the on-screen instructions to select AWS as the cloud provider and specify the AWS credentials in subsequent prompts.
 
