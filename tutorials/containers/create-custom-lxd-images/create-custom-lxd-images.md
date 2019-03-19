@@ -13,7 +13,7 @@ author: Marcin Mikołajczak <me@m4sk.in>
 
 # Creating custom LXD images
 
-## Overwiew
+## Overview
 Duration: 1:00
 
 [LXD](https://linuxcontainers.org/lxd) is a container hypervisor providing a ReST API to manage LXC containers.
