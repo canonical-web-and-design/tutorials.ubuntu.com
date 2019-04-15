@@ -45,7 +45,7 @@ To ensure maximum compatibility with Apple hardware, we're going to first blank 
 
 - Launch *Disk Utility* from Applications>Utilities or Spotlight search
 - Insert your USB stick and observe the new device added to Disk Utility
-- Select the USB stick device and select `Erase` from the tool bar (or right-click menu)
+- Select the USB stick device (you may need to enable the option View>Show All Devices) and select `Erase` from the tool bar (or right-click menu)
 - Set the format to `MS-DOS (FAT)` and the scheme to `GUID Partition Map`
 - Check you've chosen the correct device and click `Erase`
 
