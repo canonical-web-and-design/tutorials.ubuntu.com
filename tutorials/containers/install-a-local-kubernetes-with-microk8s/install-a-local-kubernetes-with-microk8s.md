@@ -11,7 +11,7 @@ feedback_url: https://github.com/ubuntu/microk8s/issues/
 
 ---
 
-# Install a local Kubernetes with microk8s
+# Install a local Kubernetes with MicroK8s
 
 ## Overview
 
@@ -20,9 +20,9 @@ feedback_url: https://github.com/ubuntu/microk8s/issues/
 [Kubernetes][kubernetes] clusters host containerised applications in a reliable and scalable way. Having devops in mind, Kubernetes makes maintenance tasks such as upgrades dead simple.
 
 
-### What is microk8s
+### What is MicroK8s
 
-[Microk8s][microk8s] is a [CNCF certified][cncf-cert] upstream Kubernetes deployment that runs entirely in your workstation. Being a [snap][snap] it runs all Kubernetes services natively (i.e. no virtual machines) while packing the entire set of libraries and binaries needed. Installation is limited by how fast you can download a couple of hundred megabytes and the removal of microk8s leaves nothing behind.
+[MicroK8s][microk8s] is a [CNCF certified][cncf-cert] upstream Kubernetes deployment that runs entirely in your workstation. Being a [snap][snap] it runs all Kubernetes services natively (i.e. no virtual machines) while packing the entire set of libraries and binaries needed. Installation is limited by how fast you can download a couple of hundred megabytes and the removal of MicroK8s leaves nothing behind.
 
 ### In this tutorial you’ll learn how to...
 
@@ -37,43 +37,50 @@ feedback_url: https://github.com/ubuntu/microk8s/issues/
 
 
 
-## Deploying microk8s
+## Deploying MicroK8s
 Duration: 3:00
 
-The quickest way to get started is to install microk8s directly from the [snap store][microk8s-snap] by clicking the "Install" button.
+The quickest way to get started is to install MicroK8s directly from the [snap store][microk8s-snap] by clicking the "Install" button.
  
-Using the command line, we can install microk8s and let it update to the latest stable upstream Kubernetes release with:
+Using the command line, we can install MicroK8s and let it update to the latest stable upstream Kubernetes release with:
 
 ```bash
 sudo snap install microk8s --classic
 ```
 
-[Microk8s][microk8s] is a snap and as such it is frequently updated to each release of Kubernetes. To follow a specific upstream release series we can select a [channel][snap-channels] during installation. For example, to follow the v1.12 series:
+[MicroK8s][microk8s] is a snap and as such it is frequently updated to each release of Kubernetes. To follow a specific upstream release series we can select a [channel][snap-channels] during installation. For example, to follow the v1.14 series:
 
 ```bash
-sudo snap install microk8s --classic --channel=1.12/stable
+sudo snap install microk8s --classic --channel=1.14/stable
 ```
 
-Channels are made up of a track and an expected level of microk8s' stability. Try `snap info microk8s` to see what versions are currently published. At the time of this writing we have:
+Channels are made up of a track and an expected level of MicroK8s' stability. Try `snap info microk8s` to see what versions are currently published. At the time of this writing we have:
 ```bash
 channels:
-  stable:         v1.12.2  (266) 224MB classic
-  candidate:      v1.12.2  (266) 224MB classic
-  beta:           v1.12.2  (266) 224MB classic
-  edge:           v1.12.2  (309) 224MB classic
-  1.12/stable:    v1.12.2  (267) 224MB classic
-  1.12/candidate: v1.12.2  (267) 224MB classic
-  1.12/beta:      v1.12.2  (267) 224MB classic
-  1.12/edge:      v1.12.2  (310) 224MB classic
-  1.11/stable:    v1.11.4  (255) 219MB classic
-  1.11/candidate: v1.11.4  (255) 219MB classic
-  1.11/beta:      v1.11.4  (255) 219MB classic
-  1.11/edge:      v1.11.4  (292) 219MB classic
-  1.10/stable:    v1.10.9  (245) 175MB classic
-  1.10/candidate: v1.10.10 (285) 175MB classic
-  1.10/beta:      v1.10.10 (285) 175MB classic
-  1.10/edge:      v1.10.10 (291) 175MB classic
-
+  stable:         v1.14.0  2019-03-28 (492) 214MB classic
+  candidate:      v1.14.1  2019-04-15 (522) 214MB classic
+  beta:           v1.14.1  2019-04-15 (522) 214MB classic
+  edge:           v1.14.1  2019-04-12 (522) 214MB classic
+  1.14/stable:    v1.14.0  2019-03-28 (491) 214MB classic
+  1.14/candidate: v1.14.1  2019-04-15 (521) 214MB classic
+  1.14/beta:      v1.14.1  2019-04-15 (521) 214MB classic
+  1.14/edge:      v1.14.1  2019-04-12 (521) 214MB classic
+  1.13/stable:    v1.13.4  2019-04-03 (438) 229MB classic
+  1.13/candidate: v1.13.5  2019-04-05 (493) 237MB classic
+  1.13/beta:      v1.13.5  2019-04-05 (493) 237MB classic
+  1.13/edge:      v1.13.5  2019-04-01 (493) 237MB classic
+  1.12/stable:    v1.12.7  2019-04-14 (504) 259MB classic
+  1.12/candidate: v1.12.7  2019-04-05 (504) 259MB classic
+  1.12/beta:      v1.12.7  2019-04-05 (504) 259MB classic
+  1.12/edge:      v1.12.7  2019-04-03 (504) 259MB classic
+  1.11/stable:    v1.11.9  2019-04-10 (495) 252MB classic
+  1.11/candidate: v1.11.9  2019-04-05 (495) 252MB classic
+  1.11/beta:      v1.11.9  2019-04-05 (495) 252MB classic
+  1.11/edge:      v1.11.9  2019-04-01 (495) 252MB classic
+  1.10/stable:    v1.10.13 2019-02-25 (411) 200MB classic
+  1.10/candidate: v1.10.13 2019-02-18 (411) 200MB classic
+  1.10/beta:      v1.10.13 2019-02-18 (411) 200MB classic
+  1.10/edge:      v1.10.13 2019-04-04 (506) 208MB classic
 ```
 
 
@@ -105,7 +112,7 @@ With `microk8s.status` you can see the list of available addons and the ones cur
  - dashboard: Deploy kubernetes dashboard as well as grafana and influxdb.
  - storage: Create a default storage class. This storage class makes use of the hostpath-provisioner pointing to a directory on the host.
  - ingress: Create an ingress controller.
- - gpu: Expose GPU(s) to microk8s by enabling the nvidia-docker runtime and nvidia-device-plugin-daemonset. Requires NVIDIA drivers to be already installed on the host system.
+ - gpu: Expose GPU(s) to MicroK8s by enabling the nvidia-docker runtime and nvidia-device-plugin-daemonset. Requires NVIDIA drivers to be already installed on the host system.
  - istio: Deploy the core Istio services. You can use the `microk8s.istioctl` command to manage your deployments.
  - registry: Deploy a docker private registry and expose it on localhost:32000. The storage addon will be enabled as part of this addon.
 
@@ -156,14 +163,14 @@ As we see above the kubernetes-dashboard service in the kube-system namespace ha
 Let's use an alternative approach to access hosted services. The API server proxies our services, here is how to get to them:
 ```bash
 > microk8s.kubectl cluster-info
-Kubernetes master is running at http://127.0.0.1:8080
-Heapster is running at http://127.0.0.1:8080/api/v1/namespaces/kube-system/services/heapster/proxy
-KubeDNS is running at http://127.0.0.1:8080/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
-Grafana is running at http://127.0.0.1:8080/api/v1/namespaces/kube-system/services/monitoring-grafana/proxy
-InfluxDB is running at http://127.0.0.1:8080/api/v1/namespaces/kube-system/services/monitoring-influxdb:http/proxy
+Kubernetes master is running at https://127.0.0.1:16443
+Heapster is running at https://127.0.0.1:16443/api/v1/namespaces/kube-system/services/heapster/proxy
+KubeDNS is running at https://127.0.0.1:16443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+Grafana is running at https://127.0.0.1:16443/api/v1/namespaces/kube-system/services/monitoring-grafana/proxy
+InfluxDB is running at https://127.0.0.1:16443/api/v1/namespaces/kube-system/services/monitoring-influxdb:http/proxy
 ```
 
-We only need to point our browser to (http://127.0.0.1:8080/api/v1/namespaces/kube-system/services/monitoring-grafana/proxy)
+We need to point our browser to [https://127.0.0.1:8080/api/v1/namespaces/kube-system/services/monitoring-grafana/proxy](https://127.0.0.1:8080/api/v1/namespaces/kube-system/services/monitoring-grafana/proxy) and use the username and password shown with `microk8s.config`.
 
 ![Grafana Dashboard](images/grafana.png)
 
@@ -173,7 +180,8 @@ Duration: 7:00
 
 We start by creating a microbot deployment with two pods via the kubectl cli:
 ```bash
-microk8s.kubectl run microbot --image=dontrebootme/microbot:v1 --replicas=2
+microk8s.kubectl create deployment microbot --image=dontrebootme/microbot:v1
+microk8s.kubectl scale deployment microbot --replicas=2
 ```
 
 To expose our deployment we need to create a service:
@@ -226,18 +234,18 @@ At the very top we have the microbot pods, `service/microbot-service` is the sec
 ## Integrated commands
 Duration: 5:00
 
-There are many commands that ship with microk8s. We've only seen the essential ones in this tutorial. Explore the others at your own convenience:
+There are many commands that ship with MicroK8s. We've only seen the essential ones in this tutorial. Explore the others at your own convenience:
 
- - microk8s.status: Provides an overview of the microk8s state (running/not running) as well as the set of enabled addons
+ - microk8s.status: Provides an overview of the MicroK8s state (running/not running) as well as the set of enabled addons
  - microk8s.enable: Enables an addon
  - microk8s.disable: Disables an addon
  - microk8s.kubectl: Interact with kubernetes
  - microk8s.config: Shows the kubernetes config file
  - microk8s.istioctl: Interact with the istio services. Needs the istio addon to be enabled
- - microk8s.inspect: Performs a quick inspectio of the microk8s intallation. Offers hints on what 
+ - microk8s.inspect: Performs a quick inspectio of the MicroK8s intallation. Offers hints on what 
  - microk8s.reset: Resets the infrastructure to a clean state
  - microk8s.stop: Stops all kubernetes services
- - microk8s.start: Starts microk8s after it is being stopped
+ - microk8s.start: Starts MicroK8s after it is being stopped
 
 
 ## That’s all folks!
@@ -245,16 +253,16 @@ Duration: 1:00
 
 Congratulations! You’ve made it!
 
-Until next time, stop all microk8s services:
+Until next time, stop all MicroK8s services:
 ```bash
 microk8s.stop
 ```
 
 ### Where to go from here?
 
-* Learn more about [Kubernetes][k8s-docs]
-* Discover [microk8s][microk8s]
+* Discover [MicroK8s][microk8s]
 * Tell us what you think and [file feature requests][microk8s-issues]
+* Learn more about [Kubernetes][k8s-docs]
 
 
 <!-- LINKS -->
