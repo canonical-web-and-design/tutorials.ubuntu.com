@@ -145,4 +145,4 @@ If you get stuck, help is always at hand:
 [askubuntu]: https://askubuntu.com/
 [ubuntuforums]: https://ubuntuforums.org
 [ircsupport]: https://wiki.ubuntu.com/IRC/ChannelList
-[rufus]: https://rufus.akeo.ie/
+[rufus]: https://rufus.ie/
