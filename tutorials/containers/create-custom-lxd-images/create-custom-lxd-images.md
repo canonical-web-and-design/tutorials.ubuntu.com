@@ -13,7 +13,7 @@ author: Marcin Mikołajczak <me@m4sk.in>
 
 # Creating custom LXD images
 
-## Overwiew
+## Overview
 Duration: 1:00
 
 [LXD](https://linuxcontainers.org/lxd) is a container hypervisor providing a ReST API to manage LXC containers.
@@ -38,7 +38,7 @@ To create minimal Debian system in specified directory from existing Linux insta
 sudo apt install debootstrap
 ```
 
-We assume that you have already installed and configured LXD. If not, complete the [“Setting up LXD on Ubuntu 16.04”](tutorial/tutorial-setting-up-lxd-1604) tutorial.
+We assume that you have already installed and configured LXD. If not, complete the [“Setting up LXD on Ubuntu 16.04”](/tutorial/tutorial-setting-up-lxd-1604) tutorial.
 
 ## Creating basic system installation
 Duration: 5:00
