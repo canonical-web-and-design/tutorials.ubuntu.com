@@ -50,7 +50,6 @@ You should see a new window with Ubuntu Core running inside. Setting up Ubuntu C
 You don't _have_ to use Ubuntu Core, you can use also a "Target Device" with Ubuntu Classic. You just need to install an SSH server on the device.
 `sudo apt install ssh`
 For IoT use you will want to make other changes (e.g. uninstalling the desktop), but that is outside the scope of the current tutorial.
-Note: On Classic snapd doesn't currently provide confinement for snapped wayland servers, so you'll need to use devmode.
 
 
 ## Using Wayland
@@ -105,16 +104,12 @@ snap install snapcraft --classic
 ```
 
 
-and install LXD:
+and install [Multipass](https://github.com/CanonicalLtd/multipass):
 
 
 ```bash
-snap install lxd && sudo lxd init --auto
-sudo adduser $USER lxd
+snap install multipass --classic --beta
 ```
-
-
-Then sign out and back in (or `newgrp lxd` in the shell you'll be using)
 
 
 ## Test your application supports Wayland
@@ -188,9 +183,10 @@ Inside the glmark2-example directory edit the “`snap/snapcraft.yaml`” file, 
 
 ```yaml
 name: glmark2-example
-version: 0.1
+version: '0.1'
 summary: GLMark2 IoT example kiosk
 description: GLMark2 IoT example kiosk, using Wayland
+base: core18
 confinement: devmode
 grade: devel
 
@@ -216,7 +212,7 @@ Create the snap by returning to the "glmark2-example" directory and running
 
 
 ```bash
-snapcraft cleanbuild
+snapcraft
 ```
 
 
@@ -244,6 +240,7 @@ Oh no! It fails with these errors:
 Error: Failed to open models directory '/usr/share/glmark2/models'
 Error: Failed to open models directory '/usr/share/glmark2/textures'
 Error: main: Could not initialize canvas
+[1]    16532 segmentation fault (core dumped)  snap run glmark2-example
 ```
 
 
@@ -287,7 +284,7 @@ models    shaders  textures
 This is extremely common when snapping applications, therefore there are a few approaches to solving this:
 
 
-### Your application may read an environment variable
+### 1. Your application may read an environment variable
 
 Your application may read an environment variable that specifies where it should look for those resources. In that case, adjust your YAML file to add it with something like this:
 
@@ -304,23 +301,22 @@ apps:
 In our case, glmark2-wayland has the path `/usr/share/glmark2` hard-coded in, so this is not going to work for us.
 
 
-### Changing the application
+### 2. Changing the application
 
 Sometimes you can edit/recompile the application to add the environment variable mentioned above. If it is your own code you are snapping, this is a good approach.
 
 We could do this, but glmark2-wayland is not our own code and this adds an unnecessary maintenance overhead.
 
 
-### Using layouts for hard-coded paths
+### 3. Using layouts for hard-coded paths
 
-This experimental snapd feature bind-mounts directories inside the snap into any location, so that the binaries' hard-coded paths are correct. To use, add this to the YAML file:
+[This snapd feature](https://docs.snapcraft.io/snap-layouts) bind-mounts directories inside the snap into any location, so that the binaries' hard-coded paths are correct. To use, append this to the YAML file:
 
 
 ```yaml
-passthrough:
-  layout:
-    /usr/share/glmark2:
-      bind: $SNAP/usr/share/glmark2
+layout:
+  /usr/share/glmark2:
+    bind: $SNAP/usr/share/glmark2
 ```
 
 
@@ -334,9 +330,10 @@ For this guide we are going to use "layouts" frequently whenever paths are hard-
 
 ```yaml
 name: glmark2-example
-version: 0.1
+version: '0.1'
 summary: GLMark2 IoT example kiosk
 description: GLMark2 IoT example kiosk, using Wayland
+base: core18
 confinement: devmode
 grade: devel
 
@@ -353,58 +350,22 @@ parts:
     stage-packages:
       - glmark2-wayland
 
-passthrough:
-  layout:
-    /usr/share/glmark2:
-      bind: $SNAP/usr/share/glmark2
+layout:
+  /usr/share/glmark2:
+    bind: $SNAP/usr/share/glmark2
 ```
 
 
-Build this and install with:
-
-
-```bash
-snapcraft cleanbuild
-sudo snap install --devmode ./glmark2-example_0.1_amd64.snap
-```
-
-
-This gets an error message:
-
-
-```
-error: cannot install snap file: cannot use experimental 'layouts' feature, set option
-       'experimental.layouts' to true and try again
-```
-
-
-This is snapd making sure you understand that layouts are an experimental feature. We have to tell snapd we know about that:
-
-
-```
-sudo snap set core experimental.layouts=true
-```
-
-
-and from now on, snapd will let us install snaps using layouts.
-
-Now let's run our snap:
-
-
-```
-snap run glmark2-example
-```
-
-
-Still not working:
+Build this, install and try running the snap again. Unfortunately it still is not working, but we have got rid of the initial error messages:
 
 
 ```
 Error: main: Could not initialize canvas
+[1] 16532 segmentation fault (core dumped)  snap run glmark2-example
 ```
 
 
-But if you `snap run --shell` into the snap environment, you'll see that `/usr/share/glmark2` now contains the resources glmark2 needs. One problem solved!
+If you `snap run --shell` into the snap environment, you'll see that `/usr/share/glmark2` now contains the resources glmark2 needs - so one problem solved!
 
 
 ## Common Problem 2: Unable to connect to Wayland server
@@ -480,20 +441,30 @@ user@in-snap:~# $SNAP/usr/bin/glmark2-wayland
 
 Yikes! What's happened?
 
-Once again: files are not where they're expected to be! Don't forget, we're in the snap environment still. All the libraries glmark2-wayland needs are not in the usual places - we need to tell it where. Snapcraft deals with this by putting a script in our snap that configures paths correctly, have a look at
+Once again: files are not where they’re expected to be! Don’t forget, we’re in the snap environment still. All the libraries glmark2-wayland needs are not in the usual places - we need to tell it where. 
+
+Run these commands to set the linker paths `$LD_LIBRARY_PATH` and executable paths `$PATH` to commonly required locations in the snap environment (snapd does this before running your snap):
+
+
+```bash
+root@in-snap:~# export PATH="$SNAP/usr/sbin:$SNAP/usr/bin:$SNAP/sbin:$SNAP/bin:$PATH"
+root@in-snap:~# export LD_LIBRARY_PATH="$SNAP_LIBRARY_PATH:$LD_LIBRARY_PATH:$SNAP/lib:$SNAP/usr/lib:$SNAP/lib/x86_64-linux-gnu:$SNAP/usr/lib/x86_64-linux-gnu"
+```
+
+
+Note: you should add any additional library paths that the binary requires.
+
+Snapcraft creates a script in `$SNAP` that contains the command specified to run. Have a look at
 
 
 ```bash
 root@in-snap:~# cat $SNAP/command-glmark2-example.wrapper
 #!/bin/sh
-export PATH="$SNAP/usr/sbin:$SNAP/usr/bin:$SNAP/sbin:$SNAP/bin:$PATH"
-export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$SNAP/lib:$SNAP/usr/lib:$SNAP/lib/x86_64-linux-gnu:$SNAP/usr/lib/x86_64-linux-gnu:$SNAP/usr/lib/x86_64-linux-gnu/mesa-egl:$SNAP/usr/lib/x86_64-linux-gnu/mesa"
-export LD_LIBRARY_PATH=$SNAP_LIBRARY_PATH:$LD_LIBRARY_PATH
-exec "$SNAP/usr/bin/glmark2-wayland" "$@"
+exec "$SNAP/usr/bin/glmark2-wayland" "--fullscreen" "$@"
 ```
 
 
-The script sets the library load and executable paths to those inside the snap. It is this script which is called when you do "snap run …". As we are still in the snap environment, we get the same result by running it:
+It is this script which is called when you do “snap run …”. As we are still in the snap environment, we get the same result by running it:
 
 
 ```bash
@@ -505,33 +476,67 @@ Oh, still fails with a bunch of errors like
 
 
 ```
+Error: eglGetDisplay() failed with error: 0x3000
+Error: eglGetDisplay() failed with error: 0x3000
+Error: main: Could not initialize canvas
+```
+
+
+Courage! This is progress, we’re almost done in fact. There’s just one more thing to fix…
+
+positive
+: Note for when using “core” (aka “core16”) as the base
+
+Up to this stage, there is no distinction between core16 and core18. But if using core16, the above error messages will be slightly different:
+
+
+```
 libEGL warning: DRI2: failed to open swrast (search paths /usr/lib/x86_64-linux-gnu/dri:${ORIGIN}/dri:/usr/lib/dri)
 Error: eglInitialize() failed with error: 0x3001
 Error: main: Could not initialize canvas
 ```
 
 
-Courage! This is progress, we're almost done in fact. There's just one more thing to fix…
+Not to worry, the next section will provide the solution.
+
 
 
 ## Common Problem 3: GL drivers are not where they usually are
 
 duration: 2:00
 
-This is another typical problem for snapping graphics applications: the GL drivers it needs are bundled inside the snap, but the application needs to be told the path to those drivers inside the snap.
+This is another typical problem for snapping graphics applications: the GL drivers it needs are bundled inside the snap, and the application needs to be configured to use these drivers.
 
-Is this "files are not where they're expected to be" yet again? Yes, but here we are lucky, there's an environment variable `$LIBGL_DRIVERS_PATH` we can use to point libGL to the correct location for the GL driver files it needs (you could use layouts too, but this is more efficient)
+Is this "files are not where they're expected to be" yet again? Yes, but here we are lucky as there’s environment variables we can use to specify the correct location for the GL driver files (you could use layouts too, but this is more efficient).
 
-So set `LIBGL_DRIVERS_PATH=$SNAP/usr/lib/x86_64-linux-gnu/dri` - and finally run
+If using “core18” as the base, simply use:
 
 
 ```bash
-LIBGL_DRIVERS_PATH=$SNAP/usr/lib/x86_64-linux-gnu/dri \
-  $SNAP/command-glmark2-example.wrapper
+export __EGL_VENDOR_LIBRARY_DIRS="$SNAP/etc/glvnd/egl_vendor.d:$SNAP/usr/share/glvnd/egl_vendor.d"
 ```
 
 
-Which works! Woo! Finally! You deserve a nice cup of tea for that. Now we know what to fix, exit the snap environment with Ctrl+D.
+Otherwise, using “core” (aka “core16”) as the base, you need
+
+
+```bash
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$SNAP/usr/lib/x86_64-linux-gnu/mesa-egl:$SNAP/usr/lib/x86_64-linux-gnu/mesa"
+export LIBGL_DRIVERS_PATH="$SNAP/usr/lib/x86_64-linux-gnu/dri"
+```
+
+
+Now try once more:
+
+
+```
+lang:bash
+$SNAP/command-glmark2-example.wrapper
+```
+
+
+It works! Woo! Finally! You deserve a nice cup of tea for that. Now we know what to fix, exit the snap environment with Ctrl+D.
+
 
 positive
 : **On a Desktop Environment that supports Wayland** you may find that glmark connects to your Wayland-based desktop shell and not Mir.
@@ -547,7 +552,7 @@ snap run glmark2-example
 
 
 negative
-: **Referring to "/usr/lib/x86_64-linux-gnu/dri" means the snap will only function on amd64 machines.**
+: **Referring to "x86_64-linux-gnu" means the snap will only function on amd64 machines.**
 
 We will revisit this later to ensure the snap can be compiled to function on other architectures.
 
@@ -562,7 +567,7 @@ We need to set up the symlink of the Wayland socket into the $XDG_RUNTIME_DIR di
 ```bash
 #!/bin/bash
 mkdir -p $XDG_RUNTIME_DIR
-ln -s $XDG_RUNTIME_DIR/../wayland-0 $XDG_RUNTIME_DIR/
+ln -sf $XDG_RUNTIME_DIR/../wayland-0 $XDG_RUNTIME_DIR/
 $SNAP/usr/bin/glmark2-wayland --fullscreen
 ```
 
@@ -576,21 +581,36 @@ Another option (which we will use here) is to adjust the `command:` like this:
 …
     command: |
       bash -c "mkdir -p $XDG_RUNTIME_DIR
-               ln -s $XDG_RUNTIME_DIR/../wayland-0 $XDG_RUNTIME_DIR/
+               ln -sf $XDG_RUNTIME_DIR/../wayland-0 $XDG_RUNTIME_DIR/
                               $SNAP/usr/bin/glmark2-wayland --fullscreen"
 …
 ```
 
 
-We can ask snapcraft to set the libgl path variable by adding an `environment` entry for the command:
+We can ask snapcraft to set the environment variables to fix graphics by adding an `environment` entry for the command. For core18:
 
 
 ```
 …
     environment:
-      LIBGL_DRIVERS_PATH=$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/dri
+      __EGL_VENDOR_LIBRARY_DIRS: "$SNAP/etc/glvnd/egl_vendor.d:$SNAP/usr/share/glvnd/egl_vendor.d"
 …
 ```
+
+
+or for core16:
+
+
+```
+…
+    environment:
+      LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/mesa-egl:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/mesa"
+      LIBGL_DRIVERS_PATH: "$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/dri"
+…
+```
+
+
+(Note the use of `$SNAPCRAFT_ARCH_TRIPLET` that inserts the correct triplet for the architecture you’re building for)
 
 
 We can also enable strict confinement and see if everything works. Due to the care we took above, it does. Your own application may require more tweaking to function fully confined however.
@@ -601,9 +621,10 @@ We can also enable strict confinement and see if everything works. Due to the ca
 
 ```yaml
 name: glmark2-example
-version: 0.1
+version: '0.1'
 summary: GLMark2 IoT example kiosk
 description: GLMark2 IoT example kiosk, using Wayland
+base: core18
 confinement: strict
 grade: devel
 
@@ -611,13 +632,13 @@ apps:
   glmark2-example:
     command: |
       bash -c "mkdir -p $XDG_RUNTIME_DIR
-               ln -s $XDG_RUNTIME_DIR/../wayland-0 $XDG_RUNTIME_DIR/
+               ln -sf $XDG_RUNTIME_DIR/../wayland-0 $XDG_RUNTIME_DIR/
                               $SNAP/usr/bin/glmark2-wayland --fullscreen"
     plugs:
       - opengl
       - wayland
     environment:
-      LIBGL_DRIVERS_PATH: $SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/dri
+      __EGL_VENDOR_LIBRARY_DIRS: "$SNAP/etc/glvnd/egl_vendor.d:$SNAP/usr/share/glvnd/egl_vendor.d"
 
 parts:
   glmark2-wayland:
@@ -625,10 +646,9 @@ parts:
     stage-packages:
       - glmark2-wayland
 
-passthrough:
-  layout:
-    /usr/share/glmark2:
-      bind: $SNAP/usr/share/glmark2
+layout:
+  /usr/share/glmark2:
+    bind: $SNAP/usr/share/glmark2
 ```
 
 
@@ -636,7 +656,7 @@ Rebuild the snap and install it
 
 
 ```bash
-snapcraft cleanbuild
+snapcraft
 sudo snap install --dangerous ./glmark2-example_0.1_amd64.snap --devmode
 snap run glmark2-example
 ```
@@ -685,14 +705,6 @@ It auto-starts, so now you should have a black screen with a white mouse cursor.
 
 "mir-kiosk" provides the graphical environment needed for running a graphical snap.
 
-Next, you will need to enable the experimental "layouts" feature as we did on desktop:
-
-
-```
-snap set core experimental.layouts=true
-```
-
-
 
 ### Differences between running on Desktop and Ubuntu Core
 
@@ -722,7 +734,7 @@ apps:
 
 The explicit [restart-condition](https://docs.snapcraft.io/build-snaps/syntax#restart-condition) ensures glmark2 is restarted, even when it quits successfully.
 
-Note this results in the console output from the application being sent to the journal. To view its output while running, do `sudo journalctl -f -t glmark2-example.glmark2-example`.
+Note this results in the console output from the application being sent to the journal. To view its output while running, do `sudo snap logs -f glmark2-example`.
 
 That's all the changes we need to make! We just need to snap it up for the target device.
 
@@ -732,9 +744,10 @@ That's all the changes we need to make! We just need to snap it up for the targe
 
 ```yaml
 name: glmark2-example
-version: 0.1
+version: '0.1'
 summary: GLMark2 IoT example kiosk
 description: GLMark2 IoT example kiosk, using Wayland
+base: core18
 confinement: strict
 grade: devel
 
@@ -750,7 +763,7 @@ apps:
       - opengl
       - wayland
     environment:
-      LIBGL_DRIVERS_PATH: $SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/dri
+      __EGL_VENDOR_LIBRARY_DIRS: "$SNAP/etc/glvnd/egl_vendor.d:$SNAP/usr/share/glvnd/egl_vendor.d"
 
 parts:
   glmark2-wayland:
@@ -758,10 +771,9 @@ parts:
     stage-packages:
       - glmark2-wayland
 
-passthrough:
-  layout:
-    /usr/share/glmark2:
-      bind: $SNAP/usr/share/glmark2
+layout:
+  /usr/share/glmark2:
+    bind: $SNAP/usr/share/glmark2
 ```
 
 
@@ -774,11 +786,11 @@ If your target device has the same CPU architecture as your PC, you can just bui
 
 
 ```bash
-snapcraft cleanbuild
+snapcraft
 ```
 
 
-However you need to build the snap for a different CPU architecture, it is not quite as simple..
+However you need to build the snap for a different CPU architecture, it is not quite as simple…
 
 
 ### Building snaps using Launchpad

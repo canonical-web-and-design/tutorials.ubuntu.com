@@ -77,10 +77,11 @@ This guide will start with a working hello-world snap for Electron, that functio
 
 ```yaml
 name: electron-hello-world-kiosk
-version: 0.1
+version: '0.1'
 summary: Hello World Electron app
 description: |
   Simple Hello World Electron app as an example
+base: core18
 confinement: strict
 grade: devel
 
@@ -105,7 +106,7 @@ parts:
   electron-helloworld:
     plugin: nodejs
     source: https://github.com/electron/electron-quick-start.git
-    after: [desktop-gtk2]
+    after: [desktop-gtk3]
     override-build: |
         case $SNAPCRAFT_ARCH_TRIPLET in
           "i386-linux-gnu") ARCH="ia32";;
@@ -121,8 +122,41 @@ parts:
     - libasound2
     - libgconf-2-4
     - libnss3
+    - libx11-xcb1
     - libxss1
     - libxtst6
+
+    build-packages:
+    - nodejs
+    - npm
+
+  # Adapted from snapcraft-desktop-helpers https://github.com/ubuntu/snapcraft-desktop-helpers/blob/master/snapcraft.yaml#L183
+  desktop-gtk3:
+    source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
+    source-subdir: gtk
+    plugin: make
+    make-parameters: ["FLAVOR=gtk3"]
+    build-packages:
+      - build-essential
+      - libgtk-3-dev
+    stage-packages:
+      - libxkbcommon0  # XKB_CONFIG_ROOT
+      - ttf-ubuntu-font-family
+      - dmz-cursor-theme
+      - light-themes
+      - adwaita-icon-theme
+      - gnome-themes-standard
+      - shared-mime-info
+      - libgtk-3-0
+      - libgdk-pixbuf2.0-0
+      - libglib2.0-bin
+      - libgtk-3-bin
+      - unity-gtk3-module
+      - libappindicator3-1
+      - locales-all
+      - xdg-user-dirs
+      - ibus-gtk3
+      - libibus-1.0-5    
 ```
 
 
@@ -130,7 +164,7 @@ Some points about this YAML
 
 
 
-*   [snapcraft-desktop-helpers](https://github.com/ubuntu/snapcraft-desktop-helpers/blob/master/snapcraft.yaml#L1) is used to ease environment setup for electron
+*   [snapcraft-desktop-helpers](https://github.com/ubuntu/snapcraft-desktop-helpers/blob/master/snapcraft.yaml#L1) is used to ease environment setup for electron. We need to copy/paste the relevant YAML right now. 
 *   npm is the packaging tool being used
 *   It uses "[electron-packager](https://www.npmjs.com/package/electron-packager)" to build the electron app.
 *   the"[override-build](https://docs.snapcraft.io/build-snaps/scriptlets#overriding-the-build-step)" scriptlet is used to run commands to install electron-packager, build the package and install the final binary into a suitable location in the snap.
@@ -144,7 +178,7 @@ Build the snap with:
 
 
 ```bash
-snapcraft cleanbuild
+snapcraft
 ```
 
 
@@ -174,6 +208,7 @@ Once the snap is running on your Ubuntu desktop, we need to perform a few altera
 1.  and make it a daemon by adding `daemon: simple `and` restart-condition: always`
 1.  set the `XWAYLAND_FULLSCREEN_WINDOW_HINT` environment variable to `window_role="browser-window"`
 1.  have `x11` be both a socket and a plug - involves creating a x11-plug to avoid duplicate names.
+1.  append the YAML for the `xwayland-kiosk-helper` part
 
 Finally we want this snap to start on boot and be restarted if it fails, so make it a daemon.
 
@@ -182,10 +217,11 @@ The final YAML file will look like this:
 
 ```yaml
 name: electron-hello-world-kiosk
-version: 0.1
+version: '0.1'
 summary: Hello World Electron app for a Kiosk
 description: |
   Simple Hello World Electron app as an example of a HTML5 Kiosk
+base: core18
 confinement: strict
 grade: devel
 
@@ -217,7 +253,7 @@ parts:
   electron-helloworld:
     plugin: nodejs
     source: https://github.com/electron/electron-quick-start.git
-    after: [desktop-gtk2, xwayland-kiosk-helper]
+    after: [desktop-gtk3, xwayland-kiosk-helper]
     override-build: |
         case $SNAPCRAFT_ARCH_TRIPLET in
           "i386-linux-gnu") ARCH="ia32";;
@@ -233,8 +269,46 @@ parts:
     - libasound2
     - libgconf-2-4
     - libnss3
+    - libx11-xcb1
     - libxss1
     - libxtst6
+    build-packages:
+    - nodejs
+    - npm
+
+  # Adapted from snapcraft-desktop-helpers https://github.com/ubuntu/snapcraft-desktop-helpers/blob/master/snapcraft.yaml#L183
+  desktop-gtk3:
+    source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
+    source-subdir: gtk
+    plugin: make
+    make-parameters: ["FLAVOR=gtk3"]
+    build-packages:
+      - build-essential
+      - libgtk-3-dev
+    stage-packages:
+      - libxkbcommon0  # XKB_CONFIG_ROOT
+      - ttf-ubuntu-font-family
+      - dmz-cursor-theme
+      - light-themes
+      - adwaita-icon-theme
+      - gnome-themes-standard
+      - shared-mime-info
+      - libgtk-3-0
+      - libgdk-pixbuf2.0-0
+      - libglib2.0-bin
+      - libgtk-3-bin
+      - unity-gtk3-module
+      - libappindicator3-1
+      - locales-all
+      - xdg-user-dirs
+      - ibus-gtk3
+      - libibus-1.0-5
+
+  xwayland-kiosk-helper:
+    plugin: cmake
+    source: https://github.com/MirServer/xwayland-kiosk-helper.git
+    build-packages: [ build-essential ]
+    stage-packages: [ xwayland, i3, libegl1-mesa, libgl1-mesa-glx ]
 ```
 
 
@@ -242,7 +316,7 @@ Build as usual with
 
 
 ```bash
-snapcraft cleanbuild
+snapcraft
 ```
 
 
