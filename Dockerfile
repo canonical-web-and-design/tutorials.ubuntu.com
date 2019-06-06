@@ -2,10 +2,7 @@ FROM ubuntu:bionic
 
 # System dependencies
 RUN apt-get update && \
-    apt-get install curl xz-utils --yes && \
-    curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
-    apt-get update && \
-    apt-get install --yes nodejs
+    apt-get install xz-utils nodejs npm --yes
 
 # Node dependencies
 RUN npm install --global yarn
