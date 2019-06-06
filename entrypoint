@@ -1,0 +1,10 @@
+#! /usr/bin/env bash
+
+set -x
+
+proxy=""
+if [ -n "${BOT_PROXY:-}" ]; then
+  proxy="--bot-proxy ${BOT_PROXY}"
+fi
+
+node ./server.js --root build/ --host 0.0.0.0 --port ${PORT:-80} ${proxy}
