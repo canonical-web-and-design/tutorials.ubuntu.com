@@ -20,7 +20,7 @@ jobs:
           command: yarn run build-all
       - run:
           name: Run the site server
-          command: PORT=80 ./bin/serve
+          command: PORT=80 yarn run start-server
           background: true
       - run:
           name: Check site is accessible
