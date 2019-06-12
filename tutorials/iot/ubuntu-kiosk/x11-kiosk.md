@@ -304,14 +304,6 @@ Now you should have a black screen with a white mouse cursor.
 
 "mir-kiosk" provides the graphical environment needed for running a graphical snap.
 
-Next, you will need to enable the experimental “layouts” feature as we did in the Wayland guide:
-
-
-```bash
-sudo snap set core experimental.layouts=true
-```
-
-
 
 ## Snapping to use mir-kiosk
 
