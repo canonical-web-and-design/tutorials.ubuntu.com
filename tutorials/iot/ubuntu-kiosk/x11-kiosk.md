@@ -213,7 +213,7 @@ This is the basic setup that we'll have in our snap. It seems like a lot of work
 
 duration: 5:00
 
-For our first pass we will snap glxgears and run it in devmode (i.e. unconfined) on our Ubuntu desktop. We will include an [xwayland-kiosk-helper](https://github.com/MirServer/xwayland-kiosk-helper/) part that make life easier, it contains a script that runs the above commands for us.
+For our first pass we will snap glxgears and run it in devmode (i.e. unconfined) on our Ubuntu desktop. We will include an [xwayland-kiosk-helper](https://github.com/MirServer/xwayland-kiosk-helper/) part that makes life easier, it contains a script that runs the above commands for us.
 
 This guide assumes you are familiar with creating snaps. If not, please read [here](https://docs.snapcraft.io/build-snaps/) first. 
 
