@@ -104,7 +104,7 @@ snap install snapcraft --classic
 ```
 
 
-and install [Multipass](https://github.com/CanonicalLtd/multipass):
+and install [Multipass](https://snapcraft.io/multipass):
 
 
 ```bash
