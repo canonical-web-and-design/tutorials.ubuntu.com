@@ -36,21 +36,18 @@ positive
 
 *   An Ubuntu desktop running any current release of Ubuntu or an Ubuntu Virtual Machine on another OS.
 *   A 'Target Device' from one of the following:
-    *   **A device running [Ubuntu Core](https://www.ubuntu.com/core).**<br />
+    *   **A device running [Ubuntu Core 18](https://www.ubuntu.com/core).**<br />
 [This guide](https://developer.ubuntu.com/core/get-started/installation-medias) shows you how to set up a supported device. If there's no supported image that fits your needs you can [create your own core image](/tutorial/create-your-own-core-image).
     *   **Using a VM**
 You don't have to have a physical "Target Device", you can follow the tutorial with Ubuntu Core in a VM. Install the ubuntu-core-vm snap:
 `snap install --beta ubuntu-core-vm --devmode`
-For the first run, create a VM running the latest Core image:
+For the first run, create a VM running the latest Core 18 image:
 `sudo ubuntu-core-vm init`
 From then on, you can spin it up with:
 `sudo ubuntu-core-vm`
 You should see a new window with Ubuntu Core running inside. Setting up Ubuntu Core on this VM is the same as for any other device or VM. See, for example, [https://developer.ubuntu.com/core/get-started/kvm](https://developer.ubuntu.com/core/get-started/kvm).
     *   **Using Ubuntu Classic**
-You don't _have_ to use Ubuntu Core, you can use also a "Target Device" with Ubuntu Classic. You just need to install an SSH server on the device.
-`sudo apt install ssh`
-For IoT use you will want to make other changes (e.g. uninstalling the desktop), but that is outside the scope of the current tutorial.
-
+You don't _have_ to use Ubuntu Core, you can use also a "Target Device" with Ubuntu Classic. Read [this guide](https://discourse.ubuntu.com/t/howto-run-your-kiosk-snap-on-your-desktop/11180) to understand how to run kiosk snaps on your desktop, as the particular details won't be repeated here.
 
 ## Using Wayland
 
@@ -484,21 +481,6 @@ Error: main: Could not initialize canvas
 
 Courage! This is progress, we’re almost done in fact. There’s just one more thing to fix…
 
-positive
-: Note for when using “core” (aka “core16”) as the base
-
-Up to this stage, there is no distinction between core16 and core18. But if using core16, the above error messages will be slightly different:
-
-
-```
-libEGL warning: DRI2: failed to open swrast (search paths /usr/lib/x86_64-linux-gnu/dri:${ORIGIN}/dri:/usr/lib/dri)
-Error: eglInitialize() failed with error: 0x3001
-Error: main: Could not initialize canvas
-```
-
-
-Not to worry, the next section will provide the solution.
-
 
 
 ## Common Problem 3: GL drivers are not where they usually are
@@ -509,20 +491,11 @@ This is another typical problem for snapping graphics applications: the GL drive
 
 Is this "files are not where they're expected to be" yet again? Yes, but here we are lucky as there’s environment variables we can use to specify the correct location for the GL driver files (you could use layouts too, but this is more efficient).
 
-If using “core18” as the base, simply use:
+Simply use:
 
 
 ```bash
 export __EGL_VENDOR_LIBRARY_DIRS="$SNAP/etc/glvnd/egl_vendor.d:$SNAP/usr/share/glvnd/egl_vendor.d"
-```
-
-
-Otherwise, using “core” (aka “core16”) as the base, you need
-
-
-```bash
-export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$SNAP/usr/lib/x86_64-linux-gnu/mesa-egl:$SNAP/usr/lib/x86_64-linux-gnu/mesa"
-export LIBGL_DRIVERS_PATH="$SNAP/usr/lib/x86_64-linux-gnu/dri"
 ```
 
 
@@ -587,7 +560,7 @@ Another option (which we will use here) is to adjust the `command:` like this:
 ```
 
 
-We can ask snapcraft to set the environment variables to fix graphics by adding an `environment` entry for the command. For core18:
+We can ask snapcraft to set the environment variables to fix graphics by adding an `environment` entry for the command:
 
 
 ```
@@ -596,21 +569,6 @@ We can ask snapcraft to set the environment variables to fix graphics by adding 
       __EGL_VENDOR_LIBRARY_DIRS: "$SNAP/etc/glvnd/egl_vendor.d:$SNAP/usr/share/glvnd/egl_vendor.d"
 …
 ```
-
-
-or for core16:
-
-
-```
-…
-    environment:
-      LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/mesa-egl:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/mesa"
-      LIBGL_DRIVERS_PATH: "$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/dri"
-…
-```
-
-
-(Note the use of `$SNAPCRAFT_ARCH_TRIPLET` that inserts the correct triplet for the architecture you’re building for)
 
 
 We can also enable strict confinement and see if everything works. Due to the care we took above, it does. Your own application may require more tweaking to function fully confined however.
@@ -688,7 +646,7 @@ duration: 3:00
 
 The goal here is to have our graphical snap running full-screen on your device.
 
-Before we proceed, you need to have Ubuntu Core [already running on your device](#0).
+Before we proceed, you need to have Ubuntu Core 18 [already running on your device](#0).
 
 
 ### Device Setup
