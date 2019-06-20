@@ -352,36 +352,47 @@ snapcraft
 ```
 
 
-
-## Building for different architectures
+## Building snaps for different architectures
 
 duration: 10:00
 
-One day, perhaps, snapcraft will fully support cross building with the --target-arch option. But getting that to work is beyond the scope of this tutorial. Instead we'll make use of Launchpad's builders to build the snap for all architectures (including the one your device provides).
+One day, perhaps, snapcraft will fully support cross building with the `--target-arch` option. But getting that to work is beyond the scope of this tutorial. Instead we'll make use of [Snapcraft builders](https://snapcraft.io/build) to build the snap for all architecture$
 
-Create a github repository for your snap and push your changes to the snap project there:
+[Create a GitHub repository](https://github.com/new) for your snap and push your changes to the snap project there:
 
 
 ```bash
 git init
 git commit -a
 git remote remove origin
-git remote add origin https://github.com/<project>/<repo>.git
+git remote add origin https://github.com/<username>/<repo>.git
 git push -u origin master
 ```
 
 
-Now [set up your build on Launchpad](https://docs.snapcraft.io/build-snaps/ci-integration). Note that you will need to use the same snap name in the store as in `name:`, so choose something unique to make your life easier.
+Now [visit Snapcraft Build](https://snapcraft.io/build) and follow the "Set up in Minutes" link. You can configure Snapcraft Build to watch your GitHub repository, and it will auto-build Snaps supporting multiple architectures: amd64, i386, armhf and amd64, ppc64el and s$
 
-Don't bother with publishing to the store (yet) you can download the snap and deploy it as follows:
+Visiting the link
 
-On your desktop go to the snaps webpage (e.g. [https://code.launchpad.net/~/+snaps](https://code.launchpad.net/%7E/+snaps)), find the build for your device architecture and download it and copy to your device. For example:
+```
+https://build.snapcraft.io/user/<username>/<repo>
+```
+
+will show you your build status, allow you to find where the built Snaps are, and trigger a new build.
+
+To download the built Snap, you need to click on the build number of the architecture you need, and the first line of the build log will be a URL pointing at Launchpad (of this form):
+
+```
+https://launchpad.net/~build.snapcraft.io/+snap/91eff219d76d5721eb24ffb6a83032b6/+build/593821
+```
+
+Visiting this URL, you can find the built Snap under the "Built files" section.
+
+To test your snap on your target device, find the build for your device architecture and download it. Or you can grab its URL and download it directly to your device:
 
 
 ```bash
-wget https://code.launchpad.net/~mir-team/+snap/glxgears-example/+build/337696/+files/glxgears-example_0.1_amd64.snap
-```
-
+wget https://launchpad.net/~build.snapcraft.io/+snap/91eff219d76d5721eb24ffb6a83032b6/+build/593821/+files/glxgears-example_0.1_armhf.snap
 
 
 ## Deploy the snap on the device
