@@ -293,7 +293,7 @@ Open another terminal and ssh login to your device and from this login install t
 
 
 ```bash
-sudo snap install mir-kiosk
+snap install mir-kiosk
 ```
 
 

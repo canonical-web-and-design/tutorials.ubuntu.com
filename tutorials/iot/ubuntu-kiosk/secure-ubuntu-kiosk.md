@@ -43,7 +43,7 @@ How to create a graphical kiosk on Ubuntu Core running a single full-screen demo
 [This guide](https://developer.ubuntu.com/core/get-started/installation-medias) shows you how to set up a supported device. If there's no supported image that fits your needs you can [create your own core image](/tutorial/create-your-own-core-image).
     *   **Using a Virtual Machine (VM)**
 You don't need to have a physical "Target Device", you can follow the tutorial with Ubuntu Core in a VM. Install the ubuntu-core-vm snap:
-`snap install --beta ubuntu-core-vm --devmode`
+`sudo snap install --beta ubuntu-core-vm --devmode`
 For the first run, create a VM running the latest Core image:
 `sudo ubuntu-core-vm init`
 From then on, you can spin it up with:
