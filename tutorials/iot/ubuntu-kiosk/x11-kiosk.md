@@ -140,7 +140,7 @@ glxgears
 and in a separate terminal, run
 
 
-```
+```bash
 xprop
 ```
 
@@ -226,10 +226,11 @@ Inside the glxgears directory edit the "snap/snapcraft.yaml" file, and let's try
 
 ```yaml
 name: glxgears-example
-version: 0.1
+version: '0.1'
 summary: glxgears example kiosk
 description: |
   glxgears example X11 kiosk, using Xwayland and Wayland
+base: core18
 confinement: strict
 grade: devel
 
@@ -310,10 +311,11 @@ Here is a suitable first candidate snapcraft.yaml file:
 
 ```yaml
 name: glxgears-example
-version: 0.1
+version: '0.1'
 summary: glxgears example kiosk
 description: |
   glxgears example X11 kiosk, using Xwayland and Wayland
+base: core18
 confinement: devmode
 grade: devel
 
@@ -425,10 +427,11 @@ To update the snap to use the X11 interface we need to update the "snap/snapcraf
 
 ```yaml
 name: glxgears-example
-version: 0.1
+version: '0.1'
 summary: glxgears example kiosk
 description: |
   glxgears example X11 kiosk, using Xwayland and Wayland
+base: core18
 confinement: strict
 grade: devel
 

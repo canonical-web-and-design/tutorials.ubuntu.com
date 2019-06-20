@@ -163,7 +163,7 @@ Some points about this YAML
 *   [snapcraft-desktop-helpers](https://github.com/ubuntu/snapcraft-desktop-helpers/blob/master/snapcraft.yaml#L1) is used to ease environment setup for electron. We need to copy/paste the relevant YAML right now. 
 *   npm is the packaging tool being used
 *   It uses "[electron-packager](https://www.npmjs.com/package/electron-packager)" to build the electron app.
-*   the"[override-build](https://docs.snapcraft.io/build-snaps/scriptlets#overriding-the-build-step)" scriptlet is used to run commands to install electron-packager, build the package and install the final binary into a suitable location in the snap.
+*   the"[override-build](https://docs.snapcraft.io/scriptlets#heading--overriding-the-build-step)" scriptlet is used to run commands to install electron-packager, build the package and install the final binary into a suitable location in the snap.
 *   the stage-packages are those we find necessary for the final binary to function. You may need to add more depending on the complexity of your application.
 *   it supports i386, amd64, armhf and arm64.
 

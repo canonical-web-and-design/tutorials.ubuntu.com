@@ -495,16 +495,15 @@ Simply use:
 
 
 ```bash
-export __EGL_VENDOR_LIBRARY_DIRS="$SNAP/etc/glvnd/egl_vendor.d:$SNAP/usr/share/glvnd/egl_vendor.d"
+root@in-snap:~# export __EGL_VENDOR_LIBRARY_DIRS="$SNAP/etc/glvnd/egl_vendor.d:$SNAP/usr/share/glvnd/egl_vendor.d"
 ```
 
 
 Now try once more:
 
 
-```
-lang:bash
-$SNAP/command-glmark2-example.wrapper
+```bash
+root@in-snap:~# $SNAP/command-glmark2-example.wrapper
 ```
 
 
@@ -517,7 +516,7 @@ positive
 This is easy to work around: use a different Wayland socket name to avoid confusion:
 
 
-```
+```bash
 miral-kiosk --wayland-socket-name mir-kiosk&
 export WAYLAND_DISPLAY=mir-kiosk
 snap run glmark2-example
