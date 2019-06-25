@@ -39,21 +39,18 @@ How to create a graphical kiosk on Ubuntu Core running a single full-screen demo
 
 *   An Ubuntu desktop running any current release of Ubuntu or an Ubuntu Virtual Machine on another OS.
 *   A 'Target Device' from one of the following:
-    *   **A device running [Ubuntu Core](https://www.ubuntu.com/core).**<br />
+    *   **A device running [Ubuntu Core 18](https://www.ubuntu.com/core).**<br />
 [This guide](https://developer.ubuntu.com/core/get-started/installation-medias) shows you how to set up a supported device. If there's no supported image that fits your needs you can [create your own core image](/tutorial/create-your-own-core-image).
     *   **Using a Virtual Machine (VM)**
 You don't need to have a physical "Target Device", you can follow the tutorial with Ubuntu Core in a VM. Install the ubuntu-core-vm snap:
-`snap install --beta ubuntu-core-vm --devmode`
+`sudo snap install --beta ubuntu-core-vm --devmode`
 For the first run, create a VM running the latest Core image:
 `sudo ubuntu-core-vm init`
 From then on, you can spin it up with:
 `sudo ubuntu-core-vm`
 You should see a new window with Ubuntu Core running inside. Setting up Ubuntu Core on this VM is the same as for any other device or VM. See, for example, [https://developer.ubuntu.com/core/get-started/kvm](https://developer.ubuntu.com/core/get-started/kvm).
-    *   **Using Ubuntu Classic (Desktop/Server)**
-You don't _have_ to use Ubuntu Core, you can use also a "Target Device" with Ubuntu Classic. You just need to install an SSH server on the device.
-`sudo apt install ssh`
-For IoT use you may want to make other changes (e.g. uninstalling the desktop), but that is outside the scope of the current tutorial.
-Note: On Classic snapd doesn't currently provide confinement for snapped wayland or x11 servers, so you'll need to use devmode.
+    *   **Using Ubuntu Classic**
+You don't _have_ to use Ubuntu Core, you can use also a "Target Device" with Ubuntu Classic. Read [this guide](https://discourse.ubuntu.com/t/howto-run-your-kiosk-snap-on-your-desktop/11180) to understand how to run kiosk snaps on your desktop, as the particular details won't be repeated here.
 
 
 ## Basic Infrastructure
