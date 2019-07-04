@@ -41,6 +41,12 @@
     "browserCapabilities": ["es2015"]
   }],
   "lint": {
-    "rules": ["polymer-2-hybrid"]
+    "rules": ["polymer-2-hybrid"],
+    "ignoreWarnings": [
+      "content-to-slot-usage-site",
+      "root-selector-to-html",
+      "deprecated-shadow-dom-selectors",
+      "not-loadable"
+    ]
   }
 }

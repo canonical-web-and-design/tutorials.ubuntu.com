@@ -29,28 +29,28 @@
     "serve": "npm-run-all 'serve-examples {@}' --",
     "serve-examples": "./bin/serve $(if [ -z \"$*\" ]; then echo \"examples\"; fi)",
     "serve-live": "./bin/serve",
-    "start-server": "node ./server.js --root build/ --host 0.0.0.0 --port ${PORT:-80} $(if [ -n \"${BOT_PROXY:-}\" ]; then echo \"--bot-proxy ${BOT_PROXY}\"; fi)",
+    "start-server": "./entrypoint",
     "test": "npm-run-all lint-js lint-polymer lint-style lint-content"
   },
   "devDependencies": {
-    "eslint": "3.19.0",
-    "eslint-config-google": "0.7.1",
-    "eslint-plugin-html": "2.0.3",
-    "find": "0.2.7",
+    "eslint-config-google": "0.13.0",
+    "eslint": "5.16.0",
+    "eslint-plugin-html": "5.0.5",
+    "find": "0.3.0",
     "gray-matter": "4.0.2",
-    "mocha": "5.2.0",
+    "mocha": "6.1.4",
     "mocha-minimalist-reporter": "1.1.0",
-    "polymer-cli": "1.5.7",
-    "prpl-server": "1.0.0",
-    "stylelint": "9.10.1",
+    "polymer-cli": "1.9.9",
+    "prpl-server": "1.4.0",
+    "stylelint": "10.0.1",
     "stylelint-config-polymer": "0.0.1",
     "stylelint-processor-html": "1.0.0"
   },
   "dependencies": {
-    "cheerio": "1.0.0-rc.2",
+    "cheerio": "1.0.0-rc.3",
     "express-interceptor": "1.2.0",
     "express-redirect": "1.2.2",
-    "npm-run-all": "4.0.2",
-    "sitemap": "2.1.0"
+    "npm-run-all": "4.1.5",
+    "sitemap": "2.2.0"
   }
 }

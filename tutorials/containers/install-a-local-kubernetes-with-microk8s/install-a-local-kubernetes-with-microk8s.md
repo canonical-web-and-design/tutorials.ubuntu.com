@@ -108,7 +108,7 @@ microk8s.disable dashboard dns
 With `microk8s.status` you can see the list of available addons and the ones currently enabled.
 
 ### List of the most important addons
- - dns: Deploy kube dns. This addon may be required by others thus we recommend you always enable it.
+ - dns: Deploy DNS. This addon may be required by others thus we recommend you always enable it.
  - dashboard: Deploy kubernetes dashboard as well as grafana and influxdb.
  - storage: Create a default storage class. This storage class makes use of the hostpath-provisioner pointing to a directory on the host.
  - ingress: Create an ingress controller.
@@ -124,37 +124,44 @@ Now that we have enabled the dns and dashboard addons we can access the availabl
 ```
 > microk8s.kubectl get all --all-namespaces
 NAMESPACE     NAME                                                  READY   STATUS    RESTARTS   AGE
-kube-system   pod/heapster-v1.5.2-5995dc5b8c-q6zlj                  4/4     Running   0          29s
-kube-system   pod/kube-dns-67b548dcff-qrqrv                         3/3     Running   0          54s
-kube-system   pod/kubernetes-dashboard-67d4c89764-6vnwq             1/1     Running   0          49s
-kube-system   pod/monitoring-influxdb-grafana-v4-8467db6558-7s7kq   2/2     Running   0          49s
+kube-system   pod/coredns-f7867546d-mq2js                           1/1     Running   0          19m
+kube-system   pod/heapster-v1.5.2-844b564688-8dk7b                  4/4     Running   0          18m
+kube-system   pod/kubernetes-dashboard-7d75c474bb-mfspz             1/1     Running   0          19m
+kube-system   pod/monitoring-influxdb-grafana-v4-6b6954958c-xbh2z   2/2     Running   0          19m
 
-NAMESPACE     NAME                           TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)             AGE
-default       service/kubernetes             ClusterIP   10.152.183.1     <none>        443/TCP             2m  
-kube-system   service/heapster               ClusterIP   10.152.183.89    <none>        80/TCP              49s
-kube-system   service/kube-dns               ClusterIP   10.152.183.10    <none>        53/UDP,53/TCP       54s
-kube-system   service/kubernetes-dashboard   ClusterIP   10.152.183.149   <none>        443/TCP             49s
-kube-system   service/monitoring-grafana     ClusterIP   10.152.183.54    <none>        80/TCP              49s
-kube-system   service/monitoring-influxdb    ClusterIP   10.152.183.163   <none>        8083/TCP,8086/TCP   49s
 
-NAMESPACE     NAME                                             DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-kube-system   deployment.apps/heapster-v1.5.2                  1         1         1            1           49s
-kube-system   deployment.apps/kube-dns                         1         1         1            1           54s
-kube-system   deployment.apps/kubernetes-dashboard             1         1         1            1           49s
-kube-system   deployment.apps/monitoring-influxdb-grafana-v4   1         1         1            1           49s
+NAMESPACE     NAME                           TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                  AGE
+default       service/kubernetes             ClusterIP   10.152.183.1     <none>        443/TCP                  19h
+kube-system   service/heapster               ClusterIP   10.152.183.222   <none>        80/TCP                   19m
+kube-system   service/kube-dns               ClusterIP   10.152.183.10    <none>        53/UDP,53/TCP,9153/TCP   19m
+kube-system   service/kubernetes-dashboard   ClusterIP   10.152.183.147   <none>        443/TCP                  19m
+kube-system   service/monitoring-grafana     ClusterIP   10.152.183.104   <none>        80/TCP                   19m
+kube-system   service/monitoring-influxdb    ClusterIP   10.152.183.118   <none>        8083/TCP,8086/TCP        19m
+
+
+NAMESPACE     NAME                                             READY   UP-TO-DATE   AVAILABLE   AGE
+kube-system   deployment.apps/coredns                          1/1     1            1           19m
+kube-system   deployment.apps/heapster-v1.5.2                  1/1     1            1           19m
+kube-system   deployment.apps/kubernetes-dashboard             1/1     1            1           19m
+kube-system   deployment.apps/monitoring-influxdb-grafana-v4   1/1     1            1           19m
 
 NAMESPACE     NAME                                                        DESIRED   CURRENT   READY   AGE
-kube-system   replicaset.apps/heapster-v1.5.2-5995dc5b8c                  1         1         1       29s
-kube-system   replicaset.apps/heapster-v1.5.2-7864d77c47                  0         0         0       37s
-kube-system   replicaset.apps/heapster-v1.5.2-dd4fd4c49                   0         0         0       49s
-kube-system   replicaset.apps/kube-dns-67b548dcff                         1         1         1       54s
-kube-system   replicaset.apps/kubernetes-dashboard-67d4c89764             1         1         1       49s
-kube-system   replicaset.apps/monitoring-influxdb-grafana-v4-8467db6558   1         1         1       49s
+kube-system   replicaset.apps/coredns-f7867546d                           1         1         1       19m
+kube-system   replicaset.apps/heapster-v1.5.2-6b794f77c8                  0         0         0       19m
+kube-system   replicaset.apps/heapster-v1.5.2-6f5d55456                   0         0         0       18m
+kube-system   replicaset.apps/heapster-v1.5.2-844b564688                  1         1         1       18m
+kube-system   replicaset.apps/kubernetes-dashboard-7d75c474bb             1         1         1       19m
+kube-system   replicaset.apps/monitoring-influxdb-grafana-v4-6b6954958c   1         1         1       19m
 ```
 
 ### Kubernetes dashboard
 
-As we see above the kubernetes-dashboard service in the kube-system namespace has a ClusterIP of `10.152.183.149` and listens on `443`. The ClusterIP is randomly assigned so if you follow these steps on your host, make sure you check the IP you got. Point your browser to `https://10.152.183.149:443` and you will see the kubernetes dashboard UI.
+As we see above the kubernetes-dashboard service in the kube-system namespace has a ClusterIP of `10.152.183.147` and listens on `443`. The ClusterIP is randomly assigned so if you follow these steps on your host, make sure you check the IP you got. Point your browser to `https://10.152.183.147:443` and you will see the kubernetes dashboard UI. To access the dashboard use the default token retrieved with:
+
+```
+token=$(microk8s.kubectl -n kube-system get secret | grep default-token | cut -d " " -f1)
+microk8s.kubectl -n kube-system describe secret $token
+```
 
 ![Kubernetes Dashboard](images/dashboard.png)
 
@@ -165,12 +172,12 @@ Let's use an alternative approach to access hosted services. The API server prox
 > microk8s.kubectl cluster-info
 Kubernetes master is running at https://127.0.0.1:16443
 Heapster is running at https://127.0.0.1:16443/api/v1/namespaces/kube-system/services/heapster/proxy
-KubeDNS is running at https://127.0.0.1:16443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+CoreDNS is running at https://127.0.0.1:16443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
 Grafana is running at https://127.0.0.1:16443/api/v1/namespaces/kube-system/services/monitoring-grafana/proxy
 InfluxDB is running at https://127.0.0.1:16443/api/v1/namespaces/kube-system/services/monitoring-influxdb:http/proxy
 ```
 
-We need to point our browser to [https://127.0.0.1:8080/api/v1/namespaces/kube-system/services/monitoring-grafana/proxy](https://127.0.0.1:8080/api/v1/namespaces/kube-system/services/monitoring-grafana/proxy) and use the username and password shown with `microk8s.config`.
+We need to point our browser to [https://127.0.0.1:16443/api/v1/namespaces/kube-system/services/monitoring-grafana/proxy](https://127.0.0.1:16443/api/v1/namespaces/kube-system/services/monitoring-grafana/proxy) and use the username and password shown with `microk8s.config`.
 
 ![Grafana Dashboard](images/grafana.png)
 
@@ -193,40 +200,42 @@ After a few minutes our cluster looks like this:
 ```
 > microk8s.kubectl get all --all-namespaces
 NAMESPACE     NAME                                                  READY   STATUS    RESTARTS   AGE
-default       pod/microbot-66df6f98d5-l5z8c                         1/1     Running   0          12m
-default       pod/microbot-66df6f98d5-xfdml                         1/1     Running   0          12m
-kube-system   pod/heapster-v1.5.2-5995dc5b8c-q6zlj                  4/4     Running   4          51m
-kube-system   pod/kube-dns-67b548dcff-qrqrv                         3/3     Running   6          51m
-kube-system   pod/kubernetes-dashboard-67d4c89764-6vnwq             1/1     Running   1          51m
-kube-system   pod/monitoring-influxdb-grafana-v4-8467db6558-7s7kq   2/2     Running   3          51m
+default       pod/microbot-7dd47b8fd6-gnkm6                         1/1     Running   0          24s
+default       pod/microbot-7dd47b8fd6-q2wsb                         1/1     Running   0          38s
+kube-system   pod/coredns-f7867546d-mq2js                           1/1     Running   0          23m
+kube-system   pod/heapster-v1.5.2-844b564688-8dk7b                  4/4     Running   0          22m
+kube-system   pod/kubernetes-dashboard-7d75c474bb-mfspz             1/1     Running   0          23m
+kube-system   pod/monitoring-influxdb-grafana-v4-6b6954958c-xbh2z   2/2     Running   0          23m
 
-NAMESPACE     NAME                           TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)             AGE
-default       service/kubernetes             ClusterIP   10.152.183.1     <none>        443/TCP             53m
-default       service/microbot-service       NodePort    10.152.183.110   <none>        80:32648/TCP        12m
-kube-system   service/heapster               ClusterIP   10.152.183.89    <none>        80/TCP              51m
-kube-system   service/kube-dns               ClusterIP   10.152.183.10    <none>        53/UDP,53/TCP       51m
-kube-system   service/kubernetes-dashboard   ClusterIP   10.152.183.149   <none>        443/TCP             51m
-kube-system   service/monitoring-grafana     ClusterIP   10.152.183.54    <none>        80/TCP              51m
-kube-system   service/monitoring-influxdb    ClusterIP   10.152.183.163   <none>        8083/TCP,8086/TCP   51m
 
-NAMESPACE     NAME                                             DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-default       deployment.apps/microbot                         2         2         2            2           12m
-kube-system   deployment.apps/heapster-v1.5.2                  1         1         1            1           51m
-kube-system   deployment.apps/kube-dns                         1         1         1            1           51m
-kube-system   deployment.apps/kubernetes-dashboard             1         1         1            1           51m
-kube-system   deployment.apps/monitoring-influxdb-grafana-v4   1         1         1            1           51m
+NAMESPACE     NAME                           TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                  AGE
+default       service/kubernetes             ClusterIP   10.152.183.1     <none>        443/TCP                  19h
+default       service/microbot-service       NodePort    10.152.183.24    <none>        80:32286/TCP             9s
+kube-system   service/heapster               ClusterIP   10.152.183.222   <none>        80/TCP                   23m
+kube-system   service/kube-dns               ClusterIP   10.152.183.10    <none>        53/UDP,53/TCP,9153/TCP   23m
+kube-system   service/kubernetes-dashboard   ClusterIP   10.152.183.147   <none>        443/TCP                  23m
+kube-system   service/monitoring-grafana     ClusterIP   10.152.183.104   <none>        80/TCP                   23m
+kube-system   service/monitoring-influxdb    ClusterIP   10.152.183.118   <none>        8083/TCP,8086/TCP        23m
+
+
+NAMESPACE     NAME                                             READY   UP-TO-DATE   AVAILABLE   AGE
+default       deployment.apps/microbot                         2/2     2            2           38s
+kube-system   deployment.apps/coredns                          1/1     1            1           23m
+kube-system   deployment.apps/heapster-v1.5.2                  1/1     1            1           23m
+kube-system   deployment.apps/kubernetes-dashboard             1/1     1            1           23m
+kube-system   deployment.apps/monitoring-influxdb-grafana-v4   1/1     1            1           23m
 
 NAMESPACE     NAME                                                        DESIRED   CURRENT   READY   AGE
-default       replicaset.apps/microbot-66df6f98d5                         2         2         2       12m
-kube-system   replicaset.apps/heapster-v1.5.2-5995dc5b8c                  1         1         1       51m
-kube-system   replicaset.apps/heapster-v1.5.2-7864d77c47                  0         0         0       51m
-kube-system   replicaset.apps/heapster-v1.5.2-dd4fd4c49                   0         0         0       51m
-kube-system   replicaset.apps/kube-dns-67b548dcff                         1         1         1       51m
-kube-system   replicaset.apps/kubernetes-dashboard-67d4c89764             1         1         1       51m
-kube-system   replicaset.apps/monitoring-influxdb-grafana-v4-8467db6558   1         1         1       51m
+default       replicaset.apps/microbot-7dd47b8fd6                         2         2         2       38s
+kube-system   replicaset.apps/coredns-f7867546d                           1         1         1       23m
+kube-system   replicaset.apps/heapster-v1.5.2-6b794f77c8                  0         0         0       23m
+kube-system   replicaset.apps/heapster-v1.5.2-6f5d55456                   0         0         0       22m
+kube-system   replicaset.apps/heapster-v1.5.2-844b564688                  1         1         1       22m
+kube-system   replicaset.apps/kubernetes-dashboard-7d75c474bb             1         1         1       23m
+kube-system   replicaset.apps/monitoring-influxdb-grafana-v4-6b6954958c   1         1         1       23m
 ```
 
-At the very top we have the microbot pods, `service/microbot-service` is the second in the services list. Our service has a ClusterIP through which we can access it. Notice however that our service is of type [NodePort][nodeport]. This means that our deployment is also available on a port on the host machine; that port is randomly selected and in this case it happens to be `32648`. All we need to do is to point our browser to `http://localhost:32648`.
+At the very top we have the microbot pods, `service/microbot-service` is the second in the services list. Our service has a ClusterIP through which we can access it. Notice however that our service is of type [NodePort][nodeport]. This means that our deployment is also available on a port on the host machine; that port is randomly selected and in this case it happens to be `32286`. All we need to do is to point our browser to `http://localhost:32286`.
 
 ![Microbot](images/microbot.png)
 

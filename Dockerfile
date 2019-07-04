@@ -1,16 +1,8 @@
-FROM ubuntu:xenial
+FROM ubuntu:bionic
 
 # System dependencies
-RUN apt-get update && apt-get install --yes curl xz-utils
-
-# Get nodejs
-RUN mkdir /usr/lib/nodejs && \
-    curl https://nodejs.org/dist/v6.11.3/node-v6.11.3-linux-x64.tar.xz | tar -xJ -C /usr/lib/nodejs && \
-    mv /usr/lib/nodejs/node-v6.11.3-linux-x64 /usr/lib/nodejs/node-v6.11.3
-
-# Set nodejs paths
-ENV NODEJS_HOME=/usr/lib/nodejs/node-v6.11.3
-ENV PATH=$NODEJS_HOME/bin:$PATH
+RUN apt-get update && \
+    apt-get install xz-utils nodejs npm --yes
 
 # Node dependencies
 RUN npm install --global yarn

@@ -41,7 +41,7 @@ negative
 
 *   An Ubuntu desktop running any current release of Ubuntu or an Ubuntu Virtual Machine on another OS.
 *   A 'Target Device' from one of the following:
-    *   **A device running [Ubuntu Core](https://www.ubuntu.com/core).**<br />
+    *   **A device running [Ubuntu Core 18](https://www.ubuntu.com/core).**<br />
 [This guide](https://developer.ubuntu.com/core/get-started/installation-medias) shows you how to set up a supported device. If there's no supported image that fits your needs you can [create your own core image](/tutorial/create-your-own-core-image).
     *   **Using a VM**
 You don't have to have a physical "Target Device", you can follow the tutorial with Ubuntu Core in a VM. Install the ubuntu-core-vm snap:
@@ -52,11 +52,7 @@ From then on, you can spin it up with:
 `sudo ubuntu-core-vm`
 You should see a new window with Ubuntu Core running inside. Setting up Ubuntu Core on this VM is the same as for any other device or VM. See, for example, [https://developer.ubuntu.com/core/get-started/kvm](https://developer.ubuntu.com/core/get-started/kvm).
     *   **Using Ubuntu Classic**
-You don't _have_ to use Ubuntu Core, you can use also a "Target Device" with Ubuntu Classic. You just need to install an SSH server on the device.
-`sudo apt install ssh`
-For IoT use you will want to make other changes (e.g. uninstalling the desktop), but that is outside the scope of the current tutorial.
-Note: On Classic snapd doesn't currently provide confinement for snapped wayland or x11 servers, so you'll need to use devmode.
-
+You don't _have_ to use Ubuntu Core, you can use also a "Target Device" with Ubuntu Classic. Read [this guide](https://discourse.ubuntu.com/t/howto-run-your-kiosk-snap-on-your-desktop/11180) to understand how to run kiosk snaps on your desktop, as the particular details won't be repeated here.
 
 ## X11 on top of Wayland
 
@@ -144,7 +140,7 @@ glxgears
 and in a separate terminal, run
 
 
-```
+```bash
 xprop
 ```
 
@@ -213,7 +209,7 @@ This is the basic setup that we'll have in our snap. It seems like a lot of work
 
 duration: 5:00
 
-For our first pass we will snap glxgears and run it in devmode (i.e. unconfined) on our Ubuntu desktop. We use [xwayland-kiosk-helpers](https://github.com/MirServer/xwayland-kiosk-helper/) to make life easier, as it runs the above commands for us.
+For our first pass we will snap glxgears and run it in devmode (i.e. unconfined) on our Ubuntu desktop. We will include an [xwayland-kiosk-helper](https://github.com/MirServer/xwayland-kiosk-helper/) part that makes life easier, it contains a script that runs the above commands for us.
 
 This guide assumes you are familiar with creating snaps. If not, please read [here](https://docs.snapcraft.io/build-snaps/) first. 
 
@@ -230,10 +226,11 @@ Inside the glxgears directory edit the "snap/snapcraft.yaml" file, and let's try
 
 ```yaml
 name: glxgears-example
-version: 0.1
+version: '0.1'
 summary: glxgears example kiosk
 description: |
   glxgears example X11 kiosk, using Xwayland and Wayland
+base: core18
 confinement: strict
 grade: devel
 
@@ -249,9 +246,14 @@ apps:
 parts:
   glxgears:
     plugin: nil
-    after: [ xwayland-kiosk-helper ]
     stage-packages:
       - mesa-utils
+
+  xwayland-kiosk-helper:
+    plugin: cmake
+    source: https://github.com/MirServer/xwayland-kiosk-helper.git
+    build-packages: [ build-essential ]
+    stage-packages: [ xwayland, i3, libegl1-mesa, libgl1-mesa-glx ]
 ```
 
 
@@ -261,7 +263,7 @@ Create the snap by returning to the "glxgears" directory and running
 
 
 ```bash
-snapcraft cleanbuild
+snapcraft
 ```
 
 
@@ -291,21 +293,13 @@ Open another terminal and ssh login to your device and from this login install t
 
 
 ```bash
-sudo snap install mir-kiosk
+snap install mir-kiosk
 ```
 
 
 Now you should have a black screen with a white mouse cursor.
 
 "mir-kiosk" provides the graphical environment needed for running a graphical snap.
-
-Next, you will need to enable the experimental “layouts” feature as we did in the Wayland guide:
-
-
-```bash
-sudo snap set core experimental.layouts=true
-```
-
 
 
 ## Snapping to use mir-kiosk
@@ -317,10 +311,11 @@ Here is a suitable first candidate snapcraft.yaml file:
 
 ```yaml
 name: glxgears-example
-version: 0.1
+version: '0.1'
 summary: glxgears example kiosk
 description: |
   glxgears example X11 kiosk, using Xwayland and Wayland
+base: core18
 confinement: devmode
 grade: devel
 
@@ -338,9 +333,14 @@ apps:
 parts:
   glxgears:
     plugin: nil
-    after: [ xwayland-kiosk-helper ]
     stage-packages:
       - mesa-utils
+
+  xwayland-kiosk-helper:
+    plugin: cmake
+    source: https://github.com/MirServer/xwayland-kiosk-helper.git
+    build-packages: [ build-essential ]
+    stage-packages: [ xwayland, i3, libegl1-mesa, libgl1-mesa-glx ]
 ```
 
 
@@ -348,40 +348,51 @@ Check this builds locally before proceeding:
 
 
 ```bash
-snapcraft cleanbuild
+snapcraft
 ```
 
 
-
-## Building for different architectures
+## Building snaps for different architectures
 
 duration: 10:00
 
-One day, perhaps, snapcraft will fully support cross building with the --target-arch option. But getting that to work is beyond the scope of this tutorial. Instead we'll make use of Launchpad's builders to build the snap for all architectures (including the one your device provides).
+One day, perhaps, snapcraft will fully support cross building with the `--target-arch` option. But getting that to work is beyond the scope of this tutorial. Instead we'll make use of [Snapcraft builders](https://snapcraft.io/build) to build the snap for all architecture$
 
-Create a github repository for your snap and push your changes to the snap project there:
+[Create a GitHub repository](https://github.com/new) for your snap and push your changes to the snap project there:
 
 
 ```bash
 git init
 git commit -a
 git remote remove origin
-git remote add origin https://github.com/<project>/<repo>.git
+git remote add origin https://github.com/<username>/<repo>.git
 git push -u origin master
 ```
 
 
-Now [set up your build on Launchpad](https://docs.snapcraft.io/build-snaps/ci-integration). Note that you will need to use the same snap name in the store as in `name:`, so choose something unique to make your life easier.
+Now [visit Snapcraft Build](https://snapcraft.io/build) and follow the "Set up in Minutes" link. You can configure Snapcraft Build to watch your GitHub repository, and it will auto-build Snaps supporting multiple architectures: amd64, i386, armhf and amd64, ppc64el and s$
 
-Don't bother with publishing to the store (yet) you can download the snap and deploy it as follows:
+Visiting the link
 
-On your desktop go to the snaps webpage (e.g. [https://code.launchpad.net/~/+snaps](https://code.launchpad.net/%7E/+snaps)), find the build for your device architecture and download it and copy to your device. For example:
+```
+https://build.snapcraft.io/user/<username>/<repo>
+```
+
+will show you your build status, allow you to find where the built Snaps are, and trigger a new build.
+
+To download the built Snap, you need to click on the build number of the architecture you need, and the first line of the build log will be a URL pointing at Launchpad (of this form):
+
+```
+https://launchpad.net/~build.snapcraft.io/+snap/91eff219d76d5721eb24ffb6a83032b6/+build/593821
+```
+
+Visiting this URL, you can find the built Snap under the "Built files" section.
+
+To test your snap on your target device, find the build for your device architecture and download it. Or you can grab its URL and download it directly to your device:
 
 
 ```bash
-wget https://code.launchpad.net/~mir-team/+snap/glxgears-example/+build/337696/+files/glxgears-example_0.1_amd64.snap
-```
-
+wget https://launchpad.net/~build.snapcraft.io/+snap/91eff219d76d5721eb24ffb6a83032b6/+build/593821/+files/glxgears-example_0.1_armhf.snap
 
 
 ## Deploy the snap on the device
@@ -427,10 +438,11 @@ To update the snap to use the X11 interface we need to update the "snap/snapcraf
 
 ```yaml
 name: glxgears-example
-version: 0.1
+version: '0.1'
 summary: glxgears example kiosk
 description: |
   glxgears example X11 kiosk, using Xwayland and Wayland
+base: core18
 confinement: strict
 grade: devel
 
@@ -449,9 +461,14 @@ apps:
 parts:
   glxgears:
     plugin: nil
-    after: [ xwayland-kiosk-helper ]
     stage-packages:
       - mesa-utils
+
+  xwayland-kiosk-helper:
+    plugin: cmake
+    source: https://github.com/MirServer/xwayland-kiosk-helper.git
+    build-packages: [ build-essential ]
+    stage-packages: [ xwayland, i3, libegl1-mesa, libgl1-mesa-glx ]
 
 plugs:
   x11-plug: # because cannot have identical plug/slot name in same yaml.

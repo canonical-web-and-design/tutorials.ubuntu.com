@@ -1,19 +1,13 @@
 {
   "extends": [
     "config:base",
-    "schedule:weekends"
+    "schedule:monthly",
+    "group:all"
   ],
   "packageRules": [
     {
       "depTypeList": ["devDependencies"],
       "extends": [":automergeMinor"]
-    },
-    {
-      "packagePatterns": ["*"],
-      "minor": {
-        "groupName": "all non-major dependencies",
-        "groupSlug": "all-minor-patch"
-      }
     }
   ]
 }
