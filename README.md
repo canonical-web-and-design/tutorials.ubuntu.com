@@ -1,5 +1,7 @@
 # tutorials.ubuntu.com
 
+[![CircleCI build status](https://circleci.com/gh/canonical-web-and-design/tutorials.ubuntu.com.svg?style=shield)](https://circleci.com/gh/canonical-web-and-design/tutorials.ubuntu.com) [![Code coverage](https://codecov.io/gh/canonical-web-and-design/tutorials.ubuntu.com/branch/master/graph/badge.svg)](https://codecov.io/gh/canonical-web-and-design/tutorials.ubuntu.com)
+
 The Polymer application that runs <https://tutorials.ubuntu.com>.
 
 For anyone wishing to contribute work or file issues, please read [CONTRIBUTING.md](CONTRIBUTING.md).
