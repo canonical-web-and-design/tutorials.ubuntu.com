@@ -84,7 +84,7 @@ The script will automatically install and configure all the necessary prerequisi
 
 After installation is over, check that the Community Edition is working.
 
-![](https://personal.onlyoffice.com/products/files/httphandlers/filehandler.ashx?action=download&fileid=2992962&doc=YU12cDRXNGowYmZVTzJnM1Y0R0ZVVjFya3BEOW5nVXQ4Q3VFRVI3RmdkQT0_IjI5OTI5NjIi0)
+![](https://assets.ubuntu.com/v1/31919610-1.png)
 
 Once completed, specify your email and create a password to access your web office next time.
 
@@ -92,30 +92,30 @@ Well done! You have successfully installed ONLYOFFICE. Now you have at your disp
 
 * create, edit and collaborate on your office documents from anywhere at any time. You can also work with your documents offline using ONLYOFFICE Desktop Editors connected to your portal. To learn more, please refer to [this tutorial](https://tutorials.ubuntu.com/tutorial/install-onlyoffice-desktop-editors-on-ubuntu1804#0.).
 
-![](https://personal.onlyoffice.com/products/files/httphandlers/filehandler.ashx?action=download&fileid=2992991&doc=YnNzb2NwTHRkMXRzTVNZVEF3Tmd4YW5aZ3l0VElTSU5RTDlFeTFQOGc5Yz0_IjI5OTI5OTEi0)
+![](https://assets.ubuntu.com/v1/0a993d9e-2.jpeg)
 
 * store and manage documents, including the files from cloud storage services like Google Drive, Dropbox, ownCloud. Share your files with different access permissions. Store and play video and music, view images of all popular formats: BMP, JPG, JPEG, PNG, GIF, TIF, TIFF, AVI, MPEG, MP3, PDF, etc. with integrated multi-format media player.
 
-![](https://personal.onlyoffice.com/products/files/httphandlers/filehandler.ashx?action=download&fileid=2992998&doc=aHpYY0xaQUJZNmQzQVdIVEVYNFQ0d3djemQwZVdQUkIyVUJSR1ZYU2xCRT0_IjI5OTI5OTgi0) 
+![](https://assets.ubuntu.com/v1/92d9f478-3.png)
 
 * Work on project through all its stages: schedule workflow, distribute tasks and subtasks, store the project related documentation, lead discussions, track time, generate reports via docbuilder.
 
-![](https://personal.onlyoffice.com/products/files/httphandlers/filehandler.ashx?action=download&fileid=2993010&doc=WmxQZ2wyMmlwRGpsWjdqbzdyV1B5NnBpTmZtcWw3K0k4YUpVWmRuVHJGbz0_IjI5OTMwMTAi0)
+![](https://assets.ubuntu.com/v1/8e67a2c8-4.png)
 
 * create a client database and keep track of the potential sales via the CRM module.
 
-![](https://personal.onlyoffice.com/products/files/httphandlers/filehandler.ashx?action=download&fileid=2993016&doc=UXBlSm15eEE1RnZxRmpvdlFlZEl4V0JoM2d1K3lIbVh0VGgzcVZYekhudz0_IjI5OTMwMTYi0)
+![](https://assets.ubuntu.com/v1/d2a3d079-5.png)
 
 * organize an internal social network with news, blogs, forums, bookmarks, polls, wiki.
 
-![](https://personal.onlyoffice.com/products/files/httphandlers/filehandler.ashx?action=download&fileid=2993023&doc=MlBNM0xsbXNtTEp4a2NhektSTFp3V2IyRnNqbHEvZ1hTUFZnbEF1MDdiQT0_IjI5OTMwMjMi0)
+![](https://assets.ubuntu.com/v1/d6c324f7-6.png)
 
 * manage all your email efficiently with the Mail module: connect different email accounts and manage all the correspondence from one single place and create corporate mailboxes for your team members.
 
-![](https://personal.onlyoffice.com/products/files/httphandlers/filehandler.ashx?action=download&fileid=2993035&doc=WWUwZ3UreE1WSjJhYmgxaGZQNVh3NmxOOTZrdktZdlAxVk01dlR2ajN6az0_IjI5OTMwMzUi0)
+![](https://assets.ubuntu.com/v1/cec5879e-7.png)
 
 * schedule corporate and personal events using Calendar that can be integrated with other modules and synchronized with third party apps.
 
-![](https://personal.onlyoffice.com/products/files/httphandlers/filehandler.ashx?action=download&fileid=2993048&doc=V0x2dWVVSktTTGFyaWZGaExQdTBSS3NEVXVlcEZLWnhzdnI0bG8ydGJzTT0_IjI5OTMwNDgi0)
+![](https://assets.ubuntu.com/v1/615323e6-8.png)
 
 Select the tool you need and start working. Enjoy!
