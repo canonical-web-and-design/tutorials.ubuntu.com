@@ -125,6 +125,7 @@ parts:
     build-packages:
     - nodejs
     - npm
+    - unzip
 
   # Adapted from snapcraft-desktop-helpers https://github.com/ubuntu/snapcraft-desktop-helpers/blob/master/snapcraft.yaml#L183
   desktop-gtk3:
@@ -225,7 +226,7 @@ apps:
   electron-hello-world-kiosk:
     daemon: simple
     restart-condition: always
-    command: desktop-launch xwayland-kiosk-launch "$SNAP/electron-helloworld/electron-quick-start"
+    command: desktop-launch xwayland-kiosk-launch "$SNAP/electron-helloworld/electron-quick-start" "--no-sandbox"
     environment:
       XWAYLAND_FULLSCREEN_WINDOW_HINT: window_role="browser-window"
     slots: [ x11 ]
@@ -271,6 +272,7 @@ parts:
     build-packages:
     - nodejs
     - npm
+    - unzip
 
   # Adapted from snapcraft-desktop-helpers https://github.com/ubuntu/snapcraft-desktop-helpers/blob/master/snapcraft.yaml#L183
   desktop-gtk3:
@@ -339,6 +341,7 @@ We now have the .snap file on the device in its home directory. We need to insta
 ```bash
 snap install --dangerous ./electron-hello-world-kiosk_0.1_arm64.snap 
 snap connect electron-hello-world-kiosk:browser-sandbox :browser-support
+snap connect electron-hello-world-kiosk:x11-plug electron-hello-world-kiosk:x11
 snap restart electron-hello-world-kiosk
 ```
 
