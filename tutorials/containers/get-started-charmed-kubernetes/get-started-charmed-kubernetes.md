@@ -90,7 +90,7 @@ Verify that you can run *kubectl* command. You will see a list of commands to co
 
 Learn more about kubectl by visiting the [official documentation][kubectl].
 
-## Operating your Kubernetes cluster
+## Operate your cluster
 Duration: 7:00
 
 To operate your cluster with kubectl you need to download the configuration needed to speak to your cluster. The first step to getting the config is to make sure you have an SSH key in your JAAS deployment of your cluster.
@@ -122,7 +122,7 @@ _**Note**: The browser may warn you that the connection is not private or secure
 ![Kubernetes dashboard](./images/kubernetes-dashboard.png)
 
 
-## Running your first workload
+## Run your first workload
 Duration: 10:00
 
 Spin up a simple static website in your Kubernetes cluster.
