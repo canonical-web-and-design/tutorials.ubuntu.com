@@ -34,15 +34,15 @@
   },
   "devDependencies": {
     "eslint-config-google": "0.13.0",
-    "eslint": "5.16.0",
-    "eslint-plugin-html": "5.0.5",
+    "eslint": "6.1.0",
+    "eslint-plugin-html": "6.0.0",
     "find": "0.3.0",
     "gray-matter": "4.0.2",
-    "mocha": "6.1.4",
+    "mocha": "6.2.0",
     "mocha-minimalist-reporter": "1.1.0",
-    "polymer-cli": "1.9.9",
+    "polymer-cli": "1.9.11",
     "prpl-server": "1.4.0",
-    "stylelint": "10.0.1",
+    "stylelint": "10.1.0",
     "stylelint-config-polymer": "0.0.1",
     "stylelint-processor-html": "1.0.0"
   },
@@ -51,6 +51,6 @@
     "express-interceptor": "1.2.0",
     "express-redirect": "1.2.2",
     "npm-run-all": "4.1.5",
-    "sitemap": "2.2.0"
+    "sitemap": "4.0.2"
   }
 }
