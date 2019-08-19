@@ -298,5 +298,5 @@ microk8s.stop
 [snap-channels]: https://docs.snapcraft.io/channels/551
 [ubuntu-kubernetes]: https://ubuntu.com/kubernetes
 [charmed-kubernetes]: https://tutorials.ubuntu.com/tutorial/get-started-canonical-kubernetes#0
-[contact]: https://ubuntu.com/contact-us
+[contact]: https://ubuntu.com/kubernetes#get-in-touch
 [snapd-documentation]: https://snapcraft.io/docs/installing-snapd
