@@ -193,4 +193,4 @@ Now that you have your production cluster, you can put it to work:
 [snapd]: https://snapcraft.io/docs/installing-snapd
 [microk8s]: https://tutorials.ubuntu.com/tutorial/install-a-local-kubernetes-with-microk8s#0
 [ubuntukubernetes]: https://ubuntu.com/kubernetes
-[contact]: https://ubuntu.com/contact-us
+[contact]: https://ubuntu.com/kubernetes#get-in-touch
