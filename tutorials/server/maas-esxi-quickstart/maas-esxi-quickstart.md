@@ -11,7 +11,7 @@ feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 
 ---
 
-# Provision ESXi with MAAS quickstart
+# Provision ESXi with MAAS
 
 ## Overview
 Duration: 0:05
