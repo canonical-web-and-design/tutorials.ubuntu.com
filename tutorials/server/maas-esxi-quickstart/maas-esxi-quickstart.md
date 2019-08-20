@@ -135,6 +135,10 @@ And upload the image with the following command:
 maas admin boot-resources create name='esxi/6.7' title='VMware ESXi 6.7' architecture='amd64/generic' filetype='ddgz' content@=vmware-esxi.dd.gz
 ```
 
+You can verify the image download in the 'Images' tab in your MAAS:
+
+![Uploaded ESXi image](images/2.png)
+
 ## Deploying your image
 Duration: 0:02
 
@@ -144,7 +148,7 @@ Now that the image is available, we can go ahead and deploy a machine. In this e
 maas admin machine deploy yawrmb osystem=esxi distro_series=6.7
 ```
 
-We can do the same in the Web UI:
+Or it can be done over the Web UI:
 
 ![Deploy ESXi 6.7](images/1.png)
 
