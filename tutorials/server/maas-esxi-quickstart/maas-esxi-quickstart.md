@@ -1,5 +1,5 @@
 ---
-id: deploy-esxi-with-maas
+id: maas-esxi-quickstart
 summary: Learn how to deploy ESXi with MAAS. MAAS is an enterprise-grade infrastructure management tool.
 categories: server
 tags: maas, esxi, virtualization, cloud, open source, infrastructure
@@ -11,7 +11,7 @@ feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 
 ---
 
-# Create and deploy ESXi with MAAS
+# Provision ESXi with MAAS quickstart
 
 ## Overview
 Duration: 0:05
