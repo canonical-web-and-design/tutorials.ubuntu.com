@@ -138,11 +138,15 @@ maas admin boot-resources create name='esxi/6.7' title='VMware ESXi 6.7' archite
 ## Deploying your image
 Duration: 0:02
 
-Now that the image is available, it can be deployed UI or the API.
+Now that the image is available, we can go ahead and deploy a machine. In this example, we will use the machine with system_id 'yawrmb':
 
 ```bash
 maas admin machine deploy yawrmb osystem=esxi distro_series=6.7
 ```
+
+We can do the same in the Web UI:
+
+![Deploy ESXi 6.7](images/1.png)
 
 ## Next steps and finding help
 Duration: 0:01
