@@ -155,7 +155,7 @@ Or it can be done over the Web UI:
 ## Next steps and finding help
 Duration: 0:01
 
-MAAS has been designed to be a modern, agile machine provisioning solution, enabling both physical and virtual infrastructure. MAAS can optimize the utilisation of existing small to medium scale IT infrastructure using VM pods. We have quickly transformed a single physical server into a lightweight, reliable virtual machine management node. The pod abstraction is very powerful and flexible, and if you need help as you are using it reach out to:
+MAAS has been designed to be a modern, agile machine provisioning solution, enabling both physical and virtual infrastructure. MAAS can deploy Ubuntu, CentOS, RHEL, Windows and now ESXi like a bare-metal cloud. If you need help as you are using it reach out to:
 
 -   [MAAS discourse](https://discourse.maas.io)
 -   [IRC-based support](https://wiki.ubuntu.com/IRC/ChannelList)
