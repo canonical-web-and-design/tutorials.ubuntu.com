@@ -69,10 +69,10 @@ However, the passphrase isn't a requirement, and pressing return (twice) will ge
 When the process has finished, the private key and the public key can be found in the `~/.ssh` directory accessible from the Ubuntu terminal, or the following folder from Windows file manager:
 
 ```bash
-C:\Users\<Windows username>\AppData\Local\lxss\home\<Ubuntu username>\.ssh
+C:\Users\%USERNAME%\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs\
 ```
 
-Both the *AppData* and *lxss* directories are hidden from the default view and will need to be entered manually.
+The *AppData* and directory is hidden from the default view and will need to be entered manually.
 
 ![screenshot](https://assets.ubuntu.com/v1/e16ba069-windows_ubuntu_keygen_keys.png)
 
