@@ -18,7 +18,7 @@ Duration: 0:05
 
 In this tutorial, you will learn how to create MAAS images of ESXi using MAAS provided packer scripts.
 
-ESXi support was first introduced in MAAS 2.5, but expanded in 2.6 allowing for the configuration of VMFS datastores, registration to vCenter and others. For more information about what features MAAS support, please refer to the following blog post <Provisioning ESXi with MAAS: An Overview> ..
+ESXi support was first introduced in MAAS 2.5, but expanded in 2.6 allowing for the configuration of VMFS datastores, registration to vCenter and others. For more information about what features MAAS support, please refer to the following blog post [Provisioning ESXi with MAAS: An Overview](https://ubuntu.com/blog/provisioning-esxi-with-maas).
 
 In order to create ESXi images MAAS leverages the use of packer, and alongside the image creation process, it introduces a series of scripts and dependencies that makes it possible for MAAS to customize each ESXi deployment, including network configuration, datastore creation and user level customization.
 
