@@ -1,13 +1,13 @@
 ---
 id: get-started-kubeflow
-summary: Learn how to install Kubeflow on top of either the Canonical Distribution of Kubernetes or Google Kubernetes Engine to deploy machine learning workloads.
+summary: Learn how to install Kubeflow on top of a single node Kubernetes cluster. The cluster can live locally or in a virtual machine in GCP, AWS, Azure, VMware, OpenStack, or any cloud.
 categories: containers
-tags: tensorflow, kubernetes, kubeflow, conjure-up, k8s, machine, learning, ml
-difficulty: 4
-status: draft
-feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
-published: 2018-04-13
-author: Stephan Fabel <stephan.fabel@canonical.com>
+tags: tensorflow, kubernetes, kubeflow, k8s, MicroK8s, machine learning
+difficulty: 3
+status: published
+feedback_url: https://github.com/canonical-web-and-design/tutorials.ubuntu.com/issues
+published: 2019-08-22
+author: Carmine Rimi <carmine.rimi@canonical.com>
 
 ---
 
@@ -16,32 +16,53 @@ author: Stephan Fabel <stephan.fabel@canonical.com>
 ## Overview
 Duration: 2:00
 
-This tutorial will guide you through installing [Kubeflow](https://github.com/google/kubeflow) on top of either the [Canonical Distribution of Kubernetes (CDK)](https://www.ubuntu.com/kubernetes), using conjure-up and Amazon AWS, or the [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine).
+This tutorial will guide you through installing [Kubeflow](https://www.kubeflow.org/)
+on top of [microk8s](https://microk8s.io) for an easy single node setup.
 
-Both CDK and GKE will then use [ksonnet](https://github.com/ksonnet/ksonnet) - a framework to manage Kubernetes application manifests - to deploy Kubeflow. We will also learn how to prepare your cluster and offer pointers on how GPU-enabled Kubernetes worker nodes can be provisioned.
+MicroK8s can be installed on just about any Linux distribution. This could be a desktop,
+a server, an edge or IoT device, or a virtual machine. For consistency, this tutorial
+will start with creating a VM using [Multipass](https://multipass.run) and from there
+install MicroK8s and Kubeflow. The process is similar for any cloud environment, like GCP, AWS, or Azure:
+
+1. Create A VM
+2. SSH into the VM
+3. Install MicroK8s
+4. Install Kubeflow
+5. Do some work!
 
 ### Kubeflow
 
-Kubeflow is an open source project dedicated to providing easy to use Machine Learning (ML) resources on top of a Kubernetes cluster. Most prominently, Kubeflow eases the installation of [TensorFlow](https://www.tensorflow.org/) and provides the mechanisms for leveraging GPUs attached to the underlying host in the execution of ML jobs submitted to it.
+Kubeflow is an [open source project](https://github.com/kubeflow) created by Google that
+is dedicated to providing an easy to use and customisable machine learning toolkit. You
+can easily compose your machine learning stack from many Kubeflow-enabled components -
+there are components for training models, serving models, creating workflows (pipelines),
+and a host of other supporting functionality. Examples of machine learning frameworks
+enabled by Kubeflow are TensorFlow, PyTorch, Chainer, MXNet, XGBoost, and MPI.
+
+### MicroK8s
+
+MicroK8s is zero-ops Kubernetes on just about any Linux box. It is packaged as a snap and
+installs in seconds, making it perfect for development or small scale production clusters.
+
+### Multipass
+
+A mini-cloud on your Mac or Windows workstation. Multipass provides a command line
+interface to launch and manage instances of Ubuntu as virtual machines. Downloading the
+cloud images takes seconds, and within minutes a VM can be up and running.
 
 ### What you'll learn
 
-- how to create CDK and GKE custers
-- how to install Kubeflow using ksonnet
-- how to run your first job on Kubeflow
+- How to create an ephemeral VM, either on your desktop or in a public cloud
+- How to create a Kubernetes cluster in that VM
+- How to install Kubeflow using the Kubeflow native kfctl tool
+- How to create a Jupyter Notebook server on your Kubeflow cluster
 
 ### What you'll need
 
-For a CDK-based deployment:
-- Amazon Web Services account credentials
-- ability to provision [AWS EC2 P2 instances](https://aws.amazon.com/ec2/instance-types/p2/)
-- general knowledge of how to [deploy Kubernetes using conjure-up](https://tutorials.ubuntu.com/tutorial/install-kubernetes-with-conjure-up)
-
-For a GKE-based deployment:
-- [Cloud SDK installed](https://cloud.google.com/sdk/downloads)
-- general knowledge of how to [create and use Kubernetes on GKE](https://cloud.google.com/kubernetes-engine)
-
-In addition to the above, [ksonnet](https://github.com/ksonnet/ksonnet) needs to be installed and ready to use.
+- A linux terminal. This could be done locally.
+- [_optional_] For a VM locally, [Multipass](https://multipass.run)
+- [_optional_] For a VM on GCP, GCP account credentials and utilities
+- [_optional_] For a VM on AWS, AWS account credentials and utilities
 
 Survey
 : How will you use this tutorial?
@@ -52,215 +73,170 @@ Survey
  - Intermediate
  - Proficient
 
-## Create your CDK Cluster
-Duration: 8:00
+## Create your VM locally
 
-Skip to the next step if you're purely interested setting up Google Kubernetes Engine.
-
-### (Optional) Deploy a GPU-enabled Kubernetes Worker
+Duration: 5:00
 
 positive
-: **Using GPU resources in Kubernetes**
-In order for us to provision GPU-enabled workloads such as TensorFlow on top of Kubernetes, we need to provision worker nodes in the appropriate instance type. Kubeflow is using a newer way to use GPU resources currently still requiring manual steps, so we have marked the deployment of GPU-enabled Kubernetes worker nodes as optional for now. We will update this guide as we evolve this series to show GPU acceleration.
+: **Using a Cloud VM**
+If your local system doesn't meet the system requirements (outlined in this section) then create a VM somewhere else. There are instructions at the end of this tutorial for creating a VM in a public cloud; look for steps titled "Optional Cloud VM". For the Cloud VM option, fast forward to those steps, and then come back to the installing MicroK8s step.
 
-For this tutorial, we will start with a dedicated CDK cluster to run our Machine Learning workloads on top of TensorFlow. By default, `conjure-up canonical-kubernetes` will instantiate the kubernetes-worker nodes as `m3.medium`, which is not what we need in our case.
+For a local VM based deployment:
+- Download and install [Multipass](https://multipass.run)
 
-We will therefore create a bundle snippet called `cdk-gpu-worker.yaml` with the following contents:
+Kubeflow can be resource intensive. The [recommended minimum](https://www.kubeflow.org/docs/started/k8s/overview/#minimum-system-requirements) configuration is:
 
-```yaml
-services:
-  "kubernetes-worker":
-    charm: "cs:~containers/kubernetes-worker"
-    num_units: 1
-    options:
-      channel: 1.8/stable
-    expose: true
-    constraints: "instance-type=p2.xlarge root-disk=32768"
-```
+  - Kubernetes version 1.11 or later.
+  - A VM with a minimum of:
+    - 4 CPU
+    - 50 GB storage
+    - 12 GB memory
 
-This will ensure we have the right instance flavors available for our Kubernetes worker node, and enough root-disk space to hold the CUDA libraries, as well as the GPU-enabled TensorFlow container image.
-
-Kick off the deployment of your cluster:
+Given the possible number of containers involved in your machine learning stack, consider
+more storage - 100GB is strongly recommended.  
 
 ```bash
-conjure-up --bundle-add cdk-gpu-worker.yaml canonical-kubernetes
+multipass launch --name kubeflow --cpus 4 --mem 12GB --disk 50GB
+multipass shell kubeflow
 ```
 
-You might have to add your AWS credentials in order to be able to use AWS as target cloud environment. We are using aws/us-east-1 as it has the `p2.xlarge` flavors available. Note that in order to deploy the standard CDK, you can simply leave out the bundle addition, which will give you CPU-only workers.
+## Install MicroK8s
 
-After the installation is complete, copy the K8s configuration file locally:
-
-```bash
-juju scp kubernetes-master/0:config ~/.kube/config
-```
-
-## Create your GKE Cluster
-Duration: 8:00
-
-Skip to the next step if you have already set up a cluster with CDK.
-
-For GKE we first want to set a default [compute zone](https://cloud.google.com/compute/docs/regions-zones/#available) for our cluster. For example: 
-
-```bash
-gcloud config set compute/zone us-central1
-```
-
-Next we will [create a project](https://cloud.google.com/sdk/gcloud/reference/projects/create). Let's name it 'Kubeflow':
-
-```bash
-gcloud projects create kubeflow-tutorial --name="Kubeflow"
-```
-You might need to replace 'kubeflow-tutorial' with something unique.
-
-Now we are ready to create our Kubernetes cluster on GKE:
-
-```bash
-gcloud config set container/use_v1_api_client false
-gcloud beta container clusters create kubeflow-cluster --num-nodes 2
-```
-
-When you run through cluster creation for the first time, you will be prompted with a link to enable the [Google Kubernetes Engine API](https://cloud.google.com/kubernetes-engine/docs/reference/rest/). Enable that API and retry the cluster creation.
-
-positive
-: **Enabling Billing for new project**
-Billing should be enabled for the new project you created. You can do that using the [Billing option from Google Console](https://console.cloud.google.com/billing).
-
-We can watch the cluster coming up via:
-
-```bash
-gcloud beta container clusters describe kubeflow-cluster
-```
-
-To grab the cluster credentials, we need to set the default cluster and then fetch the credentials:
-
-```bash
-gcloud config set container/cluster kubeflow-cluster
-gcloud beta container clusters get-credentials kubeflow-cluster
-```
-
-Well done! `kubectl cluster-info` should return something similar to this:
-
-```bash
-$ kubectl cluster-info
-Kubernetes master is running at https://35.225.77.93
-GLBCDefaultBackend is running at https://35.225.77.93/api/v1/namespaces/kube-system/services/default-http-backend:http/proxy
-Heapster is running at https://35.225.77.93/api/v1/namespaces/kube-system/services/heapster/proxy
-KubeDNS is running at https://35.225.77.93/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
-kubernetes-dashboard is running at https://35.225.77.93/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy
-
-To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
-
-```
-
-positive
-: **Using GPU resources on GKE**
-GPU resources on GKE Kubernetes clusters is in alpha state. If you are interested in running GPU workloads you can setup a GPU equipped cluster with some manual steps describe in the[official GKE documentation.](https://cloud.google.com/kubernetes-engine/docs/concepts/gpus).
-
-## Install Kubeflow using ksonnet
 Duration: 3:00
 
-Now that we have a Kubernetes cluster up and running, we will deploy Kubeflow to it. The Kubeflow project is a relatively new community spun out of the Kubernetes project and aims to make machine learning developer workflows easy.
+MicroK8s is the fast and easy way to create a Kubernetes cluster. For this tutorial,
+we'll create a single node Kubernetes cluster, which means installing MicroK8s into the
+VM you've created.
 
-We are going to prepare our ksonnet deployment "kf-tutorial" and add the necessary packages to it. To keep things clean and tidy, we'll also create a dedicated Kubernetes namespace, and tie that to our ksonnet deployment as an environment which we'll call "cdk".
-
-Let's start by initializing ksonnet:
-
-```bash
-kubectl create namespace kf-tutorial
-ks init kf-tutorial && cd kf-tutorial
-```
-
-Then, we create our environment:
+The steps below will install MicroK8s, turn on a few services (DNS, Storage, Dashboard),
+and ensure you can use `kubectl`.
 
 ```bash
-ks env add cdk
-ks registry add kubeflow github.com/google/kubeflow/tree/master/kubeflow
+sudo snap install microk8s --classic
+microk8s.status --wait-ready
+microk8s.enable dns storage dashboard
+sudo snap alias microk8s.kubectl kubectl
+microk8s.kubectl config view --raw > $HOME/.kube/config
 ```
 
-And install our apps:
+## Install Kubeflow using kfctl
+
+Duration: 10:00
+
+Now that you have a Kubernetes cluster up and running, you will deploy Kubeflow. You'll
+follow these steps:
+
+1. Install `kfctl`
+2. Install Kubeflow
+3. Check the install status
+4. Access the Kubeflow Dashboard
+5. Access Jupyter
+
+
+### 1. Install kfctl
+
+kfctl is a binary developed by the Kubeflow community that can be used to setup the
+standard set of Kubeflow components. The instructions below will download the binary
+as a compressed file and expand it into the current directory. Finally, it'll add
+`kfctl` to the PATH.
 
 ```bash
-ks pkg install kubeflow/core
-ks pkg install kubeflow/tf-serving
-ks pkg install kubeflow/tf-job
+export OPSYS=linux
+curl -s https://api.github.com/repos/kubeflow/kubeflow/releases/latest | grep browser_download | grep $OPSYS | cut -d '"' -f 4 | xargs curl -O -L &&  tar -zvxf kfctl_*_${OPSYS}.tar.gz
+export PATH=$PATH:$PWD
 ```
 
-positive
-: **ksonnet rate limit**
-If you hit a "403 API rate limit of 60 still exceeded" error you will need to register with Github. Please follow the [rate limit workaround](https://github.com/ksonnet/ksonnet/blob/master/docs/troubleshooting.md#github-rate-limiting-errors).
+### 2. Install Kubeflow
 
-ksonnet will pick up the configuration in our local `~/.kube/config` and prepare the environment for us. We can then proceed to apply the parameters to the prototypes and deploy the Kubeflow core components (JupyterHub and the TensorFlow job controller):
+Now that you have the `kfctl` binary installed, you can install Kubeflow using the
+standard set of components. The script below will create a directory, "kf-poc", which
+will store all the kubernetes kustomize yaml files. These files are then applied to
+the MicroK8s cluster.
 
 ```bash
-ks generate core kubeflow-core --name=kubeflow-core --namespace=kf-tutorial
+export KFAPP="kf-poc"
+export VERSION=`curl -s https://api.github.com/repos/kubeflow/kubeflow/releases/latest |    grep tag_name | head -1 |    cut -d '"' -f 4`
+export CONFIG="https://raw.githubusercontent.com/kubeflow/kubeflow/${VERSION}/bootstrap/config/kfctl_k8s_istio.yaml"
+kfctl init ${KFAPP} --config=${CONFIG} -V
+cd ${KFAPP}
+kfctl generate all -V
+kfctl apply all -V
 ```
 
-As GKE has RBAC enabled and our user has insufficient permissions, we need to grant the *admin* role to our user with an additional command for GKE:
+### 3. Check the install status
+
+To see the install status of all the Kubeflow components, you can run this command:
 
 ```bash
-kubectl create clusterrolebinding default-admin --clusterrole=cluster-admin --user=your-user@acme.com
+kubectl -n kubeflow get po
 ```
 
-Finally, enter the following - replacing *cdk* with *gke* for GKE deployments:
+You'll see something like this as the output
+
+![alt_text](./images/pod-status-initial.png "Initial Pod Status")
+
+With a fast internet connection, like the kind a public cloud would provide, it can take
+about 8 minutes to download and run all of the containers. Consider using the the
+following command to watch the install status. Once all pods have a __Running__ status
+you can exit the watch command.
 
 ```bash
-ks apply cdk -c kubeflow-core
+watch -c -n 10 kubectl -n kubeflow get po
 ```
 
-You should see some informational messages confirming the deployment. Let's look at the Kubernetes Dashboard to verify. `kubectl proxy` will proxy the dashboard and we will use the token from kube config file to login. What you see should look similar to this (note the namespace "kf-tutorial"):
+With all pods running, you should see something like this:
 
-![alt_text](./images/kubeflow-core.png "ksonnet Kubeflow Core Deployment")
+![alt_text](./images/pod-status-running.png "All Pods Running Status")
 
-Now check out the running services with the following command:
+
+### 4. Access the Kubeflow Dashboard
+
+Since there isn’t a configured load balancer in this setup, you’ll need to use the
+node port.  The default nodeport should be `31380`, but to confirm, run the following
+command - it will highlight the http port to use. You will use this
+in conjunction with the IP address of the VM:
 
 ```bash
-kubectl get services --namespace=kf-tutorial
+echo `kubectl get svc -n istio-system istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="http2")].nodePort}'`
 ```
 
-The above will return a list of services with their external IPs. CDK users will see output similar to the following:
+![alt_text](./images/kubeflow-homepage.png "Kubeflow dashboard")
 
-```no-highlight
-NAME        TYPE           CLUSTER-IP       EXTERNAL-IP        PORT(S)        AGE
-tf-hub-0    ClusterIP      None             <none>             8000/TCP       7m
-tf-hub-lb   LoadBalancer   10.152.183.118   ace3eaaf2e457...   80:32456/TCP   6m
-```
+### 5. Access Jupyter
 
-While GKE users will see output like this:
+One of the first things you may want to do is to create a jupyter server. This allows
+you to create new notebooks or import existing notebooks and run them in Kubeflow. By
+clicking on the menu icon in the upper left of the home screen, you can select
+`Notebook Servers`, which will show this screen:
 
-```no-highlight
-NAME               TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
-ambassador         ClusterIP   10.27.245.20    <none>        80/TCP     18m
-ambassador-admin   ClusterIP   10.27.249.255   <none>        8877/TCP   13m
-k8s-dashboard      ClusterIP   10.27.253.174   <none>        443/TCP    13m
-tf-hub-0           ClusterIP   None            <none>        80/TCP     18m
-tf-job-dashboard   ClusterIP   10.27.247.218   <none>        80/TCP     13m
-```
+![alt_text](./images/kubeflow-notebook-servers.png "Kubeflow Jupyter Dashboard")
 
-If GKE users would like to access *tf-job-dashboard*, expose it using a Loadbalancer:
+Once you select `+ NEW SERVER`, you'll be presented with this screen:
 
-```bash
-kubectl expose deployment tf-job-dashboard --type=LoadBalancer --name=lb-tf-job-dashboard -n kf-tutorial
-```
+![alt_text](./images/kubeflow-create-notebook-server.png "Kubeflow Create Jupyter Server")
 
-Wait until GKE appoints an `EXTERNAL-IP` to your service and visit port 8080. You should see that you do not have any jobs running:
+After completing the form and selecting the version of TensorFlow you'd like, you'll
+have access to a Jupyter server, which allows you to create or import notebooks:
+
+![alt_text](./images/kubeflow-jupyter-server.png "Jupyter Server")
+
+
+
+<!-- This will be part of a new tutorial ..
+## Submitting TensorFlow jobs
+
+Duration: 3:00
 
 ![alt_text](./images/tf-job-dashboard.png "Tf jobs dashboard")
 
-However we are not done! Part of the appeal of using Kubernetes together with TensorFlow is the ability to submit your own TF jobs directly through the Kubernetes API. In the next step, we are going to leverage the Custom Resource Definition (CRD) feature of Kubernetes to provide that.
-
-## Submitting TensorFlow jobs
-Duration: 3:00
+Part of the appeal of using Kubernetes together with TensorFlow is the ability to submit your own TF jobs directly through the Kubernetes API. In the next step, we are going to leverage the Custom Resource Definition (CRD) feature of Kubernetes to provide that.
 
 The Custom Resource Definition (CRD) allows you to define custom objects with their own name and schema. This is what we are going to use to submit TensorFlow jobs to our cluster.
 
-Luckily, the Kubeflow Core installation step already created the CRD so we can immediately submit models as ksonnet components by using the generate/apply pair of commands.
+Luckily, the Kubeflow Core installation step already created the CRD so we can immediately submit models.
 
 The job we are going to deploy is `tf-cnn`, a [convolutional neural network (CNN)](https://en.wikipedia.org/wiki/Convolutional_neural_network) example shipped with Kubeflow (GKE users can substitute *cdk* for *gke*):
 
-```bash
-ks generate tf-cnn kubeflow-test --name=cdk-tf-cnn --namespace=kf-tutorial
-ks apply cdk -c kubeflow-test
-```
 
 We can check that a resource of type "tfjob" was indeed submitted into the "kf-tutorial" namespace:
 
@@ -275,7 +251,7 @@ NAME         AGE
 cdk-tf-cnn   1m
 ```
 
-You can also find the components of the TensorFlow job in the "Jobs" section of your Kubernetes Dashboard. The following image shows the Parameter Server and Worker and components on GKE. CDK has a *Master* component in addition to these two: 
+You can also find the components of the TensorFlow job in the "Jobs" section of your Kubernetes Dashboard. The following image shows the Parameter Server and Worker and components on GKE. CDK has a *Master* component in addition to these two:
 
 ![alt_text](./images/cnn-job-listing.png "TensorFlow Master, Parameter Server and Worker deployed")
 
@@ -305,7 +281,8 @@ INFO|2017-12-19T01:12:21|/opt/launcher.py|27| 2017-12-19 01:12:21.230800: I tens
 INFO|2017-12-19T01:12:22|/opt/launcher.py|27| Running warm up
 ```
 
-There it is! Congratulations, you have successfully launched Kubeflow on top of either CDK on AWS or GKE (or both!).
+There it is! Congratulations, you have successfully launched Kubeflow on top of Microk8s,
+on top of either Multipass, GCP or AWS.
 
 You can check its parameters using the ``ks show`` command:
 
@@ -402,19 +379,112 @@ kubectl delete ns kf-tutorial
 ```
 
 Congratulations! You're ready to rock'n roll using Kubeflow on CDK and GKE!
+-->
+
 
 ## Next Steps
 Duration: 2:00
 
-The goal of this tutorial was to get you up and running quickly using Kubeflow. As we verified the installation, we submitted a sample job, called `tf-cnn`, which executes High Performance Benchmarks, an implementation of several convolutional neural network models. In order to create your own job executing your own code, you need to manually create a `tf-job` resource and fill the parameters accordingly, including linking to the right docker image.
+The goal of this tutorial was to get you up and running quickly using Kubeflow. In this
+tutorial you:
 
-### Enabling GPU support
-As we noted in the introduction to this tutorial, Kubeflow is leveraging the GPU resources on a Kubernetes worker via a different mechanism. Stay tuned while we prepare a follow-up tutorial that shows how to utilize them. You can subscribe at the end of this tutorial to be notified of updates and new publications.
+1. Created a VM
+2. Installed MicroK8s and Kubeflow
+3. Verified the installation by looking at Kubeflow container status.
+4. Created a Jupyter Notebook server
+5. Ideally, you created a notebook and started doing some work.
 
 ### Recommended reading
 
+* [Kubeflow](https://kubeflow.org) - Many resources to take advantage of.
+* [Kubeflow Samples](https://www.kubeflow.org/docs/examples/kubeflow-samples/) - Several examples to help you get started with leveraging Kubeflow.
+* [Kubeflow Pipelines](https://www.kubeflow.org/docs/pipelines/) - Use or create standard workflows for your models, automating tasks from training to production.
+* [Kubeflow Fairing](https://www.kubeflow.org/docs/fairing/) - Interact with Kubeflow through Python code.
 * [TensorFlow](https://www.tensorflow.org/)
-* [Kubeflow](https://github.com/google/kubeflow)
 * [TensorFlow: CNN Benchmarks](https://github.com/tensorflow/benchmarks/tree/master/scripts/tf_cnn_benchmarks)
 * [Creating a Custom TfJob to serve a TF model](https://github.com/jlewi/kubeflow/blob/28fd44ca51075d9c5c3b4784a1224f480075d5cb/README.ksonnet.md#serve-a-model)
-* [ksonnet](https://ksonnet.io/) - A CLI-supported framework for extensible Kubernetes configurations
+
+
+## Appendix 1: Cloud VM Option - Google: Create your VM on GCP
+
+Duration: 8:00
+
+Skip to the next step if you're not interested in using GCP, and have already created
+a VM locally or plan to use AWS.
+
+For a GCP-based deployment:
+- [Google Cloud SDK installed](https://cloud.google.com/sdk/downloads)
+- General knowledge of how to [create and use VMs on GCP](https://cloud.google.com/products/compute/)
+
+This path will create an preemptible VM, which means that the VM could be reclaimed by
+GCP at any time. The benefit of a preemptible VM is that it costs a fraction of a
+normal VM. If you prefer to use a normal VM and not risk it disappearing, then change
+the `PREEMPTIBLE` variable below to be just `""`, for example `export PREEMPTIBLE=""`
+
+### Create a project
+
+If you don't already have a project that you can use to create the VM,
+visit [this page](https://console.cloud.google.com/projectcreate). In the next step
+we assume the project is name is `kubeflow-spike-01`.
+
+You can create a project through the command line as well:
+
+```bash
+gcloud projects create kubeflow-spike-01
+```
+
+positive
+: **Enabling Billing for new project**
+Billing should be enabled for the new project you created. You can do that using the [Billing option from Google Console](https://console.cloud.google.com/billing).
+
+### Allow Networking
+
+This command will open up the networking so that you can access your cluster.
+__Be careful with this command__, it opens up networking to anyone on the internet.
+Specifically, once you create the VM in the next step, the ports below will be
+generally accessible.
+
+```
+gcloud compute --project=${GCP_PROJECT} firewall-rules create k8s-ingress --description=Expose\ kubernetes\ nodeport\ range --direction=INGRESS --priority=1000 --network=default --action=ALLOW --rules=tcp:8001,tcp:8080,tcp:30000-32767 --source-ranges=0.0.0.0/0 --target-tags=k8s-nodeport
+```
+
+### Create a VM
+
+```bash
+export GCP_INSTANCE_NAME="kubeflow"
+export GCP_PROJECT="kubeflow-spike-01"
+export GCP_ZONE="us-west1-c"
+export PREEMPTIBLE="--preemptible"
+gcloud compute --project=${GCP_PROJECT} instances create ${GCP_INSTANCE_NAME} --zone=${GCP_ZONE} --machine-type=n1-standard-8 --subnet=default --network-tier=PREMIUM --no-restart-on-failure --maintenance-policy=TERMINATE ${PREEMPTIBLE} --scopes=https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/trace.append --tags=k8s-nodeport,http-server,https-server --image=ubuntu-1804-bionic-v20190813a --image-project=ubuntu-os-cloud --boot-disk-size=200GB --no-boot-disk-auto-delete --boot-disk-type=pd-standard --boot-disk-device-name=kubeflow
+```
+
+### List the VM
+
+This command can be used to get details of the VM you just created, including IP address
+and status:
+
+```bash
+gcloud compute instances --project=${GCP_PROJECT} list --filter="--zone:(${GCP_ZONE})" --filter="name=(${GCP_INSTANCE_NAME})"
+```
+
+### SSH into the VM
+
+gcloud compute --project ${GCP_PROJECT} ssh --zone ${GCP_ZONE} ${GCP_INSTANCE_NAME}
+
+### (Later) Delete a VM
+
+Once you are done with this tutorial, you'll want to cleanup (delete) this VM. The
+following command can be used to delete this VM resource:
+
+```bash
+gcloud compute instances --project=${GCP_PROJECT} delete --quiet --zone=${GCP_ZONE} ${GCP_INSTANCE_NAME}
+gcloud compute disks --project=${GCP_PROJECT} delete --quiet --zone=${GCP_ZONE} ${GCP_INSTANCE_NAME}
+```
+
+
+<!-- TODO: Add instructions for AWS
+
+## Appendix 2: Cloud VM Option - Amazon: Create your VM on AWS
+
+Duration: 8:00
+-->
