@@ -172,7 +172,7 @@ Email: admin@localhost.local
 Import SSH keys [] (lp:user-id or gh:user-id):
 ```
 
-You can now use these credentials to access the MAAS UI at http://172.27.28.172/MAAS/ where you will be prompted with some basic setup questions.
+You can now use these credentials to access the MAAS UI at http://172.27.28.172:5240/MAAS/ where you will be prompted with some basic setup questions.
 
 ![screenshot](https://assets.ubuntu.com/v1/a15faa51-maas23-login.png)
 
