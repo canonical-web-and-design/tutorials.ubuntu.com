@@ -41,7 +41,7 @@ feedback_url: https://bugs.launchpad.net/microstack/+filebug
 
 Duration: 5:00
 
-If you are using Ubuntu, which we highly recommend, you can install MicroStack righ away by running the following command from the terminal:
+If you are using Ubuntu Xenial or later, which we highly recommend, you can install MicroStack righ away by running the following command from the terminal:
 
 ```bash
 sudo snap install microstack --classic --beta
@@ -57,10 +57,82 @@ microstack (beta) rocky from Canonical✓ installed
 
 Note that at the time of writing this tutorial, the installed version of OpenStack was Rocky.
 
-TODO:
+Being a snap, MicroStack is published in channels which are made up of a track (or a major version), and an expected level of stability. You can run `snap info microstack` command to see which versions are currently available. Moreover, you can run easily update your snap to get the required version. In the following example you can see that at the time of writing this tutorial the only available version was *rocky* while available channels were *candidate*, *beta* and *edge*.
+
+```bash
+$ snap info microstack
+name:      microstack
+summary:   OpenStack on your laptop
+publisher: Canonical✓
+license:   unset
+description: |
+  MicroStack gives you an easy way to develop and test OpenStack
+  workloads on your laptop or in a virtual machine.
+commands:
+  - microstack.cinder-backup
+  - microstack.cinder-manage
+  - microstack.cinder-scheduler
+  - microstack.cinder-uwsgi
+  - microstack.cinder-volume
+  - microstack.configure
+  - microstack.glance-manage
+  - microstack.keystone-manage
+  - microstack.launch
+  - microstack.mysql
+  - microstack.neutron-db-manage
+  - microstack.neutron-netns-cleanup
+  - microstack.neutron-ovs-cleanup
+  - microstack.nova-manage
+  - microstack.openstack
+  - microstack.ovs-appctl
+  - microstack.ovs-dpctl
+  - microstack.ovs-ofctl
+  - microstack.ovs-vsctl
+  - microstack.rabbitmq-plugins
+  - microstack.rabbitmqctl
+  - microstack.virsh
+services:
+  microstack.external-bridge:           oneshot, enabled, inactive
+  microstack.glance-api:                simple, enabled, active
+  microstack.horizon-uwsgi:             simple, enabled, active
+  microstack.keystone-uwsgi:            simple, enabled, active
+  microstack.libvirtd:                  simple, enabled, active
+  microstack.memcached:                 simple, enabled, active
+  microstack.mysqld:                    simple, enabled, active
+  microstack.neutron-api:               simple, enabled, active
+  microstack.neutron-dhcp-agent:        simple, enabled, active
+  microstack.neutron-l3-agent:          simple, enabled, active
+  microstack.neutron-metadata-agent:    simple, enabled, active
+  microstack.neutron-openvswitch-agent: simple, enabled, active
+  microstack.nginx:                     forking, enabled, active
+  microstack.nova-api:                  simple, enabled, active
+  microstack.nova-api-metadata:         simple, enabled, active
+  microstack.nova-compute:              simple, enabled, active
+  microstack.nova-conductor:            simple, enabled, active
+  microstack.nova-scheduler:            simple, enabled, active
+  microstack.nova-uwsgi:                simple, enabled, active
+  microstack.ovs-vswitchd:              forking, enabled, active
+  microstack.ovsdb-server:              forking, enabled, active
+  microstack.rabbitmq-server:           simple, enabled, active
+  microstack.registry:                  simple, enabled, active
+snap-id:      qMvFl14Ge7zDRxjx4AGmBgsa4pNL9cYW
+tracking:     candidate
+refresh-date: yesterday at 14:39 CEST
+channels:
+  stable:    –                            
+  candidate: rocky 2019-05-02 (127) 288MB classic
+  beta:      rocky 2019-04-24 (127) 288MB classic
+  edge:      rocky 2019-08-23 (149) 343MB classic
+installed:   rocky            (127) 288MB classic
 ```
-Elaborate more on channels once clarified by the MicroStack team (See my comment on the "Install MicroStack" section at https://docs.google.com/document/d/1-QO5zAclj469qGvFmNJBjQ_qqI_T_uliwj6mAo8ZbCs/edit#)
+
+```bash
+$ snap refresh --edge microstack
+microstack (edge) rocky from Canonical✓ refreshed
 ```
+
+positive
+: Note that MicroStack snap versions and channels do not correspond to the OpenStack version being installed.
 
 
 
@@ -74,12 +146,7 @@ Before using your OpenStack installation, it has to be initialized, so that netw
 sudo microstack.init
 ```
 
-TODO:
-```
-The above command doesn't work for me. I've reported a bug at https://bugs.launchpad.net/microstack/+bug/1841773 .
-```
-
-As simple as it is. Your OpenStack installation is ready for being used.
+As simple as it is. You can move on!
 
 
 
