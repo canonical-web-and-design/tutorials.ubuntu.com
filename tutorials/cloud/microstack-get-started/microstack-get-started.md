@@ -23,7 +23,7 @@ feedback_url: https://bugs.launchpad.net/microstack/+filebug
 
 ### What is MicroStack?
 
-[MicroStack][microstack] is an upstream single-node OpenStack deployment which can run directly on your workstation. Although made for developers, it is also suitable for edge, IoT and appliances. MicroStack is an OpenStack in a [snap][snapcraft] which means that all OpenStack services and supporting libraries are packaged together in a single package which can be easily installed, upgraded or removed. MicroStack includes all key OpenStack components: Keystone, Nova, Neutron, Glance, Cinder, and is evolving extremally fast. You can use it for development, prototyping and testing, but it is also perfectly suitable for the network edge, IoT and appliances. Do not wait anymore - grab MicroStack from the Snap Store and get your OpenStack running right away!
+[MicroStack][microstack] is an upstream single-node OpenStack deployment which can run directly on your workstation. Although made for developers, it is also suitable for edge, IoT and appliances. MicroStack is an OpenStack in a [snap][snapcraft] which means that all OpenStack services and supporting libraries are packaged together in a single package which can be easily installed, upgraded or removed. MicroStack includes all key OpenStack components: Keystone, Nova, Neutron, Glance, and is evolving extremally fast. You can use it for development, prototyping and testing, but it is also perfectly suitable for the network edge, IoT and appliances. Do not wait anymore - grab MicroStack from the Snap Store and get your OpenStack running right away!
 
 ### In this tutorial you will learn how to:
 
