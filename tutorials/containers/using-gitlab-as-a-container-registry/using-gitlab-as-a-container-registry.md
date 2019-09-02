@@ -3,7 +3,7 @@
 
 ## Introduction
 
-The aim of this blog post is to demonstrate how you can use Charmed Kubernetes in a CI/CD environment using GitLab’s container registry functionality.
+The aim of this tutorial post is to demonstrate how you can use Charmed Kubernetes in a CI/CD environment using GitLab’s container registry functionality.
 
 GitLab has the ability to store upto 10GB in a container registry for projects, you can incorporate the building of these containers into your own CI/CD pipeline or you can use Gitlab’s own CI/CD functionality to do this for you. For the purposes of this blog post you will do this by hand so you can get a grasp of the process.
 
