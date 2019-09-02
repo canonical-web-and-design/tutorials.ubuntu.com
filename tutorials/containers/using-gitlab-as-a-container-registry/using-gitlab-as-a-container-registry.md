@@ -6,7 +6,7 @@ tags: kubernetes, containers, gitlab, cicd
 difficulty: 3
 status: draft
 feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
-published: 2019-09-2019
+published: 2019-09-02
 author: Peter De Sousa <peter.de.sousa@canonical.com>
 ---
 
