@@ -4,9 +4,9 @@ summary: Install and run OpenStack on Linux in minutes. Made for developers, and
 categories: cloud
 tags: microstack, openstack, cloud, edge, iot, beginner
 difficulty: 3
-status: not published yet
-published: ---
-authors: Tytus Kurek <tytus.kurek@canonical.com>, Ammar Naqvi <ammar.naqvi@canonical.com>
+status: draft
+published: 2019-09-02
+author: Tytus Kurek <tytus.kurek@canonical.com>
 feedback_url: https://bugs.launchpad.net/microstack/+filebug
 
 ---
