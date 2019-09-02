@@ -1,15 +1,3 @@
----
-id: using-gitlab-as-a-container-registry
-summary: Learn how to utilise GitLab's container registry feature with Charmed Kubernetes.
-categories: containers
-tags: containers, kubernetes, gitlab, docker
-difficulty: 3
-status: published
-feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
-published: 2018-01-13
-author: Peter De Sousa <peter.de.sousa@canonical.com>
-
----
 
 # Using GitLab as a container registry
 
