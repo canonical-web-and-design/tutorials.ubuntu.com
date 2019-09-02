@@ -1,4 +1,3 @@
-
 ---
 id: using-gitlab-as-a-container-registry
 summary: Learn how to use GitLab as a private container registry
@@ -9,7 +8,6 @@ status: draft
 feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 published: 2019-09-2019
 author: Peter De Sousa <peter.de.sousa@canonical.com>
-
 ---
 
 # Using GitLab as a container registry
