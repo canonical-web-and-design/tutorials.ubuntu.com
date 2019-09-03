@@ -134,7 +134,7 @@ Get the username and password using the command
 multipass exec microk8s-vm -- /snap/bin/microk8s.config
 ```
 
-![Grafana Dashboard](images/grafana.png)
+![Grafana Dashboard](../install-a-local-kubernetes-with-microk8s/images/grafana.png)
 
 
 ## Host your first service in Kubernetes
@@ -192,7 +192,7 @@ kube-system   replicaset.apps/monitoring-influxdb-grafana-v4-6b6954958c   1     
 
 At the very top we have the microbot pods, `service/microbot-service` is the second in the services list. Our service has a ClusterIP through which we can access it. Notice, however, that our service is of type [NodePort][nodeport]. This means that our deployment is also available on a port on the host machine; that port is randomly selected and in this case it happens to be `32648`. All we need to do is to point our browser to `http://localhost:32648`.
 
-![Microbot](images/microbot.png)
+![Microbot](../install-a-local-kubernetes-with-microk8s/images/microbot.png)
 
 ## That’s all folks!
 Duration: 1:00
