@@ -131,7 +131,8 @@ $ snap refresh --edge microstack
 microstack (edge) rocky from Canonical✓ refreshed
 ```
 
-Note: MicroStack snap versions and channels do not correspond to the OpenStack version being installed.
+positive: 
+MicroStack snap versions and channels do not correspond to the OpenStack version being installed.
 
 
 
@@ -292,7 +293,7 @@ microstack.openstack security group rule create $SECGROUP_ID --proto tcp --remot
 microstack.openstack security group rule create $SECGROUP_ID --proto icmp --remote-ip 0.0.0.0/0
 ```
 
-Note: Some of these commands may fail, if you have followed the *Test launch* section.
+positive: Some of these commands may fail, if you have followed the *Test launch* section.
 
 Once this is complete you should be able to SSH to the instance:
 
