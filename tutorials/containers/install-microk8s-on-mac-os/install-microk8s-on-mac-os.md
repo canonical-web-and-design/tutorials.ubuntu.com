@@ -4,7 +4,7 @@ summary: Get a local Kubernetes on your Mac OS with Microk8s and Multipass.
 categories: containers
 tags: kubernetes, beginner, multipass, container, microk8s
 difficulty: 3
-status: Not published yet
+status: draft
 published: ---
 author: Ammar Naqvi <ammar.naqvi@canonical.com>, Konstantinos Tsakalozos <kos.tsakalozos@canonical.com>
 feedback_url: https://github.com/ubuntu/microk8s/issues/
