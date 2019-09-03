@@ -5,8 +5,8 @@ categories: cloud
 tags: microstack, openstack, cloud, edge, iot, beginner
 difficulty: 3
 status: draft
-published: 2019-09-10
-author: Tytus Kurek <tytus.kurek@canonical.com>, Ammar Naqvi <ammar.naqvi@canonical.com>
+published: 2019-09-02
+author: Tytus Kurek <tytus.kurek@canonical.com>
 feedback_url: https://bugs.launchpad.net/microstack/+filebug
 
 ---
