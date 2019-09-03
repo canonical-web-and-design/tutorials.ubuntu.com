@@ -5,7 +5,7 @@ categories: containers
 tags: kubernetes, beginner, multipass, container, microk8s
 difficulty: 3
 status: draft
-published: ---
+published: 2019-09-06
 author: Ammar Naqvi <ammar.naqvi@canonical.com>, Konstantinos Tsakalozos <kos.tsakalozos@canonical.com>
 feedback_url: https://github.com/ubuntu/microk8s/issues/
 
