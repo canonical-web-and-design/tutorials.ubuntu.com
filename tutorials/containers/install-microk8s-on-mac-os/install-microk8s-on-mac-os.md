@@ -1,6 +1,6 @@
 ---
 id: install-microk8s-on-mac-os
-summary: Get a local Kubernetes on your Mac OS with Microk8s and Multipass.
+summary: Get a local Kubernetes on MacOS with Microk8s and Multipass.
 categories: containers
 tags: kubernetes, beginner, multipass, container, microk8s
 difficulty: 3
@@ -31,7 +31,7 @@ feedback_url: https://github.com/ubuntu/microk8s/issues/
 
 ### In this tutorial you’ll learn how to...
 
-- Setting up Multipass on you Mac OS
+- Setting up Multipass on MacOS
 - Setting up MicroK8s on your Multipass VM
 - Enabling MicroK8s add-ons in Multipass
 
