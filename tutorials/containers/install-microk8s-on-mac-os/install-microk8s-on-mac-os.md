@@ -27,7 +27,7 @@ feedback_url: https://github.com/ubuntu/microk8s/issues/
 
 ### What is Multipass
 
-[Multipass][multipass] is a lightweight VM manager for Linux, Windows and macOS. It's designed for developers who want a fresh Ubuntu environment with a single command.It uses KVM on Linux, Hyper-V on Windows and HyperKit on macOS to run the VM with minimal overhead. It can also use VirtualBox on Windows and macOS. Multipass will fetch images for you and keep them up to date.
+[Multipass][multipass] is a lightweight VM manager for Linux, Windows and macOS. It's designed for developers who want a fresh Ubuntu environment with a single command. It uses KVM on Linux, Hyper-V on Windows and HyperKit on macOS to run the VM with minimal overhead. It can also use VirtualBox on Windows and macOS. Multipass will fetch images for you and keep them up to date.
 
 ### In this tutorial you’ll learn how to...
 
@@ -45,7 +45,7 @@ feedback_url: https://github.com/ubuntu/microk8s/issues/
 ## Spinning up a VM with MicroK8s
 Duration: 5:00
 
-To install MicroK8s from the command line use the following commands(Make sure you have Multipass installed):
+To install MicroK8s from the command line, use the following commands (make sure you have Multipass installed):
 
 ```bash
 multipass launch --name microk8s-vm --mem 4G --disk 40G
@@ -59,8 +59,8 @@ multipass exec microk8s-vm -- sudo snap install microk8s --classic
 multipass exec microk8s-vm -- sudo iptables -P FORWARD ACCEPT
 ```
 
-positive: 
-Make sure you reserve enough resources to host your deployments; above, we got 4GB of RAM and 40GB of hard disk. We also make sure packets to/from the pod network interface can be forwarded to/from the default interface.
+positive
+: Make sure you reserve enough resources to host your deployments; above, we got 4GB of RAM and 40GB of hard disk. We also make sure packets to/from the pod network interface can be forwarded to/from the default interface.
 
 The VM has an IP address that you can check with the command:
 
