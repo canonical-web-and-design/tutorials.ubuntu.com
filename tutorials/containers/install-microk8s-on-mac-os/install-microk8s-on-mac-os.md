@@ -38,7 +38,7 @@ feedback_url: https://github.com/ubuntu/microk8s/issues/
 ### You will only need ...
 
 * A machine with Mac OS with at least 8GB of RAM
-* Multipass installed on your Mac. You can get the latest package here [https://github.com/CanonicalLtd/multipass/releases/download/v0.8.0/multipass-0.8.0%2Bmac-Darwin.pkg]
+* Multipass installed on your Mac, you can download the latest package on [GitHub][multipass-releases]
 
 
 
@@ -228,3 +228,4 @@ multipass exec microk8s-vm -- /snap/bin/microk8s.stop
 [charmed-kubernetes]: https://tutorials.ubuntu.com/tutorial/get-started-canonical-kubernetes#0
 [contact]: https://ubuntu.com/kubernetes#get-in-touch
 [snapd-documentation]: https://snapcraft.io/docs/installing-snapd
+[multipass-releases]: https://github.com/CanonicalLtd/multipass/releases
