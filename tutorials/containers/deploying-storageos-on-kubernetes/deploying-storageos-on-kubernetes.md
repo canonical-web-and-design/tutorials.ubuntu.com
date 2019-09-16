@@ -32,7 +32,7 @@ Duration: 1:00
 
 Make sure that your kubernetes-master is configured to allow privileged.
 
-`$ juju config kubernetes-worker allow-privileged=true`
+`juju config kubernetes-worker allow-privileged=true`
 
 
 ## Setting Up
