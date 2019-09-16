@@ -7,6 +7,7 @@ difficulty: 3
 status: draft
 published: 2019-09-16
 author: Peter De Sousa <peter.de.sousa@canonical.com>
+feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 
 ---
 
