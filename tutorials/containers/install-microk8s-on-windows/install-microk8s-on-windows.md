@@ -1,6 +1,6 @@
 ---
 id: install-microk8s-on-windows
-summary: Get a local Kubernetes on a Windows PC with Microk8s and Multipass.
+summary: Get a local Kubernetes on Windows with Microk8s and Multipass.
 categories: containers
 tags: kubernetes, beginner, multipass, container, microk8s
 difficulty: 3
@@ -11,7 +11,7 @@ feedback_url: https://github.com/ubuntu/microk8s/issues/
 
 ---
 
-# Install MicroK8s on a Windows PC using Multipass
+# Install MicroK8s on Windows using Multipass
 
 ## Overview
 
@@ -102,7 +102,7 @@ Open a shell in Multipass with a MicroK8s VM
 ```bash
 multipass shell microk8s-vm
 ```
-To execute a command without getting a shell, you can use multipass exec as in the example below:
+To execute a command without getting a shell, you can use `multipass exec` as in the example below:
 ```
 multipass exec microk8s-vm -- /snap/bin/microk8s.status
 ```
