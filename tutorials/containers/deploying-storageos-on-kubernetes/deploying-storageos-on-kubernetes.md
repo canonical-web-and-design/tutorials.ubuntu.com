@@ -14,7 +14,11 @@ feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 # Deploying StorageOS on Charmed Kubernetes
 
 ## Overview
-Duration: 1:00
+Duration: 5
+
+Kubernetes offers a range of storage solutions out of the box but the majority of these are specific to cloud providers, for example gcp or aws, this means that the options left for baremetal deployments is Ceph, localhost or NFS.
+
+StorageOS is a newcomer to this arena providing an easy to setup solution for storage in Charmed Kubernetes which is up and running within minutes.
 
 ### In this tutorial you'll learn how to...
 
@@ -24,11 +28,13 @@ Duration: 1:00
 
 ### You will only need
 
-- Multipass [for Windows](6https://ubuntu.com/blog/kubernetes-on-windows-how-to-set-up) or [Mac](https://tutorials.ubuntu.com/tutorial/install-microk8s-on-mac-os#0) if using [MicroK8s](https://tutorials.ubuntu.com/tutorial/install-a-local-kubernetes-with-microk8s#0)
-- or a Charmed Kubernetes deployment
+- Ubuntu with MicroK8s
+- a Charmed Kubernetes deployment
+- or Multipass [for Windows](6https://ubuntu.com/blog/kubernetes-on-windows-how-to-set-up) or [Mac](https://tutorials.ubuntu.com/tutorial/install-microk8s-on-mac-os#0) if using [MicroK8s](https://tutorials.ubuntu.com/tutorial/install-a-local-kubernetes-with-microk8s#0)
 
 
 ## Installing StorageOS
+Duration: 2
 
 Make sure that your kubernetes-master is configured to allow privileged.
 
@@ -51,7 +57,7 @@ kubectl create -f https://github.com/storageos/cluster-operator/releases/downloa
 ```
 ### Create a the initial StorageOS user account
 
-When installing Storage OS the install will create a user and password using the secret defined below, this is important if you wish to use the StorageOS CLI later:
+When installing Storage OS the install will create a user and password using the secret defined below. This is important if you wish to use the StorageOS CLI later:
 ```
 kubectl create -f - <<END
 apiVersion: v1
@@ -70,7 +76,7 @@ data:
 END
 ```
 
-Now that you have the StorageOS initial account configured you can go ahead and install StorageOS, this step is important and if not configured properly you may get an error similar to this:
+Now that you have the StorageOS initial account configured you can go ahead and install StorageOS. This step is important and if not configured properly you may get an error similar to this:
 
 ```
 storageos-daemonset-qpwfn             0/1     Init:Error              11         14m
@@ -78,8 +84,9 @@ storageos-daemonset-qpwfn             0/1     PodInitializing         0         
 ```
 
 ## Install StorageOS
+Duration: 10
 
-To configure StorageOS we can use the YAML from the StorageOS docs, for this to work you will require your cluster policy to allow privileged.
+To configure StorageOS we can use the YAML from the StorageOS docs. For this to work you will require your cluster policy to allow privileged.
 
 ```
 apiVersion: "storageos.com/v1"
@@ -104,16 +111,121 @@ This will trigger 3 daemonset pods to install and 1 scheduler pod, you can check
 $ kubectl -n storageos get pods -w
 ```
 
-## Mounting a volume
+## Deploying on a workload
+Duration: 10
 
-Ok, now you can create a Persistent Volume Claim:
+Now to tryout your new StorageOS solution you can use a customised version of MySQL Wordpress Deployment from the Kubernetes docs.
+
+### Kustomization.yaml
+```
+kubectl -f - <<END
+secretGenerator:
+- name: mysql-pass
+  literals:
+  - password=ubuntu
+resources:
+  - mysql-deployment.yaml
+  - wordpress-deployment.yaml
+END
+```
+
+### Mysql-deployment.yaml
 
 ```
-kubectl create -f - <<END
+kubectl -f - <<END
+apiVersion: v1
+kind: Service
+metadata:
+  name: wordpress-mysql
+  labels:
+    app: wordpress
+spec:
+  ports:
+    - port: 3306
+  selector:
+    app: wordpress
+    tier: mysql
+  clusterIP: None
+---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: my-first-storage-os-volume
+  name: mysql-pv-claim
+  annotations:
+    volume.beta.kubernetes.io/storage-class: fast
+  labels:
+    app: wordpress
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: wordpress-mysql
+  labels:
+    app: wordpress
+spec:
+  selector:
+    matchLabels:
+      app: wordpress
+      tier: mysql
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: wordpress
+        tier: mysql
+    spec:
+      containers:
+      - image: mysql:5.6
+        name: mysql
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-pass
+              key: password
+        ports:
+        - containerPort: 3306
+          name: mysql
+        volumeMounts:
+        - name: mysql-persistent-storage
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: mysql-pv-claim
+END
+```
+
+### Wordpress-deployment.yaml
+```
+kubectl -f - <<END
+apiVersion: v1
+kind: Service
+metadata:
+  name: wordpress
+  labels:
+    app: wordpress
+spec:
+  ports:
+    - port: 80
+  selector:
+    app: wordpress
+    tier: frontend
+  type: NodePort
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: wp-pv-claim
+  labels:
+    app: wordpress
   annotations:
     volume.beta.kubernetes.io/storage-class: fast
 spec:
@@ -121,66 +233,84 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 5Gi
-END
-```
-
-And check its status:
-
-```
-$ kubectl -n storageos get pods -w
-```
-
-You should get something like this:
-
-```
-[My-first…] Bound pvc-72866c11-fe5b-40e4-a156-6bcfe7ade53e 5Gi RWO fast 4m14s
-```
-
-## Deploying on a workload
-
-Now you can create a pod on our Charmed Kubernetes cluster and try out the newly bound PVC, this can be generalised for any deployment on Kubernetes.
-
-```
-kubectl -f - <<END
-apiVersion: v1
-kind: Pod
+      storage: 20Gi
+---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
 metadata:
-  name: storageos-ubuntu
+  name: wordpress
+  labels:
+    app: wordpress
 spec:
-  containers:
-    - name: ubuntu
-      image: ubuntu:bionic
-      command: ["/bin/sleep"]
-      args: [ "3600" ]
-      volumeMounts:
-        - mountPath: /mnt
-          name: my-mount
-  volumes:
-    - name: my-mount
-      persistentVolumeClaim:
-        claimName: my-first-storage-os-volume
+  selector:
+    matchLabels:
+      app: wordpress
+      tier: frontend
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: wordpress
+        tier: frontend
+    spec:
+      containers:
+      - image: wordpress:4.8-apache
+        name: wordpress
+        env:
+        - name: WORDPRESS_DB_HOST
+          value: wordpress-mysql
+        - name: WORDPRESS_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-pass
+              key: password
+        ports:
+        - containerPort: 80
+          name: wordpress
+        volumeMounts:
+        - name: wordpress-persistent-storage
+          mountPath: /var/www/html
+      volumes:
+      - name: wordpress-persistent-storage
+        persistentVolumeClaim:
+          claimName: wp-pv-claim
 END
 ```
-Check its status:
+
+
+## Access your new site
+Duration: 5
+
+Check the service status:
 ```
-$ kc get pods
+$ kubectl get svc
 ```
 You should see something like this:
 ```
-NAME               READY   STATUS    RESTARTS   AGE
-storageos-ubuntu   1/1     Running   0          2m43s
+NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+wordpress    ClusterIP   10.152.183.72   <none>        31576/TCP      2m26s
+kubernetes   ClusterIP   10.152.183.1    <none>        443/TCP        31m
 ```
 
-So now you can write and read from our new mounted volume:
-```
-$ kubectl exec -it storageos-ubuntu -- bash
-```
-Write something to the new volume:
-```
-root@storageos-ubuntu:/# echo "Ubuntu + StorageOS!" > /mnt/myfile
-```
-And read it!
-```
-root@storageos-ubuntu:/# cat /mnt/myfile
-```
+Now you can try to access the wordpress site by navigating to:
+
+`https://10.152.183.72/`
+
+
+You can go through the setup steps and should get something like this:
+
+![Wordpress site](images/wp-site.png)
+
+## That's all folks!
+
+In this tutorial you deployed StorageOS on Charmed Kubernetes and created a workload which used the new StorageOS solution to write and read from a volume.
+
+This deployment can be replaced with someone more complex such as MySQL and Wordpress by following the example found in the Kubernetes docs.
+
+### Where to go from here?
+- https://microk8s.io/
+- https://jaas.ai/kubernetes
+- https://github.com/ubuntu/microk8s/issues
+- https://ubuntu.com/kubernetes/contact-us
+- https://kubernetes.io/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/
