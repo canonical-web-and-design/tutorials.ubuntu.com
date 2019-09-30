@@ -289,7 +289,7 @@ $ kubectl get svc
 You should see something like this:
 ```
 NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
-wordpress    ClusterIP   10.152.183.72   <none>        31576/TCP      2m26s
+wordpress    NodePort    10.152.183.72   <none>        80:31576/TCP      2m26s
 kubernetes   ClusterIP   10.152.183.1    <none>        443/TCP        31m
 ```
 
