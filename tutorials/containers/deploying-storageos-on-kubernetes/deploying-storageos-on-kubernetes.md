@@ -16,7 +16,7 @@ feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 ## Overview
 Duration: 5
 
-Kubernetes offers a range of storage solutions out of the box but the majority of these are specific to cloud providers, for example gcp or aws, this means that the options left for baremetal deployments is Ceph, localhost or NFS.
+Kubernetes offers a range of storage solutions out of the box but the majority of these are specific to cloud providers, for example gcp or aws. This means that the options left for baremetal deployments is Ceph, local or NFS.
 
 StorageOS is a newcomer to this arena providing an easy to setup solution for storage in Charmed Kubernetes which is up and running within minutes.
 
@@ -24,11 +24,12 @@ StorageOS is a newcomer to this arena providing an easy to setup solution for st
 
 - Deploy the StorageOS operator
 - Create a secret for StorageOS
+- Create a workload on top of StorageOS
 
 
 ### You will only need
 
-- a Charmed Kubernetes deployment
+- a Charmed Kubernetes Cluster
 
 ## Deploying StorageOS
 Duration: 2
@@ -55,6 +56,9 @@ To get started with our deployment of StorageOS we need to first deploy the Stor
 ```
 kubectl create -f https://github.com/storageos/cluster-operator/releases/download/1.4.0/storageos-operator.yaml
 ```
+
+This operator yaml also creates a new Kubernetes storage class 'fast' which will be important later.
+
 ### Create a the initial StorageOS user account
 
 When deploying Storage OS the deployment will create a user and password using the secret defined below. This is important if you wish to use the StorageOS CLI later:
@@ -116,7 +120,7 @@ kubectl -n storageos get pods -w
 ## Deploying a workload on StorageOS
 Duration: 10
 
-Now to tryout your new StorageOS solution you can use a customised version of MySQL Wordpress Deployment from the Kubernetes docs.
+Now to try out your new StorageOS solution you can use a customised version of MySQL Wordpress Deployment from the Kubernetes docs.
 
 Run each of these commands to create a kustomization.yaml, mysql-deployment.yaml and wordpress-deployment.yaml.
 
@@ -282,6 +286,27 @@ spec:
           claimName: wp-pv-claim
 END
 ```
+
+The key point of this deployments is the PVC found in both wordpress and mysql deplyoemnts:
+
+```
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: wp-pv-claim
+  labels:
+    app: wordpress
+  annotations:
+    volume.beta.kubernetes.io/storage-class: fast
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+```
+
+This example was taken from the Wordpress deployment, the annotation here has been replaced with StorageOS's created 'fast' storage class.
 
 Once all of the files have been created run:
 
