@@ -44,10 +44,10 @@ Duration: 5
 ### Getting Started
 
 To get StorageOS up and started there are three steps:
+
 - Install the Storage OS operator
 - Create a secret
-- Trigger bootstrap using a CustomResource***
-
+- Deploy the daemonsets
 
 ### Deploy the StorageOS Operator
 
@@ -287,7 +287,7 @@ spec:
 END
 ```
 
-The key point of this deployments is the PVC found in both wordpress and mysql deplyoemnts:
+The key point of these deployments is the PVC found in both wordpress and mysql deployments:
 
 ```
 apiVersion: v1
@@ -306,7 +306,7 @@ spec:
       storage: 20Gi
 ```
 
-This example was taken from the Wordpress deployment, the annotation here has been replaced with StorageOS's created 'fast' storage class.
+This example was taken from the Wordpress deployment, the annotation here has been replaced with StorageOS's 'fast' storage class, this will ask Kubernetes/StorageOS to provision a volume according to the spec.
 
 Once all of the files have been created run:
 
@@ -314,34 +314,58 @@ Once all of the files have been created run:
 kubectl create -k ./
 ```
 
+This will deploy all of the secrets and deployments needed for a wordpress site to operate.
+
 ## Access your new site
 Duration: 5
 
 Check the service status:
 ```
-kubectl get svc
+kubectl get pods
 ```
 You should see something like this:
 ```
-NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
-wordpress    NodePort    10.152.183.72   <none>        80:31576/TCP      2m26s
-kubernetes   ClusterIP   10.152.183.1    <none>        443/TCP        31m
+NAME                               READY   STATUS    RESTARTS   AGE
+csi-rbdplugin-attacher-0           1/1     Running   1          60m
+csi-rbdplugin-bxgsk                2/2     Running   1          59m
+csi-rbdplugin-kcmdd                2/2     Running   2          35m
+csi-rbdplugin-provisioner-0        3/3     Running   0          60m
+csi-rbdplugin-zlglm                2/2     Running   1          59m
+wordpress-74db446497-2724m         1/1     Running   1          10m
+wordpress-mysql-7c795bf6dc-9t7dj   1/1     Running   0          10m
+```
+
+Once the wordpress and mysql pods you can run:
+
+```
+kubectl get svc
+```
+
+This will give you the service address:
+
+```
+NAME                        TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+csi-rbdplugin-attacher      ClusterIP   10.152.183.137   <none>        12345/TCP      56m
+csi-rbdplugin-provisioner   ClusterIP   10.152.183.170   <none>        12345/TCP      55m
+kubernetes                  ClusterIP   10.152.183.1     <none>        443/TCP        61m
+wordpress                   NodePort    10.152.183.16    <none>        80:31625/TCP   6m11s
+wordpress-mysql             ClusterIP   None             <none>        3306/TCP       6m12s
 ```
 
 Now you can try to access the wordpress site by navigating to:
 
-`https://10.152.183.72/`
+`https://10.152.183.16/`
 
 
-You can go through the setup steps and should get something like this:
+You can go through the wordpress to create an account you should get something like this:
 
 ![Wordpress site](images/wp-site.png)
 
 ## That's all folks!
 
-In this tutorial you deployed StorageOS on Charmed Kubernetes and created a workload which used the new StorageOS solution to write and read from a volume.
+Congratulations! In this tutorial you deployed StorageOS on Charmed Kubernetes and created a wordpress site which used StorageOS as it's storage backend.
 
-This deployment can be replaced with someone more complex such as MySQL and Wordpress by following the example found in the Kubernetes docs.
+This tutorial can be adapted for other tasks which require persistent volumes and shows you the ease of use a solution such as StorageOS offers.
 
 ### Where to go from here?
 - Use Kubernetes straight away for free with [MicroK8s](https://microk8s.io/)
