@@ -16,9 +16,9 @@ feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 ## Overview
 Duration: 5
 
-Kubernetes offers a range of storage solutions out of the box but the majority of these are specific to cloud providers, for example gcp or aws. This means that the options left for baremetal deployments is Ceph, local or NFS.
+Kubernetes offers a range of storage solutions out of the box, but the majority of these are specific to cloud providers, for example, AWS or Google Cloud. This means that the options left for bare metal deployments are Ceph, NFS or local.
 
-StorageOS is a newcomer to this arena providing an easy to setup solution for storage in Charmed Kubernetes which is up and running within minutes.
+StorageOS is a newcomer to this area providing an easy to setup solution for storage in Charmed Kubernetes which is up and running within minutes.
 
 ### In this tutorial you'll learn how to...
 
@@ -29,27 +29,29 @@ StorageOS is a newcomer to this arena providing an easy to setup solution for st
 
 ### You will only need
 
-- a Charmed Kubernetes Cluster
+- a Charmed Kubernetes cluster
 
-## Deploying StorageOS
+If you do not have a Charmed Kubernetes cluster, you can refer to the following [tutorial][https://tutorials.ubuntu.com/tutorial/get-started-charmed-kubernetes#0] to spin up one in minutes. Charmed Kubernetes is a production-grade Kubernetes offering from Canonical which is fully compliant with the upstream project. Get Charmed Kubernetes right away and benefit from simplified deployments and operations provided by Juju charms.
+
+## Cluster preparation
 Duration: 2
 
-Make sure that your kubernetes-master is configured to allow privileged.
+Make sure that your Kubernetes Master is configured to allow kubeapi-server to run in privileged mode.
 
 `juju config kubernetes-master allow-privileged=true`
 
 
-## Setting Up
+## Setting up StorageOS
 Duration: 5
-### Getting Started
+### Getting started
 
-To get StorageOS up and started there are three steps:
+To get StorageOS up and running follow these three easy steps:
 
-- Install the Storage OS operator
+- Install the StorageOS operator
 - Create a secret
 - Deploy the daemonsets
 
-### Deploy the StorageOS Operator
+### Install the StorageOS operator
 
 To get started with our deployment of StorageOS we need to first deploy the StorageOS operator:
 
@@ -57,9 +59,9 @@ To get started with our deployment of StorageOS we need to first deploy the Stor
 kubectl create -f https://github.com/storageos/cluster-operator/releases/download/1.4.0/storageos-operator.yaml
 ```
 
-This operator yaml also creates a new Kubernetes storage class 'fast' which will be important later.
+This operator YAML also creates a new Kubernetes storage class 'fast' which will be important later.
 
-### Create a the initial StorageOS user account
+### Create an initial StorageOS user account
 
 When deploying Storage OS the deployment will create a user and password using the secret defined below. This is important if you wish to use the StorageOS CLI later:
 
@@ -81,7 +83,7 @@ data:
 END
 ```
 
-Now that you have the StorageOS initial account configured you can go ahead and deploy  the StorageOS daemon sets. This step is important and if not configured properly you may get an error similar to this:
+Now that you have the StorageOS initial account configured you can go ahead and deploy the StorageOS daemon sets. This step is important and if not configured properly you may get an error similar to this:
 
 ```
 storageos-daemonset-qpwfn             0/1     Init:Error              11         14m
@@ -125,6 +127,9 @@ Now to try out your new StorageOS solution you can use a customised version of M
 Run each of these commands to create a kustomization.yaml, mysql-deployment.yaml and wordpress-deployment.yaml.
 
 ### Kustomization.yaml
+
+Create a file with the following content:
+
 ```
 cat <<END > kustomization.yaml
 secretGenerator:
@@ -139,7 +144,8 @@ END
 
 ### Mysql-deployment.yaml
 
-Create a
+Create a file with the following content:
+
 ```
 cat <<END > mysql-deployment.yaml
 apiVersion: v1
@@ -213,6 +219,9 @@ END
 ```
 
 ### Wordpress-deployment.yaml
+
+Create a file with the following content:
+
 ```
 cat <<END > wordpress-deployment.yaml
 apiVersion: v1
@@ -287,7 +296,7 @@ spec:
 END
 ```
 
-The key point of these deployments is the PVC found in both wordpress and mysql deployments:
+The key point of these deployments is the PVC found in both WordPress and MySQL deployments:
 
 ```
 apiVersion: v1
@@ -308,13 +317,13 @@ spec:
 
 This example was taken from the Wordpress deployment, the annotation here has been replaced with StorageOS's 'fast' storage class, this will ask Kubernetes/StorageOS to provision a volume according to the spec.
 
-Once all of the files have been created run:
+Once all of the files have been created, run:
 
 ```
 kubectl create -k ./
 ```
 
-This will deploy all of the secrets and deployments needed for a wordpress site to operate.
+This will deploy all of the secrets and deployments needed for a WordPress site to operate.
 
 ## Access your new site
 Duration: 5
@@ -324,6 +333,7 @@ Check the service status:
 kubectl get pods
 ```
 You should see something like this:
+
 ```
 NAME                               READY   STATUS    RESTARTS   AGE
 csi-rbdplugin-attacher-0           1/1     Running   1          60m
@@ -335,7 +345,7 @@ wordpress-74db446497-2724m         1/1     Running   1          10m
 wordpress-mysql-7c795bf6dc-9t7dj   1/1     Running   0          10m
 ```
 
-Once the wordpress and mysql pods you can run:
+Once the wordpress and mysql pods are running, you can run:
 
 ```
 kubectl get svc
@@ -352,23 +362,23 @@ wordpress                   NodePort    10.152.183.16    <none>        80:31625/
 wordpress-mysql             ClusterIP   None             <none>        3306/TCP       6m12s
 ```
 
-Now you can try to access the wordpress site by navigating to:
+Now you can try to access the WordPress site by navigating to:
 
 `https://10.152.183.16/`
 
 
-You can go through the wordpress to create an account you should get something like this:
+You can go through the WordPress to create an account you should get something like this:
 
 ![Wordpress site](images/wp-site.png)
 
 ## That's all folks!
 
-Congratulations! In this tutorial you deployed StorageOS on Charmed Kubernetes and created a wordpress site which used StorageOS as it's storage backend.
+Congratulations! In this tutorial, you deployed StorageOS on Charmed Kubernetes and created a WordPress site which used StorageOS as it's storage backend.
 
-This tutorial can be adapted for other tasks which require persistent volumes and shows you the ease of use a solution such as StorageOS offers.
+This tutorial can be adapted for other tasks which require persistent volumes and shows you the ease of using a solution such as StorageOS offers.
 
 ### Where to go from here?
+- Explore [Charmed Kubernetes](https://jaas.ai/kubernetes)
 - Use Kubernetes straight away for free with [MicroK8s](https://microk8s.io/)
-- Take a look at [Charmed Kubernetes](https://jaas.ai/kubernetes)
-- Looking for production grade [Kubernetes?](https://ubuntu.com/kubernetes/contact-us)
+- Looking for production-grade [Kubernetes?](https://ubuntu.com/kubernetes/contact-us)
 - StorageOS [docs](https://docs.storageos.com/)
