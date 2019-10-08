@@ -16,45 +16,21 @@ author: Carmine Rimi <carmine.rimi@canonical.com>
 ## Overview
 Duration: 2:00
 
-This tutorial will guide you through installing [Kubeflow](https://www.kubeflow.org/)
-on top of [microk8s](https://microk8s.io) for an easy single node setup.
+This tutorial will guide you through installing [Kubeflow](https://www.kubeflow.org/) and running you first model. Kubeflow will be deployed on top of [microk8s](https://microk8s.io), a zero-configuration Kubernetes.
 
-MicroK8s can be installed on just about any Linux distribution. This could be a desktop,
-a server, an edge or IoT device, or a virtual machine. For consistency, this tutorial
-will start with creating a VM using [Multipass](https://multipass.run) and from there
-install MicroK8s and Kubeflow. The process is similar for any cloud environment, like GCP, AWS, or Azure:
+Here is the tutorial outline:
 
-1. Create A VM
+1. Create a VM
 2. SSH into the VM
 3. Install MicroK8s
 4. Install Kubeflow
 5. Do some work!
 
-### Kubeflow
-
-Kubeflow is an [open source project](https://github.com/kubeflow) created by Google that
-is dedicated to providing an easy to use and customisable machine learning toolkit. You
-can easily compose your machine learning stack from many Kubeflow-enabled components -
-there are components for training models, serving models, creating workflows (pipelines),
-and a host of other supporting functionality. Examples of machine learning frameworks
-enabled by Kubeflow are TensorFlow, PyTorch, Chainer, MXNet, XGBoost, and MPI.
-
-### MicroK8s
-
-MicroK8s is zero-ops Kubernetes on just about any Linux box. It is packaged as a snap and
-installs in seconds, making it perfect for development or small scale production clusters.
-
-### Multipass
-
-A mini-cloud on your Mac or Windows workstation. Multipass provides a command line
-interface to launch and manage instances of Ubuntu as virtual machines. Downloading the
-cloud images takes seconds, and within minutes a VM can be up and running.
-
 ### What you'll learn
 
 - How to create an ephemeral VM, either on your desktop or in a public cloud
 - How to create a Kubernetes cluster in that VM
-- How to install Kubeflow using the Kubeflow native kfctl tool
+- How to install Kubeflow using the Kubeflow native `kfctl` tool
 - How to create a Jupyter Notebook server on your Kubeflow cluster
 
 ### What you'll need
@@ -72,6 +48,29 @@ Survey
  - Novice
  - Intermediate
  - Proficient
+
+
+## About the tools
+
+This tutorial makes use of several technologies, some of which may be unfamiliar. 
+
+### Kubeflow
+
+Kubeflow is an [open source project](https://github.com/kubeflow) created by Google that is dedicated to providing an easy to use and customisable machine learning toolkit. You can easily compose your machine learning stack from many Kubeflow-enabled components. There are components for training models, serving models, creating workflows (pipelines), and a host of other supporting functionality.
+
+Examples of machine learning frameworks enabled by Kubeflow are TensorFlow, PyTorch, Chainer, MXNet, XGBoost, and MPI.
+
+### MicroK8s
+
+[MicroK8s](https://microk8s.io) is zero-ops Kubernetes on just about any Linux box. It is packaged as a snap and installs in seconds, making it perfect for development or small scale production clusters.
+
+MicroK8s can be installed on just about any Linux distribution. This could be a desktop, a server, an edge or IoT device, or a virtual machine.
+
+### Multipass
+
+A mini-cloud on your Mac or Windows workstation. [Multipass](https://multipass.run/) provides a command line  interface to launch and manage instances of Ubuntu as virtual machines. Downloading the cloud images takes seconds, and within minutes a VM can be up and running.
+
+We use Multipass to ensure consistency for readers who may be accessing the tutorial from many different environments and operating systems.
 
 ## Create your VM locally
 
@@ -104,12 +103,9 @@ multipass shell kubeflow
 
 Duration: 3:00
 
-MicroK8s is the fast and easy way to create a Kubernetes cluster. For this tutorial,
-we'll create a single node Kubernetes cluster, which means installing MicroK8s into the
-VM you've created.
+MicroK8s is the fast and easy way to create a Kubernetes cluster. For this tutorial, we'll create a single node Kubernetes cluster, which means installing MicroK8s into the VM you've created.
 
-The steps below will install MicroK8s, turn on a few services (DNS, Storage, Dashboard),
-and ensure you can use `kubectl`.
+The steps below will install MicroK8s, turn on a few services (DNS, Storage, Dashboard), and ensure you can use `kubectl`.
 
 ```bash
 sudo snap install microk8s --classic
@@ -119,7 +115,7 @@ sudo snap alias microk8s.kubectl kubectl
 microk8s.kubectl config view --raw > $HOME/.kube/config
 ```
 
-## Install Kubeflow using kfctl
+## Install Kubeflow using `kfctl`
 
 Duration: 10:00
 
@@ -133,12 +129,9 @@ follow these steps:
 5. Access Jupyter
 
 
-### 1. Install kfctl
+### 1. Install `kfctl`
 
-kfctl is a binary developed by the Kubeflow community that can be used to setup the
-standard set of Kubeflow components. The instructions below will download the binary
-as a compressed file and expand it into the current directory. Finally, it'll add
-`kfctl` to the PATH.
+`kfctl` is a binary developed by the Kubeflow community that can be used to setup the standard set of Kubeflow components. The instructions below will download the binary as a compressed file and expand it into the current directory. Finally, it'll add `kfctl` to the PATH.
 
 ```bash
 export OPSYS=linux
@@ -148,10 +141,7 @@ export PATH=$PATH:$PWD
 
 ### 2. Install Kubeflow
 
-Now that you have the `kfctl` binary installed, you can install Kubeflow using the
-standard set of components. The script below will create a directory, "kf-poc", which
-will store all the kubernetes kustomize yaml files. These files are then applied to
-the MicroK8s cluster.
+Now that you have the `kfctl` binary installed, you can install Kubeflow using the  standard set of components. The script below will create a directory, "kf-poc", which will store all the kubernetes kustomize yaml files. These files are then applied to the MicroK8s cluster.
 
 ```bash
 export KFAPP="kf-poc"
@@ -175,10 +165,7 @@ You'll see something like this as the output
 
 ![alt_text](./images/pod-status-initial.png "Initial Pod Status")
 
-With a fast internet connection, like the kind a public cloud would provide, it can take
-about 8 minutes to download and run all of the containers. Consider using the the
-following command to watch the install status. Once all pods have a __Running__ status
-you can exit the watch command.
+With a fast internet connection, like the kind a public cloud would provide, it can take about 8 minutes to download and run all of the containers. Consider using the the following command to watch the install status. Once all pods have a __Running__ status you can exit the watch command.
 
 ```bash
 watch -c -n 10 kubectl -n kubeflow get po
@@ -191,10 +178,7 @@ With all pods running, you should see something like this:
 
 ### 4. Access the Kubeflow Dashboard
 
-Since there isn’t a configured load balancer in this setup, you’ll need to use the
-node port.  The default nodeport should be `31380`, but to confirm, run the following
-command - it will highlight the http port to use. You will use this
-in conjunction with the IP address of the VM:
+Since there isn’t a configured load balancer in this setup, you’ll need to use the node port.  The default nodeport should be `31380`, but to confirm, run the following command - it will highlight the http port to use. You will use this in conjunction with the IP address of the VM:
 
 ```bash
 echo `kubectl get svc -n istio-system istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="http2")].nodePort}'`
@@ -204,10 +188,7 @@ echo `kubectl get svc -n istio-system istio-ingressgateway -o jsonpath='{.spec.p
 
 ### 5. Access Jupyter
 
-One of the first things you may want to do is to create a jupyter server. This allows
-you to create new notebooks or import existing notebooks and run them in Kubeflow. By
-clicking on the menu icon in the upper left of the home screen, you can select
-`Notebook Servers`, which will show this screen:
+One of the first things you may want to do is to create a Jupyter server. This allows you to create new notebooks or import existing notebooks and run them in Kubeflow. By clicking on the menu icon in the upper left of the home screen, you can select `Notebook Servers`, which will show this screen:
 
 ![alt_text](./images/kubeflow-notebook-servers.png "Kubeflow Jupyter Dashboard")
 
@@ -215,8 +196,7 @@ Once you select `+ NEW SERVER`, you'll be presented with this screen:
 
 ![alt_text](./images/kubeflow-create-notebook-server.png "Kubeflow Create Jupyter Server")
 
-After completing the form and selecting the version of TensorFlow you'd like, you'll
-have access to a Jupyter server, which allows you to create or import notebooks:
+After completing the form and selecting the version of TensorFlow you'd like, you'll have access to a Jupyter server, which allows you to create or import notebooks:
 
 ![alt_text](./images/kubeflow-jupyter-server.png "Jupyter Server")
 
@@ -385,8 +365,7 @@ Congratulations! You're ready to rock'n roll using Kubeflow on CDK and GKE!
 ## Next Steps
 Duration: 2:00
 
-The goal of this tutorial was to get you up and running quickly using Kubeflow. In this
-tutorial you:
+The goal of this tutorial was to get you up and running quickly using Kubeflow. In this tutorial, you have:
 
 1. Created a VM
 2. Installed MicroK8s and Kubeflow
@@ -409,23 +388,17 @@ tutorial you:
 
 Duration: 8:00
 
-Skip to the next step if you're not interested in using GCP, and have already created
-a VM locally or plan to use AWS.
+Skip to the next step if you're not interested in using GCP, and have already created a VM locally or plan to use AWS.
 
 For a GCP-based deployment:
 - [Google Cloud SDK installed](https://cloud.google.com/sdk/downloads)
 - General knowledge of how to [create and use VMs on GCP](https://cloud.google.com/products/compute/)
 
-This path will create an preemptible VM, which means that the VM could be reclaimed by
-GCP at any time. The benefit of a preemptible VM is that it costs a fraction of a
-normal VM. If you prefer to use a normal VM and not risk it disappearing, then change
-the `PREEMPTIBLE` variable below to be just `""`, for example `export PREEMPTIBLE=""`
+This path will create an preemptible VM, which means that the VM could be reclaimed by GCP at any time. The benefit of a preemptible VM is that it costs a fraction of a normal VM. If you prefer to use a normal VM and not risk it disappearing, then change the `PREEMPTIBLE` variable below to be just `""`, for example `export PREEMPTIBLE=""`
 
 ### Create a project
 
-If you don't already have a project that you can use to create the VM,
-visit [this page](https://console.cloud.google.com/projectcreate). In the next step
-we assume the project is name is `kubeflow-spike-01`.
+If you don't already have a project that you can use to create the VM, visit [this page](https://console.cloud.google.com/projectcreate). In the next step we assume the project is name is `kubeflow-spike-01`.
 
 You can create a project through the command line as well:
 
@@ -439,10 +412,7 @@ Billing should be enabled for the new project you created. You can do that using
 
 ### Allow Networking
 
-This command will open up the networking so that you can access your cluster.
-__Be careful with this command__, it opens up networking to anyone on the internet.
-Specifically, once you create the VM in the next step, the ports below will be
-generally accessible.
+This command will open up the networking so that you can access your cluster. __Be careful with this command__, it opens up networking to anyone on the internet. Specifically, once you create the VM in the next step, the ports below will be generally accessible.
 
 ```
 gcloud compute --project=${GCP_PROJECT} firewall-rules create k8s-ingress --description=Expose\ kubernetes\ nodeport\ range --direction=INGRESS --priority=1000 --network=default --action=ALLOW --rules=tcp:8001,tcp:8080,tcp:30000-32767 --source-ranges=0.0.0.0/0 --target-tags=k8s-nodeport
@@ -469,7 +439,9 @@ gcloud compute instances --project=${GCP_PROJECT} list --filter="--zone:(${GCP_Z
 
 ### SSH into the VM
 
+```bash
 gcloud compute --project ${GCP_PROJECT} ssh --zone ${GCP_ZONE} ${GCP_INSTANCE_NAME}
+```
 
 ### (Later) Delete a VM
 
