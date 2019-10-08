@@ -31,7 +31,8 @@ StorageOS is a newcomer to this area providing an easy to setup solution for sto
 
 - a Charmed Kubernetes cluster
 
-If you do not have a Charmed Kubernetes cluster, you can refer to the following [tutorial][https://tutorials.ubuntu.com/tutorial/get-started-charmed-kubernetes#0] to spin up one in minutes. Charmed Kubernetes is a production-grade Kubernetes offering from Canonical which is fully compliant with the upstream project. Get Charmed Kubernetes right away and benefit from simplified deployments and operations provided by Juju charms.
+positive
+: If you do not have a Charmed Kubernetes cluster, you can refer to the following [tutorial](https://tutorials.ubuntu.com/tutorial/get-started-charmed-kubernetes) to spin up one in minutes. Charmed Kubernetes is a production-grade Kubernetes offering from Canonical which is fully compliant with the upstream project. Get Charmed Kubernetes right away and benefit from simplified deployments and operations provided by Juju charms.
 
 ## Cluster preparation
 Duration: 2
