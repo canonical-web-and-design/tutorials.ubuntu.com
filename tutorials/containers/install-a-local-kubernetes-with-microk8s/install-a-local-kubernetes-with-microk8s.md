@@ -97,7 +97,7 @@ channels:
 positive
 : You may need to configure your firewall to allow pod-to-pod and pod-to-internet communication:
 ```
-sudo ufw allow in on cbr0 && sudo ufw allow out on cbr0
+sudo ufw allow in on cni0 && sudo ufw allow out on cni0
 sudo ufw default allow routed
 ```
 
