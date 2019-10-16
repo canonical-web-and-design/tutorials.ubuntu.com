@@ -23,18 +23,18 @@ Being able to upgrade Ubuntu from one version to the next is one of Ubuntu's bes
 
 Best of all, upgrading Ubuntu to the latest release is easy. As we'll demonstrate!
 
-If you are upgrading from a version released prior to Ubuntu 15.10, [please read the upgrade notes for more information](https://help.ubuntu.com/community/UpgradeNotes).
+If you are upgrading from Ubuntu 14.04, [please read the upgrade notes for more information](https://help.ubuntu.com/community/UpgradeNotes).
 
 For more recent versions, please read the release notes for [Ubuntu 18.04](https://wiki.ubuntu.com/BionicBeaver/ReleaseNotes).
 
 ## Launch the Software Updater
 Duration: 1:00
 
-On versions of Ubuntu prior to 17.10, press the **Superkey (Windows key)** to launch the Dash and search for **Update Manager**.
+On versions of Ubuntu prior to 18.04, press the **Superkey (Windows key)** to launch the Dash and search for **Update Manager**.
 
 ![Software Updater from Dash](https://assets.ubuntu.com/v1/de3da8d8-download-desktop-upgrade-1.jpg)
 
-For Ubuntu 17.10, click on the **Show Applications** icon in the bottom left of the desktop and search for **Update Manager**.
+For Ubuntu 18.04 or later, click on the **Show Applications** icon in the bottom left of the desktop and search for **Update Manager**.
 
 ![Software Updater from Gnome](https://assets.ubuntu.com/v1/c1acb197-1710-update-manager.png)
 
@@ -57,7 +57,7 @@ We now need to open *Update Manager* one more time, only this time *Update Manag
 
 ### If no upgrade appears
 
-As mentioned in the [Ubuntu wiki](https://wiki.ubuntu.com/BionicBeaver/ReleaseNotes#Upgrading_from_Ubuntu_16.04_LTS_or_17.10), upgrades from 17.10 will not be enabled until a few days after the release of 18.04 and upgrades from 16.04 LTS will not be enabled until a few days after the release of 18.04.1, expected in late July 2018.
+As mentioned in the [Ubuntu wiki](https://wiki.ubuntu.com/EoanErmine/ReleaseNotes#Upgrading_from_Ubuntu_19.04), upgrades from 19.04 will not be enabled until a few days after the release of 19.10.
 
 You can force the upgrade, however, with the following steps:
 
