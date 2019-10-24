@@ -148,6 +148,7 @@ description: |
     httpstat is a utility that analyses show fast is a website
     when you are trying to connect to it.
     This utility is particularly useful to Web administrators.
+base: core
 grade: stable
 confinement: devmode
 ```
