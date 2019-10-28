@@ -40,7 +40,7 @@ If you do not have an access to a Charmed Kubernetes cluster, you can easily get
 For the purpose of this tutorial we will use the kubernetes-core [bundle][kubernetes_core], however, you can use any other bundle that fits for your needs. We will also use AWS as a provider.
 
 positive
-: Since Kata Containers uses QEMU/KVM to launch VMs for containers, it is really important that your Charmed Kubernetes cluster is deployed on bare metal. You can use the `i3.metal` instance type when deploying on AWS or any other local provider that supports bare metal provisionins (e.g. [MAAS][maas] or [VMware vSphere][vsphere]).
+: Since Kata Containers uses QEMU/KVM to launch VMs for containers, it is really important that your Charmed Kubernetes cluster is deployed on bare metal. You can use the `i3.metal` instance type when deploying on AWS or any other local provider that supports bare metal provisionins (e.g. [MAAS][maas] or [VMware vSphere][vmware]).
 
 ## Prepare the kubectl client
 
@@ -276,13 +276,13 @@ runtimeclass.node.k8s.io/kata created
 
 ### Creating a pod via the Kata runtime
 
-Now, as the kata class has been created, we can create another pod using the Kata runtime. We start with creating a YAML file for the pod:
+Now, as the `kata` class has been created, we can create another pod using the Kata runtime. We start with creating a YAML file for the pod:
 
 ```bash
 $ kubectl run nginx-kata --image nginx --restart Never --dry-run --output yaml > nginx-kata.yaml
 ```
 
-Then we add the `runtimeClassName: kata` line to the file:
+Then we add the `runtimeClassName: kata` line to the file below the `spec` section:
 
 ```bash
 $ cat nginx-kata.yaml 
@@ -350,7 +350,7 @@ Connection to 3.227.255.168 closed.
 27
 ```
 
-The number has grown again and we can now see that the `io.containerd.kata.v2` is being used
+The number has grown again and we can now see that the `io.containerd.kata.v2` is being used.
 
 We can also check if there are any `qemu` processes running on the Kubernetes Worker node:
 
@@ -366,7 +366,7 @@ Connection to 3.227.255.168 closed.
 1
 ```
 
-As you can see this time the `qemu` process has been created. The `nginx` pod is running as a container inside of the VM on the Kubernetes Worker node.
+As you can see this time the `qemu` process has been created. The `nginx-kata` pod is running as a container inside of the VM on the Kubernetes Worker node.
 
 ### Creating a deployment via the Kata runtime
 
@@ -376,7 +376,7 @@ Creating deployments via the Kata runtime does not differ much from creating pod
 $ kubectl run nginx-deployment-kata --image nginx --replicas 3 --restart Always --dry-run --output yaml > nginx-kata-deployment.yaml
 ```
 
-Then add the `runtimeClassName: kata` line again:
+Then add the `runtimeClassName: kata` line again below the container's `spec` section:
 
 ```bash
 $ cat nginx-kata-deployment.yaml 
@@ -438,7 +438,7 @@ Read Kata Containers [documentation][kata_documentation]
 Explore [Charmed Kubernetes][kubernetes_charmed]
 Try [MicroK8s][kubernetes_microk8s]
 Learn more about [Canonical's solutions for Kubernetes][kubernetes_canonical]
-[Contact us!][contact]
+[Tell us][contact] your Kubernetes story!
 
 <!-- LINKS -->
 [contact]: https://ubuntu.com/kubernetes#get-in-touch
