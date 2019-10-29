@@ -1,6 +1,6 @@
 ---
 id: charmed-kubernetes-kata-containers
-summary: Ensuring security and isolation of workloads in a Charmed Kubernetes cluster with Kata Containers
+summary: Ensuring security and isolation in Charmed Kubernetes with Kata Containers
 categories: containers
 tags: kubernetes, containers, kata, beginner
 difficulty: 2
@@ -11,7 +11,7 @@ feedback_url: https://bugs.launchpad.net/charmed-kubernetes/+filebug
 
 ---
 
-# Ensuring security and isolation of workloads in a Charmed Kubernetes cluster with Kata Containers
+# Ensuring security and isolation in Charmed Kubernetes with Kata Containers
 
 
 
