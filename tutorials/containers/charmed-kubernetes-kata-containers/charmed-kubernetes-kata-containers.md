@@ -1,6 +1,6 @@
 ---
 id: charmed-kubernetes-kata-containers
-summary: Ensuring security and isolation in Charmed Kubernetes with Kata Containers
+summary: Learn how to improve pods security and isolation in Kubernetes using Kata Containers
 categories: containers
 tags: kubernetes, containers, kata, beginner
 difficulty: 2
@@ -23,32 +23,32 @@ feedback_url: https://bugs.launchpad.net/charmed-kubernetes/+filebug
 
 ### What are Kata Containers?
 
-[Kata Conainers][kata_containers] is an open source project focused on improving the security and isolation of container technologies. By running on a shared kernel, containers are usually considered to be less secure than traditional virtual machines. Kata Containers allow launching container workloads inside of lightweight VMs which seamlessly plug into the existing container ecosystems, such as Kubernetes.
+[Kata Containers][kata_containers] is an open source project focused on improving the security and isolation of container technologies. By running on a shared kernel, containers are usually considered to be less secure than traditional virtual machines. Kata Containers allow launching container workloads inside of lightweight VMs which seamlessly plug into the existing container ecosystem, such as Kubernetes.
 
 ### In this tutorial you will learn how to:
 
-- Deploy Kata Containers extension in a Charmed Kubernetes cluster
+- Deploy the Kata Containers extension in a Charmed Kubernetes cluster
 - Use Kata runtime to launch container workloads
 
 ### You will need:
 
 * A Charmed Kubernetes cluster deployed on bare metal
-* The `kubectl` CLI client which you can install from the [snap store][kubectl]
+* The `kubectl` client which you can install from the [snap store][kubectl]
 
 If you do not have an access to a Charmed Kubernetes cluster, you can easily get one up and running based on the following [tutorial][kubernetes_charmed_tutorial].
 
-For the purpose of this tutorial we will use the kubernetes-core [bundle][kubernetes_core], however, you can use any other bundle that fits for your needs. We will also use AWS as a provider.
+For the purpose of this tutorial we will use the [kubernetes-core bundle][kubernetes_core], however, you can use any other bundle that fits your needs. We will use AWS as a provider.
 
 positive
-: Since Kata Containers uses QEMU/KVM to launch VMs for containers, it is really important that your Charmed Kubernetes cluster is deployed on bare metal. You can use the `i3.metal` instance type when deploying on AWS or any other local provider that supports bare metal provisionins (e.g. [MAAS][maas] or [VMware vSphere][vmware]).
+: Since Kata Containers uses QEMU/KVM to launch VMs for containers, it is really important that your Charmed Kubernetes cluster is deployed on bare metal. You can use the `i3.metal` instance type when deploying on AWS or any other local provider that supports bare metal provisioning (e.g. [MAAS][maas] or [VMware vSphere][vmware]).
 
 ## Prepare the kubectl client
 
 Duration: 2:00
 
-Before we get started, we have to prepare configs for the `kubectl` client, so that it could be able to talk to our Charmed Kubernetes cluster. Please follow the listing below to complete all necessary steps:
+Our first step is to prepare the config file for `kubectl`, so that it will be able to talk to our Charmed Kubernetes cluster.
 
-First of all, make sure that you Charmed Kubernetes cluster is in a healthy state. Run `juju status` command from the terminal and make sure that all applications and units are in the `active` state:
+Make sure that your Charmed Kubernetes cluster is in a healthy state. Run the `juju status` command from the terminal and make sure that all applications and units have the `active` status:
 
 ```bash
 $ juju status
@@ -79,14 +79,14 @@ Machine  State    DNS             Inst id              Series  AZ          Messa
 1        started  3.227.255.168   i-09580bdd3fbd7e4d5  bionic  us-east-1b  running
 ```
 
-Then copy the config file from the Kubernetes Master:
+Then, copy the config file from the Kubernetes master:
 
 ```bash
 $ mkdir -p ~/.kube
 $ juju scp kubernetes-master/0:config ~/.kube/config
 ```
 
-At this point you can interact with your Charmed Kubernetes cluster via the `kubectl` command:
+You can now interact with your Charmed Kubernetes cluster with the `kubectl` command:
 
 ```bash
 $ kubectl cluster-info
@@ -100,11 +100,11 @@ InfluxDB is running at https://54.167.235.18:6443/api/v1/namespaces/kube-system/
 To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
 ```
 
-## Deploy Kata Containers extension
+## Deploy the Kata Containers extension
 
 Duration: 4:00
 
-Deploying Kata Containers extension in Charmed Kubernetes cluster is pretty straightforward. Simply deploy the `kata` subordinate charm and relate it to `kubernetes-master`, `kubernetes-worker` and `containerd` applications:
+Deploying the Kata Containers extension in a Charmed Kubernetes cluster is pretty straightforward. Simply deploy the `kata` subordinate charm and relate it to the `kubernetes-master`, `kubernetes-worker` and `containerd` applications:
 
 ```bash
 $ juju deploy cs:~containers/kata
@@ -115,10 +115,10 @@ $ juju add-relation kata kubernetes-worker
 $ juju add-relation kata:untrusted containerd:untrusted
 ```
 
-Verify the output of the `juju status` command again. You may see some applications in the `maintenance` state. It may take some time, but at the end all should turn into the `active` state:
+Verify the output of the `juju status` command again. You may see some applications with the `maintenance` status and it can take some time for all of them to reach the `active` status again. You can combine the `juju status` command with `watch` to monitor their progress:
 
 ```bash
-$ juju status
+$ watch juju status
 Model       Controller      Cloud/Region   Version  SLA          Timestamp
 kubernetes  aws-controller  aws/us-east-1  2.6.9    unsupported  11:39:38+01:00
 
@@ -149,13 +149,13 @@ Machine  State    DNS             Inst id              Series  AZ          Messa
 1        started  3.227.255.168   i-09580bdd3fbd7e4d5  bionic  us-east-1b  running
 ```
 
-That's all. Your Charmed Kubernetes cluster is ready for launching container workloads via the Kata runtime.
+When all are `active`, your Charmed Kubernetes cluster is ready for launching container workloads via the Kata runtime.
 
-## Use Kata runtime
+## Use the Kata runtime
 
 Duration: 8:00
 
-Let's take a look on the list of containers managed by `containerd` on the Kubernetes Worker node:
+Let's take a look at the list of containers managed by `containerd` on the Kubernetes worker node:
 
 ```bash
 $ juju ssh kubernetes-worker/0 sudo ctr --namespace=k8s.io containers ls
@@ -186,7 +186,7 @@ fa688b4faf7b422a1077065e977c84aeba8fee4bd6f6008b6f481050d6dd9ca7    sha256:da86e
 Connection to 3.227.255.168 closed.
 ```
 
-As you can see there are many containers already running. Those are hosting Kubernetes control services. But the output is really meaningless, so let's just count how many containers are running there:
+As you can see there are many containers already running. Those are hosting Kubernetes control services. But the default output is really meaningless, so let's just count how many containers are running there:
 
 ```bash
 $ juju ssh kubernetes-worker/0 sudo ctr --namespace=k8s.io containers ls | grep containerd | wc -l
@@ -194,7 +194,7 @@ Connection to 3.227.255.168 closed.
 23
 ```
 
-There are 23 containers running. Let's now create a sample pod based on the `nginx` image:
+There are 23 containers running. Let's create a sample pod based on the `nginx` image:
 
 ```bash
 $ kubectl run nginx --image nginx --restart Never
@@ -209,7 +209,7 @@ NAME    READY   STATUS    RESTARTS   AGE
 nginx   1/1     Running   0          12s
 ```
 
-Again, let's have a look on the container's list:
+Again, let's have a look at the containers list:
 
 ```bash
 $ juju ssh kubernetes-worker/0 sudo ctr --namespace=k8s.io containers ls
@@ -257,9 +257,9 @@ Connection to 3.227.255.168 closed.
 
 There is nothing! The reason is that you have to explicitely request to use the Kata runtime when launching container workloads.
 
-### Creating kata class
+### Creating a "kata" class
 
-For this purpose we have to create a kata class:
+For this purpose we have to create a `kata` class:
 
 ```bash
 echo <EOF >> kata.yaml
@@ -276,13 +276,13 @@ runtimeclass.node.k8s.io/kata created
 
 ### Creating a pod via the Kata runtime
 
-Now, as the `kata` class has been created, we can create another pod using the Kata runtime. We start with creating a YAML file for the pod:
+Now that the `kata` class has been created, we can create another pod using the Kata runtime. We start by creating a YAML file for the pod:
 
 ```bash
 $ kubectl run nginx-kata --image nginx --restart Never --dry-run --output yaml > nginx-kata.yaml
 ```
 
-Then we add the `runtimeClassName: kata` line to the file below the `spec` section:
+Then we add the `runtimeClassName: kata` line to the `nginx-kata.yaml` file below the `spec` section:
 
 ```bash
 $ cat nginx-kata.yaml 
@@ -350,7 +350,7 @@ Connection to 3.227.255.168 closed.
 27
 ```
 
-The number has grown again and we can now see that the `io.containerd.kata.v2` is being used.
+The number has grown again and we can now see that `io.containerd.kata.v2` is being used.
 
 We can also check if there are any `qemu` processes running on the Kubernetes Worker node:
 
@@ -366,7 +366,7 @@ Connection to 3.227.255.168 closed.
 1
 ```
 
-As you can see this time the `qemu` process has been created. The `nginx-kata` pod is running as a container inside of the VM on the Kubernetes Worker node.
+As you can see, this time, the `qemu` process has been created. The `nginx-kata` pod is running as a container inside of the VM on the Kubernetes worker node.
 
 ### Creating a deployment via the Kata runtime
 
@@ -430,11 +430,11 @@ Duration: 1:00
 
 Congratulations! You have made it!
 
-In this tutorial you have learned how to deploy Kata Containers extension in Charmed Kubernetes environment and how to use the Kata runtime to launch container workloads. You can now use your newly learned skills to improve security and isolation of containers in your Charmed Kubernetes cluster.
+In this tutorial you have learned how to deploy the Kata Containers extension in a Charmed Kubernetes environment and how to use the Kata runtime to launch container workloads. You can now use your newly learned skills to improve security and isolation of containers in your Charmed Kubernetes cluster.
 
 ### Where to go from here?
 
-Read Kata Containers [documentation][kata_documentation]
+Read the Kata Containers [documentation][kata_documentation]
 Explore [Charmed Kubernetes][kubernetes_charmed]
 Try [MicroK8s][kubernetes_microk8s]
 Learn more about [Canonical's solutions for Kubernetes][kubernetes_canonical]
