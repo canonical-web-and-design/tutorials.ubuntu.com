@@ -44,7 +44,7 @@ You will need:
 
 
 negative
-: Take note of where your browser saves downloads: this is normally a directory called 'Downloads' on your Windows PC. Don't download the ISO image directly to the USB stick!
+: Take note of where your browser saves downloads: this is normally a directory called 'Downloads' on your Windows PC. Don't download the ISO image directly to the USB stick! If using Windows XP or Vista, download version 2.18 of Rufus.
 
 ## USB selection
 Duration: 0:30
