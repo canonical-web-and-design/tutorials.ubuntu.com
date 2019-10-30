@@ -5,7 +5,7 @@ categories: cloud
 tags: microstack, openstack, cloud, edge, iot, beginner
 difficulty: 3
 status: draft
-published: 2019-09-02
+published: 2019-10-30
 author: Tytus Kurek <tytus.kurek@canonical.com>
 feedback_url: https://bugs.launchpad.net/microstack/+filebug
 
@@ -13,141 +13,65 @@ feedback_url: https://bugs.launchpad.net/microstack/+filebug
 
 # Get started with MicroStack
 
-
-
 ## Overview
+
+Duration: 1:00
 
 ### What is OpenStack?
 
-[OpenStack][openstack_upstream] is a cloud operating system which allows organizations to manage large pools of distributed compute, network and storage resources in a data center. It is a collection of open source projects designed to work together to form the basis of a cloud. OpenStack can be used for both private and public clouds implementation. Moreover, by applying necessary extensions, it can be used by telecommunications providers a a fully functional NFVI (*Network Functions Virtualization Infrastructure*) platform. Governed by the OpenStack Foundation, with more than 34,000 individual contributors and over 550 companies that participate in the project, OpenStack is a *de facto* standard for the cloud implementation.
+[OpenStack][openstack-upstream] is a collection of open source projects designed to work together to form the basis of a cloud. OpenStack can be used for both private and public clouds.
 
 ### What is MicroStack?
 
-[MicroStack][microstack] is an upstream single-node OpenStack deployment which can run directly on your workstation. Although made for developers, it is also suitable for edge, IoT and appliances. MicroStack is an OpenStack in a [snap][snapcraft] which means that all OpenStack services and supporting libraries are packaged together in a single package which can be easily installed, upgraded or removed. MicroStack includes all key OpenStack components: Keystone, Nova, Neutron, Glance, Cinder, and is evolving extremely fast. You can use it for development, prototyping and testing. MicroStack is perfectly suitable for the network edge, IoT and appliances. Let's get started - grab MicroStack from the Snap Store and get your OpenStack running right away!
+[MicroStack][microstack] provides a single or multi-node OpenStack deployment which can run directly on your workstation. Although made for developers to prototype and test, it is also suitable for edge, IoT, and appliances.  MicroStack is an OpenStack in a [snap][snapcraft] which means that all OpenStack services and supporting libraries are packaged together in a single package which can be easily installed, upgraded or removed. MicroStack includes all key OpenStack components: Keystone, Nova, Neutron, Glance, and Cinder.
 
 ### In this tutorial you will learn how to:
 
-- Get your OpenStack cluster up and running with MicroStack
+- Get a single-node OpenStack cloud up and running with MicroStack
 - Interact with OpenStack via the web GUI and CLI
 - Launch your first VM on OpenStack and access it
 
 ### You will need:
 
-* A machine with Linux, a multi-core processor and at least 16 GB of RAM
-
-
+* A machine with Linux, a multi-core processor and at least 8 GB of RAM
 
 ## Install MicroStack
 
-Duration: 5:00
+Duration: 2:00
 
-If you are using Ubuntu Xenial or later, which we highly recommend, you can install MicroStack right away by running the following command from the terminal:
+If you are using Ubuntu Xenial or later, which we highly recommend, you can install MicroStack right away. Here we are installing from the beta channel:
 
 ```bash
 sudo snap install microstack --classic --beta
 ```
 
-However, if you are using some legacy Ubuntu version or other Linux distribution, you have to install *snapd* first. Refer to [snapd documentation][snapcraft_snapd] for more information on installing *snapd* on your Linux.
+However, if you are using an older Ubuntu version or some other Linux distribution, you will have to install *snapd* first. Refer to [snapd documentation][snapcraft-snapd] for more information on installing *snapd* on your computer.
 
-If the installation process has finished successfully, you should see the following message on the terminal:
-
-```bash
-microstack (beta) rocky from Canonical✓ installed
-```
-
-Note that at the time of writing this tutorial, the installed version of OpenStack was Rocky.
-
-Being a snap, MicroStack is published in channels which are made up of a track (or a major version), and an expected level of stability. You can run `snap info microstack` command to see which versions are currently available. Moreover, you can run easily update your snap to get the required version. In the following example you can see that at the time of writing this tutorial the only available version was *rocky* while available channels were *candidate*, *beta* and *edge*.
+When the installation process has finished you should see the following message on the terminal:
 
 ```bash
-$ snap info microstack
-name:      microstack
-summary:   OpenStack on your laptop
-publisher: Canonical✓
-license:   unset
-description: |
-  MicroStack gives you an easy way to develop and test OpenStack
-  workloads on your laptop or in a virtual machine.
-commands:
-  - microstack.cinder-backup
-  - microstack.cinder-manage
-  - microstack.cinder-scheduler
-  - microstack.cinder-uwsgi
-  - microstack.cinder-volume
-  - microstack.configure
-  - microstack.glance-manage
-  - microstack.keystone-manage
-  - microstack.launch
-  - microstack.mysql
-  - microstack.neutron-db-manage
-  - microstack.neutron-netns-cleanup
-  - microstack.neutron-ovs-cleanup
-  - microstack.nova-manage
-  - microstack.openstack
-  - microstack.ovs-appctl
-  - microstack.ovs-dpctl
-  - microstack.ovs-ofctl
-  - microstack.ovs-vsctl
-  - microstack.rabbitmq-plugins
-  - microstack.rabbitmqctl
-  - microstack.virsh
-services:
-  microstack.external-bridge:           oneshot, enabled, inactive
-  microstack.glance-api:                simple, enabled, active
-  microstack.horizon-uwsgi:             simple, enabled, active
-  microstack.keystone-uwsgi:            simple, enabled, active
-  microstack.libvirtd:                  simple, enabled, active
-  microstack.memcached:                 simple, enabled, active
-  microstack.mysqld:                    simple, enabled, active
-  microstack.neutron-api:               simple, enabled, active
-  microstack.neutron-dhcp-agent:        simple, enabled, active
-  microstack.neutron-l3-agent:          simple, enabled, active
-  microstack.neutron-metadata-agent:    simple, enabled, active
-  microstack.neutron-openvswitch-agent: simple, enabled, active
-  microstack.nginx:                     forking, enabled, active
-  microstack.nova-api:                  simple, enabled, active
-  microstack.nova-api-metadata:         simple, enabled, active
-  microstack.nova-compute:              simple, enabled, active
-  microstack.nova-conductor:            simple, enabled, active
-  microstack.nova-scheduler:            simple, enabled, active
-  microstack.nova-uwsgi:                simple, enabled, active
-  microstack.ovs-vswitchd:              forking, enabled, active
-  microstack.ovsdb-server:              forking, enabled, active
-  microstack.rabbitmq-server:           simple, enabled, active
-  microstack.registry:                  simple, enabled, active
-snap-id:      qMvFl14Ge7zDRxjx4AGmBgsa4pNL9cYW
-tracking:     candidate
-refresh-date: yesterday at 14:39 CEST
-channels:
-  stable:    –                            
-  candidate: rocky 2019-05-02 (127) 288MB classic
-  beta:      rocky 2019-04-24 (127) 288MB classic
-  edge:      rocky 2019-08-23 (149) 343MB classic
-installed:   rocky            (127) 288MB classic
+microstack (beta) stein from Canonical✓ installed
 ```
 
-```bash
-$ snap refresh --edge microstack
-microstack (edge) rocky from Canonical✓ refreshed
-```
+Note that at the time of writing this tutorial, the installed version of OpenStack was Stein.
 
-positive: 
-MicroStack snap versions and channels do not correspond to the OpenStack version being installed.
+Being a snap, MicroStack is published in channels which are made up of a track (or a major version), and an expected level of stability. You can run `snap info microstack` command to see which versions are currently available.
 
-
+positive
+: **OpenStack releases**
+MicroStack snap versions and channels do not correspond to the OpenStack release that will be installed.
 
 ## Initialize MicroStack
 
-Duration: 1:00
+Duration: 10:00
 
-MicroStack needs to be initialized, so that networks and databases get configured. In order to do it, run:
+MicroStack needs to be initialised, so that networks and databases get configured. To do this, run:
 
 ```bash
-sudo microstack.init
+sudo microstack.init --auto
 ```
 
-And... Your OpenStack is up and running!
-
+Once this completes (10 - 15 minutes) your OpenStack cloud will be up and running!
 
 ## Interact with OpenStack
 
@@ -155,7 +79,7 @@ Duration: 4:00
 
 ### via web GUI
 
-To interact with your OpenStack via the web GUI visit <http://10.20.20.1/> and login with the following credentials:
+To interact with your cloud via the web GUI visit <http://10.20.20.1/> and log in with the following credentials:
 
 ```bash
 username: admin
@@ -166,7 +90,7 @@ Type the credentials and press the "Sign In" button:
 
 ![OpenStack login page](./images/openstack_login_page.png)
 
-If everything goes right you should see the landing page:
+If everything goes fine you should see the landing page:
 
 ![OpenStack landing page](./images/openstack_landing_page.png)
 
@@ -174,7 +98,7 @@ You can now start playing with your OpenStack installation (i.e. create addition
 
 ### via CLI
 
-You can also interact with your OpenStack via the CLI by using the `microstack.openstack` command. The syntax is identical to the client delivered by the [python-openstackclient][openstack_client] package.
+You can also interact with your OpenStack cloud via the CLI by using the `microstack.openstack` command. The syntax is identical to the client delivered by the [python-openstackclient][openstack-client] package.
 
 For example, to list available OpenStack endpoints run:
 
@@ -182,126 +106,54 @@ For example, to list available OpenStack endpoints run:
 microstack.openstack catalog list
 ```
 
-This should result in an output like:
-
-```bash
-+-----------+-----------+-----------------------------------------+
-| Name      | Type      | Endpoints                               |
-+-----------+-----------+-----------------------------------------+
-| neutron   | network   | microstack                              |
-|           |           |   public: http://10.20.20.1:9696        |
-|           |           | microstack                              |
-|           |           |   admin: http://10.20.20.1:9696         |
-|           |           | microstack                              |
-|           |           |   internal: http://10.20.20.1:9696      |
-|           |           |                                         |
-| keystone  | identity  | microstack                              |
-|           |           |   public: http://10.20.20.1:5000/v3/    |
-|           |           | microstack                              |
-|           |           |   internal: http://10.20.20.1:5000/v3/  |
-|           |           | microstack                              |
-|           |           |   admin: http://10.20.20.1:5000/v3/     |
-|           |           |                                         |
-| glance    | image     | microstack                              |
-|           |           |   admin: http://10.20.20.1:9292         |
-|           |           | microstack                              |
-|           |           |   public: http://10.20.20.1:9292        |
-|           |           | microstack                              |
-|           |           |   internal: http://10.20.20.1:9292      |
-|           |           |                                         |
-| placement | placement | microstack                              |
-|           |           |   public: http://10.20.20.1:8778        |
-|           |           | microstack                              |
-|           |           |   admin: http://10.20.20.1:8778         |
-|           |           | microstack                              |
-|           |           |   internal: http://10.20.20.1:8778      |
-|           |           |                                         |
-| nova      | compute   | microstack                              |
-|           |           |   public: http://10.20.20.1:8774/v2.1   |
-|           |           | microstack                              |
-|           |           |   admin: http://10.20.20.1:8774/v2.1    |
-|           |           | microstack                              |
-|           |           |   internal: http://10.20.20.1:8774/v2.1 |
-|           |           |                                         |
-+-----------+-----------+-----------------------------------------+
-```
-
 You can run `microstack.openstack --help` to get a list of available subcommands and their required syntax.
-
-
 
 ## Launch and access a VM
 
-Duration: 9:00
+Duration: 5:00
 
 ### Test launch
 
-The quickest way to launch your first OpenStack instance (or a VM) is to run the following command:
+To launch your first OpenStack instance (VM) called "test" based on the CirrOS image, run the following:
 
 ```bash
-microstack.launch test
+microstack.launch cirros --name test
 ```
 
-This should result in a lengthy output, the last two lines as shown below, are the most important:
+The last two lines of the resulting output are the most important:
 
 ```bash
-Access your server with 'ssh -i /home/guardian/.ssh/id_microstack cirros@10.20.20.3'
+Access your server with 'ssh -i $HOME/.ssh/id_microstack <username>@10.20.20.3'
+
 You can also visit the openstack dashboard at 'http://10.20.20.1/'
 ```
 
-Note that the IP address of the instance may be different in your environment. In order to connect to the instance run the command from the output:
+Note that the IP address of the instance may be different in your environment. In order to connect to the instance run the command from the output. Since the CirrOS image was used the username is 'cirros':
 
 ```bash
-ssh -i /home/guardian/.ssh/id_microstack cirros@10.20.20.3
+ssh -i $HOME/.ssh/id_microstack cirros@10.20.20.3
 ```
 
-You are now connected to your first instance on your OpenStack cluster. You can start playing with it by executing various commands, for example:
+Now that you are connected to the instance you can use normal Linux commands. Note that the CirrOS image provides a minimalist operating system! For example:
 
 ```bash
 $ uptime
  14:51:42 up 4 min,  1 users,  load average: 0.00, 0.00, 0.00
 ```
 
-In order to disconnect from the instance, type `exit`.
+To disconnect from the instance, type `exit` (or `Ctrl-d`).
 
 You can also view the instance from the web GUI. Go to http://10.20.20.1/ and click on the "Instances" tab on the left:
 
 ![OpenStack instances](./images/openstack_instances.png)
 
-### More advanced launch
+### Next steps
 
-The `microstack.openstack` command provides the same functionality as the upstream OpenStack client. This means you can use the same commands as on any other OpenStack installation. This is extremely useful, if you are migrating your workloads and scripts from another OpenStack platform.
+The `microstack.openstack` command provides the same functionality as the upstream OpenStack client. This means you can use the same commands as on any other OpenStack installation.
 
-MicroStack comes preconfigured with networking and images so can get starting using OpenStack as soon as MicroStack is installed. To launch a custom instance run:
+MicroStack comes preconfigured with networking, an image, flavors, opened security groups (TCP port 22 and ICMP), and an SSH keypair. Use the above client command to view these things as you normally would. The launch command can even be replaced by the client command (`microstack.openstack server create`). You will need to handle floating IP addresses manually though.
 
-```bash
-microstack.openstack server create --flavor m1.small --key-name microstack --nic net-id=test --image cirros my-microstack-server
-```
-
-This will launch an instance called *my-microstack-server* from the *cirros* image of the *m1.small* flavour. Use *microstack* key pair when building the instance, and attach it to the *test* network. You can obviously import other images and create your own networks and flavors, however, to access the instance, you will need to assign it a floating IP address. Use the following command to do so:
-
-```bash
-ALLOCATED_FIP=`microstack.openstack floating ip create -f value -c floating_ip_address external`
-microstack.openstack server add floating ip my-microstack-server $ALLOCATED_FIP
-```
-
-And as you would expect, MicroStack, like any other OpenStack and does not allow ingress access to the instance by default. Enable SSH and ping access to the instance:
-
-```bash
-SECGROUP_ID=`microstack.openstack security group list --project admin -f value -c ID`
-microstack.openstack security group rule create $SECGROUP_ID --proto tcp --remote-ip 0.0.0.0/0 --dst-port 22
-microstack.openstack security group rule create $SECGROUP_ID --proto icmp --remote-ip 0.0.0.0/0
-```
-
-positive: Some of these commands may fail, if you have followed the *Test launch* section.
-
-Once this is complete you should be able to SSH to the instance:
-
-```bash
-ssh -i /home/guardian/.ssh/id_microstack cirros@$ALLOCATED_FIP
-```
-
-
+Learn more by reading the [MicroStack documentation][microstack-docs]. The clustering feature is particularly interesting.
 
 ## That’s all folks!
 
@@ -309,7 +161,7 @@ Duration: 1:00
 
 Congratulations! You have made it!
 
-You may wish to temporarily shutdown your MicroStack installation when not in use without un-installing it. In order to do so, run:
+You may wish to temporarily disable your MicroStack installation when not in use. To do so, run:
 
 ```bash
 sudo snap disable microstack
@@ -323,23 +175,18 @@ sudo snap enable microstack
 
 ### Where to go from here?
 
-* Learn more about [MicroStack][microstack]
-* Tell us what you think and [report a bug or fill in a feature request][microstack_bugs]
-* Liked the snaps? Try [MicroK8s][microk8s]
-* Discover OpenStack opportunities with [Canonical][openstack_canonical]
-* Try [Charmed OpenStack][openstack_charmed]
-* Contact [us][contact]
-
-
+* Something broken? [Report a bug][microstack-bugs]
+* Liked snaps? Try [MicroK8s][microk8s]
+* Install OpenStack with Juju: [Charmed OpenStack][openstack-charmed]
 
 <!-- LINKS -->
-[contact]: https://ubuntu.com/contact-us/form?product=generic-contact-us
+
 [microk8s]: https://microk8s.io/
-[microstack]: https://microstack.io/
-[microstack_bugs]: https://bugs.launchpad.net/microstack/+filebug
-[openstack_canonical]: https://ubuntu.com/openstack/
-[openstack_charmed]: https://jaas.ai/openstack-base/bundle/
-[openstack_client]: https://docs.openstack.org/python-openstackclient/latest/cli/command-list.html
-[openstack_upstream]: https://www.openstack.org/
+[microstack]: https://microstack.run/
+[microstack-docs]: https://microstack.run/docs
+[microstack-bugs]: https://bugs.launchpad.net/microstack/+filebug
+[openstack-charmed]: https://jaas.ai/openstack-base/bundle/
+[openstack-client]: https://docs.openstack.org/python-openstackclient/latest/cli/command-list.html
+[openstack-upstream]: https://www.openstack.org/
 [snapcraft]: https://snapcraft.io/
-[snapcraft_snapd]: https://snapcraft.io/docs/installing-snapd
+[snapcraft-snapd]: https://snapcraft.io/docs/installing-snapd
