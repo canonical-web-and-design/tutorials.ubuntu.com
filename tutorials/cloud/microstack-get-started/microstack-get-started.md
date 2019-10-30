@@ -33,19 +33,21 @@ Duration: 1:00
 
 ### You will need:
 
-* A machine with Linux, a multi-core processor and at least 8 GB of RAM
+* A machine running Linux, a multi-core processor and at least 8 GB of RAM
+
+At time of writing, MicroStack has been assured to run bug-free only on Ubuntu 18.04 LTS.
 
 ## Install MicroStack
 
 Duration: 2:00
 
-If you are using Ubuntu Xenial or later, which we highly recommend, you can install MicroStack right away. Here we are installing from the beta channel:
+Install MicroStack from the beta channel:
 
 ```bash
 sudo snap install microstack --classic --beta
 ```
 
-However, if you are using an older Ubuntu version or some other Linux distribution, you will have to install *snapd* first. Refer to [snapd documentation][snapcraft-snapd] for more information on installing *snapd* on your computer.
+If you are using an older Ubuntu version or some other Linux distribution, you may have to install *snapd* first. Refer to [snapd documentation][snapcraft-snapd] for more information on installing *snapd* on your computer.
 
 When the installation process has finished you should see the following message on the terminal:
 
