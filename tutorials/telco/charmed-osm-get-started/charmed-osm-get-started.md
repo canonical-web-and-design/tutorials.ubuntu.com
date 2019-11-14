@@ -23,6 +23,7 @@ This tutorial provides an introduction to Charmed OSM. It uses Canonical's Devel
 * **MicroK8s** - for deploying a local Kubernetes cluster that will host your OSM installation,
 * **MicroStack** - for deploying a local OpenStack cluster and using it as a VIM (Virtual Infrastructure Manager) for OSM,
 * **Charmed OSM** - simple OSM installation fully aligned with the upstream project.
+
 Before we get started let's try to better understand these components.
 
 ### What is MicroK8s?
