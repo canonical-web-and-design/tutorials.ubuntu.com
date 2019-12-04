@@ -33,7 +33,7 @@ In this tutorial, we'll cover how to:
 - use _parts_ to define an app
 - build a snap
 - fix common build issues
-- upload a snap to the Snap Store.
+- upload a snap to the Snap Store
 
 ### What you'll need
 
@@ -41,9 +41,6 @@ In this tutorial, we'll cover how to:
 - running from a nested VM requires accelerated/nested VM functionality
 - basic command line knowledge and how to edit a file
 - rudimentary knowledge of snaps
-
-
-When building snaps from within a virtual machine, your VM environment will need to support nested machines.
 
 For an introduction to snaps, and how to use them, take a look at [Getting started][tutorial_basic-snap-usage].
 
@@ -107,7 +104,7 @@ $ cd ~/mysnaps/hello
 **It is from within this `hello` directory where we will invoke all subsequent commands.**
 
 negative
-: **NOTE:** Due to the limitation in the project we're going to build, the path of the directory you put the `hello` directory in *shouldn't contain any spaces*.
+: **NOTE:** Due to a limitation in the project we're going to build, the path of the directory you put the `hello` directory in *shouldn't contain any spaces*.
 
 Get started by initialising your snap environment:
 
@@ -117,7 +114,7 @@ $ snapcraft init
 
 This creates a `snapcraft.yaml` in which you declare how the snap is built and which properties it exposes to the user. We will edit this later.
 
-The directory now structure looks like this:
+The directory structure now looks like this:
 
 ```no-highlight
 mysnaps/
@@ -128,7 +125,7 @@ mysnaps/
 
 positive
 : **Note:**
-Any future snaps you want to create should be put within they're own directory under `mysnaps`.
+Any future snaps you want to create should be put within their own directory under `mysnaps`.
 
 ### Describing the snap
 
