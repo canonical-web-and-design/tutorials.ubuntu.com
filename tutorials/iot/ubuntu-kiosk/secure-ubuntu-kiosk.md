@@ -117,18 +117,19 @@ Let's install a demo kiosk snap to try it out:
 
 
 ```bash
-snap install --beta chromium-mir-kiosk
+snap install mir-kiosk-scummvm
 ```
 
+and you should see a list of games you can select and play.
 
-and you should see a fullscreen webpage in your VM! (There are some configuration options in the snap, to find out more about this snap's options, [click here](/tutorial/ubuntu-web-kiosk)).
+![scummvm](scummvm-screenshot.png)
 
 
 ## Building your own Kiosk Snap
 
 duration: 2:00
 
-As mentioned above, the approach to building a kiosk snap from your application depends on whether your application has native support for Wayland (i.e. uses GTK3/4 or Qt5), is Electron/HTML5 based, or not (everything else).
+As mentioned above, the approach to building a kiosk snap from your application depends on whether your application has native support for Wayland (e.g. uses GTK3/4, Qt5 or SDL2), is Electron/HTML5 based, or not (everything else).
 
 We have written up a series of tutorials to address each of these possibilities. We recommend working through the tutorials in order, as each builds upon the knowledge gained from the previous. But for the impatient you can jump directly to the materials that interests you here:
 
