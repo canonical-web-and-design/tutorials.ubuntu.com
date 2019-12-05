@@ -561,9 +561,7 @@ We need to set up the symlink of the Wayland socket into the $XDG_RUNTIME_DIR di
 ```
 
 
-…and change `command:` in the snapcraft.yaml file to it (don't forget to install the script in the snap!).
-
-Another option (which we will use here) is to adjust the `command:` like this:
+…and change `command:` in the snapcraft.yaml file to use the `wayland-launch` it supplies. Like this:
 
 
 ```
