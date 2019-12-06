@@ -16,7 +16,7 @@ author: Canonical Web Team <webteam@canonical.com>
 ## Overview
 Duration: 1:00
 
-A snap is a bundle of an app and its dependencies that works without modification across many different Linux distributions. Snaps are discoverable and installable from the Snap Store, an app store with an audience of millions.
+A snap is a bundle of an app and its dependencies that works without modification across many different Linux distributions. Snaps are discoverable and installable from the [Snap Store][snap-store], an app store with an audience of millions.
 
 Snapcraft is a powerful and easy to use command line tool for building [snaps][what-are-snaps]. It reads a simple, declarative file and runs the build for us.
 
@@ -760,6 +760,7 @@ Your final directory should now look like this [snapshot][final]. You can use it
 [multipass]: https://multipass.run/
 [environment-variables]: https://snapcraft.io/docs/environment-variables
 [build-options]: https://snapcraft.io/docs/build-options
+[snap-store]: https://snapcraft.io/store
 
 [asset_snapcraft-dashboard]: https://assets.ubuntu.com/v1/21aca2dd-snapcraft-dashboard.png
 [asset_snapcraft-account-settings]: https://assets.ubuntu.com/v1/4a0c07e0-snapcraft-account-settings.png
