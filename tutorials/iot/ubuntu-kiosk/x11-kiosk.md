@@ -267,15 +267,15 @@ snapcraft
 ```
 
 
-You should be left with a "glxgears-kiosk_0.1_amd64.snap" file.
+You should be left with a "glxgears-example_0.1_amd64.snap" file.
 
 Let's test it!
 
 
 ```bash
 miral-kiosk&
-sudo snap install --dangerous ./glxgears-kiosk_0.1_amd64.snap --devmode
-sudo snap run glxgears-kiosk
+sudo snap install --dangerous ./glxgears-example_0.1_amd64.snap --devmode
+sudo snap run glxgears-example
 ```
 
 
@@ -449,6 +449,7 @@ grade: devel
 apps:
   glxgears-example:
     command: xwayland-kiosk-launch glxgears
+    daemon: simple
     environment:
       XWAYLAND_FULLSCREEN_WINDOW_HINT: title="glxgears"
     plugs:
