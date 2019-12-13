@@ -234,26 +234,32 @@ base: core18
 confinement: strict
 grade: devel
 
-apps:
-  glxgears-example:
-    command: xwayland-kiosk-launch glxgears
-    environment:
-      XWAYLAND_FULLSCREEN_WINDOW_HINT: title="glxgears"
-    plugs:
-      - opengl
-      - wayland
+layout:
+  /usr/share:
+    bind: $SNAP/usr/share
+
+plugs:
+  opengl:
+  wayland:
 
 parts:
-  glxgears:
-    plugin: nil
-    stage-packages:
-      - mesa-utils
-
   xwayland-kiosk-helper:
     plugin: cmake
     source: https://github.com/MirServer/xwayland-kiosk-helper.git
     build-packages: [ build-essential ]
     stage-packages: [ xwayland, i3, libegl1-mesa, libgl1-mesa-glx ]
+
+  glxgears:
+    plugin: nil
+    stage-packages:
+      - mesa-utils
+
+environment:
+  XWAYLAND_FULLSCREEN_WINDOW_HINT: title="glxgears"
+
+apps:
+  glxgears-example:
+    command: xwayland-kiosk-launch glxgears
 ```
 
 
@@ -316,31 +322,39 @@ summary: glxgears example kiosk
 description: |
   glxgears example X11 kiosk, using Xwayland and Wayland
 base: core18
-confinement: devmode
+confinement: strict
 grade: devel
 
-apps:
-  glxgears-example:
-    daemon: simple
-    restart-condition: always
-    command: xwayland-kiosk-launch glxgears
-    environment:
-      XWAYLAND_FULLSCREEN_WINDOW_HINT: title="glxgears"
-    plugs:
-      - opengl
-      - wayland
+layout:
+  /usr/share:
+    bind: $SNAP/usr/share
+
+plugs:
+  opengl:
+  wayland:
 
 parts:
-  glxgears:
-    plugin: nil
-    stage-packages:
-      - mesa-utils
-
   xwayland-kiosk-helper:
     plugin: cmake
     source: https://github.com/MirServer/xwayland-kiosk-helper.git
     build-packages: [ build-essential ]
     stage-packages: [ xwayland, i3, libegl1-mesa, libgl1-mesa-glx ]
+    
+  glxgears:
+    plugin: nil
+    stage-packages:
+      - mesa-utils
+
+environment:
+  XWAYLAND_FULLSCREEN_WINDOW_HINT: title="glxgears"
+
+apps:
+  glxgears-example:
+    command: xwayland-kiosk-launch glxgears
+
+  daemon:
+    command: xwayland-kiosk-launch glxgears
+    daemon: simple
 ```
 
 
@@ -446,48 +460,63 @@ base: core18
 confinement: strict
 grade: devel
 
-apps:
-  glxgears-example:
-    command: xwayland-kiosk-launch glxgears
-    daemon: simple
-    environment:
-      XWAYLAND_FULLSCREEN_WINDOW_HINT: title="glxgears"
-    plugs:
-      - opengl
-      - wayland
-      - x11-plug
-    slots:
-      - x11
+layout:
+  /usr/share:
+    bind: $SNAP/usr/share
+
+plugs:
+  opengl:
+  wayland:
+  x11:
+  network-bind: # Needed (in addition to the x11 slot) to serve X11  
+
+slots:
+  x11-dummy: # because cannot have identical plug/slot name in same yaml.
+    interface: x11
+
+layout:
+  /usr/share:
+    bind: $SNAP/usr/share
 
 parts:
-  glxgears:
-    plugin: nil
-    stage-packages:
-      - mesa-utils
-
   xwayland-kiosk-helper:
     plugin: cmake
     source: https://github.com/MirServer/xwayland-kiosk-helper.git
     build-packages: [ build-essential ]
     stage-packages: [ xwayland, i3, libegl1-mesa, libgl1-mesa-glx ]
+    
+  glxgears:
+    plugin: nil
+    stage-packages:
+      - mesa-utils
 
-plugs:
-  x11-plug: # because cannot have identical plug/slot name in same yaml.
-    interface: x11
+environment:
+  XWAYLAND_FULLSCREEN_WINDOW_HINT: title="glxgears"
+
+apps:
+  glxgears-example:
+    command: xwayland-kiosk-launch glxgears
+
+  daemon:
+    command: xwayland-kiosk-launch glxgears
+    daemon: simple
 ```
 
 
-The new lines are just these:
+The new and changed lines are these:
 
 
 ```yaml
 …
-    - x11-plug
-  slots:
-    - x11
+plugs:
 …
-  x11-plug: # because cannot have identical plug/slot name in same yaml.
+  x11:
+  network-bind: # Needed (in addition to the x11 slot) to serve X11  
+
+slots:
+  x11-dummy: # because cannot have identical plug/slot name in same yaml.
     interface: x11
+…
 ```
 
 
@@ -506,29 +535,17 @@ scp glxgears-example_0.1_amd64.snap <user>@<ip-address>:~
 snap install --dangerous glxgears-example_0.1_arm64.snap
 ```
 
-
-We have an additional interface to connect this time:
-
-
-```bash
-snap connect glxgears-example:x11-plug glxgears-example:x11
-```
-
-
-Now we can start the app
-
-
-```bash
-snap restart glxgears-example
-```
-
-
 and you should see the graphical animation again.
 
 Now we are confident the X11 server is fully secured by the snap architecture!
 
-Should you wish to share this snap, the next step would be to [push your snap to the Snap Store](https://forum.snapcraft.io/t/releasing-to-the-snap-store/6848).
+Should you wish to share this snap, the next step would be to [push your snap to the Snap Store](https://forum.snapcraft.io/t/releasing-to-the-snap-store/6848). And, once you are satisfied that the snap is working well from the store, you should change the grade to stable so that you can publish to the "stable" channel:
 
+```yaml
+…
+grade: stable
+…
+```
 
 ## Congratulations
 
