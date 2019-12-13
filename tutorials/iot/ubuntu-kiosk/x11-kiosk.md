@@ -235,8 +235,8 @@ confinement: strict
 grade: devel
 
 layout:
-  /usr/share:
-    bind: $SNAP/usr/share
+  /usr/share/X11:
+    bind: $SNAP/usr/share/X11
 
 plugs:
   opengl:
@@ -326,8 +326,8 @@ confinement: strict
 grade: devel
 
 layout:
-  /usr/share:
-    bind: $SNAP/usr/share
+  /usr/share/X11:
+    bind: $SNAP/usr/share/X11
 
 plugs:
   opengl:
@@ -461,8 +461,8 @@ confinement: strict
 grade: devel
 
 layout:
-  /usr/share:
-    bind: $SNAP/usr/share
+  /usr/share/X11:
+    bind: $SNAP/usr/share/X11
 
 plugs:
   opengl:
@@ -473,10 +473,6 @@ plugs:
 slots:
   x11-dummy: # because cannot have identical plug/slot name in same yaml.
     interface: x11
-
-layout:
-  /usr/share:
-    bind: $SNAP/usr/share
 
 parts:
   xwayland-kiosk-helper:
