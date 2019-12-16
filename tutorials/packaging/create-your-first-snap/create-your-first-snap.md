@@ -292,10 +292,6 @@ negative
 ## Exposing an app via your snap!
 Duration: 3:00
 
-positive
-: *Lost or starting from here?*
-This [snapshot][step6] shows what your directory should look like at this point.
-
 ### Defining commands
 
 In order for services and commands to be exposed to users, you need to specify them in `snapcraft.yaml` of course! This will take care of a couple of things for you:
@@ -319,6 +315,7 @@ Our `snapcraft.yaml` file should now resemble this:
 
 ```yaml
 name: hello
+base: core18
 version: '2.10'
 summary: GNU Hello, the "hello world" snap
 description: |
@@ -377,6 +374,7 @@ Priming gnu-hello
 The _hello_ binary will now be in the _prime/bin_ directory:
 
 ```bash
+$ sudo snap install --devmode hello_2.10_amd64.snap
 $ ls prime/bin
 hello
 ```
@@ -400,10 +398,6 @@ Well done! You've just made your first working snap!
 
 ## A snap is made of parts
 Duration: 3:00
-
-positive
-: *Lost or starting from here?*
-This [snapshot][step3] shows what your directory should look like at this point.
 
 Let's add another part to make the snap a bit more interesting. In the 'parts' definition, make an addition:
 
@@ -444,6 +438,7 @@ Only the `gnu-bash` part will be built now (as nothing changed in the other part
 Install the resulting snap again and check whether the new binary is available:
 
 ```bash
+$ sudo snap install --devmode hello_2.10_amd64.snap
 $ hello
 Hello, world!
 ```
@@ -474,10 +469,6 @@ Excellent work! You have it all nice and working!
 
 ## Removing devmode
 Duration: 2:00
-
-positive
-: *Lost or starting from here?*
-This [snapshot][step4] shows what your directory should look like at this point.
 
 One last thing you might want to do before the snap is ready for wider consumption is to remove the `devmode` status.
 
@@ -555,10 +546,6 @@ You are done. This snap is ready for publication. Awesome!
 
 ## Push to the store
 Duration: 5:00
-
-positive
-: *Lost or starting from here?*
-This [snapshot][step5] shows what your directory should look like at this point.
 
 Applications are easily uploaded to the [Snap Store](https://snapcraft.io/discover/). Registering an account is easy, so let's do that first.
 
@@ -662,7 +649,7 @@ It's time to make this snap available to the world!
 Let's release it to the 'candidate' channel for now:
 
 ```bash
-snapcraft push hello-javier_2.10_amd64.snap --release=candidate
+$ snapcraft push hello-javier_2.10_amd64.snap --release=candidate
 ```
 
 Output:
@@ -717,9 +704,32 @@ Congratulations! You made it!
 
 By now you will have built your first snap, fixed build issues, exposed user commands, learned about uploading snaps to the Snap Store, and found out about a lot of other useful details (plugins, snapcraft help, channels, etc.).
 
-positive
-: **Final code:**
-Your final directory should now look like this [snapshot][final]. You can use it to build a snap if you only read through this tutorial!
+For reference, the final state of your snapcraft.yaml file should be as follows:
+
+```yaml
+name: hello
+base: core18
+version: '2.10'
+summary: GNU Hello, the "hello world" snap
+description: |
+  GNU hello prints a friendly greeting.
+grade: devel
+confinement: strict
+
+apps:
+  hello:
+    command: bin/hello
+  bash:
+    command: bash
+
+parts:
+  gnu-hello:
+    source: http://ftp.gnu.org/gnu/hello/hello-2.10.tar.gz
+    plugin: autotools
+  gnu-bash:
+    source: http://ftp.gnu.org/gnu/bash/bash-4.3.tar.gz
+    plugin: autotools
+```
 
 ### Next steps
 
@@ -742,11 +752,6 @@ Your final directory should now look like this [snapshot][final]. You can use it
 [what-are-snaps]: https://snapcraft.io/docs/getting-started
 [ubuntu-bionic]: http://releases.ubuntu.com/18.04/
 [tutorial_basic-snap-usage]: https://snapcraft.io/docs/getting-started
-[step3]: https://github.com/ubuntu/snap-tutorials-code/tree/master/create-your-first-snap/step3
-[step4]: https://github.com/ubuntu/snap-tutorials-code/tree/master/create-your-first-snap/step4
-[step5]: https://github.com/ubuntu/snap-tutorials-code/tree/master/create-your-first-snap/step5
-[step6]: https://github.com/ubuntu/snap-tutorials-code/tree/master/create-your-first-snap/step6
-[final]: https://github.com/ubuntu/snap-tutorials-code/tree/master/create-your-first-snap/final
 [tutorial_build-a-nodejs-service-snap]: https://tutorials.ubuntu.com/tutorial/build-a-nodejs-service
 [snapcraft-forum]: https://forum.snapcraft.io/
 [snapcraft-documentation]: http://snapcraft.io/docs/
