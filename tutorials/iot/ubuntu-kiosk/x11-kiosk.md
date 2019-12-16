@@ -447,7 +447,7 @@ One thing still needs to be resolved: this snap is installed with the --devmode 
 
 To use fully confined snaps which use Xwayland internally, you will need a build of snapd that allows Xwayland to work in a confined snap.
 
-To update the snap to use the X11 interface we need to update the "snap/snapcraft.yaml" file to add the X11 plug & slot. The resulting file:
+To update the snap to use Xwayland internally we need to update the "snap/snapcraft.yaml" file to add the network-bind plug. The resulting file:
 
 
 ```yaml
@@ -467,12 +467,7 @@ layout:
 plugs:
   opengl:
   wayland:
-  x11:
-  network-bind: # Needed (in addition to the x11 slot) to serve X11  
-
-slots:
-  x11-dummy: # because cannot have identical plug/slot name in same yaml.
-    interface: x11
+  network-bind: # Needed (NOT the x11 slot) to serve X11  
 
 parts:
   xwayland-kiosk-helper:
@@ -499,19 +494,14 @@ apps:
 ```
 
 
-The new and changed lines are these:
+The new line is:
 
 
 ```yaml
 …
 plugs:
 …
-  x11:
-  network-bind: # Needed (in addition to the x11 slot) to serve X11  
-
-slots:
-  x11-dummy: # because cannot have identical plug/slot name in same yaml.
-    interface: x11
+  network-bind: # Needed (NOT the x11 slot) to serve X11  
 …
 ```
 
