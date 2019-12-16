@@ -5,7 +5,7 @@ categories: packaging
 status: published
 tags: snapcraft, usage, build, beginner, idf-2016
 difficulty: 1
-published: 2019-11-26
+published: 2019-12-16
 feedback_url: https://github.com/canonical-websites/tutorials.ubuntu.com/issues
 author: Canonical Web Team <webteam@canonical.com>
 
