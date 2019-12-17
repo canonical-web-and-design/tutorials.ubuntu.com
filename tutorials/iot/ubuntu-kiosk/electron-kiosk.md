@@ -84,19 +84,15 @@ grade: devel
 apps:
   electron-hello-world-kiosk:
     command: desktop-launch "$SNAP/electron-helloworld/electron-quick-start"
-    plugs:
-    - browser-sandbox
-    - network
-    - network-bind
-    - opengl
-    - pulseaudio
-    - wayland
-    - x11
 
 plugs:
-  browser-sandbox:
-    interface: browser-support
+  browser-support:
     allow-sandbox: true
+  network:
+  network-bind:
+  opengl:
+  pulseaudio:
+  x11:
 
 parts:
   electron-helloworld:
@@ -184,7 +180,7 @@ and on your desktop, install, connect the required interface(s) and run:
 
 ```bash
 sudo snap install --dangerous ./electron-hello-world-kiosk_0.1_amd64.snap
-sudo snap connect electron-hello-world-kiosk:browser-sandbox :browser-support
+sudo snap connect electron-hello-world-kiosk:browser-support
 snap run electron-hello-world-kiosk
 ```
 
@@ -200,12 +196,11 @@ Once the snap is running on your Ubuntu desktop, we need to perform a few altera
 
 
 
-1.  add `xwayland-kiosk-helper` to the `after:` parts list
+1.  add `xwayland-kiosk-helper` to the parts list
 1.  to the app `command:`, add `xwayland-kiosk-launch` after the `desktop-launch`
-1.  and make it a daemon by adding `daemon: simple `and` restart-condition: always`
+1.  add a daemon `command:` which adds `daemon: simple `and` restart-condition: always`
 1.  set the `XWAYLAND_FULLSCREEN_WINDOW_HINT` environment variable to `window_role="browser-window"`
-1.  have `x11` be both a socket and a plug - involves creating a x11-plug to avoid duplicate names.
-1.  append the YAML for the `xwayland-kiosk-helper` part
+1.  change `x11` plug to `wayland`.
 
 Finally we want this snap to start on boot and be restarted if it fails, so make it a daemon.
 
@@ -224,27 +219,24 @@ grade: devel
 
 apps:
   electron-hello-world-kiosk:
+    command: desktop-launch xwayland-kiosk-launch "$SNAP/electron-helloworld/electron-quick-start" "--no-sandbox"
+
+  daemon:
     daemon: simple
     restart-condition: always
     command: desktop-launch xwayland-kiosk-launch "$SNAP/electron-helloworld/electron-quick-start" "--no-sandbox"
-    environment:
-      XWAYLAND_FULLSCREEN_WINDOW_HINT: window_role="browser-window"
-    slots: [ x11 ]
-    plugs:
-    - browser-sandbox
-    - network
-    - network-bind
-    - opengl
-    - pulseaudio
-    - wayland
-    - x11-plug
+
+environment:
+  XWAYLAND_FULLSCREEN_WINDOW_HINT: window_role="browser-window"
 
 plugs:
-  browser-sandbox:
-    interface: browser-support
+  browser-support:
     allow-sandbox: true
-  x11-plug: # because cannot have identical plug/slot name in same yaml.
-    interface: x11
+  network:
+  network-bind:
+  opengl:
+  pulseaudio:
+  wayland:
 
 parts:
   electron-helloworld:
@@ -340,8 +332,7 @@ We now have the .snap file on the device in its home directory. We need to insta
 
 ```bash
 snap install --dangerous ./electron-hello-world-kiosk_0.1_arm64.snap 
-snap connect electron-hello-world-kiosk:browser-sandbox :browser-support
-snap connect electron-hello-world-kiosk:x11-plug electron-hello-world-kiosk:x11
+snap connect electron-hello-world-kiosk:browser-support
 snap restart electron-hello-world-kiosk
 ```
 
