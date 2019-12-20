@@ -265,6 +265,14 @@ apps:
 
 xwayland-kiosk-helper uses XWAYLAND_FULLSCREEN_WINDOW_HINT to set up the i3 configuration (as we did manually in the previous step).
 
+The other thing you may not have encountered is:
+```yaml
+layout:
+  /usr/share/X11:
+    bind: $SNAP/usr/share/X11
+```
+This brings the X11 element of the snap into the expected location: `/usr/share/X11`.
+
 Create the snap by returning to the "glxgears" directory and running
 
 
@@ -281,7 +289,7 @@ Let's test it!
 ```bash
 miral-kiosk&
 sudo snap install --dangerous ./glxgears-example_0.1_amd64.snap --devmode
-sudo snap run glxgears-example
+snap run glxgears-example
 ```
 
 
