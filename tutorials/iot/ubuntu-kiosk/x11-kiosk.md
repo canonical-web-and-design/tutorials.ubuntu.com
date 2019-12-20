@@ -220,8 +220,13 @@ Create the snap directory by forking [https://github.com/snapcrafters/fork-and-r
 git clone https://github.com/snapcrafters/fork-and-rename-me.git glxgears-example
 ```
 
+Change to the new glxgears-example directory.
 
-Inside the glxgears directory edit the "snap/snapcraft.yaml" file, and let's try the following:
+```bash
+cd glxgears-example
+```
+
+Replace the "snap/snapcraft.yaml" file with the following:
 
 
 ```yaml
