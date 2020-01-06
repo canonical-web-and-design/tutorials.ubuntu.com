@@ -87,7 +87,6 @@ apps:
 
 plugs:
   browser-support:
-    allow-sandbox: true
   network:
   network-bind:
   opengl:
@@ -180,7 +179,7 @@ and on your desktop, install, connect the required interface(s) and run:
 
 ```bash
 sudo snap install --dangerous ./electron-hello-world-kiosk_0.1_amd64.snap
-sudo snap connect electron-hello-world-kiosk:browser-support
+sudo snap connect electron-hello-world-kiosk:wayland
 snap run electron-hello-world-kiosk
 ```
 
@@ -231,7 +230,6 @@ environment:
 
 plugs:
   browser-support:
-    allow-sandbox: true
   network:
   network-bind:
   opengl:
@@ -332,7 +330,7 @@ We now have the .snap file on the device in its home directory. We need to insta
 
 ```bash
 snap install --dangerous ./electron-hello-world-kiosk_0.1_arm64.snap 
-snap connect electron-hello-world-kiosk:browser-support
+snap connect electron-hello-world-kiosk:wayland
 snap restart electron-hello-world-kiosk
 ```
 
