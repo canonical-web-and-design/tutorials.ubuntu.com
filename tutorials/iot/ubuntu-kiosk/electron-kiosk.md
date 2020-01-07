@@ -83,7 +83,7 @@ grade: devel
 
 apps:
   electron-hello-world-kiosk:
-    command: desktop-launch "$SNAP/electron-helloworld/electron-quick-start"
+    command: desktop-launch "$SNAP/electron-helloworld/electron-quick-start" "--no-sandbox"
 
 plugs:
   browser-support:
@@ -174,12 +174,11 @@ snapcraft
 ```
 
 
-and on your desktop, install, connect the required interface(s) and run:
+and on your desktop, install and run:
 
 
 ```bash
 sudo snap install --dangerous ./electron-hello-world-kiosk_0.1_amd64.snap
-sudo snap connect electron-hello-world-kiosk:wayland
 snap run electron-hello-world-kiosk
 ```
 
