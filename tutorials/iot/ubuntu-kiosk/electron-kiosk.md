@@ -325,13 +325,11 @@ scp electron-hello-world-kiosk_0.1_amd64.snap <user>@<ip-address>:~
 
 using your device's SSH username & IP address details.
 
-We now have the .snap file on the device in its home directory. We need to install the snap, configure it to talk Wayland to mir-kiosk, allow browser support, and run the application. In your ssh session to your device:
+We now have the .snap file on the device in its home directory. We need to install the snap. In your ssh session to your device:
 
 
 ```bash
 snap install --dangerous ./electron-hello-world-kiosk_0.1_arm64.snap 
-snap connect electron-hello-world-kiosk:wayland
-snap restart electron-hello-world-kiosk
 ```
 
 
