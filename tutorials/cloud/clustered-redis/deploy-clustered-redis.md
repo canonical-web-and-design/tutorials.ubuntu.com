@@ -48,16 +48,16 @@ To open a terminal window in Ubuntu, open the Terminal app or holding `Ctrl` + `
 ## Create model
 Duration: 0:20
 
+A "model" is Juju a term to describe a logical service made up applications. A model might represent a whole web app, including its web server, databases and work queues. 
+
+For our purposes, our Redis cluster will make up the entire model. We'll use the name `redis-cluster-tutorial`.
+
+To create the model on AWS, use the following command:
+
 ```
 juju add-model redis-cluster-tutorial aws/us-west-1
 ```
 
-
-### What's a model and why create one?
-
-A "model" is Juju a term to describe a logical service made up applications. A model might represent a whole web app, including its web server, databases and work queues. 
-
-For our purposes, our Redis cluster will make up the entire model. We'll use the name `redis-cluster-tutorial`.
 
 
 ### Where can I deploy my model?
