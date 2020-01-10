@@ -152,7 +152,7 @@ sudo apt install glmark2-wayland
 
 
 ```bash
-miral-app -kiosk -launcher 'glmark2-wayland'
+miral-app -kiosk -launcher 'glmark2-wayland --fullscreen'
 ```
 
 
@@ -190,15 +190,23 @@ grade: devel
 apps:
   glmark2-example:
     command: "usr/bin/glmark2-wayland --fullscreen"
-    plugs:
-      - opengl
-      - wayland
+
+plugs:
+  opengl:
+  wayland:
 
 parts:
   glmark2-wayland:
     plugin: nil
     stage-packages:
       - glmark2-wayland
+
+  mesa:
+    plugin: nil
+    stage-packages:
+      - libgl1-mesa-dri
+      - libwayland-egl1-mesa
+      - libglu1-mesa
 ```
 
 
@@ -337,15 +345,23 @@ grade: devel
 apps:
   glmark2-example:
     command: "usr/bin/glmark2-wayland --fullscreen"
-    plugs:
-      - opengl
-      - wayland
+
+plugs:
+  opengl:
+  wayland:
 
 parts:
   glmark2-wayland:
     plugin: nil
     stage-packages:
       - glmark2-wayland
+
+  mesa:
+    plugin: nil
+    stage-packages:
+      - libgl1-mesa-dri
+      - libwayland-egl1-mesa
+      - libglu1-mesa
 
 layout:
   /usr/share/glmark2:
@@ -445,7 +461,7 @@ Run these commands to set the linker paths `$LD_LIBRARY_PATH` and executable pat
 
 ```bash
 root@in-snap:~# export PATH="$SNAP/usr/sbin:$SNAP/usr/bin:$SNAP/sbin:$SNAP/bin:$PATH"
-root@in-snap:~# export LD_LIBRARY_PATH="$SNAP_LIBRARY_PATH:$LD_LIBRARY_PATH:$SNAP/lib:$SNAP/usr/lib:$SNAP/lib/x86_64-linux-gnu:$SNAP/usr/lib/x86_64-linux-gnu"
+root@in-snap:~# export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${SNAP}/usr/lib/:${SNAP}/usr/lib/x86_64-linux-gnu/"
 ```
 
 
@@ -496,6 +512,8 @@ Simply use:
 
 ```bash
 root@in-snap:~# export __EGL_VENDOR_LIBRARY_DIRS="$SNAP/etc/glvnd/egl_vendor.d:$SNAP/usr/share/glvnd/egl_vendor.d"
+root@in-snap:~# export LIBGL_DRIVERS_PATH="/snap/glmark2-example/x8/usr/lib/x86_64-linux-gnu/dri"
+root@in-snap:~# export LIBVA_DRIVERS_PATH="/snap/glmark2-example/x8/usr/lib/x86_64-linux-gnu/dri"
 ```
 
 
@@ -533,39 +551,38 @@ We will revisit this later to ensure the snap can be compiled to function on oth
 
 duration: 4:00
 
-We need to set up the symlink of the Wayland socket into the $XDG_RUNTIME_DIR directory, and set the libgl environment variable before executing the binary inside the snap. The easiest option is using a simple launching script:
+We need to set up the symlink of the Wayland socket into the $XDG_RUNTIME_DIR directory, and set the libgl environment variable before executing the binary inside the snap. The easiest option is using `mir-kiosk-snap-launch` a utility maintained by the Mir team to make this easy. Add the following to the .yaml in the `parts` section:
 
-
-```bash
-#!/bin/bash
-mkdir -p $XDG_RUNTIME_DIR
-ln -sf $XDG_RUNTIME_DIR/../wayland-0 $XDG_RUNTIME_DIR/
-$SNAP/usr/bin/glmark2-wayland --fullscreen
+```yaml
+  mir-kiosk-snap-launch:
+    plugin: dump
+    source: https://github.com/MirServer/mir-kiosk-snap-launch.git
+    override-build:  $SNAPCRAFT_PART_BUILD/build-with-plugs.sh opengl wayland
 ```
 
 
-…and point `command:` in the snapcraft.yaml file to it (don't forget to install the script in the snap!).
-
-Another option (which we will use here) is to adjust the `command:` like this:
+…and change `command:` in the snapcraft.yaml file to use the `wayland-launch` it supplies. Like this:
 
 
 ```
 …
-    command: |
-      bash -c "mkdir -p $XDG_RUNTIME_DIR
-               ln -sf $XDG_RUNTIME_DIR/../wayland-0 $XDG_RUNTIME_DIR/
-                              $SNAP/usr/bin/glmark2-wayland --fullscreen"
+    command: wayland-launch $SNAP/usr/bin/glmark2-wayland --fullscreen
 …
 ```
 
 
-We can ask snapcraft to set the environment variables to fix graphics by adding an `environment` entry for the command:
+We can ask snapcraft to set the environment variables to fix graphics by adding an `environment` section to the .yaml:
 
 
 ```
 …
-    environment:
-      __EGL_VENDOR_LIBRARY_DIRS: "$SNAP/etc/glvnd/egl_vendor.d:$SNAP/usr/share/glvnd/egl_vendor.d"
+environment:
+  LD_LIBRARY_PATH: ${LD_LIBRARY_PATH}:${SNAP}/usr/lib/:${SNAP}/usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/
+  PATH: $SNAP/bin/:$SNAP/usr/bin/:${PATH}
+  # Prep EGL
+  __EGL_VENDOR_LIBRARY_DIRS: $SNAP/etc/glvnd/egl_vendor.d:$SNAP/usr/share/glvnd/egl_vendor.d
+  LIBGL_DRIVERS_PATH: ${SNAP}/usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/dri
+  LIBVA_DRIVERS_PATH: ${SNAP}/usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/dri
 …
 ```
 
@@ -587,21 +604,37 @@ grade: devel
 
 apps:
   glmark2-example:
-    command: |
-      bash -c "mkdir -p $XDG_RUNTIME_DIR
-               ln -sf $XDG_RUNTIME_DIR/../wayland-0 $XDG_RUNTIME_DIR/
-                              $SNAP/usr/bin/glmark2-wayland --fullscreen"
-    plugs:
-      - opengl
-      - wayland
-    environment:
-      __EGL_VENDOR_LIBRARY_DIRS: "$SNAP/etc/glvnd/egl_vendor.d:$SNAP/usr/share/glvnd/egl_vendor.d"
+    command: wayland-launch $SNAP/usr/bin/glmark2-wayland --fullscreen
+
+plugs:
+  opengl:
+  wayland:
+
+environment:
+  LD_LIBRARY_PATH: ${LD_LIBRARY_PATH}:${SNAP}/usr/lib/:${SNAP}/usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/
+  PATH: $SNAP/bin/:$SNAP/usr/bin/:${PATH}
+  # Prep EGL
+  __EGL_VENDOR_LIBRARY_DIRS: $SNAP/etc/glvnd/egl_vendor.d:$SNAP/usr/share/glvnd/egl_vendor.d
+  LIBGL_DRIVERS_PATH: ${SNAP}/usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/dri
+  LIBVA_DRIVERS_PATH: ${SNAP}/usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/dri
 
 parts:
   glmark2-wayland:
     plugin: nil
     stage-packages:
       - glmark2-wayland
+
+  mesa:
+    plugin: nil
+    stage-packages:
+      - libgl1-mesa-dri
+      - libwayland-egl1-mesa
+      - libglu1-mesa
+
+  mir-kiosk-snap-launch:
+    plugin: dump
+    source: https://github.com/MirServer/mir-kiosk-snap-launch.git
+    override-build:  $SNAPCRAFT_PART_BUILD/build-with-plugs.sh opengl wayland
 
 layout:
   /usr/share/glmark2:
@@ -675,19 +708,21 @@ You need not worry about this being a security issue however, the snap security 
 
 Another difference is that we want the graphical app to start automatically (and restart if it crashes).
 
-We can address these differences with a simple change to the snapcraft.yaml file: declaring the glmark2-example app as a daemon:
+We can address these differences with a simple change to the snapcraft.yaml file: add a "daemon" command to apps:
 
 
 ```
 …
 apps:
-  glmark2-example:
+…
+  daemon:
+    command: run-daemon wayland-launch $SNAP/usr/bin/glmark2-wayland --fullscreen
     daemon: simple
     restart-condition: always
-    command: |
 …
 ```
 
+The `run-daemon` utility (like `wayland-launch`) comes from `mir-kiosk-snap-launch`. It ensures that the daemon runs on Ubuntu Core and (by default) not on Classic systems.
 
 The explicit [restart-condition](https://docs.snapcraft.io/build-snaps/syntax#restart-condition) ensures glmark2 is restarted, even when it quits successfully.
 
@@ -710,23 +745,42 @@ grade: devel
 
 apps:
   glmark2-example:
+    command: wayland-launch $SNAP/usr/bin/glmark2-wayland --fullscreen
+
+  daemon:
+    command: run-daemon wayland-launch $SNAP/usr/bin/glmark2-wayland --fullscreen
     daemon: simple
     restart-condition: always
-    command: |
-      bash -c "mkdir -p $XDG_RUNTIME_DIR
-               ln -s $XDG_RUNTIME_DIR/../wayland-0 $XDG_RUNTIME_DIR/
-               $SNAP/usr/bin/glmark2-wayland --fullscreen"
-    plugs:
-      - opengl
-      - wayland
-    environment:
-      __EGL_VENDOR_LIBRARY_DIRS: "$SNAP/etc/glvnd/egl_vendor.d:$SNAP/usr/share/glvnd/egl_vendor.d"
+
+plugs:
+  opengl:
+  wayland:
+
+environment:
+  LD_LIBRARY_PATH: ${LD_LIBRARY_PATH}:${SNAP}/usr/lib/:${SNAP}/usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/
+  PATH: $SNAP/bin/:$SNAP/usr/bin/:${PATH}
+  # Prep EGL
+  __EGL_VENDOR_LIBRARY_DIRS: $SNAP/etc/glvnd/egl_vendor.d:$SNAP/usr/share/glvnd/egl_vendor.d
+  LIBGL_DRIVERS_PATH: ${SNAP}/usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/dri
+  LIBVA_DRIVERS_PATH: ${SNAP}/usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/dri
 
 parts:
   glmark2-wayland:
     plugin: nil
     stage-packages:
       - glmark2-wayland
+
+  mesa:
+    plugin: nil
+    stage-packages:
+      - libgl1-mesa-dri
+      - libwayland-egl1-mesa
+      - libglu1-mesa
+
+  mir-kiosk-snap-launch:
+    plugin: dump
+    source: https://github.com/MirServer/mir-kiosk-snap-launch.git
+    override-build:  $SNAPCRAFT_PART_BUILD/build-with-plugs.sh opengl wayland
 
 layout:
   /usr/share/glmark2:
@@ -827,3 +881,7 @@ Should you wish to share this snap, the next step would be to [push your snap to
 duration: 1:00
 
 Congratulations, you have created a snap of a Wayland kiosk application and deployed it to an Ubuntu Core device.
+
+### Note
+
+For more details on `mir-kiosk-snap-launch` visit: [Kiosk snaps made easy](https://discourse.ubuntu.com/t/kiosk-snaps-made-easy/12621)
