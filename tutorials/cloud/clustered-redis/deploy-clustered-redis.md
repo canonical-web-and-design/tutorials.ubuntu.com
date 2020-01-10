@@ -33,23 +33,16 @@ You will be able to configure the exact scale that you require and deploy it int
 * (Optional) An Ubuntu SSO account (visit [login.ubuntu.com](https://login.ubuntu.com) to create one)
 * (Optional) Credential information for AWS, GCP or Azure (created when you create an account with your preferred cloud provider)
 
+positive
+: *Looking for a fully hosted solution? Use Juju as a Service (JAAS)*
+JAAS is a hosted service provided by Canonical, the company behind Ubuntu. It's a  "Juju controller" for free. The Juju controller talks to the cloud provider programmatically to provision machines and manage software deployments. Once they're online, the controller then installs the software that we care about: Redis.
+To use JAAS for this tutorial, create an account on [jaas.ai](https://jaas.ai) and run 'juju login jaas' in a terminal.
+
 ### How this tutorial is structured
 
 The top of each step provides a command to be executed in the terminal window. Explanatory text then follows for people who want to know more.
 
 To open a terminal window in Ubuntu, open the Terminal app or holding `Ctrl` + `Alt` + `T` together. 
-
-## (Optional) Log in to JAAS
-Duration: 0:20
-
-```bash
-juju login jaas
-```
-
-### What is "JAAS"?
-
-JAAS is a hosted service provided by Canonical, the company behind Ubuntu. It provides a  "Juju controller" for free. The Juju controller talks to the cloud provider programmatically to provision machines and manage software deployments. Once they're online, the controller then installs the software that we care about: Redis.
-
 
 
 ## Create model
