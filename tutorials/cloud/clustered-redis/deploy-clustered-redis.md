@@ -33,12 +33,11 @@ You will be able to configure the exact scale that you require and deploy it int
 * (Optional) An Ubuntu SSO account (visit [login.ubuntu.com](https://login.ubuntu.com) to create one)
 * (Optional) Credential information for AWS, GCP or Azure (created when you create an account with your preferred cloud provider)
 
-## How this tutorial is structured
-Duration: 0:05
+### How this tutorial is structured
 
 The top of each step provides a command to be executed in the terminal window. Explanatory text then follows for people who want to know more.
 
-To open a terminal window in Ubuntu, run the Terminal activity or holding `Ctrl` + `Alt` + `T` together. 
+To open a terminal window in Ubuntu, open the Terminal app or holding `Ctrl` + `Alt` + `T` together. 
 
 ## (Optional) Log in to JAAS
 Duration: 0:20
@@ -65,14 +64,14 @@ juju add-model redis-cluster-tutorial aws/us-west-1
 
 A "model" is Juju a term to describe a logical service made up applications. A model might represent a whole web app, including its web server, databases and work queues. 
 
-For our purposes, we'll only be our Redis cluster will make up the entire model. We'll use the name `redis-cluster-tutorial`.
+For our purposes, our Redis cluster will make up the entire model. We'll use the name `redis-cluster-tutorial`.
 
 
 ### Where can I deploy my model?
 
-The command at the top of this page uses the US West 1 region from the AWS cloud provider by specifying `aws/us-west-1`. That's by no means necessary!
+The command at the top of this page uses the "US West 1" region from the AWS cloud provider by specifying `aws/us-west-1`.
 
-To get a list of cloud providers and their regions that are supported, just omit that argument from the command:
+To get a list of cloud providers and supported regions, just omit that argument from the command:
 
 ```
 juju add-model redis-cluster-tutorial
