@@ -65,7 +65,7 @@ Install Juju and OSM client from the snap store:
 ```bash
 $ sudo snap install juju --classic
 juju 2.6.10 from Canonical✓ installed
-$ sudo snap install osmclient --edge
+$ sudo snap install osmclient --beta
 osmclient (edge) 0+git.44be24a from Adam Israel (adam) installed
 ```
 
