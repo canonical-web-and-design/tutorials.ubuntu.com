@@ -1,3 +1,9 @@
+# NB: Tutorials is moving
+
+**tutorials.ubuntu.com is moving. All tutorial content has been migrated to https://discourse.ubuntu.com/c/tutorials in preparation for this move, and any updates to tutorials should now be made over there**
+
+---
+
 # How to contribute
 
 Issues, tutorials requests, new tutorials, content fixes and code contributions are all very much appreciated. We ask that you read the relevant sections of this document before contributing.
