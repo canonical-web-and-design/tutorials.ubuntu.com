@@ -4,6 +4,8 @@
 
 ---
 
+**Legacy content:**
+
 # How to contribute
 
 Issues, tutorials requests, new tutorials, content fixes and code contributions are all very much appreciated. We ask that you read the relevant sections of this document before contributing.
